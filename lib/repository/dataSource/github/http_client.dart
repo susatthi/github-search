@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:github_search/logger.dart';
 import 'package:github_search/repository/dataSource/github/api_exception.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,7 +35,12 @@ class GithubHttpClient {
     required T Function(dynamic data) builder,
   }) async {
     try {
+      logger.info('request: uri=$uri');
       final response = await _client.get(uri, headers: _headers);
+      logger.info(
+        'response: statusCode=${response.statusCode}, '
+        'contentLength=${response.contentLength}',
+      );
       switch (response.statusCode) {
         case 200:
           final dynamic data = json.decode(response.body);
@@ -52,7 +58,8 @@ class GithubHttpClient {
         default:
           throw GithubApiException.unknown();
       }
-    } on SocketException catch (_) {
+    } on SocketException catch (e) {
+      logger.warning(e);
       throw GithubApiException.noInternetConnection();
     }
   }
