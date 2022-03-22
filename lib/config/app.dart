@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:github_search/ui/page/repositories/index_page.dart';
+import 'package:github_search/ui/page/repo/index_page.dart';
 
 class GithubSearchApp extends StatelessWidget {
   const GithubSearchApp({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class GithubSearchApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const RepositoriesIndexPage(),
+      home: const RepoIndexPage(),
     );
   }
 }

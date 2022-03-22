@@ -3,8 +3,13 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/app.dart';
 
 void main() {
-  runApp(const GithubSearchApp());
+  runApp(
+    const ProviderScope(
+      child: GithubSearchApp(),
+    ),
+  );
 }

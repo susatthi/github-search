@@ -3,10 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:github_search/ui/widget/repo_list_view.dart';
 
 /// リポジトリ一覧画面
-class RepositoriesIndexPage extends StatelessWidget {
-  const RepositoriesIndexPage({Key? key}) : super(key: key);
+class RepoIndexPage extends StatelessWidget {
+  const RepoIndexPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class RepositoriesIndexPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('GithubSearch'),
       ),
-      body: null,
+      body: const RepoListView(),
     );
   }
 }
