@@ -16,6 +16,7 @@ dependencies:
   flutter_riverpod: ^1.0.3
   flutter_state_notifier: ^0.7.1
   freezed_annotation: ^1.1.0
+  http: ^0.13.4
   json_annotation: ^4.4.0
   json_serializable: ^6.1.5
 

@@ -37,7 +37,7 @@ class _RepoListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final repo = repos[index];
         return ListTile(
-          title: Text(repo.name),
+          title: Text(repo.fullName),
         );
       },
     );

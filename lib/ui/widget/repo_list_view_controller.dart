@@ -10,7 +10,11 @@ final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
     RepoListViewController, AsyncValue<List<RepoData>>>(
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
-    return RepoListViewController(reposRepository, query: '');
+    const query = 'susa';
+    return RepoListViewController(
+      reposRepository,
+      query: query,
+    );
   },
 );
 
@@ -29,7 +33,9 @@ class RepoListViewController extends StateNotifier<AsyncValue<List<RepoData>>> {
     required String query,
   }) async {
     state = const AsyncValue.loading();
-    final repos = await _reposRepository.searchRepos(query: query);
-    state = AsyncValue.data(repos.map(RepoData.from).toList());
+    state = await AsyncValue.guard(() async {
+      final result = await _reposRepository.searchRepos(query: query);
+      return result.items.map(RepoData.from).toList();
+    });
   }
 }

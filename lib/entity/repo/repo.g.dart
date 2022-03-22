@@ -7,11 +7,29 @@ part of 'repo.dart';
 // **************************************************************************
 
 _$_Repo _$$_RepoFromJson(Map<String, dynamic> json) => _$_Repo(
+      id: json['id'] as int,
       name: json['name'] as String,
-      id: json['id'] as String,
+      fullName: json['full_name'] as String,
     );
 
 Map<String, dynamic> _$$_RepoToJson(_$_Repo instance) => <String, dynamic>{
-      'name': instance.name,
       'id': instance.id,
+      'name': instance.name,
+      'full_name': instance.fullName,
+    };
+
+_$_ReposResult _$$_ReposResultFromJson(Map<String, dynamic> json) =>
+    _$_ReposResult(
+      totalCount: json['total_count'] as int,
+      incompleteResults: json['incomplete_results'] as bool,
+      items: (json['items'] as List<dynamic>)
+          .map((e) => Repo.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_ReposResultToJson(_$_ReposResult instance) =>
+    <String, dynamic>{
+      'total_count': instance.totalCount,
+      'incomplete_results': instance.incompleteResults,
+      'items': instance.items,
     };
