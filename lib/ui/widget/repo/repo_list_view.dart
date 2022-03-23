@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/entity/repo/repo_data.dart';
 import 'package:github_search/ui/widget/common/async_value_handler.dart';
-import 'package:github_search/ui/widget/repo_list_view_controller.dart';
+import 'package:github_search/ui/widget/repo/repo_list_view_controller.dart';
+import 'package:github_search/ui/widget/repo/repo_list_view_state.dart';
 
 /// リポジトリ一覧View
 class RepoListView extends ConsumerWidget {
@@ -15,9 +15,9 @@ class RepoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewControllerProvider);
-    return AsyncValueHandler<List<RepoData>>(
+    return AsyncValueHandler<RepoListViewState>(
       value: asyncValue,
-      builder: (data) => _RepoListView(repos: data),
+      builder: (state) => _RepoListView(state: state),
     );
   }
 }
@@ -25,17 +25,17 @@ class RepoListView extends ConsumerWidget {
 class _RepoListView extends StatelessWidget {
   const _RepoListView({
     Key? key,
-    required this.repos,
+    required this.state,
   }) : super(key: key);
 
-  final List<RepoData> repos;
+  final RepoListViewState state;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: repos.length,
+      itemCount: state.items.length,
       itemBuilder: (context, index) {
-        final repo = repos[index];
+        final repo = state.items[index];
         return ListTile(
           title: Text(repo.fullName),
         );

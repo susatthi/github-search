@@ -14,7 +14,7 @@ class AsyncValueHandler<T> extends StatelessWidget {
   }) : super(key: key);
 
   final AsyncValue<T> value;
-  final Widget Function(T data) builder;
+  final Widget Function(T state) builder;
 
   @override
   Widget build(BuildContext context) {

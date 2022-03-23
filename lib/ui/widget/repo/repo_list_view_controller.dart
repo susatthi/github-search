@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/entity/repo/repo_data.dart';
 import 'package:github_search/repository/repo_repository.dart';
+import 'package:github_search/ui/widget/repo/repo_list_view_state.dart';
 
 final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
-    RepoListViewController, AsyncValue<List<RepoData>>>(
+    RepoListViewController, AsyncValue<RepoListViewState>>(
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
     const query = 'susa';
@@ -18,7 +18,8 @@ final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
   },
 );
 
-class RepoListViewController extends StateNotifier<AsyncValue<List<RepoData>>> {
+class RepoListViewController
+    extends StateNotifier<AsyncValue<RepoListViewState>> {
   RepoListViewController(
     this._reposRepository, {
     required this.query,
@@ -35,7 +36,7 @@ class RepoListViewController extends StateNotifier<AsyncValue<List<RepoData>>> {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final result = await _reposRepository.searchRepos(query: query);
-      return result.items.map(RepoData.from).toList();
+      return RepoListViewState.from(result);
     });
   }
 }

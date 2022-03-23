@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:github_search/ui/widget/repo_list_view.dart';
+import 'package:github_search/ui/widget/repo/repo_list_view.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatelessWidget {
