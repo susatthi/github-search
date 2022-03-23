@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:github_search/ui/widget/repo/repo_detail_view.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
@@ -17,17 +18,16 @@ class RepoViewPage extends StatelessWidget {
   /// :id
   static const path = ':id';
 
+  /// リポジトリID
   final String id;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GithubSearch'),
+        title: const Text('リポジトリ'),
       ),
-      body: Center(
-        child: Text(id),
-      ),
+      body: RepoDetailView(id: id),
     );
   }
 }

@@ -20,7 +20,7 @@ class RepoData {
     );
   }
 
-  /// ID
+  /// リポジトリID
   final int id;
 
   /// リポジトリ名
