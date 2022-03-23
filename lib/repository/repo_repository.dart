@@ -29,5 +29,7 @@ abstract class RepoRepository {
   /// リポジトリを検索する
   Future<SearchReposResult> searchRepos({
     required String query,
+    int? perPage,
+    int? page,
   });
 }

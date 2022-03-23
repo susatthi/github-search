@@ -36,14 +36,14 @@ class GithubApi {
       _buildUri(
         endpoint: '/search/repositories',
         parametersBuilder: () {
-          assert(perPage == null || !(0 < perPage && perPage <= 100));
-          assert(page == null || 0 >= page);
+          assert(perPage == null || (0 < perPage && perPage <= 100));
+          assert(page == null || 0 < page);
           return <String, dynamic>{
             'q': query,
             if (sort != null) 'sort': sort.name,
             if (order != null) 'order': order.name,
-            if (perPage != null) 'perPage': perPage,
-            if (page != null) 'page': page,
+            if (perPage != null) 'per_page': '$perPage',
+            if (page != null) 'page': '$page',
           };
         },
       );

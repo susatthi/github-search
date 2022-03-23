@@ -21,6 +21,7 @@ dependencies:
   json_annotation: ^4.4.0
   json_serializable: ^6.1.5
   simple_logger: ^1.9.0
+  visibility_detector: ^0.2.2
 
 dev_dependencies:
   build_runner: ^2.1.8

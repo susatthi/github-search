@@ -21,9 +21,15 @@ class GithubRepoRepository implements RepoRepository {
   @override
   Future<SearchReposResult> searchRepos({
     required String query,
+    int? perPage,
+    int? page,
   }) async =>
       _client.get<SearchReposResult>(
-        uri: _api.searchRepositories(query: query),
+        uri: _api.searchRepositories(
+          query: query,
+          perPage: perPage,
+          page: page,
+        ),
         responseBuilder: SearchReposResult.fromJson,
       );
 }
