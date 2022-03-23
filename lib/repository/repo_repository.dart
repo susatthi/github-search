@@ -5,7 +5,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/constants.dart';
 import 'package:github_search/config/env.dart';
-import 'package:github_search/entity/repo/repo.dart';
+import 'package:github_search/entity/repo/repo_response.dart';
 import 'package:github_search/repository/githubApi/api.dart';
 import 'package:github_search/repository/githubApi/http_client.dart';
 import 'package:github_search/repository/githubApi/repo_repository.dart';
@@ -27,7 +27,7 @@ final repoRepositoryProvider = Provider<RepoRepository>(
 /// リポジトリRepository
 abstract class RepoRepository {
   /// リポジトリを検索する
-  Future<ReposResult> searchRepos({
+  Future<SearchReposResultResponse> searchRepos({
     required String query,
   });
 }

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:github_search/entity/repo/repo.dart';
+import 'package:github_search/entity/repo/repo_response.dart';
 import 'package:github_search/repository/githubApi/api.dart';
 import 'package:github_search/repository/githubApi/http_client.dart';
 import 'package:github_search/repository/repo_repository.dart';
@@ -19,11 +19,11 @@ class GithubApiRepoRepository implements RepoRepository {
   final GithubApiHttpClient _client;
 
   @override
-  Future<ReposResult> searchRepos({
+  Future<SearchReposResultResponse> searchRepos({
     required String query,
   }) async =>
-      _client.get<ReposResult>(
+      _client.get<SearchReposResultResponse>(
         uri: _api.searchRepositories(query: query),
-        responseBuilder: ReposResult.fromJson,
+        responseBuilder: SearchReposResultResponse.fromJson,
       );
 }

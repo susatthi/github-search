@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'repo.dart';
+part of 'repo_response.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Repo _$RepoFromJson(Map<String, dynamic> json) {
-  return _Repo.fromJson(json);
+RepoResponse _$RepoResponseFromJson(Map<String, dynamic> json) {
+  return _RepoResponse.fromJson(json);
 }
 
 /// @nodoc
-class _$RepoTearOff {
-  const _$RepoTearOff();
+class _$RepoResponseTearOff {
+  const _$RepoResponseTearOff();
 
-  _Repo call(
+  _RepoResponse call(
       {required int id,
       required String name,
       @JsonKey(name: 'full_name') required String fullName}) {
-    return _Repo(
+    return _RepoResponse(
       id: id,
       name: name,
       fullName: fullName,
     );
   }
 
-  Repo fromJson(Map<String, Object?> json) {
-    return Repo.fromJson(json);
+  RepoResponse fromJson(Map<String, Object?> json) {
+    return RepoResponse.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Repo = _$RepoTearOff();
+const $RepoResponse = _$RepoResponseTearOff();
 
 /// @nodoc
-mixin _$Repo {
+mixin _$RepoResponse {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'full_name')
@@ -50,23 +50,25 @@ mixin _$Repo {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RepoCopyWith<Repo> get copyWith => throw _privateConstructorUsedError;
+  $RepoResponseCopyWith<RepoResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RepoCopyWith<$Res> {
-  factory $RepoCopyWith(Repo value, $Res Function(Repo) then) =
-      _$RepoCopyWithImpl<$Res>;
+abstract class $RepoResponseCopyWith<$Res> {
+  factory $RepoResponseCopyWith(
+          RepoResponse value, $Res Function(RepoResponse) then) =
+      _$RepoResponseCopyWithImpl<$Res>;
   $Res call({int id, String name, @JsonKey(name: 'full_name') String fullName});
 }
 
 /// @nodoc
-class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
-  _$RepoCopyWithImpl(this._value, this._then);
+class _$RepoResponseCopyWithImpl<$Res> implements $RepoResponseCopyWith<$Res> {
+  _$RepoResponseCopyWithImpl(this._value, this._then);
 
-  final Repo _value;
+  final RepoResponse _value;
   // ignore: unused_field
-  final $Res Function(Repo) _then;
+  final $Res Function(RepoResponse) _then;
 
   @override
   $Res call({
@@ -92,21 +94,24 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
-  factory _$RepoCopyWith(_Repo value, $Res Function(_Repo) then) =
-      __$RepoCopyWithImpl<$Res>;
+abstract class _$RepoResponseCopyWith<$Res>
+    implements $RepoResponseCopyWith<$Res> {
+  factory _$RepoResponseCopyWith(
+          _RepoResponse value, $Res Function(_RepoResponse) then) =
+      __$RepoResponseCopyWithImpl<$Res>;
   @override
   $Res call({int id, String name, @JsonKey(name: 'full_name') String fullName});
 }
 
 /// @nodoc
-class __$RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
-    implements _$RepoCopyWith<$Res> {
-  __$RepoCopyWithImpl(_Repo _value, $Res Function(_Repo) _then)
-      : super(_value, (v) => _then(v as _Repo));
+class __$RepoResponseCopyWithImpl<$Res> extends _$RepoResponseCopyWithImpl<$Res>
+    implements _$RepoResponseCopyWith<$Res> {
+  __$RepoResponseCopyWithImpl(
+      _RepoResponse _value, $Res Function(_RepoResponse) _then)
+      : super(_value, (v) => _then(v as _RepoResponse));
 
   @override
-  _Repo get _value => super._value as _Repo;
+  _RepoResponse get _value => super._value as _RepoResponse;
 
   @override
   $Res call({
@@ -114,7 +119,7 @@ class __$RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
     Object? name = freezed,
     Object? fullName = freezed,
   }) {
-    return _then(_Repo(
+    return _then(_RepoResponse(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -133,13 +138,14 @@ class __$RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Repo implements _Repo {
-  const _$_Repo(
+class _$_RepoResponse implements _RepoResponse {
+  const _$_RepoResponse(
       {required this.id,
       required this.name,
       @JsonKey(name: 'full_name') required this.fullName});
 
-  factory _$_Repo.fromJson(Map<String, dynamic> json) => _$$_RepoFromJson(json);
+  factory _$_RepoResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_RepoResponseFromJson(json);
 
   @override
   final int id;
@@ -151,14 +157,14 @@ class _$_Repo implements _Repo {
 
   @override
   String toString() {
-    return 'Repo(id: $id, name: $name, fullName: $fullName)';
+    return 'RepoResponse(id: $id, name: $name, fullName: $fullName)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Repo &&
+            other is _RepoResponse &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fullName, fullName));
@@ -173,22 +179,23 @@ class _$_Repo implements _Repo {
 
   @JsonKey(ignore: true)
   @override
-  _$RepoCopyWith<_Repo> get copyWith =>
-      __$RepoCopyWithImpl<_Repo>(this, _$identity);
+  _$RepoResponseCopyWith<_RepoResponse> get copyWith =>
+      __$RepoResponseCopyWithImpl<_RepoResponse>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RepoToJson(this);
+    return _$$_RepoResponseToJson(this);
   }
 }
 
-abstract class _Repo implements Repo {
-  const factory _Repo(
+abstract class _RepoResponse implements RepoResponse {
+  const factory _RepoResponse(
       {required int id,
       required String name,
-      @JsonKey(name: 'full_name') required String fullName}) = _$_Repo;
+      @JsonKey(name: 'full_name') required String fullName}) = _$_RepoResponse;
 
-  factory _Repo.fromJson(Map<String, dynamic> json) = _$_Repo.fromJson;
+  factory _RepoResponse.fromJson(Map<String, dynamic> json) =
+      _$_RepoResponse.fromJson;
 
   @override
   int get id;
@@ -199,68 +206,71 @@ abstract class _Repo implements Repo {
   String get fullName;
   @override
   @JsonKey(ignore: true)
-  _$RepoCopyWith<_Repo> get copyWith => throw _privateConstructorUsedError;
+  _$RepoResponseCopyWith<_RepoResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
-ReposResult _$ReposResultFromJson(Map<String, dynamic> json) {
-  return _ReposResult.fromJson(json);
+SearchReposResultResponse _$SearchReposResultResponseFromJson(
+    Map<String, dynamic> json) {
+  return _SearchReposResultResponse.fromJson(json);
 }
 
 /// @nodoc
-class _$ReposResultTearOff {
-  const _$ReposResultTearOff();
+class _$SearchReposResultResponseTearOff {
+  const _$SearchReposResultResponseTearOff();
 
-  _ReposResult call(
+  _SearchReposResultResponse call(
       {@JsonKey(name: 'total_count') required int totalCount,
       @JsonKey(name: 'incomplete_results') required bool incompleteResults,
-      required List<Repo> items}) {
-    return _ReposResult(
+      required List<RepoResponse> items}) {
+    return _SearchReposResultResponse(
       totalCount: totalCount,
       incompleteResults: incompleteResults,
       items: items,
     );
   }
 
-  ReposResult fromJson(Map<String, Object?> json) {
-    return ReposResult.fromJson(json);
+  SearchReposResultResponse fromJson(Map<String, Object?> json) {
+    return SearchReposResultResponse.fromJson(json);
   }
 }
 
 /// @nodoc
-const $ReposResult = _$ReposResultTearOff();
+const $SearchReposResultResponse = _$SearchReposResultResponseTearOff();
 
 /// @nodoc
-mixin _$ReposResult {
+mixin _$SearchReposResultResponse {
   @JsonKey(name: 'total_count')
   int get totalCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'incomplete_results')
   bool get incompleteResults => throw _privateConstructorUsedError;
-  List<Repo> get items => throw _privateConstructorUsedError;
+  List<RepoResponse> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ReposResultCopyWith<ReposResult> get copyWith =>
+  $SearchReposResultResponseCopyWith<SearchReposResultResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ReposResultCopyWith<$Res> {
-  factory $ReposResultCopyWith(
-          ReposResult value, $Res Function(ReposResult) then) =
-      _$ReposResultCopyWithImpl<$Res>;
+abstract class $SearchReposResultResponseCopyWith<$Res> {
+  factory $SearchReposResultResponseCopyWith(SearchReposResultResponse value,
+          $Res Function(SearchReposResultResponse) then) =
+      _$SearchReposResultResponseCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'total_count') int totalCount,
       @JsonKey(name: 'incomplete_results') bool incompleteResults,
-      List<Repo> items});
+      List<RepoResponse> items});
 }
 
 /// @nodoc
-class _$ReposResultCopyWithImpl<$Res> implements $ReposResultCopyWith<$Res> {
-  _$ReposResultCopyWithImpl(this._value, this._then);
+class _$SearchReposResultResponseCopyWithImpl<$Res>
+    implements $SearchReposResultResponseCopyWith<$Res> {
+  _$SearchReposResultResponseCopyWithImpl(this._value, this._then);
 
-  final ReposResult _value;
+  final SearchReposResultResponse _value;
   // ignore: unused_field
-  final $Res Function(ReposResult) _then;
+  final $Res Function(SearchReposResultResponse) _then;
 
   @override
   $Res call({
@@ -280,33 +290,35 @@ class _$ReposResultCopyWithImpl<$Res> implements $ReposResultCopyWith<$Res> {
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<Repo>,
+              as List<RepoResponse>,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$ReposResultCopyWith<$Res>
-    implements $ReposResultCopyWith<$Res> {
-  factory _$ReposResultCopyWith(
-          _ReposResult value, $Res Function(_ReposResult) then) =
-      __$ReposResultCopyWithImpl<$Res>;
+abstract class _$SearchReposResultResponseCopyWith<$Res>
+    implements $SearchReposResultResponseCopyWith<$Res> {
+  factory _$SearchReposResultResponseCopyWith(_SearchReposResultResponse value,
+          $Res Function(_SearchReposResultResponse) then) =
+      __$SearchReposResultResponseCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'total_count') int totalCount,
       @JsonKey(name: 'incomplete_results') bool incompleteResults,
-      List<Repo> items});
+      List<RepoResponse> items});
 }
 
 /// @nodoc
-class __$ReposResultCopyWithImpl<$Res> extends _$ReposResultCopyWithImpl<$Res>
-    implements _$ReposResultCopyWith<$Res> {
-  __$ReposResultCopyWithImpl(
-      _ReposResult _value, $Res Function(_ReposResult) _then)
-      : super(_value, (v) => _then(v as _ReposResult));
+class __$SearchReposResultResponseCopyWithImpl<$Res>
+    extends _$SearchReposResultResponseCopyWithImpl<$Res>
+    implements _$SearchReposResultResponseCopyWith<$Res> {
+  __$SearchReposResultResponseCopyWithImpl(_SearchReposResultResponse _value,
+      $Res Function(_SearchReposResultResponse) _then)
+      : super(_value, (v) => _then(v as _SearchReposResultResponse));
 
   @override
-  _ReposResult get _value => super._value as _ReposResult;
+  _SearchReposResultResponse get _value =>
+      super._value as _SearchReposResultResponse;
 
   @override
   $Res call({
@@ -314,7 +326,7 @@ class __$ReposResultCopyWithImpl<$Res> extends _$ReposResultCopyWithImpl<$Res>
     Object? incompleteResults = freezed,
     Object? items = freezed,
   }) {
-    return _then(_ReposResult(
+    return _then(_SearchReposResultResponse(
       totalCount: totalCount == freezed
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
@@ -326,21 +338,21 @@ class __$ReposResultCopyWithImpl<$Res> extends _$ReposResultCopyWithImpl<$Res>
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<Repo>,
+              as List<RepoResponse>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_ReposResult implements _ReposResult {
-  const _$_ReposResult(
+class _$_SearchReposResultResponse implements _SearchReposResultResponse {
+  const _$_SearchReposResultResponse(
       {@JsonKey(name: 'total_count') required this.totalCount,
       @JsonKey(name: 'incomplete_results') required this.incompleteResults,
       required this.items});
 
-  factory _$_ReposResult.fromJson(Map<String, dynamic> json) =>
-      _$$_ReposResultFromJson(json);
+  factory _$_SearchReposResultResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_SearchReposResultResponseFromJson(json);
 
   @override
   @JsonKey(name: 'total_count')
@@ -349,18 +361,18 @@ class _$_ReposResult implements _ReposResult {
   @JsonKey(name: 'incomplete_results')
   final bool incompleteResults;
   @override
-  final List<Repo> items;
+  final List<RepoResponse> items;
 
   @override
   String toString() {
-    return 'ReposResult(totalCount: $totalCount, incompleteResults: $incompleteResults, items: $items)';
+    return 'SearchReposResultResponse(totalCount: $totalCount, incompleteResults: $incompleteResults, items: $items)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ReposResult &&
+            other is _SearchReposResultResponse &&
             const DeepCollectionEquality()
                 .equals(other.totalCount, totalCount) &&
             const DeepCollectionEquality()
@@ -377,23 +389,25 @@ class _$_ReposResult implements _ReposResult {
 
   @JsonKey(ignore: true)
   @override
-  _$ReposResultCopyWith<_ReposResult> get copyWith =>
-      __$ReposResultCopyWithImpl<_ReposResult>(this, _$identity);
+  _$SearchReposResultResponseCopyWith<_SearchReposResultResponse>
+      get copyWith =>
+          __$SearchReposResultResponseCopyWithImpl<_SearchReposResultResponse>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReposResultToJson(this);
+    return _$$_SearchReposResultResponseToJson(this);
   }
 }
 
-abstract class _ReposResult implements ReposResult {
-  const factory _ReposResult(
+abstract class _SearchReposResultResponse implements SearchReposResultResponse {
+  const factory _SearchReposResultResponse(
       {@JsonKey(name: 'total_count') required int totalCount,
       @JsonKey(name: 'incomplete_results') required bool incompleteResults,
-      required List<Repo> items}) = _$_ReposResult;
+      required List<RepoResponse> items}) = _$_SearchReposResultResponse;
 
-  factory _ReposResult.fromJson(Map<String, dynamic> json) =
-      _$_ReposResult.fromJson;
+  factory _SearchReposResultResponse.fromJson(Map<String, dynamic> json) =
+      _$_SearchReposResultResponse.fromJson;
 
   @override
   @JsonKey(name: 'total_count')
@@ -402,9 +416,9 @@ abstract class _ReposResult implements ReposResult {
   @JsonKey(name: 'incomplete_results')
   bool get incompleteResults;
   @override
-  List<Repo> get items;
+  List<RepoResponse> get items;
   @override
   @JsonKey(ignore: true)
-  _$ReposResultCopyWith<_ReposResult> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$SearchReposResultResponseCopyWith<_SearchReposResultResponse>
+      get copyWith => throw _privateConstructorUsedError;
 }
