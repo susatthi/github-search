@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:github_search/ui/widget/repo/repo_list_view.dart';
+import 'package:github_search/ui/widget/repo/repo_search_text_field.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatelessWidget {
@@ -15,7 +16,14 @@ class RepoIndexPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('GithubSearch'),
       ),
-      body: const RepoListView(),
+      body: Column(
+        children: const [
+          RepoSearchTextField(),
+          Expanded(
+            child: RepoListView(),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -7,12 +7,14 @@ import 'package:github_search/entity/repo/repo_data.dart';
 import 'package:github_search/logger.dart';
 import 'package:github_search/repository/repo_repository.dart';
 import 'package:github_search/ui/widget/repo/repo_list_view_state.dart';
+import 'package:github_search/ui/widget/repo/repo_search_text_field.dart';
 
 final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
     RepoListViewController, AsyncValue<RepoListViewState>>(
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
-    const query = 'susa c';
+    final query = ref.watch(searchReposQueryProvider);
+    logger.info('create RepoListViewController: query=$query');
     return RepoListViewController(
       reposRepository,
       query: query,
@@ -40,6 +42,10 @@ class RepoListViewController
   Future<void> _search() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      if (query.isEmpty) {
+        return const RepoListViewState();
+      }
+
       final result = await _reposRepository.searchRepos(
         query: query,
         perPage: perPage,
