@@ -5,6 +5,8 @@
 /// Github API の定義
 /// 各APIはUriを返す
 class GithubApi {
+  const GithubApi();
+
   static const _scheme = 'https';
   static const _apiUrl = 'api.github.com';
   static const _apiPath = '';

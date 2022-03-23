@@ -2,25 +2,32 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:github_search/entity/repo/repo_response.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-/// UI用リポジトリEntity
-class Repo {
-  const Repo({
-    required this.name,
-    required this.fullName,
-  });
+part 'repo.freezed.dart';
+part 'repo.g.dart';
 
-  factory Repo.from(RepoResponse response) {
-    return Repo(
-      name: response.name,
-      fullName: response.fullName,
-    );
-  }
+/// リポジトリEntity
+@freezed
+class Repo with _$Repo {
+  const factory Repo({
+    required int id,
+    required String name,
+    @JsonKey(name: 'full_name') required String fullName,
+  }) = _Repo;
 
-  /// リポジトリ名
-  final String name;
+  factory Repo.fromJson(Map<String, dynamic> json) => _$RepoFromJson(json);
+}
 
-  /// リポジトリ名（フル）
-  final String fullName;
+/// リポジトリ検索結果Entity
+@freezed
+class SearchReposResult with _$SearchReposResult {
+  const factory SearchReposResult({
+    @JsonKey(name: 'total_count') required int totalCount,
+    @JsonKey(name: 'incomplete_results') required bool incompleteResults,
+    required List<Repo> items,
+  }) = _SearchReposResult;
+
+  factory SearchReposResult.fromJson(Map<String, dynamic> json) =>
+      _$SearchReposResultFromJson(json);
 }

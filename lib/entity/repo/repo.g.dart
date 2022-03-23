@@ -1,37 +1,34 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'repo_response.dart';
+part of 'repo.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RepoResponse _$$_RepoResponseFromJson(Map<String, dynamic> json) =>
-    _$_RepoResponse(
+_$_Repo _$$_RepoFromJson(Map<String, dynamic> json) => _$_Repo(
       id: json['id'] as int,
       name: json['name'] as String,
       fullName: json['full_name'] as String,
     );
 
-Map<String, dynamic> _$$_RepoResponseToJson(_$_RepoResponse instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_RepoToJson(_$_Repo instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'full_name': instance.fullName,
     };
 
-_$_SearchReposResultResponse _$$_SearchReposResultResponseFromJson(
-        Map<String, dynamic> json) =>
-    _$_SearchReposResultResponse(
+_$_SearchReposResult _$$_SearchReposResultFromJson(Map<String, dynamic> json) =>
+    _$_SearchReposResult(
       totalCount: json['total_count'] as int,
       incompleteResults: json['incomplete_results'] as bool,
       items: (json['items'] as List<dynamic>)
-          .map((e) => RepoResponse.fromJson(e as Map<String, dynamic>))
+          .map((e) => Repo.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_SearchReposResultResponseToJson(
-        _$_SearchReposResultResponse instance) =>
+Map<String, dynamic> _$$_SearchReposResultToJson(
+        _$_SearchReposResult instance) =>
     <String, dynamic>{
       'total_count': instance.totalCount,
       'incomplete_results': instance.incompleteResults,

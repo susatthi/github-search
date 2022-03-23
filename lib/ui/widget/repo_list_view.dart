@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/entity/repo/repo.dart';
+import 'package:github_search/entity/repo/repo_data.dart';
 import 'package:github_search/ui/widget/common/async_value_handler.dart';
 import 'package:github_search/ui/widget/repo_list_view_controller.dart';
 
@@ -15,7 +15,7 @@ class RepoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewControllerProvider);
-    return AsyncValueHandler<List<Repo>>(
+    return AsyncValueHandler<List<RepoData>>(
       value: asyncValue,
       builder: (data) => _RepoListView(repos: data),
     );
@@ -28,7 +28,7 @@ class _RepoListView extends StatelessWidget {
     required this.repos,
   }) : super(key: key);
 
-  final List<Repo> repos;
+  final List<RepoData> repos;
 
   @override
   Widget build(BuildContext context) {
