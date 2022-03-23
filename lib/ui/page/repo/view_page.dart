@@ -11,8 +11,11 @@ class RepoViewPage extends StatelessWidget {
     required this.id,
   }) : super(key: key);
 
+  /// repoView
   static const name = 'repoView';
-  static const path = '/repo/:id';
+
+  /// :id
+  static const path = ':id';
 
   final String id;
 

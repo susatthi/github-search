@@ -44,7 +44,7 @@ class _RepoListView extends StatelessWidget {
           return ListTile(
             title: Text(repo.fullName),
             onTap: () {
-              context.pushNamed(
+              context.goNamed(
                 RepoViewPage.name,
                 params: {
                   'id': '${repo.id}',

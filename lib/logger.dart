@@ -2,6 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_logger/simple_logger.dart';
 
@@ -13,7 +14,7 @@ final logger = SimpleLogger()
         '${info.message}';
   }
   ..setLevel(
-    const bool.fromEnvironment('dart.vm.product') ? Level.OFF : Level.ALL,
+    kReleaseMode ? Level.OFF : Level.ALL,
     includeCallerInfo: true,
   )
   ..onLogged = (log, info) {

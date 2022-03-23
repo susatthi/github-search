@@ -2,6 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:github_search/ui/page/repo/index_page.dart';
 import 'package:github_search/ui/page/repo/view_page.dart';
@@ -31,14 +32,16 @@ class GithubSearchApp extends StatelessWidget {
         path: RepoIndexPage.path,
         name: RepoIndexPage.name,
         builder: (context, state) => const RepoIndexPage(),
-      ),
-      // リポジトリ詳細画面
-      GoRoute(
-        path: RepoViewPage.path,
-        name: RepoViewPage.name,
-        builder: (context, state) => RepoViewPage(
-          id: state.params['id']!,
-        ),
+        routes: [
+          // リポジトリ詳細画面
+          GoRoute(
+            path: RepoViewPage.path,
+            name: RepoViewPage.name,
+            builder: (context, state) => RepoViewPage(
+              id: state.params['id']!,
+            ),
+          ),
+        ],
       ),
     ],
     // エラー画面
@@ -50,5 +53,6 @@ class GithubSearchApp extends StatelessWidget {
         child: Text(state.error.toString()),
       ),
     ),
+    debugLogDiagnostics: !kReleaseMode,
   );
 }
