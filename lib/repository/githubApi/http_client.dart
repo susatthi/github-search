@@ -6,12 +6,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:github_search/logger.dart';
-import 'package:github_search/repository/dataSource/github/api_exception.dart';
+import 'package:github_search/repository/githubApi/api_exception.dart';
 import 'package:http/http.dart' as http;
 
 /// Github API 用の HTTPクライアント
-class GithubHttpClient {
-  const GithubHttpClient({
+class GithubApiHttpClient {
+  const GithubApiHttpClient({
     required String token,
     required http.Client client,
   })  : _token = token,
@@ -32,7 +32,7 @@ class GithubHttpClient {
   /// GET Request
   Future<T> get<T>({
     required Uri uri,
-    required T Function(dynamic data) builder,
+    required T Function(Map<String, dynamic> data) responseBuilder,
   }) async {
     try {
       logger.info('request: uri=$uri');
@@ -43,8 +43,8 @@ class GithubHttpClient {
       );
       switch (response.statusCode) {
         case 200:
-          final dynamic data = json.decode(response.body);
-          return builder(data);
+          final data = json.decode(response.body) as Map<String, dynamic>;
+          return responseBuilder(data);
         case 400:
           throw GithubApiException.badRequest();
         case 401:

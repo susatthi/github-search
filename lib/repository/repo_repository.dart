@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/constants.dart';
 import 'package:github_search/config/env.dart';
 import 'package:github_search/entity/repo/repo.dart';
-import 'package:github_search/repository/dataSource/github/api.dart';
-import 'package:github_search/repository/dataSource/github/http_client.dart';
-import 'package:github_search/repository/http_repo_repository.dart';
+import 'package:github_search/repository/githubApi/api.dart';
+import 'package:github_search/repository/githubApi/http_client.dart';
+import 'package:github_search/repository/githubApi/repo_repository.dart';
 import 'package:http/http.dart' as http;
 
 final repoRepositoryProvider = Provider<RepoRepository>(
@@ -17,9 +17,9 @@ final repoRepositoryProvider = Provider<RepoRepository>(
       kDartDefineNameGithubOAuthToken,
       defaultValue: Env.githubOAuthToken,
     );
-    return HttpRepoRepository(
+    return GithubApiRepoRepository(
       api: GithubApi(),
-      client: GithubHttpClient(client: http.Client(), token: token),
+      client: GithubApiHttpClient(client: http.Client(), token: token),
     );
   },
 );

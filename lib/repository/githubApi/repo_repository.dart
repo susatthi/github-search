@@ -3,20 +3,20 @@
 // found in the LICENSE file.
 
 import 'package:github_search/entity/repo/repo.dart';
-import 'package:github_search/repository/dataSource/github/api.dart';
-import 'package:github_search/repository/dataSource/github/http_client.dart';
+import 'package:github_search/repository/githubApi/api.dart';
+import 'package:github_search/repository/githubApi/http_client.dart';
 import 'package:github_search/repository/repo_repository.dart';
 
-/// HTTP通信用リポジトリRepository
-class HttpRepoRepository implements RepoRepository {
-  const HttpRepoRepository({
+/// GithubAPI用リポジトリRepository
+class GithubApiRepoRepository implements RepoRepository {
+  const GithubApiRepoRepository({
     required GithubApi api,
-    required GithubHttpClient client,
+    required GithubApiHttpClient client,
   })  : _api = api,
         _client = client;
 
   final GithubApi _api;
-  final GithubHttpClient _client;
+  final GithubApiHttpClient _client;
 
   @override
   Future<ReposResult> searchRepos({
@@ -24,7 +24,6 @@ class HttpRepoRepository implements RepoRepository {
   }) async =>
       _client.get<ReposResult>(
         uri: _api.searchRepositories(query: query),
-        builder: (dynamic data) =>
-            ReposResult.fromJson(data as Map<String, dynamic>),
+        responseBuilder: ReposResult.fromJson,
       );
 }
