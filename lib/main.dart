@@ -8,7 +8,7 @@ import 'package:github_search/config/app.dart';
 
 void main() {
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: GithubSearchApp(),
     ),
   );

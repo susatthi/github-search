@@ -5,9 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/logger.dart';
+import 'package:github_search/ui/page/repo/view_page.dart';
 import 'package:github_search/ui/widget/common/async_value_handler.dart';
 import 'package:github_search/ui/widget/repo/repo_list_view_controller.dart';
 import 'package:github_search/ui/widget/repo/repo_list_view_state.dart';
+import 'package:go_router/go_router.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 /// リポジトリ一覧View
@@ -41,6 +43,14 @@ class _RepoListView extends StatelessWidget {
           final repo = state.items[index];
           return ListTile(
             title: Text(repo.fullName),
+            onTap: () {
+              context.pushNamed(
+                RepoViewPage.name,
+                params: {
+                  'id': '${repo.id}',
+                },
+              );
+            },
           );
         }
         return const _CircularProgressListTile();
