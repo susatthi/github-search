@@ -6,7 +6,8 @@
 /// `env.dart` にリネームして使うこと
 class Env {
   /// Github API を使うためのOAuthトークン
-  /// --dart-defineで指定することも可能
-  /// 例: flutter run --dart-define GITHUB_OAUTH_TOKEN=YOUR_OAUTH_TOKEN
   static const githubOAuthToken = 'YOUR_OAUTH_TOKEN';
+
+  /// 検索文字列のデフォルト値
+  static const defaultSearchValue = 'SEARCH_DEFAULT_VALUE';
 }

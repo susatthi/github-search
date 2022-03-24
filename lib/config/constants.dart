@@ -7,5 +7,10 @@
 /// 例: flutter run --dart-define GITHUB_OAUTH_TOKEN=YOUR_OAUTH_TOKEN
 const kDartDefineKeyGithubOAuthToken = 'GITHUB_OAUTH_TOKEN';
 
+/// 検索文字列のデフォルト値のキー
+/// --dart-defineで指定する
+/// 例: flutter run --dart-define DEFAULT_SEARCH_VALUE=YOUR_SEARCH_VALUE
+const kDartDefineKeyDefaultSearchValue = 'DEFAULT_SEARCH_VALUE';
+
 /// 画面遷移時に渡すパラメータのキー
 const kPageParamKeyFullName = 'full_name';
