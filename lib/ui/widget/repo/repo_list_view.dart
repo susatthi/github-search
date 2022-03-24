@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
 import 'package:github_search/logger.dart';
 import 'package:github_search/ui/page/repo/view_page.dart';
 import 'package:github_search/ui/widget/common/async_value_handler.dart';
@@ -48,9 +47,10 @@ class _RepoListView extends StatelessWidget {
               // リポジトリ詳細画面に遷移する
               context.goNamed(
                 RepoViewPage.name,
-                params: {
-                  kPageParamKeyFullName: repo.fullName,
-                },
+                params: RepoViewPage.params(
+                  ownerName: repo.owner.name,
+                  repoName: repo.name,
+                ),
               );
             },
           );

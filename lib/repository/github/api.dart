@@ -14,22 +14,21 @@ class GithubApi {
   /// Uriを構築する
   Uri _buildUri({
     required String endpoint,
-    Map<String, dynamic> Function()? parametersBuilder,
+    Map<String, String> Function()? parametersBuilder,
   }) {
     return Uri(
       scheme: _scheme,
       host: _apiUrl,
       path: '$_apiPath$endpoint',
-      queryParameters:
-          parametersBuilder != null ? parametersBuilder() : <String, dynamic>{},
+      queryParameters: parametersBuilder != null ? parametersBuilder() : null,
     );
   }
 
   /// https://docs.github.com/ja/rest/reference/search#search-repositories
-  Uri searchRepositories({
+  Uri searchRepos({
     required String query,
-    GAParamSearchRepositoriesSort? sort,
-    GAParamOrder? order,
+    GithubParamSearchReposSort? sort,
+    GithubParamOrder? order,
     int? perPage,
     int? page,
   }) =>
@@ -39,7 +38,7 @@ class GithubApi {
           assert(query.isNotEmpty);
           assert(perPage == null || (0 < perPage && perPage <= 100));
           assert(page == null || 0 < page);
-          return <String, dynamic>{
+          return {
             'q': query,
             if (sort != null) 'sort': sort.name,
             if (order != null) 'order': order.name,
@@ -48,20 +47,29 @@ class GithubApi {
           };
         },
       );
+
+  /// https://docs.github.com/ja/rest/reference/repos#get-a-repository
+  Uri getRepo({
+    required String ownerName,
+    required String repoName,
+  }) =>
+      _buildUri(
+        endpoint: '/repos/$ownerName/$repoName',
+      );
 }
 
 /// Sorts the results of your query
-enum GAParamSearchRepositoriesSort {
+enum GithubParamSearchReposSort {
   stars,
   forks,
   helpWantedIssues,
 }
 
-extension GAParamSearchRepositoriesSortHelper on GAParamSearchRepositoriesSort {
-  static final names = <GAParamSearchRepositoriesSort, String>{
-    GAParamSearchRepositoriesSort.stars: 'stars',
-    GAParamSearchRepositoriesSort.forks: 'forks',
-    GAParamSearchRepositoriesSort.helpWantedIssues: 'help-wanted-issues',
+extension GithubParamSearchReposSortHelper on GithubParamSearchReposSort {
+  static final names = <GithubParamSearchReposSort, String>{
+    GithubParamSearchReposSort.stars: 'stars',
+    GithubParamSearchReposSort.forks: 'forks',
+    GithubParamSearchReposSort.helpWantedIssues: 'help-wanted-issues',
   };
 
   /// override
@@ -71,7 +79,7 @@ extension GAParamSearchRepositoriesSortHelper on GAParamSearchRepositoriesSort {
 /// Determines whether the first search result returned is the highest number
 /// of matches (desc) or lowest number of matches (asc). This parameter is
 /// ignored unless you provide sort.
-enum GAParamOrder {
+enum GithubParamOrder {
   asc,
   desc,
 }

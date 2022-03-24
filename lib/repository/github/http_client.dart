@@ -51,6 +51,8 @@ class GithubHttpClient {
           throw GithubApiException.badCredentials();
         case 403:
           throw GithubApiException.maximumNumberOfLoginAttemptsExceeded();
+        case 404:
+          throw GithubApiException.notFound();
         case 422:
           throw GithubApiException.validationFailed();
         case 503:

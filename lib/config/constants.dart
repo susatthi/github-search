@@ -13,4 +13,5 @@ const kDartDefineKeyGithubOAuthToken = 'GITHUB_OAUTH_TOKEN';
 const kDartDefineKeyDefaultSearchValue = 'DEFAULT_SEARCH_VALUE';
 
 /// 画面遷移時に渡すパラメータのキー
-const kPageParamKeyFullName = 'full_name';
+const kPageParamKeyOwnerName = 'owner_name';
+const kPageParamKeyRepoName = 'repo_name';

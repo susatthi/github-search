@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:github_search/entity/owner/owner.dart';
 
 part 'repo.freezed.dart';
 part 'repo.g.dart';
@@ -11,9 +12,14 @@ part 'repo.g.dart';
 @freezed
 class Repo with _$Repo {
   const factory Repo({
-    required int id,
     required String name,
     @JsonKey(name: 'full_name') required String fullName,
+    required Owner owner,
+    @JsonKey(name: 'stargazers_count') required int stargazersCount,
+    @JsonKey(name: 'watchers_count') required int watchersCount,
+    String? language,
+    @JsonKey(name: 'forks_count') required int forksCount,
+    @JsonKey(name: 'open_issues_count') required int openIssuesCount,
   }) = _Repo;
 
   factory Repo.fromJson(Map<String, dynamic> json) => _$RepoFromJson(json);

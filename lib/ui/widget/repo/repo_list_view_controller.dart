@@ -8,7 +8,6 @@ import 'package:github_search/logger.dart';
 import 'package:github_search/repository/repo_repository.dart';
 import 'package:github_search/ui/widget/repo/repo_list_view_state.dart';
 import 'package:github_search/ui/widget/repo/repo_search_text_field.dart';
-import 'package:github_search/util/extensions.dart';
 
 final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
     RepoListViewController, AsyncValue<RepoListViewState>>(
@@ -90,11 +89,5 @@ class RepoListViewController
         page: value.page + 1,
       );
     });
-  }
-
-  /// リポジトリを検索する
-  RepoData? findByFullName(String fullName) {
-    final items = state.value?.items ?? [];
-    return items.firstWhereOrNull((item) => item.fullName == fullName);
   }
 }

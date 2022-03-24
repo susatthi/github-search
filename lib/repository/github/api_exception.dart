@@ -22,6 +22,10 @@ class GithubApiException implements Exception {
         'しばらく時間をおいてから再度お試しください。(MaximumNumberOfLoginAttemptsExceeded)',
       );
 
+  /// `404 Not Found`
+  factory GithubApiException.notFound() =>
+      const GithubApiException('データが見つかりませんでした。(NotFound)');
+
   /// 無効なフィールドを送信すると、`422 Unprocessable Entity` レスポンスが返されます。
   factory GithubApiException.validationFailed() =>
       const GithubApiException('不正なリクエストが送信されました。(ValidationFailed)');

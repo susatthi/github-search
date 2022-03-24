@@ -25,11 +25,24 @@ class GithubRepoRepository implements RepoRepository {
     int? page,
   }) async =>
       _client.get<SearchReposResult>(
-        uri: _api.searchRepositories(
+        uri: _api.searchRepos(
           query: query,
           perPage: perPage,
           page: page,
         ),
         responseBuilder: SearchReposResult.fromJson,
+      );
+
+  @override
+  Future<Repo> getRepo({
+    required String ownerName,
+    required String repoName,
+  }) async =>
+      _client.get<Repo>(
+        uri: _api.getRepo(
+          ownerName: ownerName,
+          repoName: repoName,
+        ),
+        responseBuilder: Repo.fromJson,
       );
 }

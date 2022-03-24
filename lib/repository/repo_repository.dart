@@ -32,4 +32,10 @@ abstract class RepoRepository {
     int? perPage,
     int? page,
   });
+
+  /// リポジトリを取得する
+  Future<Repo> getRepo({
+    required String ownerName,
+    required String repoName,
+  });
 }

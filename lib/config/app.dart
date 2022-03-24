@@ -43,9 +43,11 @@ class GithubSearchApp extends StatelessWidget {
             builder: (context, state) => ProviderScope(
               overrides: [
                 repoDetailViewControllerProvider.overrideWithProvider(
-                  repoDetailViewControllerProviderFamily(
-                    state.params[kPageParamKeyFullName]!,
-                  ),
+                  repoDetailViewControllerProviderFamily({
+                    kPageParamKeyOwnerName:
+                        state.params[kPageParamKeyOwnerName]!,
+                    kPageParamKeyRepoName: state.params[kPageParamKeyRepoName]!,
+                  }),
                 ),
               ],
               child: const RepoViewPage(),
