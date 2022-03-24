@@ -4,8 +4,10 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/ui/page/repo/index_page.dart';
 import 'package:github_search/ui/page/repo/view_page.dart';
+import 'package:github_search/ui/widget/repo/repo_detail_view_controller.dart';
 import 'package:go_router/go_router.dart';
 
 class GithubSearchApp extends StatelessWidget {
@@ -37,8 +39,13 @@ class GithubSearchApp extends StatelessWidget {
           GoRoute(
             path: RepoViewPage.path,
             name: RepoViewPage.name,
-            builder: (context, state) => RepoViewPage(
-              id: state.params['id']!,
+            builder: (context, state) => ProviderScope(
+              overrides: [
+                repoDetailViewControllerProvider.overrideWithProvider(
+                  repoDetailViewControllerProviderFamily(state.params['id']!),
+                ),
+              ],
+              child: const RepoViewPage(),
             ),
           ),
         ],

@@ -7,7 +7,12 @@ import 'package:github_search/entity/repo/repo_data.dart';
 import 'package:github_search/logger.dart';
 import 'package:github_search/ui/widget/repo/repo_list_view_controller.dart';
 
-final repoDetailViewControllerProvider = StateNotifierProvider.family
+final repoDetailViewControllerProvider = StateNotifierProvider.autoDispose<
+    RepoDetailViewController, AsyncValue<RepoData>>(
+  (ref) => throw StateError('Provider was not initialized'),
+);
+
+final repoDetailViewControllerProviderFamily = StateNotifierProvider.family
     .autoDispose<RepoDetailViewController, AsyncValue<RepoData>, String>(
   (ref, id) {
     final controller = ref.read(repoListViewControllerProvider.notifier);

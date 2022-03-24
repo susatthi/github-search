@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// リポジトリ検索文字列
-final searchReposQueryProvider = StateProvider<String>((ref) => '');
+final searchReposQueryProvider = StateProvider<String>((ref) => 'susa c');
 
 /// リポジトリ検索用テキストフィールド
 class RepoSearchTextField extends ConsumerStatefulWidget {

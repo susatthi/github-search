@@ -10,17 +10,11 @@ import 'package:github_search/ui/widget/repo/repo_detail_view_controller.dart';
 
 /// リポジトリ詳細View
 class RepoDetailView extends ConsumerWidget {
-  const RepoDetailView({
-    Key? key,
-    required this.id,
-  }) : super(key: key);
-
-  /// リポジトリID
-  final String id;
+  const RepoDetailView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoDetailViewControllerProvider(id));
+    final asyncValue = ref.watch(repoDetailViewControllerProvider);
     return AsyncValueHandler<RepoData>(
       value: asyncValue,
       builder: (data) => _RepoDetailView(data: data),

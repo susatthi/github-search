@@ -7,10 +7,7 @@ import 'package:github_search/ui/widget/repo/repo_detail_view.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
-  const RepoViewPage({
-    Key? key,
-    required this.id,
-  }) : super(key: key);
+  const RepoViewPage({Key? key}) : super(key: key);
 
   /// repoView
   static const name = 'repoView';
@@ -18,16 +15,13 @@ class RepoViewPage extends StatelessWidget {
   /// :id
   static const path = ':id';
 
-  /// リポジトリID
-  final String id;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('リポジトリ'),
       ),
-      body: RepoDetailView(id: id),
+      body: const RepoDetailView(),
     );
   }
 }
