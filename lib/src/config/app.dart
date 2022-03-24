@@ -5,10 +5,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
-import 'package:github_search/ui/page/repo/index_page.dart';
-import 'package:github_search/ui/page/repo/view_page.dart';
-import 'package:github_search/ui/widget/repo/repo_detail_view_controller.dart';
+import 'package:github_search/src/config/constants.dart';
+import 'package:github_search/src/presentation/pages/repo/repo_index_page.dart';
+import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
+import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
 import 'package:go_router/go_router.dart';
 
 class GithubSearchApp extends StatelessWidget {

@@ -5,8 +5,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:github_search/logger.dart';
-import 'package:github_search/repository/github/api_exception.dart';
+import 'package:github_search/src/repositories/github/api_exception.dart';
+import 'package:github_search/src/utils/logger.dart';
 import 'package:http/http.dart' as http;
 
 /// Github API 用の HTTPクライアント

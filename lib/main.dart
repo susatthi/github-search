@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/app.dart';
+import 'package:github_search/src/config/app.dart';
 
 void main() {
   // CacheManagerのログレベルを設定する

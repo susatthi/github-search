@@ -2,10 +2,10 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:github_search/entity/repo/repo.dart';
-import 'package:github_search/repository/github/api.dart';
-import 'package:github_search/repository/github/http_client.dart';
-import 'package:github_search/repository/repo_repository.dart';
+import 'package:github_search/src/entities/repo/repo.dart';
+import 'package:github_search/src/repositories/github/api.dart';
+import 'package:github_search/src/repositories/github/http_client.dart';
+import 'package:github_search/src/repositories/repo_repository.dart';
 
 /// GithubAPI用リポジトリRepository
 class GithubRepoRepository implements RepoRepository {

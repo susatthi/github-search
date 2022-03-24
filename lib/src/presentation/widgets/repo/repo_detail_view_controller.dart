@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
-import 'package:github_search/entity/repo/repo_data.dart';
-import 'package:github_search/logger.dart';
-import 'package:github_search/repository/repo_repository.dart';
+import 'package:github_search/src/config/constants.dart';
+import 'package:github_search/src/entities/repo/repo_data.dart';
+import 'package:github_search/src/repositories/repo_repository.dart';
+import 'package:github_search/src/utils/logger.dart';
 
 final repoDetailViewControllerProvider = StateNotifierProvider.autoDispose<
     RepoDetailViewController, AsyncValue<RepoData>>(

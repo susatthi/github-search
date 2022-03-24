@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:github_search/config/constants.dart';
-import 'package:github_search/ui/widget/repo/repo_detail_view.dart';
+import 'package:github_search/src/config/constants.dart';
+import 'package:github_search/src/presentation/widgets/repo/repo_detail_view.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {

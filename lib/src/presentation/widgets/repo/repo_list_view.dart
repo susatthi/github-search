@@ -4,11 +4,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/logger.dart';
-import 'package:github_search/ui/page/repo/view_page.dart';
-import 'package:github_search/ui/widget/common/async_value_handler.dart';
-import 'package:github_search/ui/widget/repo/repo_list_view_controller.dart';
-import 'package:github_search/ui/widget/repo/repo_list_view_state.dart';
+import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
+import 'package:github_search/src/presentation/widgets/common/async_value_handler.dart';
+import 'package:github_search/src/presentation/widgets/repo/repo_list_view_controller.dart';
+import 'package:github_search/src/presentation/widgets/repo/repo_list_view_state.dart';
+import 'package:github_search/src/utils/logger.dart';
 import 'package:go_router/go_router.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
