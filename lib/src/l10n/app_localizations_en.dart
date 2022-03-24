@@ -17,6 +17,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forksCount => 'Forks count';
 
   @override
+  String get githubApiExceptionMessageBadRequest => 'Illegal request sent. (400)';
+
+  @override
+  String get githubApiExceptionMessageBadCredentials => 'Illegal request sent. (401)';
+
+  @override
+  String get githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again. (403)';
+
+  @override
+  String get githubApiExceptionMessageNotFound => 'No data found. (404)';
+
+  @override
+  String get githubApiExceptionMessageValidationFailed => 'Illegal request sent. (422)';
+
+  @override
+  String get githubApiExceptionMessageServiceUnavailable => 'Please wait a while and try again.  (503)';
+
+  @override
+  String get githubApiExceptionMessageUnknown => 'An unknown error has occurred. (-1)';
+
+  @override
+  String get githubApiExceptionMessageNoInternetConnection => 'Please try again in a good communication environment. (-2)';
+
+  @override
   String get issuesCount => 'Issues count';
 
   @override

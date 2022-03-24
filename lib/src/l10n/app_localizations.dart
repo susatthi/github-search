@@ -112,6 +112,54 @@ abstract class AppLocalizations {
   /// **'Forks count'**
   String get forksCount;
 
+  /// No description provided for @githubApiExceptionMessageBadRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Illegal request sent. (400)'**
+  String get githubApiExceptionMessageBadRequest;
+
+  /// No description provided for @githubApiExceptionMessageBadCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Illegal request sent. (401)'**
+  String get githubApiExceptionMessageBadCredentials;
+
+  /// No description provided for @githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait a while and try again. (403)'**
+  String get githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded;
+
+  /// No description provided for @githubApiExceptionMessageNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found. (404)'**
+  String get githubApiExceptionMessageNotFound;
+
+  /// No description provided for @githubApiExceptionMessageValidationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Illegal request sent. (422)'**
+  String get githubApiExceptionMessageValidationFailed;
+
+  /// No description provided for @githubApiExceptionMessageServiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait a while and try again.  (503)'**
+  String get githubApiExceptionMessageServiceUnavailable;
+
+  /// No description provided for @githubApiExceptionMessageUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'An unknown error has occurred. (-1)'**
+  String get githubApiExceptionMessageUnknown;
+
+  /// No description provided for @githubApiExceptionMessageNoInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again in a good communication environment. (-2)'**
+  String get githubApiExceptionMessageNoInternetConnection;
+
   /// No description provided for @issuesCount.
   ///
   /// In en, this message translates to:

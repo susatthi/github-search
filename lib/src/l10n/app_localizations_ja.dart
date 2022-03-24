@@ -17,6 +17,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get forksCount => 'Fork数';
 
   @override
+  String get githubApiExceptionMessageBadRequest => '不正なリクエストが送信されました。(400)';
+
+  @override
+  String get githubApiExceptionMessageBadCredentials => '不正なリクエストが送信されました。(401)';
+
+  @override
+  String get githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded => 'しばらく時間をおいてから再度お試しください。(403)';
+
+  @override
+  String get githubApiExceptionMessageNotFound => 'データが見つかりませんでした。(404)';
+
+  @override
+  String get githubApiExceptionMessageValidationFailed => '不正なリクエストが送信されました。(422)';
+
+  @override
+  String get githubApiExceptionMessageServiceUnavailable => 'しばらく時間をおいてから再度お試しください。(503)';
+
+  @override
+  String get githubApiExceptionMessageUnknown => '不明なエラーが発生しました。(-1)';
+
+  @override
+  String get githubApiExceptionMessageNoInternetConnection => '通信環境の良いところで再度お試しください。(-2)';
+
+  @override
   String get issuesCount => 'Issue数';
 
   @override
