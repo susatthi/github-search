@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "appName": "GithubSearch",
+  "error": "Error",
+  "forksCount": "Forks count",
+  "issuesCount": "Issues count",
+  "ownerName": "Owner name",
+  "projectLanguage": "Project language",
+  "repo": "Repository",
+  "repoName": "Repository name",
+  "starsCount": "Stars count",
+  "searchRepos": "Search repositories",
+  "watchersCount": "Watchers count"
+}

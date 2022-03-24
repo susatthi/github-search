@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/src/config/constants.dart';
 import 'package:github_search/src/config/env.dart';
+import 'package:github_search/src/utils/extensions.dart';
 
 /// リポジトリ検索文字列
 final searchReposQueryProvider = StateProvider<String>(
@@ -44,7 +45,7 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
     return TextField(
       controller: _controller,
       decoration: InputDecoration(
-        hintText: 'リポジトリを検索',
+        hintText: context.locale().searchRepos,
         contentPadding: const EdgeInsets.all(10),
         suffixIcon: InkWell(
           child: const Icon(Icons.search),

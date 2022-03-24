@@ -1,0 +1,14 @@
+{
+  "@@locale": "ja",
+  "appName": "GithubSearch",
+  "error": "エラー",
+  "forksCount": "Fork数",
+  "issuesCount": "Issue数",
+  "ownerName": "オーナー名",
+  "projectLanguage": "プロジェクト言語",
+  "repo": "リポジトリ",
+  "repoName": "リポジトリ名",
+  "starsCount": "Star数",
+  "searchRepos": "リポジトリを検索",
+  "watchersCount": "Watcher数"
+}
