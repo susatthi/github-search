@@ -3,12 +3,17 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:github_search/src/l10n/app_localizations.dart';
 
-// ignore: avoid_classes_with_only_static_members
+/// AppLocalizationsを使いやすくするクラス
 class L10n {
   /// AppLocalizationsインスタンス取得の短縮版
   static AppLocalizations of(BuildContext context) =>
       AppLocalizations.of(context)!;
+
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      AppLocalizations.localizationsDelegates;
+
+  static const List<Locale> supportedLocales =
+      AppLocalizations.supportedLocales;
 }

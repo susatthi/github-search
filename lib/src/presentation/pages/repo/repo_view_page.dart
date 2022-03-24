@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:github_search/src/config/constants.dart';
+import 'package:github_search/src/l10n/l10n.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view.dart';
-import 'package:github_search/src/utils/l10n.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
