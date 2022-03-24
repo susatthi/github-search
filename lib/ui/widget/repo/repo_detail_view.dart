@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/entity/repo/repo_data.dart';
-import 'package:github_search/logger.dart';
 import 'package:github_search/ui/widget/common/async_value_handler.dart';
+import 'package:github_search/ui/widget/common/cached_circle_avatar.dart';
 import 'package:github_search/ui/widget/repo/repo_detail_view_controller.dart';
 
 /// リポジトリ詳細View
@@ -38,13 +38,8 @@ class _RepoDetailView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(10),
-            child: CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.transparent,
-              backgroundImage: NetworkImage(data.owner.avatarUrl),
-              onBackgroundImageError: (error, _) {
-                logger.info(error);
-              },
+            child: CachedCircleAvatar(
+              url: data.owner.avatarUrl,
             ),
           ),
           ListTile(
