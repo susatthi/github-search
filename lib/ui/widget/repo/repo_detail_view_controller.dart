@@ -14,10 +14,10 @@ final repoDetailViewControllerProvider = StateNotifierProvider.autoDispose<
 
 final repoDetailViewControllerProviderFamily = StateNotifierProvider.family
     .autoDispose<RepoDetailViewController, AsyncValue<RepoData>, String>(
-  (ref, id) {
+  (ref, fullName) {
     final controller = ref.read(repoListViewControllerProvider.notifier);
-    final repo = controller.findById(id);
-    logger.info('create RepoDetailViewController: id=${repo?.id}');
+    final repo = controller.findByFullName(fullName);
+    logger.info('create RepoDetailViewController: fullName=${repo?.fullName}');
     return RepoDetailViewController(
       data: repo,
     );

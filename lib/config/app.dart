@@ -5,6 +5,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:github_search/config/constants.dart';
 import 'package:github_search/ui/page/repo/index_page.dart';
 import 'package:github_search/ui/page/repo/view_page.dart';
 import 'package:github_search/ui/widget/repo/repo_detail_view_controller.dart';
@@ -42,7 +43,9 @@ class GithubSearchApp extends StatelessWidget {
             builder: (context, state) => ProviderScope(
               overrides: [
                 repoDetailViewControllerProvider.overrideWithProvider(
-                  repoDetailViewControllerProviderFamily(state.params['id']!),
+                  repoDetailViewControllerProviderFamily(
+                    state.params[kPageParamKeyFullName]!,
+                  ),
                 ),
               ],
               child: const RepoViewPage(),

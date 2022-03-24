@@ -93,8 +93,8 @@ class RepoListViewController
   }
 
   /// リポジトリを検索する
-  RepoData? findById(String id) {
+  RepoData? findByFullName(String fullName) {
     final items = state.value?.items ?? [];
-    return items.firstWhereOrNull((item) => '${item.id}' == id);
+    return items.firstWhereOrNull((item) => item.fullName == fullName);
   }
 }

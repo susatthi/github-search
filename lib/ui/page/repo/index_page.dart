@@ -10,10 +10,7 @@ import 'package:github_search/ui/widget/repo/repo_search_text_field.dart';
 class RepoIndexPage extends StatelessWidget {
   const RepoIndexPage({Key? key}) : super(key: key);
 
-  /// repoIndex
   static const name = 'repoIndex';
-
-  /// /repo
   static const path = '/repo';
 
   @override
