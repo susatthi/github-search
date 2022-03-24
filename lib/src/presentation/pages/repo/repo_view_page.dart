@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_search/src/config/constants.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view.dart';
-import 'package:github_search/src/utils/extensions.dart';
+import 'package:github_search/src/utils/l10n.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
@@ -28,7 +28,7 @@ class RepoViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.locale().repo),
+        title: Text(L10n.of(context).repo),
       ),
       body: const RepoDetailView(),
     );

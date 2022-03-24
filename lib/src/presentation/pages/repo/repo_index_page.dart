@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_list_view.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_search_text_field.dart';
-import 'package:github_search/src/utils/extensions.dart';
+import 'package:github_search/src/utils/l10n.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class RepoIndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.locale().appName),
+        title: Text(L10n.of(context).appName),
       ),
       body: Column(
         children: const [

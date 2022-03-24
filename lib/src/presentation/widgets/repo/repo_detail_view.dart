@@ -8,7 +8,7 @@ import 'package:github_search/src/entities/repo/repo_data.dart';
 import 'package:github_search/src/presentation/widgets/common/async_value_handler.dart';
 import 'package:github_search/src/presentation/widgets/common/cached_circle_avatar.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
-import 'package:github_search/src/utils/extensions.dart';
+import 'package:github_search/src/utils/l10n.dart';
 
 /// リポジトリ詳細View
 class RepoDetailView extends ConsumerWidget {
@@ -44,31 +44,31 @@ class _RepoDetailView extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(context.locale().ownerName),
+            title: Text(L10n.of(context).ownerName),
             trailing: Text(data.owner.name),
           ),
           ListTile(
-            title: Text(context.locale().repoName),
+            title: Text(L10n.of(context).repoName),
             trailing: Text(data.name),
           ),
           ListTile(
-            title: Text(context.locale().projectLanguage),
+            title: Text(L10n.of(context).projectLanguage),
             trailing: Text(data.language ?? ''),
           ),
           ListTile(
-            title: Text(context.locale().starsCount),
+            title: Text(L10n.of(context).starsCount),
             trailing: Text('${data.stargazersCount}'),
           ),
           ListTile(
-            title: Text(context.locale().watchersCount),
+            title: Text(L10n.of(context).watchersCount),
             trailing: Text('${data.watchersCount}'),
           ),
           ListTile(
-            title: Text(context.locale().forksCount),
+            title: Text(L10n.of(context).forksCount),
             trailing: Text('${data.forksCount}'),
           ),
           ListTile(
-            title: Text(context.locale().issuesCount),
+            title: Text(L10n.of(context).issuesCount),
             trailing: Text('${data.openIssuesCount}'),
           ),
         ],
