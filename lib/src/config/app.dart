@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/src/config/constants.dart';
+import 'package:github_search/src/gen/fonts.gen.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
@@ -22,6 +23,7 @@ class GithubSearchApp extends StatelessWidget {
       title: 'GithubSearch',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: FontFamily.murecho,
       ),
     );
   }
