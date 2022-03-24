@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class L10n {
+  /// AppLocalizationsインスタンス取得の短縮版
   static AppLocalizations of(BuildContext context) =>
       AppLocalizations.of(context)!;
 }
