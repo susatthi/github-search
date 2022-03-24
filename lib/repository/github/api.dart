@@ -30,12 +30,13 @@ class GithubApi {
     required String query,
     GAParamSearchRepositoriesSort? sort,
     GAParamOrder? order,
-    GAParamPerPage? perPage,
-    GAParamPage? page,
+    int? perPage,
+    int? page,
   }) =>
       _buildUri(
         endpoint: '/search/repositories',
         parametersBuilder: () {
+          assert(query.isNotEmpty);
           assert(perPage == null || (0 < perPage && perPage <= 100));
           assert(page == null || 0 < page);
           return <String, dynamic>{
@@ -74,9 +75,3 @@ enum GAParamOrder {
   asc,
   desc,
 }
-
-/// Results per page (max 100)
-typedef GAParamPerPage = int;
-
-/// Page number of the results to fetch.
-typedef GAParamPage = int;
