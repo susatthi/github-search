@@ -4,18 +4,19 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/src/entities/owner/owner.dart';
+import 'package:github_search/src/entities/repo/repo.dart';
 import 'package:github_search/src/repositories/github/exception.dart';
 
-import '../../../test_utils/mocks.dart';
+import '../../../mocks/mocks.dart';
 
 void main() {
   group('get()', () {
     test('200 OK', () async {
-      final owner = await mockGithubHttpClient.get<Owner>(
-        uri: Uri(path: 'owner'),
-        responseBuilder: Owner.fromJson,
+      final repo = await mockGithubHttpClient.get<Repo>(
+        uri: Uri(path: '/repos/flutter/flutter'),
+        responseBuilder: Repo.fromJson,
       );
-      expect(owner, isNotNull);
+      expect(repo, isNotNull);
     });
     test('400 BadRequest', () async {
       try {

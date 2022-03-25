@@ -21,6 +21,6 @@ final logger = SimpleLogger()
     if (info.level >= Level.SEVERE) {
       // 致命的なエラーが発生したのでデバッグ実行のときはAssertで止める
       // Crashlysticsでログを飛ばすのもあり
-      assert(false);
+      throw AssertionError(log);
     }
   };

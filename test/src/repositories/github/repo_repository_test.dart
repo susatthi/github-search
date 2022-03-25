@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/src/repositories/github/api.dart';
 import 'package:github_search/src/repositories/github/repo_repository.dart';
 
-import '../../../test_utils/mocks.dart';
+import '../../../mocks/mocks.dart';
 
 void main() {
   late GithubRepoRepository repository;
@@ -19,15 +19,15 @@ void main() {
 
   group('searchRepos()', () {
     test('検索できるはず', () async {
-      final result = await repository.searchRepos(query: 'dummy');
+      final result = await repository.searchRepos(query: 'flutter');
       expect(result, isNotNull);
     });
   });
   group('getRepo()', () {
     test('取得できるはず', () async {
       final repo = await repository.getRepo(
-        ownerName: 'keyber-inc',
-        repoName: 'github_search',
+        ownerName: 'flutter',
+        repoName: 'flutter',
       );
       expect(repo, isNotNull);
     });

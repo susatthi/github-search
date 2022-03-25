@@ -6,18 +6,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/src/entities/owner/owner.dart';
 import 'package:github_search/src/entities/owner/owner_data.dart';
 
-import '../../../test_utils/mocks.dart';
+import '../../../utils/assets.dart';
 
 void main() {
-  group('コンストラクタ', () {
-    test('インスタンスを作成できるはず', () async {
-      const ownerData = OwnerData(name: 'dummy', avatarUrl: 'dummy');
-      expect(ownerData, isNotNull);
-    });
-  });
+  final ownerJsonObject = TestAssets.readJsonMap('github/owner.json')!;
   group('from()', () {
     test('インスタンスを作成できるはず', () async {
-      final owner = Owner.fromJson(ownerJsonMap);
+      final owner = Owner.fromJson(ownerJsonObject);
       final ownerData = OwnerData.from(owner);
       expect(ownerData, isNotNull);
     });

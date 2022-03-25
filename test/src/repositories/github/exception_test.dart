@@ -15,28 +15,36 @@ void main() {
   });
   group('factories', () {
     test('badRequestが生成出来るはず', () {
-      expect(GithubException.badRequest(), isNotNull);
+      final e = GithubException.badRequest();
+      expect(e.code, 'bad-request');
     });
     test('badCredentialsが生成出来るはず', () {
-      expect(GithubException.badCredentials(), isNotNull);
+      final e = GithubException.badCredentials();
+      expect(e.code, 'bad-credentials');
     });
     test('maximumNumberOfLoginAttemptsExceededが生成出来るはず', () {
-      expect(GithubException.maximumNumberOfLoginAttemptsExceeded(), isNotNull);
+      final e = GithubException.maximumNumberOfLoginAttemptsExceeded();
+      expect(e.code, 'maximum-number-of-login-attempts-exceeded');
     });
     test('notFoundが生成出来るはず', () {
-      expect(GithubException.notFound(), isNotNull);
+      final e = GithubException.notFound();
+      expect(e.code, 'not-found');
     });
     test('validationFailedが生成出来るはず', () {
-      expect(GithubException.validationFailed(), isNotNull);
+      final e = GithubException.validationFailed();
+      expect(e.code, 'validation-failed');
     });
     test('serviceUnavailableが生成出来るはず', () {
-      expect(GithubException.serviceUnavailable(), isNotNull);
+      final e = GithubException.serviceUnavailable();
+      expect(e.code, 'service-unavailable');
     });
     test('unknownが生成出来るはず', () {
-      expect(GithubException.unknown(), isNotNull);
+      final e = GithubException.unknown();
+      expect(e.code, 'unknown');
     });
     test('noInternetConnectionが生成出来るはず', () {
-      expect(GithubException.noInternetConnection(), isNotNull);
+      final e = GithubException.noInternetConnection();
+      expect(e.code, 'no-internet-connection');
     });
   });
   group('operator ==', () {

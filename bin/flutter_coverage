@@ -1,6 +1,6 @@
 #!/bin/bash
 
 flutter test --coverage
-lcov --remove coverage/lcov.info 'lib/gen/*' 'lib/localizations/*' -o coverage/new_lcov.info
-genhtml coverage/new_lcov.info -o coverage/html
+lcov --remove coverage/lcov.info 'lib/gen/*' -o coverage/lcov.info
+genhtml coverage/lcov.info -o coverage/html
 open coverage/html/index.html

@@ -3,31 +3,17 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/entities/owner/owner_data.dart';
 import 'package:github_search/src/entities/repo/repo.dart';
 import 'package:github_search/src/entities/repo/repo_data.dart';
 
-import '../../../test_utils/mocks.dart';
+import '../../../utils/assets.dart';
 
 void main() {
-  group('コンストラクタ', () {
-    test('インスタンスを作成できるはず', () async {
-      const repoData = RepoData(
-        name: 'dummy',
-        fullName: 'dummy',
-        owner: OwnerData(name: 'dummy', avatarUrl: 'dummy'),
-        stargazersCount: 1,
-        watchersCount: 1,
-        language: null,
-        forksCount: 1,
-        openIssuesCount: 1,
-      );
-      expect(repoData, isNotNull);
-    });
-  });
+  final repoJsonObject =
+      TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!;
   group('from()', () {
     test('インスタンスを作成できるはず', () async {
-      final repo = Repo.fromJson(repoJsonMap1);
+      final repo = Repo.fromJson(repoJsonObject);
       final repoData = RepoData.from(repo);
       expect(repoData, isNotNull);
     });
