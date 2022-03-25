@@ -27,7 +27,7 @@ void main() {
   });
   group('from()', () {
     test('インスタンスを作成できるはず', () async {
-      final repo = Repo.fromJson(repoJsonMap);
+      final repo = Repo.fromJson(repoJsonMap1);
       final repoData = RepoData.from(repo);
       expect(repoData, isNotNull);
     });
