@@ -58,7 +58,6 @@ flutter:
           weight: 800
         - asset: assets/fonts/Murecho/static/Murecho-Black.ttf
           weight: 900
-  generate: true
   uses-material-design: true
 
 flutter_gen:
