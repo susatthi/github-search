@@ -5,7 +5,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:github_search/src/config/app.dart';
+import 'package:github_search/src/presentation/widgets/repo/repo_search_text_field.dart';
+import 'package:github_search/src/repositories/github/api.dart';
 import 'package:github_search/src/repositories/github/http_client.dart';
+import 'package:github_search/src/repositories/github/repo_repository.dart';
+import 'package:github_search/src/repositories/repo_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
@@ -339,3 +345,25 @@ final mockHttpClient = MockClient(
 /// モック版のGithubHttpClient
 final mockGithubHttpClient =
     GithubHttpClient(token: 'dummy', client: mockHttpClient);
+
+/// モック版のGithubSearchApp
+final mockApp = ProviderScope(
+  overrides: [
+    // モック版のGithubHttpClientを使う
+    repoRepositoryProvider.overrideWithProvider(
+      Provider<RepoRepository>(
+        (ref) {
+          return GithubRepoRepository(
+            api: const GithubApi(),
+            client: mockGithubHttpClient,
+          );
+        },
+      ),
+    ),
+    // リポジトリ検索文字列の初期値を設定する
+    searchReposQueryProvider.overrideWithProvider(
+      StateProvider<String>((ref) => 'initialSearchText'),
+    ),
+  ],
+  child: GithubSearchApp(),
+);
