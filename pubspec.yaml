@@ -34,6 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^1.1.1
+  mockito: ^5.1.0
   pedantic_mono: any
 
 flutter:

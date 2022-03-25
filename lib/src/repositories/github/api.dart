@@ -31,31 +31,35 @@ class GithubApi {
     GithubParamOrder? order,
     int? perPage,
     int? page,
-  }) =>
-      _buildUri(
-        endpoint: '/search/repositories',
-        parametersBuilder: () {
-          assert(query.isNotEmpty);
-          assert(perPage == null || (0 < perPage && perPage <= 100));
-          assert(page == null || 0 < page);
-          return {
-            'q': query,
-            if (sort != null) 'sort': sort.name,
-            if (order != null) 'order': order.name,
-            if (perPage != null) 'per_page': '$perPage',
-            if (page != null) 'page': '$page',
-          };
-        },
-      );
+  }) {
+    assert(query.isNotEmpty);
+    assert(perPage == null || (0 < perPage && perPage <= 100));
+    assert(page == null || 0 < page);
+    return _buildUri(
+      endpoint: '/search/repositories',
+      parametersBuilder: () {
+        return {
+          'q': query,
+          if (sort != null) 'sort': sort.name,
+          if (order != null) 'order': order.name,
+          if (perPage != null) 'per_page': '$perPage',
+          if (page != null) 'page': '$page',
+        };
+      },
+    );
+  }
 
   /// https://docs.github.com/ja/rest/reference/repos#get-a-repository
   Uri getRepo({
     required String ownerName,
     required String repoName,
-  }) =>
-      _buildUri(
-        endpoint: '/repos/$ownerName/$repoName',
-      );
+  }) {
+    assert(ownerName.isNotEmpty);
+    assert(repoName.isNotEmpty);
+    return _buildUri(
+      endpoint: '/repos/$ownerName/$repoName',
+    );
+  }
 }
 
 /// Sorts the results of your query
