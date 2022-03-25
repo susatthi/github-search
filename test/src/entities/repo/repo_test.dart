@@ -9,7 +9,7 @@ import 'package:github_search/src/entities/repo/repo.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
-  group('コンストラクタ', () {
+  group('Repo: コンストラクタ', () {
     test('インスタンスを作成できるはず', () async {
       const repo = Repo(
         name: 'dummy',
@@ -23,25 +23,25 @@ void main() {
       expect(repo, isNotNull);
     });
   });
-  group('fromJson()', () {
+  group('Repo: fromJson()', () {
     test('インスタンスを作成できるはず', () async {
       final repo = Repo.fromJson(repoJsonMap);
       expect(repo, isNotNull);
     });
   });
-  group('toString()', () {
+  group('Repo: toString()', () {
     test('正しく動くはず', () async {
       final repo = Repo.fromJson(repoJsonMap);
       expect(repo.toString(), isNotNull);
     });
   });
-  group('toJson()', () {
+  group('Repo: toJson()', () {
     test('正しく動くはず', () async {
       final repo = Repo.fromJson(repoJsonMap);
       expect(repo.toJson(), isMap);
     });
   });
-  group('copyWith()', () {
+  group('Repo: copyWith()', () {
     test('一致するはず', () async {
       final repo = Repo.fromJson(repoJsonMap);
       final cloned = repo.copyWith();
@@ -56,6 +56,48 @@ void main() {
       );
       expect(repo.name == cloned.name, false);
       expect(repo.fullName == cloned.fullName, false);
+    });
+  });
+  group('SearchReposResult: コンストラクタ', () {
+    test('インスタンスを作成できるはず', () async {
+      const result = SearchReposResult(
+        totalCount: 0,
+        incompleteResults: true,
+        items: [],
+      );
+      expect(result, isNotNull);
+    });
+  });
+  group('SearchReposResult: fromJson()', () {
+    test('インスタンスを作成できるはず', () async {
+      final result = SearchReposResult.fromJson(searchReposResultJsonMap);
+      expect(result, isNotNull);
+    });
+  });
+  group('SearchReposResult: toString()', () {
+    test('正しく動くはず', () async {
+      final result = SearchReposResult.fromJson(searchReposResultJsonMap);
+      expect(result.toString(), isNotNull);
+    });
+  });
+  group('SearchReposResult: toJson()', () {
+    test('正しく動くはず', () async {
+      final result = SearchReposResult.fromJson(searchReposResultJsonMap);
+      expect(result.toJson(), isMap);
+    });
+  });
+  group('SearchReposResult: copyWith()', () {
+    test('一致するはず', () async {
+      final result = SearchReposResult.fromJson(searchReposResultJsonMap);
+      final cloned = result.copyWith();
+      expect(result.totalCount == cloned.totalCount, true);
+    });
+    test('一致しないはず', () async {
+      final result = SearchReposResult.fromJson(searchReposResultJsonMap);
+      final cloned = result.copyWith(
+        totalCount: -1,
+      );
+      expect(result.totalCount == cloned.totalCount, false);
     });
   });
 }
