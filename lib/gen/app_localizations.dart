@@ -17,7 +17,7 @@ import 'app_localizations_ja.dart';
 /// supportedLocales list. For example:
 ///
 /// ```
-/// import 'localizations/app_localizations.dart';
+/// import 'gen/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
