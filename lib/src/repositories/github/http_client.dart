@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:github_search/src/repositories/github/api_exception.dart';
+import 'package:github_search/src/repositories/github/exception.dart';
 import 'package:github_search/src/utils/logger.dart';
 import 'package:http/http.dart' as http;
 
@@ -46,23 +46,23 @@ class GithubHttpClient {
           final data = json.decode(response.body) as Map<String, dynamic>;
           return responseBuilder(data);
         case 400:
-          throw GithubApiException.badRequest();
+          throw GithubException.badRequest();
         case 401:
-          throw GithubApiException.badCredentials();
+          throw GithubException.badCredentials();
         case 403:
-          throw GithubApiException.maximumNumberOfLoginAttemptsExceeded();
+          throw GithubException.maximumNumberOfLoginAttemptsExceeded();
         case 404:
-          throw GithubApiException.notFound();
+          throw GithubException.notFound();
         case 422:
-          throw GithubApiException.validationFailed();
+          throw GithubException.validationFailed();
         case 503:
-          throw GithubApiException.serviceUnavailable();
+          throw GithubException.serviceUnavailable();
         default:
-          throw GithubApiException.unknown();
+          throw GithubException.unknown();
       }
     } on SocketException catch (e) {
       logger.warning(e);
-      throw GithubApiException.noInternetConnection();
+      throw GithubException.noInternetConnection();
     }
   }
 }
