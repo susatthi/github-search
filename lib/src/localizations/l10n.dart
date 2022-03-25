@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:github_search/src/l10n/app_localizations.dart';
+import 'package:github_search/localizations/app_localizations.dart';
 
 /// AppLocalizationsを使いやすくするクラス
 class L10n {

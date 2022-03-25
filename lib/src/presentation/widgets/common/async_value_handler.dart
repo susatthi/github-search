@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/src/l10n/l10n.dart';
+import 'package:github_search/src/localizations/l10n.dart';
 import 'package:github_search/src/repositories/github/exception.dart';
 
 /// AsyncValueのerrorとloadingをよしなに処理する
