@@ -5,8 +5,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:github_search/gen/fonts.gen.dart';
 import 'package:github_search/src/config/constants.dart';
-import 'package:github_search/src/gen/fonts.gen.dart';
 import 'package:github_search/src/localizations/l10n.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
