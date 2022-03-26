@@ -3,37 +3,64 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/src/config/app.dart';
+import 'package:github_search/src/config/constants.dart';
+import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
+import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
+import 'package:github_search/src/repositories/github/api.dart';
+import 'package:github_search/src/repositories/github/repo_repository.dart';
+import 'package:github_search/src/repositories/repo_repository.dart';
 
 import '../../../../mocks/mocks.dart';
 
 void main() {
-  testWidgets('画面が表示され必要なWidgetが存在し、戻るボタン押下で元の画面に戻れるはず', (tester) async {
-    // リポジトリ一覧画面を表示したはず
-    await tester.pumpWidget(mockApp);
-    await tester.pump();
-    expect(find.text('flutter/plugins'), findsOneWidget);
+  late Widget app;
+  setUp(() {
+    app = ProviderScope(
+      overrides: [
+        // モック版のGithubHttpClientを使う
+        repoRepositoryProvider.overrideWithProvider(
+          Provider<RepoRepository>(
+            (ref) {
+              return GithubRepoRepository(
+                api: const GithubApi(),
+                client: mockGithubHttpClient,
+              );
+            },
+          ),
+        ),
+      ],
+      child: GithubSearchApp(
+        // リポジトリ詳細画面を直接表示する
+        home: ProviderScope(
+          overrides: [
+            repoDetailViewControllerProvider.overrideWithProvider(
+              repoDetailViewControllerProviderFamily({
+                kPageParamKeyOwnerName: 'flutter',
+                kPageParamKeyRepoName: 'plugins',
+              }),
+            ),
+          ],
+          child: const RepoViewPage(),
+        ),
+      ),
+    );
+  });
 
-    // ListTileをタップしてリポジトリ詳細画面に遷移する
-    await tester.tap(find.text('flutter/plugins'));
-    await tester.pump();
+  testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
+    // リポジトリ詳細画面を表示したはず
+    await tester.pumpWidget(app);
     await tester.pump();
 
     // オーナー名
-    expect(find.text('flutter'), findsNWidgets(2));
+    expect(find.text('flutter'), findsOneWidget);
 
     // リポジトリ名
     expect(find.text('plugins'), findsOneWidget);
 
     // プロジェクト言語
     expect(find.text('Dart'), findsOneWidget);
-
-    // AppBarの戻るボタン押下
-    expect(find.byIcon(Icons.arrow_back), findsOneWidget);
-    await tester.pump();
-    await tester.pump();
-
-    // リポジトリ一覧画面を表示したはず
-    expect(find.text('flutter/plugins'), findsOneWidget);
   });
 }

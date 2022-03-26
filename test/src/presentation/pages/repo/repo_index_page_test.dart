@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../../mocks/mocks.dart';
 
@@ -45,5 +46,19 @@ void main() {
     await tester.pump();
     expect(find.text('flutter/flutter'), findsNothing);
     expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
+  });
+  testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {
+    await tester.pumpWidget(mockApp);
+    await tester.pump();
+
+    expect(find.text('flutter/flutter'), findsOneWidget);
+
+    // 検索文字列を入力してキーボードのDone押下
+    await tester.tap(find.text('flutter/flutter'));
+    await tester.pump();
+
+    // 詳細画面に遷移したはず
+    await tester.pump();
+    expect(find.byType(RepoViewPage), findsOneWidget);
   });
 }

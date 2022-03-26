@@ -14,10 +14,34 @@ import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_con
 import 'package:go_router/go_router.dart';
 
 class GithubSearchApp extends StatelessWidget {
-  GithubSearchApp({Key? key}) : super(key: key);
+  GithubSearchApp({
+    Key? key,
+    Widget? home,
+  })  : _home = home,
+        super(key: key);
+
+  /// 初期表示画面（テスト用）
+  final Widget? _home;
 
   @override
   Widget build(BuildContext context) {
+    final child = _home;
+    final theme = ThemeData(
+      primarySwatch: Colors.blue,
+      fontFamily: FontFamily.murecho,
+    );
+    if (child != null) {
+      // テスト用
+      return MaterialApp(
+        localizationsDelegates: L10n.localizationsDelegates,
+        supportedLocales: L10n.supportedLocales,
+        title: 'GithubSearchTest',
+        onGenerateTitle: (context) => L10n.of(context).appName,
+        theme: theme,
+        home: child,
+      );
+    }
+
     return MaterialApp.router(
       routerDelegate: _router.routerDelegate,
       routeInformationParser: _router.routeInformationParser,
@@ -25,10 +49,7 @@ class GithubSearchApp extends StatelessWidget {
       supportedLocales: L10n.supportedLocales,
       title: 'GithubSearch',
       onGenerateTitle: (context) => L10n.of(context).appName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: FontFamily.murecho,
-      ),
+      theme: theme,
     );
   }
 
