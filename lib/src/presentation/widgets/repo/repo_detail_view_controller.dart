@@ -17,13 +17,13 @@ final repoDetailViewControllerProviderFamily = StateNotifierProvider.family
     .autoDispose<RepoDetailViewController, AsyncValue<RepoData>,
         Map<String, String>>(
   (ref, params) {
-    final reposRepository = ref.watch(repoRepositoryProvider);
+    final repoRepository = ref.watch(repoRepositoryProvider);
     final ownerName = params[kPageParamKeyOwnerName]!;
     final repoName = params[kPageParamKeyRepoName]!;
     logger
         .info('create RepoDetailViewController: fullName=$ownerName/$repoName');
     return RepoDetailViewController(
-      reposRepository,
+      repoRepository,
       ownerName: ownerName,
       repoName: repoName,
     );
@@ -32,14 +32,14 @@ final repoDetailViewControllerProviderFamily = StateNotifierProvider.family
 
 class RepoDetailViewController extends StateNotifier<AsyncValue<RepoData>> {
   RepoDetailViewController(
-    this._reposRepository, {
+    this._repoRepository, {
     required this.ownerName,
     required this.repoName,
   }) : super(const AsyncValue.loading()) {
     _get();
   }
 
-  final RepoRepository _reposRepository;
+  final RepoRepository _repoRepository;
 
   /// オーナー名
   final String ownerName;
@@ -50,7 +50,7 @@ class RepoDetailViewController extends StateNotifier<AsyncValue<RepoData>> {
   Future<void> _get() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final repo = await _reposRepository.getRepo(
+      final repo = await _repoRepository.getRepo(
         ownerName: ownerName,
         repoName: repoName,
       );

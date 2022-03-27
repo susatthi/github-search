@@ -83,6 +83,12 @@ final mockHttpClient = MockClient(
 final mockGithubHttpClient =
     GithubHttpClient(token: 'dummy', client: mockHttpClient);
 
+/// モック版のGithubRepoRepository
+final mockGithubRepoRepository = GithubRepoRepository(
+  api: const GithubApi(),
+  client: mockGithubHttpClient,
+);
+
 /// モック版のGithubSearchApp
 final mockApp = ProviderScope(
   overrides: [
@@ -90,10 +96,7 @@ final mockApp = ProviderScope(
     repoRepositoryProvider.overrideWithProvider(
       Provider<RepoRepository>(
         (ref) {
-          return GithubRepoRepository(
-            api: const GithubApi(),
-            client: mockGithubHttpClient,
-          );
+          return mockGithubRepoRepository;
         },
       ),
     ),
