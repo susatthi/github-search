@@ -13,6 +13,7 @@ class CachedCircleAvatar extends StatelessWidget {
     required this.url,
     this.size = 80,
     this.loading = true,
+    this.cacheManager,
   }) : super(key: key);
 
   /// 画像のURL
@@ -25,7 +26,10 @@ class CachedCircleAvatar extends StatelessWidget {
   final bool loading;
 
   /// CacheManager
-  CacheManager get cacheManager => CacheManager(
+  final CacheManager? cacheManager;
+
+  /// CacheManager
+  CacheManager get _defaultCacheManager => CacheManager(
         Config(
           'CachedCircleAvatarKey',
           stalePeriod: const Duration(days: 1),
@@ -36,7 +40,7 @@ class CachedCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      cacheManager: cacheManager,
+      cacheManager: cacheManager ?? _defaultCacheManager,
       height: size,
       width: size,
       imageUrl: url,
