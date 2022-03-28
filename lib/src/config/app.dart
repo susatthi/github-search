@@ -5,6 +5,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:github_search/gen/fonts.gen.dart';
 import 'package:github_search/src/localizations/l10n.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_index_page.dart';
@@ -15,21 +16,20 @@ import 'package:go_router/go_router.dart';
 class GithubSearchApp extends StatelessWidget {
   GithubSearchApp({
     Key? key,
-    Widget? home,
-  })  : _home = home,
-        super(key: key);
+    this.home,
+  }) : super(key: key);
 
   /// 初期表示画面（テスト用）
-  final Widget? _home;
+  @visibleForOverriding
+  final Widget? home;
 
   @override
   Widget build(BuildContext context) {
-    final child = _home;
     final theme = ThemeData(
       primarySwatch: Colors.blue,
       fontFamily: FontFamily.murecho,
     );
-    if (child != null) {
+    if (home != null) {
       // テスト用
       return MaterialApp(
         localizationsDelegates: L10n.localizationsDelegates,
@@ -37,7 +37,7 @@ class GithubSearchApp extends StatelessWidget {
         title: 'GithubSearchTest',
         onGenerateTitle: (context) => L10n.of(context).appName,
         theme: theme,
-        home: child,
+        home: home,
       );
     }
 
