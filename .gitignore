@@ -44,3 +44,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Test related
+/coverage/
+
+# Fvm related
+.fvm/flutter_sdk
