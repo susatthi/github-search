@@ -62,7 +62,7 @@ class RepoListViewController
   Future<void> fetchNextPage() async {
     final value = state.value;
     if (value == null) {
-      return _search();
+      return;
     }
 
     // 次のページが無ければ何もしない
@@ -81,11 +81,12 @@ class RepoListViewController
       value.items.addAll(result.items.map(RepoData.from).toList());
       logger.info(
         'result: totalCount=${result.totalCount}, '
-        'items=${value.items.length}, ',
+        'fetchItems=${result.items.length}, '
+        'totalItems=${value.items.length}, ',
       );
       return value.copyWith(
         items: value.items,
-        hasNext: value.items.length < result.totalCount,
+        hasNext: result.items.length == perPage,
         page: value.page + 1,
       );
     });
