@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/src/config/app.dart';
-import 'package:github_search/src/config/constants.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
 import 'package:github_search/src/repositories/repo_repository.dart';
@@ -20,10 +19,12 @@ void main() {
       overrides: [
         repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
         repoDetailViewControllerProvider.overrideWithProvider(
-          repoDetailViewControllerProviderFamily({
-            kPageParamKeyOwnerName: 'flutter',
-            kPageParamKeyRepoName: 'plugins',
-          }),
+          repoDetailViewControllerProviderFamily(
+            const RepoDetailViewParameter(
+              ownerName: 'flutter',
+              repoName: 'plugins',
+            ),
+          ),
         ),
       ],
       child: GithubSearchApp(

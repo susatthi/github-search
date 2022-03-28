@@ -4,13 +4,17 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/config/constants.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
 import 'package:github_search/src/repositories/repo_repository.dart';
 
 import '../../../../mocks/mocks.dart';
 
 void main() {
+  const repoDetailViewParameter = RepoDetailViewParameter(
+    ownerName: 'flutter',
+    repoName: 'flutter',
+  );
+
   group('Provider', () {
     test('repoDetailViewControllerProviderは最初はStateErrorをthrowするはず', () async {
       final container = ProviderContainer();
@@ -29,10 +33,7 @@ void main() {
       final container = ProviderContainer(
         overrides: [
           repoDetailViewControllerProvider.overrideWithProvider(
-            repoDetailViewControllerProviderFamily({
-              kPageParamKeyOwnerName: 'flutter',
-              kPageParamKeyRepoName: 'flutter',
-            }),
+            repoDetailViewControllerProviderFamily(repoDetailViewParameter),
           ),
         ],
       );
@@ -54,10 +55,7 @@ void main() {
         overrides: [
           repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
           repoDetailViewControllerProvider.overrideWithProvider(
-            repoDetailViewControllerProviderFamily({
-              kPageParamKeyOwnerName: 'flutter',
-              kPageParamKeyRepoName: 'flutter',
-            }),
+            repoDetailViewControllerProviderFamily(repoDetailViewParameter),
           ),
         ],
       );
