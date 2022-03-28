@@ -8,75 +8,41 @@ import 'package:github_search/src/entities/repo/repo.dart';
 import '../../../utils/assets.dart';
 
 void main() {
-  final repoJsonObject =
+  final jsonMap =
       TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!;
-  final searchReposResultJsonObject =
-      TestAssets.readJsonMap('github/search_repos_flutter_page1.json')!;
-  group('Repo: fromJson()', () {
+  group('fromJson()', () {
     test('インスタンスを作成できるはず', () async {
-      final repo = Repo.fromJson(repoJsonObject);
+      final repo = Repo.fromJson(jsonMap);
       expect(repo, isNotNull);
     });
   });
-  group('Repo: toString()', () {
+  group('toString()', () {
     test('正しく動くはず', () async {
-      final repo = Repo.fromJson(repoJsonObject);
+      final repo = Repo.fromJson(jsonMap);
       expect(repo.toString(), isNotNull);
     });
   });
-  group('Repo: toJson()', () {
+  group('toJson()', () {
     test('正しく動くはず', () async {
-      final repo = Repo.fromJson(repoJsonObject);
+      final repo = Repo.fromJson(jsonMap);
       expect(repo.toJson(), isMap);
     });
   });
-  group('Repo: copyWith()', () {
+  group('copyWith()', () {
     test('一致するはず', () async {
-      final repo = Repo.fromJson(repoJsonObject);
+      final repo = Repo.fromJson(jsonMap);
       final cloned = repo.copyWith();
       expect(repo.name == cloned.name, true);
       expect(repo.fullName == cloned.fullName, true);
     });
     test('一致しないはず', () async {
-      final repo = Repo.fromJson(repoJsonObject);
+      final repo = Repo.fromJson(jsonMap);
       final cloned = repo.copyWith(
         name: 'dummy',
         fullName: 'dummy',
       );
       expect(repo.name == cloned.name, false);
       expect(repo.fullName == cloned.fullName, false);
-    });
-  });
-  group('SearchReposResult: fromJson()', () {
-    test('インスタンスを作成できるはず', () async {
-      final result = SearchReposResult.fromJson(searchReposResultJsonObject);
-      expect(result, isNotNull);
-    });
-  });
-  group('SearchReposResult: toString()', () {
-    test('正しく動くはず', () async {
-      final result = SearchReposResult.fromJson(searchReposResultJsonObject);
-      expect(result.toString(), isNotNull);
-    });
-  });
-  group('SearchReposResult: toJson()', () {
-    test('正しく動くはず', () async {
-      final result = SearchReposResult.fromJson(searchReposResultJsonObject);
-      expect(result.toJson(), isMap);
-    });
-  });
-  group('SearchReposResult: copyWith()', () {
-    test('一致するはず', () async {
-      final result = SearchReposResult.fromJson(searchReposResultJsonObject);
-      final cloned = result.copyWith();
-      expect(result.totalCount == cloned.totalCount, true);
-    });
-    test('一致しないはず', () async {
-      final result = SearchReposResult.fromJson(searchReposResultJsonObject);
-      final cloned = result.copyWith(
-        totalCount: -1,
-      );
-      expect(result.totalCount == cloned.totalCount, false);
     });
   });
 }

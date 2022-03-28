@@ -24,16 +24,3 @@ class Repo with _$Repo {
 
   factory Repo.fromJson(Map<String, dynamic> json) => _$RepoFromJson(json);
 }
-
-/// リポジトリ検索結果Entity
-@freezed
-class SearchReposResult with _$SearchReposResult {
-  const factory SearchReposResult({
-    @JsonKey(name: 'total_count') required int totalCount,
-    @JsonKey(name: 'incomplete_results') required bool incompleteResults,
-    required List<Repo> items,
-  }) = _SearchReposResult;
-
-  factory SearchReposResult.fromJson(Map<String, dynamic> json) =>
-      _$SearchReposResultFromJson(json);
-}

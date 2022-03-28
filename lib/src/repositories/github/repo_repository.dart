@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:github_search/src/entities/repo/repo.dart';
+import 'package:github_search/src/entities/repo/search_repos_result.dart';
 import 'package:github_search/src/repositories/github/api.dart';
 import 'package:github_search/src/repositories/github/http_client.dart';
 import 'package:github_search/src/repositories/repo_repository.dart';
