@@ -5,7 +5,7 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/src/config/app.dart';
+import 'package:github_search/src/config/github_search_app.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_search_text_field.dart';
 import 'package:github_search/src/repositories/github/api.dart';
 import 'package:github_search/src/repositories/github/http_client.dart';
@@ -90,7 +90,7 @@ final mockGithubRepoRepository = GithubRepoRepository(
 );
 
 /// モック版のGithubSearchApp
-final mockApp = ProviderScope(
+final mockGithubSearchApp = ProviderScope(
   overrides: [
     // モック版のGithubHttpClientを使う
     repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),

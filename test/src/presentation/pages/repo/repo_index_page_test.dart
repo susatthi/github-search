@@ -11,13 +11,13 @@ import '../../../../mocks/mocks.dart';
 
 void main() {
   testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
-    await tester.pumpWidget(mockApp);
+    await tester.pumpWidget(mockGithubSearchApp);
 
     expect(find.byIcon(Icons.search), findsOneWidget);
     expect(find.byType(TextField), findsOneWidget);
   });
   testWidgets('テキスト検索を実行して検索結果が表示されるはず', (tester) async {
-    await tester.pumpWidget(mockApp);
+    await tester.pumpWidget(mockGithubSearchApp);
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -33,7 +33,7 @@ void main() {
     expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
   });
   testWidgets('キーボードのDone押下でもテキスト検索を実行するはず', (tester) async {
-    await tester.pumpWidget(mockApp);
+    await tester.pumpWidget(mockGithubSearchApp);
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -49,7 +49,7 @@ void main() {
     expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
   });
   testWidgets('一番下までスクロールしたら次のページを取得するはず', (tester) async {
-    await tester.pumpWidget(mockApp);
+    await tester.pumpWidget(mockGithubSearchApp);
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -60,7 +60,7 @@ void main() {
     expect(find.text('mahmudahsan/flutter'), findsOneWidget);
   });
   testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {
-    await tester.pumpWidget(mockApp);
+    await tester.pumpWidget(mockGithubSearchApp);
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);

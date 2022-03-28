@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/config/app.dart';
+import 'package:github_search/src/config/github_search_app.dart';
 import 'package:github_search/src/repositories/repo_repository.dart';
 
 class _TestWidget extends ConsumerWidget {
