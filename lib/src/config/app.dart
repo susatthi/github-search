@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:github_search/gen/fonts.gen.dart';
 import 'package:github_search/src/localizations/l10n.dart';
+import 'package:github_search/src/presentation/pages/error/error_page.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
@@ -81,13 +82,8 @@ class GithubSearchApp extends StatelessWidget {
       ),
     ],
     // エラー画面
-    errorBuilder: (context, state) => Scaffold(
-      appBar: AppBar(
-        title: Text(L10n.of(context).error),
-      ),
-      body: Center(
-        child: Text(state.error.toString()),
-      ),
+    errorBuilder: (context, state) => ErrorPage(
+      error: state.error,
     ),
     debugLogDiagnostics: !kReleaseMode,
   );

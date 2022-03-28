@@ -6,42 +6,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/gen/app_localizations_en.dart';
-import 'package:github_search/src/localizations/l10n.dart';
+import 'package:github_search/src/config/app.dart';
 import 'package:github_search/src/presentation/widgets/common/async_value_handler.dart';
 import 'package:github_search/src/repositories/github/exception.dart';
-
-class _TestApp<T> extends StatelessWidget {
-  const _TestApp({
-    Key? key,
-    required this.asyncValue,
-  }) : super(key: key);
-
-  final AsyncValue<T> asyncValue;
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: L10n.localizationsDelegates,
-      supportedLocales: L10n.supportedLocales,
-      home: AsyncValueHandler<T>(
-        value: asyncValue,
-        builder: (value) => Text(value.toString()),
-      ),
-    );
-  }
-}
 
 void main() {
   final l10n = AppLocalizationsEn();
   group('AsyncValueHandler', () {
     testWidgets('dataを与えて処理できるはず', (tester) async {
       await tester.pumpWidget(
-        const _TestApp<String>(asyncValue: AsyncValue.data('dummy')),
+        GithubSearchApp(
+          home: const AsyncValueHandler<String>(
+            value: AsyncValue.data('dummy'),
+            builder: Text.new,
+          ),
+        ),
       );
       expect(find.text('dummy'), findsOneWidget);
     });
     testWidgets('loadingを与えて処理できるはず', (tester) async {
       await tester.pumpWidget(
-        const _TestApp<String>(asyncValue: AsyncValue.loading()),
+        GithubSearchApp(
+          home: const AsyncValueHandler<String>(
+            value: AsyncValue.loading(),
+            builder: Text.new,
+          ),
+        ),
       );
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
@@ -120,6 +110,13 @@ Future<void> _wrapTest(
   Exception e,
   String message,
 ) async {
-  await tester.pumpWidget(_TestApp<String>(asyncValue: AsyncValue.error(e)));
+  await tester.pumpWidget(
+    GithubSearchApp(
+      home: AsyncValueHandler<Exception>(
+        value: AsyncValue.error(e),
+        builder: (value) => Text(value.toString()),
+      ),
+    ),
+  );
   expect(find.text(message), findsOneWidget);
 }

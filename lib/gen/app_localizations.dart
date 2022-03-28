@@ -106,6 +106,12 @@ abstract class AppLocalizations {
   /// **'Error'**
   String get error;
 
+  /// No description provided for @errorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error has occurred.'**
+  String get errorOccurred;
+
   /// No description provided for @forksCount.
   ///
   /// In en, this message translates to:

@@ -14,6 +14,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get error => 'エラー';
 
   @override
+  String get errorOccurred => 'エラーが発生しました。';
+
+  @override
   String get forksCount => 'Fork数';
 
   @override

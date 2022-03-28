@@ -2,6 +2,7 @@
   "@@locale": "en",
   "appName": "GithubSearch",
   "error": "Error",
+  "errorOccurred": "An error has occurred.",
   "forksCount": "Forks count",
   "githubApiExceptionMessageBadRequest": "Illegal request sent. (400)",
   "githubApiExceptionMessageBadCredentials": "Illegal request sent. (401)",

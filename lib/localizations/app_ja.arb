@@ -2,6 +2,7 @@
   "@@locale": "ja",
   "appName": "GithubSearch",
   "error": "エラー",
+  "errorOccurred": "エラーが発生しました。",
   "forksCount": "Fork数",
   "githubApiExceptionMessageBadRequest": "不正なリクエストが送信されました。(400)",
   "githubApiExceptionMessageBadCredentials": "不正なリクエストが送信されました。(401)",
