@@ -9,8 +9,6 @@ import 'package:github_search/src/config/app.dart';
 import 'package:github_search/src/config/constants.dart';
 import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/src/presentation/widgets/repo/repo_detail_view_controller.dart';
-import 'package:github_search/src/repositories/github/api.dart';
-import 'package:github_search/src/repositories/github/repo_repository.dart';
 import 'package:github_search/src/repositories/repo_repository.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -20,31 +18,17 @@ void main() {
   setUp(() {
     app = ProviderScope(
       overrides: [
-        // モック版のGithubHttpClientを使う
-        repoRepositoryProvider.overrideWithProvider(
-          Provider<RepoRepository>(
-            (ref) {
-              return GithubRepoRepository(
-                api: const GithubApi(),
-                client: mockGithubHttpClient,
-              );
-            },
-          ),
+        repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
+        repoDetailViewControllerProvider.overrideWithProvider(
+          repoDetailViewControllerProviderFamily({
+            kPageParamKeyOwnerName: 'flutter',
+            kPageParamKeyRepoName: 'plugins',
+          }),
         ),
       ],
       child: GithubSearchApp(
         // リポジトリ詳細画面を直接表示する
-        home: ProviderScope(
-          overrides: [
-            repoDetailViewControllerProvider.overrideWithProvider(
-              repoDetailViewControllerProviderFamily({
-                kPageParamKeyOwnerName: 'flutter',
-                kPageParamKeyRepoName: 'plugins',
-              }),
-            ),
-          ],
-          child: const RepoViewPage(),
-        ),
+        home: const RepoViewPage(),
       ),
     );
   });

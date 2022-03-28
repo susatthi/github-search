@@ -93,13 +93,7 @@ final mockGithubRepoRepository = GithubRepoRepository(
 final mockApp = ProviderScope(
   overrides: [
     // モック版のGithubHttpClientを使う
-    repoRepositoryProvider.overrideWithProvider(
-      Provider<RepoRepository>(
-        (ref) {
-          return mockGithubRepoRepository;
-        },
-      ),
-    ),
+    repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
     // リポジトリ検索文字列の初期値を設定する
     searchReposQueryProvider.overrideWithProvider(
       StateProvider<String>((ref) => 'flutter'),
