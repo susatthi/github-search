@@ -42,12 +42,13 @@ class RepoListViewController
   Future<void> _search() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      if (query.isEmpty) {
+      final trimQuery = query.trim();
+      if (trimQuery.isEmpty) {
         return const RepoListViewState();
       }
 
       final result = await _reposRepository.searchRepos(
-        query: query,
+        query: trimQuery,
         perPage: perPage,
       );
       logger.info(
