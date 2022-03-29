@@ -1,3 +1,7 @@
+# Copyright 2022 Keyber Inc. All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
 arb-dir: lib/localizations
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart

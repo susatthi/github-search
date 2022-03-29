@@ -1,3 +1,7 @@
+# Copyright 2022 Keyber Inc. All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
 # https://pub.dev/packages/pedantic_mono
 include: package:pedantic_mono/analysis_options.yaml
 
