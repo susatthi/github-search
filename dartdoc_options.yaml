@@ -3,6 +3,16 @@
 # found in the LICENSE file.
 
 dartdoc:
+
+  # faviconファイルへのパス
   favicon: 'assets/html/doc/favicon.ico'
+
+  # フッターファイルへのパス
   footerText:
     - 'assets/html/doc/footer.html'
+
+  # 除外するファイルのパス
+  nodoc:
+    - 'lib/assets/*.dart'
+    - 'lib/config/env.dart'
+    - 'lib/*.dart'

@@ -110,6 +110,14 @@ flutter test
 bin/flutter_coverage
 ```
 
+### ドキュメント
+
+- ドキュメントを生成する場合は下記コマンドを実行してください
+
+```shell
+bin/dartdoc
+```
+
 ## ライセンス
 
 MIT
