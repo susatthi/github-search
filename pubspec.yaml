@@ -32,6 +32,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.1.8
   flutter_gen_runner: ^4.1.6
+  flutter_launcher_icons: ^0.9.2
   flutter_test:
     sdk: flutter
   freezed: ^1.1.1
@@ -39,6 +40,8 @@ dev_dependencies:
   pedantic_mono: any
 
 flutter:
+  assets:
+    - assets/images/
   fonts:
     - family: Murecho
       fonts:
@@ -64,3 +67,11 @@ flutter:
 
 flutter_gen:
   output: lib/gen/
+
+flutter_icons:
+  # flutter pub pub run flutter_launcher_icons:main
+  android: 'ic_launcher'
+  ios: true
+  image_path: 'assets/images/icon.png'
+  adaptive_icon_background: '#eeeeee'
+  adaptive_icon_foreground: 'assets/images/icon_adaptive_foreground.png'
