@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf doc/api
+dartdoc
+open doc/api/index.html
