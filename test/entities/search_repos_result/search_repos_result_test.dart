@@ -5,7 +5,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/entities/search_repos_result/search_repos_result.dart';
 
-import '../../../utils/assets.dart';
+import '../../test_utils/utils.dart';
 
 void main() {
   final jsonMap =

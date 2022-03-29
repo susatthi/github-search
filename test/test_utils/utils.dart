@@ -12,7 +12,7 @@ class TestAssets {
     if (dir.endsWith('/test')) {
       dir = dir.replaceAll('/test', '');
     }
-    final file = File('$dir/test/assets/$path');
+    final file = File('$dir/test/test_utils/assets/$path');
     if (!file.existsSync()) {
       return null;
     }

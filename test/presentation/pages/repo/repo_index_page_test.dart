@@ -4,10 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/presentation/pages/repo/repo_view_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../mocks/mocks.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {

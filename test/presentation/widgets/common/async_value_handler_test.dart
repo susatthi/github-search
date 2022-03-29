@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/github_search_app.dart';
-import 'package:github_search/gen/app_localizations_en.dart';
-import 'package:github_search/src/presentation/widgets/common/async_value_handler.dart';
-import 'package:github_search/src/repositories/github/exception.dart';
+import 'package:github_search/localizations/app_localizations_en.dart';
+import 'package:github_search/presentation/widgets/common/async_value_handler.dart';
+import 'package:github_search/repositories/github/exception.dart';
 
 void main() {
   final l10n = AppLocalizationsEn();

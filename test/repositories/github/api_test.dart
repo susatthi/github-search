@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/repositories/github/api.dart';
+import 'package:github_search/repositories/github/api.dart';
 
 void main() {
   late GithubApi api;

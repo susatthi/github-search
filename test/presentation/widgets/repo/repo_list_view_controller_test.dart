@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/widgets/repo/repo_list_view_controller.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
-import 'package:github_search/src/repositories/repo_repository.dart';
+import 'package:github_search/repositories/repo_repository.dart';
 
-import '../../../../mocks/mocks.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   late RepoListViewController controller;

@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/entities/owner/owner.dart';
 import 'package:github_search/entities/repo/repo.dart';
-import 'package:github_search/src/entities/owner/owner.dart';
-import 'package:github_search/src/repositories/github/exception.dart';
+import 'package:github_search/repositories/github/exception.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../test_utils/mocks.dart';
 
 void main() {
   group('get()', () {

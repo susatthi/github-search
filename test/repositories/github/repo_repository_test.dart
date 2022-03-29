@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/repositories/github/api.dart';
-import 'package:github_search/src/repositories/github/repo_repository.dart';
+import 'package:github_search/repositories/github/api.dart';
+import 'package:github_search/repositories/github/repo_repository.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../test_utils/mocks.dart';
 
 void main() {
   late GithubRepoRepository repository;

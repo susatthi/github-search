@@ -5,8 +5,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/github_search_app.dart';
-import 'package:github_search/gen/app_localizations_en.dart';
-import 'package:github_search/src/presentation/pages/error/error_page.dart';
+import 'package:github_search/localizations/app_localizations_en.dart';
+import 'package:github_search/presentation/pages/error/error_page.dart';
 
 void main() {
   final l10n = AppLocalizationsEn();

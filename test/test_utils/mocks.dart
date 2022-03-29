@@ -7,14 +7,14 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
-import 'package:github_search/src/repositories/github/api.dart';
-import 'package:github_search/src/repositories/github/http_client.dart';
-import 'package:github_search/src/repositories/github/repo_repository.dart';
-import 'package:github_search/src/repositories/repo_repository.dart';
+import 'package:github_search/repositories/github/api.dart';
+import 'package:github_search/repositories/github/http_client.dart';
+import 'package:github_search/repositories/github/repo_repository.dart';
+import 'package:github_search/repositories/repo_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
-import '../utils/assets.dart';
+import 'utils.dart';
 
 /// モック版のHTTPクライアント
 final mockHttpClient = MockClient(

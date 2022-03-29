@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/entities/owner/owner.dart';
-import 'package:github_search/src/entities/owner/owner_data.dart';
+import 'package:github_search/entities/owner/owner.dart';
+import 'package:github_search/entities/owner/owner_data.dart';
 
-import '../../../utils/assets.dart';
+import '../../test_utils/utils.dart';
 
 void main() {
   final ownerJsonObject = TestAssets.readJsonMap('github/owner.json')!;

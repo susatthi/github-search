@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/entities/repo/repo.dart';
 import 'package:github_search/entities/repo/repo_data.dart';
 
-import '../../../utils/assets.dart';
+import '../../test_utils/utils.dart';
 
 void main() {
   final repoJsonObject =
