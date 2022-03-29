@@ -4,8 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/config/env.dart';
-import 'package:github_search/src/presentation/widgets/repo/repo_search_text_field.dart';
+import 'package:github_search/config/env.dart';
+import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
 
 void main() {
   late ProviderContainer container;

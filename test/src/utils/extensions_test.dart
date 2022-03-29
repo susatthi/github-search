@@ -4,7 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/src/entities/owner/owner.dart';
-import 'package:github_search/src/utils/extensions.dart';
+import 'package:github_search/utils/extensions.dart';
 
 void main() {
   late List<int> listInt;

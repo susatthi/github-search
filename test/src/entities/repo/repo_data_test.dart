@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/entities/repo/repo.dart';
-import 'package:github_search/src/entities/repo/repo_data.dart';
+import 'package:github_search/entities/repo/repo.dart';
+import 'package:github_search/entities/repo/repo_data.dart';
 
 import '../../../utils/assets.dart';
 

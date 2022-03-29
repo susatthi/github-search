@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/src/utils/logger.dart';
+import 'package:github_search/utils/logger.dart';
 
 void main() {
   group('logger', () {
