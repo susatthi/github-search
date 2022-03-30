@@ -75,7 +75,9 @@ jobs:
 
       # dartdoc を実行
       - name: Run Dartdoc
-        run: dartdoc
+        run: |
+        dart pub global activate dartdoc
+        dartdoc
 
       # API ファイルを artifacts にアップロード
       - name: Upload API doc to Artifacts
