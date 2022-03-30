@@ -56,9 +56,9 @@ jobs:
 #          ${{ secrets.ENV_DART }}
 #          EOF
 
-      # 静的解析を実行して結果をアップロード
+      # 静的解析を実行
       - name: Run Flutter Analyze
-        uses: zgosalvez/github-actions-analyze-dart@v1
+        run: flutter analyze
 
 #      # テストを実行
 #      - name: Run Flutter Test
