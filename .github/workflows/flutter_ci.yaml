@@ -68,11 +68,21 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
           file: ~/coverage/lcov.info
           fail_ci_if_error: true
           flags: unittests
           verbose: true
+
+      # dartdoc を実行
+      - name: Run Dartdoc
+        run: dartdoc
+
+      # API ファイルを artifacts にアップロード
+      - name: Upload API doc to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-doc
+          path: doc/api
 
 #      # Android Release Build
 #      - name: Build for Android
