@@ -114,14 +114,15 @@ jobs:
     steps:
       - name: Setup Ruby
         if: ${{ needs.flutter_ci.result == 'failure' }}
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.6'
+          bundler-cache: true
       - name: Setup Danger
         if: ${{ needs.flutter_ci.result == 'failure' }}
         run: |
-          gem install bundler
-          bundle install
+          sudo gem install bundler
+          sudo bundle install
       - name: Execute Danger
         if: ${{ needs.flutter_ci.result == 'failure' }}
         uses: MeilCli/danger-action@v5
