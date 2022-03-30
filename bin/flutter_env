@@ -1,0 +1,83 @@
+#!/bin/bash
+
+
+# デフォルトの環境変数ファイルへのパス
+ENV_DEFAULT_FILE_PATH=lib/config/env.default.dart
+
+# 環境変数ファイルへのパス
+ENV_FILE_PATH=lib/config/env.dart
+
+# 作業中の環境変数ファイルへのパス
+ENV_TMP_FILE_PATH=tmp.dart
+
+# 後処理をする
+function cleanup() {
+  if [ -e ${ENV_TMP_FILE_PATH} ]; then
+    rm ${ENV_TMP_FILE_PATH}
+    echo "Deleted ${ENV_TMP_FILE_PATH}"
+  fi
+}
+
+# コマンドの使用方法を出力して終了する
+function usage {
+  cat <<EOM
+Usage: $(basename "$0") [OPTION]...
+  -h          ヘルプを表示します
+  -g VALUE    GitHub OAuth Token を設定する
+  -s VALUE    デフォルト検索文字列を設定する
+EOM
+
+  # 後処理
+  cleanup
+
+  exit 2
+}
+
+# 処理する
+function perform() {
+  # GITHUB_OAUTH_TOKEN が設定されていなければ処理終了
+  if [ -z ${GITHUB_OAUTH_TOKEN} ]; then
+    usage
+  fi
+
+  echo "GITHUB_OAUTH_TOKEN=${GITHUB_OAUTH_TOKEN}"
+  echo "DEFAULT_SEARCH_VALUE=${DEFAULT_SEARCH_VALUE}"
+
+  # tmpファイルを作成する
+  cp ${ENV_DEFAULT_FILE_PATH} ${ENV_TMP_FILE_PATH}
+  echo "Created ${ENV_TMP_FILE_PATH}"
+
+  # tmpファイルを加工する
+  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_OAUTH_TOKEN/${GITHUB_OAUTH_TOKEN}/g" > ${ENV_TMP_FILE_PATH}
+  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_SEARCH_VALUE/${DEFAULT_SEARCH_VALUE}/g" > ${ENV_TMP_FILE_PATH}
+
+  # 環境変数ファイルを作成する
+  cp ${ENV_TMP_FILE_PATH} ${ENV_FILE_PATH}
+  echo "Created ${ENV_FILE_PATH}"
+}
+
+# 各オプションに応じた実行内容を記述する
+while getopts "g:s:h" optKey; do
+  case "$optKey" in
+    g)
+      # GitHub OAuth Token を設定する
+      GITHUB_OAUTH_TOKEN=${OPTARG}
+      ;;
+    s)
+      # デフォルト検索文字列を設定する
+      DEFAULT_SEARCH_VALUE=${OPTARG}
+      ;;
+    '-h'|'--help'|* )
+      # -h、--helpの場合、もしくは定義したパラメータ以外の場合の実行内容
+      usage
+      ;;
+  esac
+done
+
+# 処理実行
+perform
+
+# 後処理
+cleanup
+
+exit 0
