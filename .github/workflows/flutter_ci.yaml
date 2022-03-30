@@ -79,7 +79,7 @@ jobs:
         run: flutter build appbundle -t lib/main.dart --release
 
       # iOS Release Build
-      - name: Build for Android
+      - name: Build for iOS
         run: flutter build ipa -t lib/main.dart --release
 
       # Web Release Build
@@ -89,7 +89,7 @@ jobs:
   # Slack通知ジョブ
   notify_slack:
     name: Notify to Slack
-    if: always()
+    if: ${{ always() }}
     needs: flutter_ci
     runs-on: ubuntu-latest
     env:
@@ -101,7 +101,7 @@ jobs:
 
       # テストに成功したとき
       - name: Notify Succeed
-        if: ${{ success() }}
+        if: ${{ needs.flutter_ci.result == 'success' }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESS!
@@ -109,7 +109,7 @@ jobs:
 
       # テストに失敗したとき
       - name: Notify Failure
-        if: ${{ failure() }}
+        if: ${{ needs.flutter_ci.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: FAILURE...
