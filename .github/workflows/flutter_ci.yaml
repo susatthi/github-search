@@ -64,6 +64,7 @@ jobs:
       - name: Run Flutter Test
         run: |
           flutter test --no-test-assets --coverage
+          apt install lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
       # Codecov に結果を送信
