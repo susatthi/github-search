@@ -1,6 +1,5 @@
 [![codecov](https://codecov.io/gh/keyber-inc/github_search/branch/develop/graph/badge.svg?token=C48OG86U8O)](https://codecov.io/gh/keyber-inc/github_search)
 
-
 # Github Search
 
 [Github API](https://docs.github.com/ja/rest) を利用して Github のリポジトリを検索するアプリです。[株式会社ゆめみのFlutterエンジニアコードチェック](https://github.com/yumemi-inc/flutter-engineer-codecheck)の要件を満たすよう実装しています。

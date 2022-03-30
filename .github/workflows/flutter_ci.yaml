@@ -58,7 +58,14 @@ jobs:
 
       # 静的解析を実行
       - name: Run Flutter Analyze
-        run: flutter analyze
+        run: flutter analyze > flutter_analyze_report.txt
+
+      # 静的解析レポートを artifacts にアップロード
+      - name: Upload analyze report to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: flutter-analyze-report
+          path: flutter_analyze_report.txt
 
       # テストを実行
       - name: Run Flutter Test
@@ -78,13 +85,25 @@ jobs:
       - name: Build for Android
         run: flutter build appbundle -t lib/main.dart --release
 
-      # iOS Release Build
-      - name: Build for iOS
-        run: flutter build ipa -t lib/main.dart --release
+      # aab ファイルを artifacts にアップロード
+      - name: Upload aab to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-release
+          path: build/app/outputs/bundle/release/app-release.aab
 
       # Web Release Build
       - name: Build for Web
-        run: flutter build web -t lib/main.dart --web-renderer html
+        run: |
+          flutter config --enable-web
+          flutter build web -t lib/main.dart --web-renderer html
+
+      # web ファイル一式を artifacts にアップロード
+      - name: Upload web to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-release
+          path: build/web
 
   # Slack通知ジョブ
   notify_slack:
@@ -95,7 +114,7 @@ jobs:
     env:
       SLACK_CHANNEL: 個人開発_すさ_github_search
       SLACK_USERNAME: GitHub Actions
-      SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+      SLACK_ICON: https://raw.githubusercontent.com/github/explore/2c7e603b797535e5ad8b4beb575ab3b7354666e1/topics/actions/actions.png
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
 
