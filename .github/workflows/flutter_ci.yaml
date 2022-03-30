@@ -236,7 +236,7 @@ jobs:
 
       # すべて成功したとき
       - name: Notify Succeed
-        if: ${{ needs.flutter_test.result == 'success' && needs.flutter_build.result == 'success' }}
+        if: ${{ needs.flutter_test.result == 'success' && needs.flutter_build_android.result == 'success' && needs.flutter_build_web.result == 'success' && needs.flutter_api.result == 'success' }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESS!
@@ -250,12 +250,20 @@ jobs:
           SLACK_TITLE: FAILURE TEST...
           SLACK_COLOR: danger
 
-      # ビルドに失敗したとき
+      # Android ビルドに失敗したとき
       - name: Notify Failure Build
-        if: ${{ needs.flutter_build.result == 'failure' }}
+        if: ${{ needs.flutter_build_android.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_TITLE: FAILURE BUILD...
+          SLACK_TITLE: FAILURE BUILD ANDROID...
+          SLACK_COLOR: danger
+
+      # Web ビルドに失敗したとき
+      - name: Notify Failure Build
+        if: ${{ needs.flutter_build_web.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE BUILD WEB...
           SLACK_COLOR: danger
 
       # API doc 作成に失敗したとき
