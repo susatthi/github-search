@@ -44,8 +44,10 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-      - run: flutter --version
-      - run: flutter pub get
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -69,9 +71,18 @@ jobs:
           file: ~/coverage/lcov.info
           flags: unittest,widgettest
 
+      # Android Release Build
+      - name: Build for Android
+        run: flutter build appbundle -t lib/main.dart --release
+
+      # Web Release Build
+      - name: Build for Web
+        run: flutter build web -t lib/main.dart --web-renderer html
+
   # Slack通知ジョブ
   notify_slack:
     name: Notify to Slack
+    if: always()
     needs: flutter_ci
     runs-on: ubuntu-latest
     env:
