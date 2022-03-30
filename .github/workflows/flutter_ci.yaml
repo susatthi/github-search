@@ -16,6 +16,7 @@ on:
     branches:
       - main
       - develop
+      - feature/29_ci # for debug
 
 jobs:
   flutter_ci:
@@ -55,7 +56,7 @@ jobs:
 
       # Codecov に結果を送信
       - name: Upload to Codecov
-      - uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v2
         with:
           file: ~/coverage/lcov.info
           flags: unittest,widgettest
