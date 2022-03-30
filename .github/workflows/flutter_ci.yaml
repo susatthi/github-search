@@ -62,53 +62,55 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets --coverage --coverage-path=~/coverage/lcov.info
+        run: |
+          flutter test --no-test-assets --coverage
+          lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
       # Codecov に結果を送信
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-          file: ~/coverage/lcov.info
+          file: coverage/lcov.info
           fail_ci_if_error: true
           flags: unittests
           verbose: true
 
-      # dartdoc を実行
-      - name: Run Dartdoc
-        run: |
-          dart pub global activate dartdoc
-          dartdoc
-
-      # API ファイルを artifacts にアップロード
-      - name: Upload API doc to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: api-doc
-          path: doc/api
-
-      # Android Release Build
-      - name: Build for Android
-        run: flutter build appbundle -t lib/main.dart --release
-
-      # aab ファイルを artifacts にアップロード
-      - name: Upload aab to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-release
-          path: build/app/outputs/bundle/release/app-release.aab
-
-      # Web Release Build
-      - name: Build for Web
-        run: |
-          flutter config --enable-web
-          flutter build web -t lib/main.dart --web-renderer html
-
-      # web ファイル一式を artifacts にアップロード
-      - name: Upload web to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: web-release
-          path: build/web
+#      # dartdoc を実行
+#      - name: Run Dartdoc
+#        run: |
+#          dart pub global activate dartdoc
+#          dartdoc
+#
+#      # API ファイルを artifacts にアップロード
+#      - name: Upload API doc to Artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: api-doc
+#          path: doc/api
+#
+#      # Android Release Build
+#      - name: Build for Android
+#        run: flutter build appbundle -t lib/main.dart --release
+#
+#      # aab ファイルを artifacts にアップロード
+#      - name: Upload aab to Artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: android-release
+#          path: build/app/outputs/bundle/release/app-release.aab
+#
+#      # Web Release Build
+#      - name: Build for Web
+#        run: |
+#          flutter config --enable-web
+#          flutter build web -t lib/main.dart --web-renderer html
+#
+#      # web ファイル一式を artifacts にアップロード
+#      - name: Upload web to Artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: web-release
+#          path: build/web
 
   # Slack通知ジョブ
   notify_slack:
