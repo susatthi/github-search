@@ -56,16 +56,9 @@ jobs:
 #          ${{ secrets.ENV_DART }}
 #          EOF
 
-      # 静的解析を実行
+      # 静的解析を実行して結果をアップロード
       - name: Run Flutter Analyze
-        run: flutter analyze > flutter_analyze_report.txt
-
-      # 静的解析レポートを artifacts にアップロード
-      - name: Upload analyze report to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: flutter-analyze-report
-          path: flutter_analyze_report.txt
+        uses: zgosalvez/github-actions-analyze-dart@v1
 
 #      # テストを実行
 #      - name: Run Flutter Test
@@ -104,37 +97,6 @@ jobs:
 #        with:
 #          name: web-release
 #          path: build/web
-
-  # 静的解析結果をコメントする
-  comment_analyze_report:
-    name: Comment Analyze Report
-    if: ${{ always() }}
-    needs: flutter_ci
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup Ruby
-        if: ${{ needs.flutter_ci.result == 'failure' }}
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-          bundler-cache: true
-      - name: Setup Danger
-        if: ${{ needs.flutter_ci.result == 'failure' }}
-        run: |
-          gem install bundler
-          pwd
-          ls -al
-          bundle install
-      - name: Execute Danger
-        if: ${{ needs.flutter_ci.result == 'failure' }}
-        uses: MeilCli/danger-action@v5
-        with:
-          plugins_file: 'Gemfile'
-          install_path: 'vendor/bundle'
-          danger_file: 'Dangerfile'
-          danger_id: 'danger-pr'
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
   # Slack通知ジョブ
   notify_slack:
