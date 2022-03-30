@@ -121,8 +121,10 @@ jobs:
       - name: Setup Danger
         if: ${{ needs.flutter_ci.result == 'failure' }}
         run: |
-          sudo gem install bundler
-          sudo bundle install
+          gem install bundler
+          pwd
+          ls -al
+          bundle install
       - name: Execute Danger
         if: ${{ needs.flutter_ci.result == 'failure' }}
         uses: MeilCli/danger-action@v5
