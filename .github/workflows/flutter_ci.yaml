@@ -49,31 +49,31 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-#      # 環境変数ファイル（env.dart）を作成
-#      - name: Create env.dart
-#        run: |
-#          cat <<EOF > lib/config/env.dart
-#          ${{ secrets.ENV_DART }}
-#          EOF
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: |
+          cat <<EOF > lib/config/env.dart
+          ${{ secrets.ENV_DART }}
+          EOF
 
       # 静的解析を実行
       - name: Run Flutter Analyze
         run: flutter analyze
 
-#      # テストを実行
-#      - name: Run Flutter Test
-#        run: flutter test --no-test-assets --coverage --coverage-path=~/coverage/lcov.info
-#
-#      # Codecov に結果を送信
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v2
-#        with:
+      # テストを実行
+      - name: Run Flutter Test
+        run: flutter test --no-test-assets --coverage --coverage-path=~/coverage/lcov.info
+
+      # Codecov に結果を送信
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
 #          token: ${{ secrets.CODECOV_TOKEN }}
-#          file: ~/coverage/lcov.info
-#          fail_ci_if_error: true
-#          flags: unittests
-#          verbose: true
-#
+          file: ~/coverage/lcov.info
+          fail_ci_if_error: true
+          flags: unittests
+          verbose: true
+
 #      # Android Release Build
 #      - name: Build for Android
 #        run: flutter build appbundle -t lib/main.dart --release
