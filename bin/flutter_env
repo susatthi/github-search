@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright 2022 Keyber Inc. All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
 
 # デフォルトの環境変数ファイルへのパス
 ENV_DEFAULT_FILE_PATH=lib/config/env.default.dart
@@ -49,8 +52,6 @@ function perform() {
   cp ${ENV_DEFAULT_FILE_PATH} ${ENV_TMP_FILE_PATH}
 
   # tmpファイルを加工する
-#  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_OAUTH_TOKEN/${GITHUB_OAUTH_TOKEN}/g" > ${ENV_TMP_FILE_PATH}
-#  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_SEARCH_VALUE/${DEFAULT_SEARCH_VALUE}/g" > ${ENV_TMP_FILE_PATH}
   sed -i -e "s/YOUR_OAUTH_TOKEN/${GITHUB_OAUTH_TOKEN}/g" ${ENV_TMP_FILE_PATH}
   sed -i -e "s/YOUR_SEARCH_VALUE/${DEFAULT_SEARCH_VALUE}/g" ${ENV_TMP_FILE_PATH}
 

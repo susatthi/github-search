@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Copyright 2022 Keyber Inc. All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
 flutter test --no-test-assets --coverage
 lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 genhtml coverage/lcov.info -o coverage/html
