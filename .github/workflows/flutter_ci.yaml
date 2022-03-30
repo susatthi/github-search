@@ -31,8 +31,9 @@ jobs:
         with:
           fetch-depth: 1
 
-      # .fvm/fvm_config.json を環境変数に設定
-      - uses: kuhnroyal/flutter-fvm-config-action@v1
+      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
 
       # Flutter SDK の設定
       - name: Setup Flutter SDK
@@ -45,6 +46,13 @@ jobs:
           cache-path: ${{ runner.tool_cache }}/flutter
       - run: flutter --version
       - run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: |
+          cat <<EOF > lib/config/env.dart
+          ${{ secrets.ENV_DART }}
+          EOF
 
       # 静的解析を実行
       - name: Run Flutter Analyze
