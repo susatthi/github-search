@@ -67,43 +67,68 @@ jobs:
           name: flutter-analyze-report
           path: flutter_analyze_report.txt
 
-      # テストを実行
-      - name: Run Flutter Test
-        run: flutter test --no-test-assets --coverage --coverage-path=~/coverage/lcov.info
+#      # テストを実行
+#      - name: Run Flutter Test
+#        run: flutter test --no-test-assets --coverage --coverage-path=~/coverage/lcov.info
+#
+#      # Codecov に結果を送信
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v2
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          file: ~/coverage/lcov.info
+#          fail_ci_if_error: true
+#          flags: unittests
+#          verbose: true
+#
+#      # Android Release Build
+#      - name: Build for Android
+#        run: flutter build appbundle -t lib/main.dart --release
+#
+#      # aab ファイルを artifacts にアップロード
+#      - name: Upload aab to Artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: android-release
+#          path: build/app/outputs/bundle/release/app-release.aab
+#
+#      # Web Release Build
+#      - name: Build for Web
+#        run: |
+#          flutter config --enable-web
+#          flutter build web -t lib/main.dart --web-renderer html
+#
+#      # web ファイル一式を artifacts にアップロード
+#      - name: Upload web to Artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: web-release
+#          path: build/web
 
-      # Codecov に結果を送信
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+  # 静的解析結果をコメントする
+  comment_analyze_report:
+    name: Comment Analyze Report
+    if: ${{ needs.flutter_ci.result == 'failure' }}
+    needs: flutter_ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ~/coverage/lcov.info
-          fail_ci_if_error: true
-          flags: unittests
-          verbose: true
-
-      # Android Release Build
-      - name: Build for Android
-        run: flutter build appbundle -t lib/main.dart --release
-
-      # aab ファイルを artifacts にアップロード
-      - name: Upload aab to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-release
-          path: build/app/outputs/bundle/release/app-release.aab
-
-      # Web Release Build
-      - name: Build for Web
+          ruby-version: '2.6'
+      - name: Setup Danger
         run: |
-          flutter config --enable-web
-          flutter build web -t lib/main.dart --web-renderer html
-
-      # web ファイル一式を artifacts にアップロード
-      - name: Upload web to Artifacts
-        uses: actions/upload-artifact@v3
+          gem install bundler
+          bundle install
+      - name: Execute Danger
+        uses: MeilCli/danger-action@v5
         with:
-          name: web-release
-          path: build/web
+          plugins_file: 'Gemfile'
+          install_path: 'vendor/bundle'
+          danger_file: 'Dangerfile'
+          danger_id: 'danger-pr'
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
   # Slack通知ジョブ
   notify_slack:
