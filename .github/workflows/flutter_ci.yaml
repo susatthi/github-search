@@ -1,0 +1,84 @@
+# Copyright 2022 Keyber Inc. All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
+name: Flutter CI
+
+on:
+  # プルリクエストが作成or更新された時
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+  # main or develop ブランチに push された時
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  flutter_ci:
+    name: Flutter CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      # .fvm/fvm_config.json を環境変数に設定
+      - uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+      - run: flutter --version
+      - run: flutter pub get
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      # テストを実行
+      - name: Run Flutter Test
+        run: flutter test --no-test-assets --coverage --coverage-path=~/coverage/lcov.info
+
+      # Codecov に結果を送信
+      - name: Upload to Codecov
+      - uses: codecov/codecov-action@v2
+        with:
+          file: ~/coverage/lcov.info
+          flags: unittest,widgettest
+
+  # Slack通知ジョブ
+  notify_slack:
+    name: Notify to Slack
+    needs: flutter_ci
+    runs-on: ubuntu-latest
+    env:
+      SLACK_CHANNEL: 個人開発_すさ_github_search
+      SLACK_USERNAME: GitHub Actions
+      SLACK_ICON: https://avatars.slack-edge.com/2020-11-25/1527503386626_319578f21381f9641cd8_512.png
+      SLACK_COLOR: ${{ job.status }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Succeed
+        if: ${{ success() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: SUCCEED
+      - name: Failure
+        if: ${{ failure() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE
