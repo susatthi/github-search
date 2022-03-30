@@ -31,6 +31,10 @@ jobs:
         with:
           fetch-depth: 1
 
+      # テスト後の処理に必要なライブラリ lcov をインストールする
+      - name: Install lcov
+        run: sudo apt-get install -y lcov
+
       # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
@@ -64,7 +68,6 @@ jobs:
       - name: Run Flutter Test
         run: |
           flutter test --no-test-assets --coverage
-          apt install lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
       # Codecov に結果を送信
