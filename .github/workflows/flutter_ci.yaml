@@ -20,6 +20,7 @@ on:
 
 jobs:
   # テストジョブ
+  # 最初に実行する
   flutter_test:
     name: Flutter Test
     runs-on: ubuntu-latest
@@ -77,9 +78,10 @@ jobs:
           flags: unittests
           verbose: true
 
-  # ビルドジョブ、テストジョブが成功したら実行する
-  flutter_build:
-    name: Flutter Build
+  # Android ビルドジョブ
+  # テストジョブが成功したら実行する
+  flutter_build_android:
+    name: Flutter Build for Android
     needs: flutter_test
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -127,6 +129,46 @@ jobs:
           name: android-release
           path: build/app/outputs/bundle/release/app-release.aab
 
+  # Web ビルドジョブ
+  # テストジョブが成功したら実行する
+  flutter_build_web:
+    name: Flutter Build for Web
+    needs: flutter_test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: |
+          cat <<EOF > lib/config/env.dart
+          ${{ secrets.ENV_DART }}
+          EOF
+
       # Web Release Build
       - name: Build for Web
         run: |
@@ -140,10 +182,11 @@ jobs:
           name: web-release
           path: build/web
 
-  # API doc 作成ジョブ、テストとビルドが成功したら実行する
+  # API doc 作成ジョブ
+  # テストとビルドが成功したら実行する
   flutter_api:
     name: Flutter API doc
-    needs: [flutter_test, flutter_build]
+    needs: [flutter_test, flutter_build_android, flutter_build_web]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -153,6 +196,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
 
       # dartdoc を実行
       - name: Run Dartdoc
@@ -168,10 +221,11 @@ jobs:
           path: doc/api
 
   # Slack通知ジョブ
+  # すべてのジョブが終了したら実行する
   notify_slack:
     name: Notify to Slack
     if: ${{ always() }}
-    needs: [flutter_test, flutter_build]
+    needs: [flutter_test, flutter_build_android, flutter_build_web, flutter_api]
     runs-on: ubuntu-latest
     env:
       SLACK_CHANNEL: 個人開発_すさ_github_search
@@ -202,4 +256,12 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: FAILURE BUILD...
+          SLACK_COLOR: danger
+
+      # API doc 作成に失敗したとき
+      - name: Notify Failure API doc
+        if: ${{ needs.flutter_api.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE API DOC...
           SLACK_COLOR: danger
