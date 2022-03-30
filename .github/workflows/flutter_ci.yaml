@@ -108,19 +108,22 @@ jobs:
   # 静的解析結果をコメントする
   comment_analyze_report:
     name: Comment Analyze Report
-    if: ${{ needs.flutter_ci.result == 'failure' }}
+    if: ${{ always() }}
     needs: flutter_ci
     runs-on: ubuntu-latest
     steps:
       - name: Setup Ruby
+        if: ${{ needs.flutter_ci.result == 'failure' }}
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.6'
       - name: Setup Danger
+        if: ${{ needs.flutter_ci.result == 'failure' }}
         run: |
           gem install bundler
           bundle install
       - name: Execute Danger
+        if: ${{ needs.flutter_ci.result == 'failure' }}
         uses: MeilCli/danger-action@v5
         with:
           plugins_file: 'Gemfile'
