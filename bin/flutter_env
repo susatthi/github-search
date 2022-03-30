@@ -14,7 +14,9 @@ ENV_TMP_FILE_PATH=tmp.dart
 function cleanup() {
   if [ -e ${ENV_TMP_FILE_PATH} ]; then
     rm ${ENV_TMP_FILE_PATH}
-    echo "Deleted ${ENV_TMP_FILE_PATH}"
+  fi
+  if [ -e "${ENV_TMP_FILE_PATH}-e" ]; then
+    rm "${ENV_TMP_FILE_PATH}-e"
   fi
 }
 
@@ -45,11 +47,12 @@ function perform() {
 
   # tmpファイルを作成する
   cp ${ENV_DEFAULT_FILE_PATH} ${ENV_TMP_FILE_PATH}
-  echo "Created ${ENV_TMP_FILE_PATH}"
 
   # tmpファイルを加工する
-  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_OAUTH_TOKEN/${GITHUB_OAUTH_TOKEN}/g" > ${ENV_TMP_FILE_PATH}
-  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_SEARCH_VALUE/${DEFAULT_SEARCH_VALUE}/g" > ${ENV_TMP_FILE_PATH}
+#  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_OAUTH_TOKEN/${GITHUB_OAUTH_TOKEN}/g" > ${ENV_TMP_FILE_PATH}
+#  cat ${ENV_TMP_FILE_PATH} | sed -e "s/YOUR_SEARCH_VALUE/${DEFAULT_SEARCH_VALUE}/g" > ${ENV_TMP_FILE_PATH}
+  sed -i -e "s/YOUR_OAUTH_TOKEN/${GITHUB_OAUTH_TOKEN}/g" ${ENV_TMP_FILE_PATH}
+  sed -i -e "s/YOUR_SEARCH_VALUE/${DEFAULT_SEARCH_VALUE}/g" ${ENV_TMP_FILE_PATH}
 
   # 環境変数ファイルを作成する
   cp ${ENV_TMP_FILE_PATH} ${ENV_FILE_PATH}
