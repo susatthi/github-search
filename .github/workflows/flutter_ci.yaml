@@ -19,8 +19,9 @@ on:
       - feature/29_ci # for debug
 
 jobs:
-  flutter_ci:
-    name: Flutter CI
+  # テストジョブ
+  flutter_test:
+    name: Flutter Test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -30,10 +31,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
-
-      # テスト後の処理に必要なライブラリ lcov をインストールする
-      - name: Install lcov
-        run: sudo apt-get install -y lcov
 
       # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
       - name: Check fvm
@@ -68,6 +65,7 @@ jobs:
       - name: Run Flutter Test
         run: |
           flutter test --no-test-assets --coverage
+          sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
       # Codecov に結果を送信
@@ -79,48 +77,101 @@ jobs:
           flags: unittests
           verbose: true
 
-#      # dartdoc を実行
-#      - name: Run Dartdoc
-#        run: |
-#          dart pub global activate dartdoc
-#          dartdoc
-#
-#      # API ファイルを artifacts にアップロード
-#      - name: Upload API doc to Artifacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: api-doc
-#          path: doc/api
-#
-#      # Android Release Build
-#      - name: Build for Android
-#        run: flutter build appbundle -t lib/main.dart --release
-#
-#      # aab ファイルを artifacts にアップロード
-#      - name: Upload aab to Artifacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: android-release
-#          path: build/app/outputs/bundle/release/app-release.aab
-#
-#      # Web Release Build
-#      - name: Build for Web
-#        run: |
-#          flutter config --enable-web
-#          flutter build web -t lib/main.dart --web-renderer html
-#
-#      # web ファイル一式を artifacts にアップロード
-#      - name: Upload web to Artifacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: web-release
-#          path: build/web
+  # ビルドジョブ、テストジョブが成功したら実行する
+  flutter_build:
+    name: Flutter Build
+    needs: flutter_test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: |
+          cat <<EOF > lib/config/env.dart
+          ${{ secrets.ENV_DART }}
+          EOF
+
+      # Android Release Build
+      - name: Build for Android
+        run: flutter build appbundle -t lib/main.dart --release
+
+      # aab ファイルを artifacts にアップロード
+      - name: Upload aab to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-release
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      # Web Release Build
+      - name: Build for Web
+        run: |
+          flutter config --enable-web
+          flutter build web -t lib/main.dart --web-renderer html
+
+      # web ファイル一式を artifacts にアップロード
+      - name: Upload web to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-release
+          path: build/web
+
+  # API doc 作成ジョブ、テストとビルドが成功したら実行する
+  flutter_api:
+    name: Flutter API doc
+    needs: [flutter_test, flutter_build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      # dartdoc を実行
+      - name: Run Dartdoc
+        run: |
+          dart pub global activate dartdoc
+          dartdoc
+
+      # API ファイルを artifacts にアップロード
+      - name: Upload API doc to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-doc
+          path: doc/api
 
   # Slack通知ジョブ
   notify_slack:
     name: Notify to Slack
     if: ${{ always() }}
-    needs: flutter_ci
+    needs: [flutter_test, flutter_build]
     runs-on: ubuntu-latest
     env:
       SLACK_CHANNEL: 個人開発_すさ_github_search
@@ -129,18 +180,26 @@ jobs:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
 
-      # テストに成功したとき
+      # すべて成功したとき
       - name: Notify Succeed
-        if: ${{ needs.flutter_ci.result == 'success' }}
+        if: ${{ needs.flutter_test.result == 'success' && needs.flutter_build.result == 'success' }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESS!
           SLACK_COLOR: good
 
       # テストに失敗したとき
-      - name: Notify Failure
-        if: ${{ needs.flutter_ci.result == 'failure' }}
+      - name: Notify Failure Test
+        if: ${{ needs.flutter_test.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_TITLE: FAILURE...
+          SLACK_TITLE: FAILURE TEST...
+          SLACK_COLOR: danger
+
+      # ビルドに失敗したとき
+      - name: Notify Failure Build
+        if: ${{ needs.flutter_build.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE BUILD...
           SLACK_COLOR: danger
