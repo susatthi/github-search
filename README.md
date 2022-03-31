@@ -179,6 +179,28 @@ bin/flutter_test
 bin/dartdoc
 ```
 
+## CI / CD
+
+- [GitHub Actions](https://github.co.jp/features/actions) を利用して CI / CD を構築しています。
+  - プルリクエストが作成や更新された時、もしくは `main` または `develop` ブランチに `push` されたときに CI / CD が発火します。
+
+```mermaid
+%%{init:{'theme':'base','themeVariables':{'primaryColor':'#c73642','primaryTextColor':'#ffffff','lineColor':'#6A7FABCC','textColor':'#6A7FABCC','fontSize':'22px','nodeBorder':'0px'}}}%%
+stateDiagram-v2 
+    [*] --> 静的解析
+    静的解析 --> テスト
+    テスト --> Codecovに結果を送信
+    Codecovに結果を送信 --> Androidビルド
+    Codecovに結果を送信 --> iOSビルド
+    Codecovに結果を送信 --> Webビルド
+    Codecovに結果を送信 --> APIドキュメント作成
+    Androidビルド --> Slackに結果を送信
+    iOSビルド --> Slackに結果を送信
+    Webビルド --> Slackに結果を送信
+    APIドキュメント作成 --> Slackに結果を送信
+    Slackに結果を送信 --> [*]
+```
+
 ## ライセンス
 
 MIT
