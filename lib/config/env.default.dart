@@ -9,5 +9,5 @@ class Env {
   static const githubOAuthToken = 'YOUR_OAUTH_TOKEN';
 
   /// 検索文字列のデフォルト値
-  static const defaultSearchValue = 'SEARCH_DEFAULT_VALUE';
+  static const defaultSearchValue = 'YOUR_SEARCH_VALUE';
 }
