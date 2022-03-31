@@ -4,7 +4,19 @@
 # Use of this source code is governed by a MIT license that can be
 # found in the LICENSE file.
 
+# 静的解析を実行する
+flutter analyze
+if [ $? -gt 0 ]; then
+  # flutter analyze でエラーがあれば処理終了
+  exit 1
+fi
+
+# テストを実行する
 flutter test --no-test-assets --coverage
+
+# カバレッジから不要な結果を削除する
 lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+
+# カバレッジ結果のHTMLを出力して表示する
 genhtml coverage/lcov.info -o coverage/html
 open coverage/html/index.html

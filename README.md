@@ -1,8 +1,8 @@
 [![codecov](https://codecov.io/gh/keyber-inc/github_search/branch/develop/graph/badge.svg?token=C48OG86U8O)](https://codecov.io/gh/keyber-inc/github_search)
 
-# Github Search
+# GitHub Search
 
-[Github API](https://docs.github.com/ja/rest) を利用して Github のリポジトリを検索するアプリです。[株式会社ゆめみのFlutterエンジニアコードチェック](https://github.com/yumemi-inc/flutter-engineer-codecheck)の要件を満たすよう実装しています。
+[GitHub API](https://docs.github.com/ja/rest) を利用して GitHub のリポジトリを検索するアプリです。[株式会社ゆめみのFlutterエンジニアコードチェック](https://github.com/yumemi-inc/flutter-engineer-codecheck)の要件を満たすよう実装しています。
 
 本アプリを通して自分なりの最適なアーキテクチャを確立し、リファレンスコードにすることを目的にしています。
 
@@ -11,22 +11,23 @@
 ## アプリの機能
 
 - シンプルな UI / UX
-  - Github リポジトリの検索と詳細表示
+  - GitHub リポジトリの検索と詳細表示
   - 無限スクロール対応
 - [go_router](https://pub.dev/packages/go_router) を使った新しいルーティング
 - [http](https://pub.dev/packages/http) を使った REST API の実装
 - 多言語対応（日本語/英語）
 - カスタムフォント対応
 - [mockito](https://pub.dev/packages/mockito) を使った Unit / Widget テスト
+- [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) を使ったアプリアイコン
+- [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
+- [GitHub Actions](https://github.co.jp/features/actions) による自動テストと自動ビルド
 - サポートするプラットフォーム
   - iOS / Android / Web
 
 ### 今後対応予定
 
-- アプリアイコン
-- スプラッシュ画面
 - [hive](https://pub.dev/packages/hive) or [shared_preferences](https://pub.dev/packages/shared_preferences) の利用
-- CI / CD
+- CD
 - Integration テスト
 - macOS / Windows のサポート
 - テーマ対応
@@ -81,18 +82,30 @@
 
 ## ビルド方法
 
-- `lib/src/config/env.default.dart` を `lib/src/config/env.dart` にコピーして、自分にあった内容に書き換える
-  - `githubOAuthToken` には [Github 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください
+- カレントディレクトリで下記コマンドを実行してください。
+  - `bin/flutter_env` は引数で与えられた環境変数を基にビルドに必要な `lib/src/config/env.dart` を作成してくれます。
+  - 作成された `lib/src/config/env.dart` を直接編集しても大丈夫です。
+
+```shell
+bin/flutter_env -g [GitHub OAuth トークン] -s [検索文字列の初期値]
+```
+
+|パラメータ名                   |          |説明                                                       |
+|-----------------------------|----------|----------------------------------------------------------|
+|`-g [GitHub OAuth トークン]`  |`Must`    |値には [GitHub 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください。|
+|`-s [検索文字列の初期値]`       |`Optional`|好きな文字列を設定してください。指定しない場合は空文字が設定されます。|
+|`-h`                         |          |ヘルプを表示します。                                          |
+
 - Configurations を選択してビルドしてください
 
-Configurations 名|説明
---|--
-app|アプリ（iOS / Android）向け
-web|Web 向け
+|Configurations 名 |説明                       |
+|------------------|--------------------------|
+|`app`             |アプリ（iOS / Android）向け |
+|`web`             |Web 向け                   |
 
 ### コードの自動生成
 
-- arb ファイルを変更した場合や freezed を使った dart ファイルを変更した場合は下記コマンドを実行してください
+- `arb` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は下記コマンドを実行してください。
 
 ```shell
 bin/flutter_gen
@@ -100,21 +113,16 @@ bin/flutter_gen
 
 ### テスト
 
-- ローカルでテストを行う場合は下記コマンドを実行してください
+- ローカルでテストを行う場合は下記コマンドを実行してください。
+  - 静的解析 => テスト => カバレッジの結果を表示 を行います。
 
 ```shell
-flutter test
-```
-
-- カバレッジありでテストを行う場合は下記コマンドを実行してください
-
-```shell
-bin/flutter_coverage
+bin/flutter_test
 ```
 
 ### ドキュメント
 
-- ドキュメントを生成する場合は下記コマンドを実行してください
+- API ドキュメントを生成する場合は下記コマンドを実行してください。
 
 ```shell
 bin/dartdoc
