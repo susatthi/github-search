@@ -283,7 +283,7 @@ jobs:
         if: ${{ success() }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_TITLE: SUCCESS!
+          SLACK_TITLE: SUCCESSED TEST AND BUILD!
           SLACK_COLOR: good
 
       # テストに失敗したとき
