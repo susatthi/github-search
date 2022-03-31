@@ -48,14 +48,56 @@
 
 - 本アプリの依存関係図です。
 
-![依存関係図](https://user-images.githubusercontent.com/13707135/160560240-a9a07387-2be4-4499-a04f-3a5ccd40be3a.jpg)
+```mermaid
+%%{init:{'theme':'base','themeVariables':{'primaryColor':'#ddddddaa','primaryTextColor':'#0f0f0faa','lineColor':'#6A7FABCC','textColor':'#6A7FABCC','fontSize':'22px','nodeBorder':'0px'}}}%%
+graph TD
+    subgraph プレゼンテーション層
+    IndexPage(一覧ページ<br>StatelessWidget) --> SearchTextField(検索テキストフィールド<br>ConsumerWidget)
+    IndexPage --> ListView(一覧 View<br>ConsumerWidget)
+    SearchTextField --> SearchText([検索文字列<br>String])
+    ListView --> ListViewState([一覧 View 状態<br>State])
+    ListViewState --> ListViewController(一覧 View コントローラ<br>StateNotifier)
+    ListViewController --> SearchText
+    ViewPage(詳細ページ<br>StatelessWidget) --> DetailView(詳細 View<br>ConsumerWidget)
+    DetailView --> DetailViewState([詳細 View 状態<br>State])
+    DetailViewState --> DetailViewController(詳細 View コントローラ<br>StateNotifier)
+    end
+    subgraph データ層
+    ListViewController ----> RepoRepository(リポジトリ用リポジトリ)
+    DetailViewController ----> RepoRepository
+    RepoRepository --> GitHubRepoRepository(GitHub 向けリポジトリ用リポジトリ)
+    subgraph DTO
+    GitHubRepoRepository --> GitHubHttpClient(GitHub 向け HTTP クライアント)
+    GitHubRepoRepository --> GitHubApiDef(GitHub API 定義)
+    end
+    subgraph データソース
+    GitHubHttpClient ---> GitHubApi(GitHub API)
+    end
+    end
+    subgraph 環境変数
+    SearchText --> EnvSearchText{{検索文字列初期値<br>String}}
+    GitHubHttpClient ----> EnvOAuthToken{{OAuth トークン<br>String}}
+    end
+    subgraph 引数
+    DetailViewController ---------> ViewParameter{{オーナー名とリポジトリ名<br>Equatable}}
+    end
 
-- `一覧View`が更新される例
-  - `一覧View`の依存関係は、`一覧View`→`一覧View状態`→`一覧Viewコントローラ`→`検索文字列`となっています。ユーザが検索文字列を変更し検索を実行した場合、`検索文字列`が更新されます。すると`検索文字列`に依存している`一覧Viewコントローラ`が更新され、`リポジトリ用リポジトリ`を利用してリポジトリの検索を実行し、その結果をもとに`一覧View状態`を更新します。すると`一覧View状態`に依存している`一覧View`が`rebuild`されて再描画されます。
-- `詳細View`への画面遷移の例
-  - `一覧View`の`ListTile`がタップされるとナビゲーションに対して画面遷移を命令します。その際引数として`オーナー名とリポジトリ名`を詳細画面に渡します。ナビゲーションにより`詳細画面`が開くと`詳細View`が`build`され、`詳細Viewコントローラ`も更新されます。`詳細Viewコントローラ`は引数で受け取った`オーナー名とリポジトリ名`を利用してリポジトリの取得を実行し、その結果をもとに`詳細View状態`を更新します。すると`詳細View状態`に依存している`詳細View`が`rebuild`されて再描画されます。
+    classDef widget fill:#3755ed,color:#ffffff;
+    classDef controller fill:#3755ed,color:#ffffff;
+    classDef state fill:#a2aeeb,color:#ffffff;    
+    classDef repository fill:#2e7523,color:#ffffff;
+    classDef env fill:#7c7d7c,color:#ffffff;
+    class IndexPage,ViewPage,ListView,SearchTextField,DetailView widget;
+    class ListViewController,DetailViewController controller;
+    class SearchText,ListViewState,DetailViewState state;
+    class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi repository;
+    class EnvSearchText,EnvOAuthToken,ViewParameter env;
+```
 
-
+- `一覧 View`が更新される例
+  - `一覧 View`の依存関係は、`一覧 View` → `一覧 View 状態` → `一覧 View コントローラ` → `検索文字列`となっています。ユーザが検索文字列を変更し検索を実行した場合、`検索文字列`が更新されます。すると`検索文字列`に依存している`一覧 View コントローラ`が更新され、`リポジトリ用リポジトリ`に`検索文字列`を与えてリポジトリの検索を実行し、その結果をもとに`一覧 View 状態`を更新します。すると`一覧 View 状態`に依存している`一覧 View`がリビルドされて再描画されます。
+- `詳細 View`への画面遷移の例
+  - `一覧 View`の`ListTile`がタップされると`オーナー名とリポジトリ名`を表示したい内容に更新して`詳細ページ`に画面遷移します。`詳細画面`が開くと`詳細 View`がビルドされ、`詳細 View コントローラ`も作成されます。`詳細 View コントローラ`は`オーナー名とリポジトリ名`を`リポジトリ用リポジトリ`に与えてリポジトリの取得を実行し、その結果をもとに`詳細 View 状態`を更新します。すると`詳細 View 状態`に依存している`詳細 View`がリビルドされて再描画されます。
 
 ## フォルダ構成
 
