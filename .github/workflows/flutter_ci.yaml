@@ -161,6 +161,20 @@ jobs:
       - name: Create env.dart
         run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
 
+      # プロビジョニングファイルの取り込み
+      - name: Import Provisioning Profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          touch ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+          echo -n '${{ secrets.IOS_PROVISIONING_PROFILE }}' | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+
+      # 証明書の取り込み
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.IOS_CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+
       # iOS Release Build
       - name: Build for iOS
         run: flutter build ipa -t lib/main.dart --release
