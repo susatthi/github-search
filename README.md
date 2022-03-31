@@ -59,7 +59,16 @@
 
 ## フォルダ構成
 
-![フォルダ構成](https://user-images.githubusercontent.com/13707135/160552737-d3535b16-9018-48cf-836c-77b7dbcb5412.png)
+|フォルダ名                  | 説明
+|----------------------------|--
+| / `assets`                    | `assets`にアクセスする自動生成されるユーティリティクラス
+| / `config`                    | アプリケーション、定義値、環境変数
+| / `entities`                  | モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（`_data` suffix がつく）
+| / `localizations`             | 言語ファイル（`arb` ファイル）、`flutter gen-l10n` で生成されるクラス
+| / `presentation` / `pages`    | プレゼンテーション層のファイル<br>画面Widget
+| / `presentation` / `widgets`  | プレゼンテーション層のファイル<br>部品Widget、Controller、State
+| / `repositories`              | データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理
+| / `utils`                     | 拡張機能、ロガーなど便利クラス
 
 ## 環境
 
