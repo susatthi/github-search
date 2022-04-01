@@ -159,18 +159,74 @@ jobs:
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           touch ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
-          echo -n '${{ secrets.IOS_PROVISIONING_PROFILE }}' | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+          echo -n '${{ secrets.APPLE_PROVISIONING_PROFILE }}' | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
 
       # 証明書の取り込み
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1
         with:
-          p12-file-base64: ${{ secrets.IOS_CERTIFICATES_P12 }}
-          p12-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
 
       # iOS Release Build
       - name: Build for iOS
         run: flutter build ipa -t lib/main.dart --release
+
+  # macOS ビルドジョブ
+  # テストジョブが成功したら実行する
+  flutter_build_macos:
+    name: Flutter Build for macOS
+    needs:
+      - flutter_test
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+
+      # プロビジョニングファイルの取り込み
+      - name: Import Provisioning Profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          touch ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+          echo -n '${{ secrets.MACOS_PROVISIONING_PROFILE }}' | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+
+      # 証明書の取り込み
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+
+      # iOS Release Build
+      - name: Build for macOS
+        run: flutter build macos -t lib/main.dart --release
 
   # Web ビルドジョブ
   # テストジョブが成功したら実行する
@@ -269,6 +325,7 @@ jobs:
       - flutter_build_android
       - flutter_build_ios
       - flutter_build_web
+      - flutter_build_macos
       - flutter_api_doc
     runs-on: ubuntu-latest
     env:
@@ -316,6 +373,14 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: FAILURE BUILD WEB ...
+          SLACK_COLOR: danger
+
+      # macOS ビルドに失敗したとき
+      - name: Notify Failure Build for macOS
+        if: ${{ needs.flutter_build_macos.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE BUILD MACOS ...
           SLACK_COLOR: danger
 
       # API doc 作成に失敗したとき
