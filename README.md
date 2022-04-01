@@ -22,14 +22,14 @@
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
 - [GitHub Actions](https://github.co.jp/features/actions) による自動テストと自動ビルド
 - サポートするプラットフォーム
-  - iOS / Android / Web
+  - iOS / Android / Web / macOS
 
 ### 今後対応予定
 
 - [hive](https://pub.dev/packages/hive) or [shared_preferences](https://pub.dev/packages/shared_preferences) の利用
 - CD
 - Integration テスト
-- macOS / Windows のサポート
+- Windows のサポート
 - テーマ対応
 - ダークモード対応
 - よりよい UI / UX
