@@ -49,7 +49,7 @@
 - 本アプリの依存関係図です。
 
 ```mermaid
-%%{init:{'theme':'base','themeVariables':{'primaryColor':'#ddddddaa','primaryTextColor':'#0f0f0faa','lineColor':'#6A7FABCC','textColor':'#6A7FABCC','fontSize':'22px','nodeBorder':'0px'}}}%%
+%%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
 graph TD
     subgraph プレゼンテーション層
     IndexPage(一覧ページ<br>StatelessWidget) --> SearchTextField(検索テキストフィールド<br>ConsumerWidget)
@@ -61,37 +61,35 @@ graph TD
     ViewPage(詳細ページ<br>StatelessWidget) --> DetailView(詳細 View<br>ConsumerWidget)
     DetailView --> DetailViewState([詳細 View 状態<br>State])
     DetailViewState --> DetailViewController(詳細 View コントローラ<br>StateNotifier)
+    DetailViewController --> ViewParameter([オーナー名とリポジトリ名<br>Equatable])
     end
     subgraph データ層
-    ListViewController ----> RepoRepository(リポジトリ用リポジトリ)
-    DetailViewController ----> RepoRepository
+    ListViewController --> RepoRepository(リポジトリ用リポジトリ)
+    DetailViewController ---> RepoRepository
     RepoRepository --> GitHubRepoRepository(GitHub 向けリポジトリ用リポジトリ)
     subgraph DTO
     GitHubRepoRepository --> GitHubHttpClient(GitHub 向け HTTP クライアント)
     GitHubRepoRepository --> GitHubApiDef(GitHub API 定義)
     end
     subgraph データソース
-    GitHubHttpClient ---> GitHubApi(GitHub API)
+    GitHubHttpClient --> GitHubApi(GitHub API)
     end
     end
     subgraph 環境変数
     SearchText --> EnvSearchText{{検索文字列初期値<br>String}}
-    GitHubHttpClient ----> EnvOAuthToken{{OAuth トークン<br>String}}
-    end
-    subgraph 引数
-    DetailViewController ---------> ViewParameter{{オーナー名とリポジトリ名<br>Equatable}}
+    GitHubHttpClient ---> EnvOAuthToken{{OAuth トークン<br>String}}
     end
 
-    classDef widget fill:#3755ed,color:#ffffff;
-    classDef controller fill:#3755ed,color:#ffffff;
-    classDef state fill:#a2aeeb,color:#ffffff;    
-    classDef repository fill:#2e7523,color:#ffffff;
-    classDef env fill:#7c7d7c,color:#ffffff;
+    classDef widget fill:#4063DD, color:#ffffff;
+    classDef controller fill:#4063DD, color:#ffffff;
+    classDef state fill:#BDB5F4, color:#ffffff;    
+    classDef repository fill:#437C40, color:#ffffff;
+    classDef env fill:#7c7d7c, color:#ffffff;
     class IndexPage,ViewPage,ListView,SearchTextField,DetailView widget;
     class ListViewController,DetailViewController controller;
-    class SearchText,ListViewState,DetailViewState state;
+    class SearchText,ListViewState,DetailViewState,ViewParameter state;
     class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi repository;
-    class EnvSearchText,EnvOAuthToken,ViewParameter env;
+    class EnvSearchText,EnvOAuthToken env;
 ```
 
 - `一覧 View`が更新される例
@@ -185,7 +183,7 @@ bin/dartdoc
   - プルリクエストが作成や更新された時、もしくは `main` または `develop` ブランチに `push` されたときに CI / CD が発火します。
 
 ```mermaid
-%%{init:{'theme':'base','themeVariables':{'primaryColor':'#c73642','primaryTextColor':'#ffffff','lineColor':'#6A7FABCC','textColor':'#6A7FABCC','fontSize':'22px','nodeBorder':'0px'}}}%%
+%%{init:{'theme':'base','themeVariables':{'primaryColor':'#C85B2E','primaryTextColor':'#ffffff','lineColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
 stateDiagram-v2 
     [*] --> 静的解析
     静的解析 --> テスト
@@ -193,6 +191,7 @@ stateDiagram-v2
     Codecovに結果を送信 --> Androidビルド
     Codecovに結果を送信 --> iOSビルド
     Codecovに結果を送信 --> Webビルド
+    Codecovに結果を送信 --> macOSビルド
     Codecovに結果を送信 --> APIドキュメント作成
     Androidビルド --> Slackに結果を送信
     iOSビルド --> Slackに結果を送信
