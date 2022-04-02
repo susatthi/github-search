@@ -267,6 +267,7 @@ jobs:
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
         run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        shell: bash
 
       # Windows Release Build
       - name: Build for Windows
@@ -311,7 +312,6 @@ jobs:
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
         run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
-        shell: bash
 
       # Web Release Build
       - name: Build for Web
