@@ -226,7 +226,9 @@ jobs:
 
       # iOS Release Build
       - name: Build for macOS
-        run: flutter build macos -t lib/main.dart --release
+        run: |
+          flutter config --enable-macos-desktop
+          flutter build macos -t lib/main.dart --release
 
   # Web ビルドジョブ
   # テストジョブが成功したら実行する
@@ -337,7 +339,7 @@ jobs:
 
       # すべて成功したとき
       - name: Notify Succeed
-        if: ${{ success() }}
+        if: ${{ !contains(needs.*.result, 'failure') }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESSED TEST AND BUILD!
