@@ -22,14 +22,13 @@
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
 - [GitHub Actions](https://github.co.jp/features/actions) による自動テストと自動ビルド
 - サポートするプラットフォーム
-  - iOS / Android / Web / macOS
+  - iOS / Android / Web / macOS / Windows
 
 ### 今後対応予定
 
 - [hive](https://pub.dev/packages/hive) or [shared_preferences](https://pub.dev/packages/shared_preferences) の利用
 - CD
 - Integration テスト
-- Windows のサポート
 - テーマ対応
 - ダークモード対応
 - よりよい UI / UX
@@ -192,10 +191,13 @@ stateDiagram-v2
     Codecovに結果を送信 --> iOSビルド
     Codecovに結果を送信 --> Webビルド
     Codecovに結果を送信 --> macOSビルド
+    Codecovに結果を送信 --> Windowsビルド
     Codecovに結果を送信 --> APIドキュメント作成
     Androidビルド --> Slackに結果を送信
     iOSビルド --> Slackに結果を送信
     Webビルド --> Slackに結果を送信
+    macOSビルド --> Slackに結果を送信
+    Windowsビルド --> Slackに結果を送信
     APIドキュメント作成 --> Slackに結果を送信
     Slackに結果を送信 --> [*]
 ```
