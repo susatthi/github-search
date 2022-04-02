@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'GithubSearch'**
+  /// **'GitHubSearch'**
   String get appName;
 
   /// No description provided for @error.
@@ -118,53 +118,53 @@ abstract class AppLocalizations {
   /// **'Forks count'**
   String get forksCount;
 
-  /// No description provided for @githubApiExceptionMessageBadRequest.
+  /// No description provided for @gitHubExceptionMessageBadRequest.
   ///
   /// In en, this message translates to:
   /// **'Illegal request sent. (400)'**
-  String get githubApiExceptionMessageBadRequest;
+  String get gitHubExceptionMessageBadRequest;
 
-  /// No description provided for @githubApiExceptionMessageBadCredentials.
+  /// No description provided for @gitHubExceptionMessageBadCredentials.
   ///
   /// In en, this message translates to:
   /// **'Illegal request sent. (401)'**
-  String get githubApiExceptionMessageBadCredentials;
+  String get gitHubExceptionMessageBadCredentials;
 
-  /// No description provided for @githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded.
+  /// No description provided for @gitHubExceptionMessageMaximumNumberOfLoginAttemptsExceeded.
   ///
   /// In en, this message translates to:
   /// **'Please wait a while and try again. (403)'**
-  String get githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded;
+  String get gitHubExceptionMessageMaximumNumberOfLoginAttemptsExceeded;
 
-  /// No description provided for @githubApiExceptionMessageNotFound.
+  /// No description provided for @gitHubExceptionMessageNotFound.
   ///
   /// In en, this message translates to:
   /// **'No data found. (404)'**
-  String get githubApiExceptionMessageNotFound;
+  String get gitHubExceptionMessageNotFound;
 
-  /// No description provided for @githubApiExceptionMessageValidationFailed.
+  /// No description provided for @gitHubExceptionMessageValidationFailed.
   ///
   /// In en, this message translates to:
   /// **'Illegal request sent. (422)'**
-  String get githubApiExceptionMessageValidationFailed;
+  String get gitHubExceptionMessageValidationFailed;
 
-  /// No description provided for @githubApiExceptionMessageServiceUnavailable.
+  /// No description provided for @gitHubExceptionMessageServiceUnavailable.
   ///
   /// In en, this message translates to:
   /// **'Please wait a while and try again.  (503)'**
-  String get githubApiExceptionMessageServiceUnavailable;
+  String get gitHubExceptionMessageServiceUnavailable;
 
-  /// No description provided for @githubApiExceptionMessageUnknown.
+  /// No description provided for @gitHubExceptionMessageUnknown.
   ///
   /// In en, this message translates to:
   /// **'An unknown error has occurred. (-1)'**
-  String get githubApiExceptionMessageUnknown;
+  String get gitHubExceptionMessageUnknown;
 
-  /// No description provided for @githubApiExceptionMessageNoInternetConnection.
+  /// No description provided for @gitHubExceptionMessageNoInternetConnection.
   ///
   /// In en, this message translates to:
   /// **'Please try again in a good communication environment. (-2)'**
-  String get githubApiExceptionMessageNoInternetConnection;
+  String get gitHubExceptionMessageNoInternetConnection;
 
   /// No description provided for @issuesCount.
   ///

@@ -12,7 +12,7 @@ import '../../test_utils/mocks.dart';
 void main() {
   group('get()', () {
     test('200 OK', () async {
-      final repo = await mockGithubHttpClient.get<Repo>(
+      final repo = await mockGitHubHttpClient.get<Repo>(
         uri: Uri(path: '/repos/flutter/flutter'),
         responseBuilder: Repo.fromJson,
       );
@@ -20,85 +20,85 @@ void main() {
     });
     test('400 BadRequest', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '400'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeBadRequest);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeBadRequest);
       }
     });
     test('401 BadCredentials', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '401'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeBadCredentials);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeBadCredentials);
       }
     });
     test('403 MaximumNumberOfLoginAttemptsExceeded', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '403'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
+      } on GitHubException catch (e) {
         expect(
           e.code,
-          GithubException.codeMaximumNumberOfLoginAttemptsExceeded,
+          GitHubException.codeMaximumNumberOfLoginAttemptsExceeded,
         );
       }
     });
     test('404 NotFound', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '404'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeNotFound);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeNotFound);
       }
     });
     test('422 ValidationFailed', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '422'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeValidationFailed);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeValidationFailed);
       }
     });
     test('503 ServiceUnavailable', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '503'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeServiceUnavailable);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeServiceUnavailable);
       }
     });
     test('Unknown', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: '555'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeUnknown);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeUnknown);
       }
     });
     test('NoInternetConnection', () async {
       try {
-        await mockGithubHttpClient.get<Owner>(
+        await mockGitHubHttpClient.get<Owner>(
           uri: Uri(path: 'socketException'),
           responseBuilder: Owner.fromJson,
         );
-      } on GithubException catch (e) {
-        expect(e.code, GithubException.codeNoInternetConnection);
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeNoInternetConnection);
       }
     });
   });

@@ -13,7 +13,7 @@ void main() {
   testWidgets('errorがnullでも問題ないはず', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
-        child: GithubSearchApp(
+        child: GitHubSearchApp(
           home: const ErrorPage(),
         ),
       ),
@@ -24,7 +24,7 @@ void main() {
     final error = Exception('dummy');
     await tester.pumpWidget(
       ProviderScope(
-        child: GithubSearchApp(
+        child: GitHubSearchApp(
           home: ErrorPage(
             error: error,
           ),

@@ -9,11 +9,11 @@ import 'package:github_search/repositories/github/repo_repository.dart';
 import '../../test_utils/mocks.dart';
 
 void main() {
-  late GithubRepoRepository repository;
+  late GitHubRepoRepository repository;
   setUp(() {
-    repository = GithubRepoRepository(
-      api: const GithubApi(),
-      client: mockGithubHttpClient,
+    repository = GitHubRepoRepository(
+      api: const GitHubApi(),
+      client: mockGitHubHttpClient,
     );
   });
 

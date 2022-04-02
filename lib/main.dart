@@ -15,7 +15,7 @@ void main() {
 
   runApp(
     ProviderScope(
-      child: GithubSearchApp(),
+      child: GitHubSearchApp(),
     ),
   );
 }

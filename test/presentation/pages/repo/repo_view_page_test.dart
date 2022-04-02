@@ -17,7 +17,7 @@ void main() {
   setUp(() {
     app = ProviderScope(
       overrides: [
-        repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
+        repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
         repoDetailViewControllerProvider.overrideWithProvider(
           repoDetailViewControllerProviderFamily(
             const RepoDetailViewParameter(
@@ -27,7 +27,7 @@ void main() {
           ),
         ),
       ],
-      child: GithubSearchApp(
+      child: GitHubSearchApp(
         // リポジトリ詳細画面を直接表示する
         home: const RepoViewPage(),
       ),

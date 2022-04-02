@@ -15,7 +15,7 @@ void main() {
   group('AsyncValueHandler', () {
     testWidgets('dataを与えて処理できるはず', (tester) async {
       await tester.pumpWidget(
-        GithubSearchApp(
+        GitHubSearchApp(
           home: const AsyncValueHandler<String>(
             value: AsyncValue.data('dummy'),
             builder: Text.new,
@@ -26,7 +26,7 @@ void main() {
     });
     testWidgets('loadingを与えて処理できるはず', (tester) async {
       await tester.pumpWidget(
-        GithubSearchApp(
+        GitHubSearchApp(
           home: const AsyncValueHandler<String>(
             value: AsyncValue.loading(),
             builder: Text.new,
@@ -35,64 +35,64 @@ void main() {
       );
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
-    testWidgets('GithubException.badRequestを与えて処理できるはず', (tester) async {
+    testWidgets('GitHubException.badRequestを与えて処理できるはず', (tester) async {
       await _wrapTest(
         tester,
-        GithubException.badRequest(),
-        l10n.githubApiExceptionMessageBadRequest,
+        GitHubException.badRequest(),
+        l10n.gitHubExceptionMessageBadRequest,
       );
     });
-    testWidgets('GithubException.badCredentialsを与えて処理できるはず', (tester) async {
+    testWidgets('GitHubException.badCredentialsを与えて処理できるはず', (tester) async {
       await _wrapTest(
         tester,
-        GithubException.badCredentials(),
-        l10n.githubApiExceptionMessageBadCredentials,
+        GitHubException.badCredentials(),
+        l10n.gitHubExceptionMessageBadCredentials,
       );
     });
     testWidgets(
-        'GithubException.maximumNumberOfLoginAttemptsExceededを与えて処理できるはず',
+        'GitHubException.maximumNumberOfLoginAttemptsExceededを与えて処理できるはず',
         (tester) async {
       await _wrapTest(
         tester,
-        GithubException.maximumNumberOfLoginAttemptsExceeded(),
-        l10n.githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded,
+        GitHubException.maximumNumberOfLoginAttemptsExceeded(),
+        l10n.gitHubExceptionMessageMaximumNumberOfLoginAttemptsExceeded,
       );
     });
-    testWidgets('GithubException.notFoundを与えて処理できるはず', (tester) async {
+    testWidgets('GitHubException.notFoundを与えて処理できるはず', (tester) async {
       await _wrapTest(
         tester,
-        GithubException.notFound(),
-        l10n.githubApiExceptionMessageNotFound,
+        GitHubException.notFound(),
+        l10n.gitHubExceptionMessageNotFound,
       );
     });
-    testWidgets('GithubException.validationFailedを与えて処理できるはず', (tester) async {
+    testWidgets('GitHubException.validationFailedを与えて処理できるはず', (tester) async {
       await _wrapTest(
         tester,
-        GithubException.validationFailed(),
-        l10n.githubApiExceptionMessageValidationFailed,
+        GitHubException.validationFailed(),
+        l10n.gitHubExceptionMessageValidationFailed,
       );
     });
-    testWidgets('GithubException.serviceUnavailableを与えて処理できるはず',
+    testWidgets('GitHubException.serviceUnavailableを与えて処理できるはず',
         (tester) async {
       await _wrapTest(
         tester,
-        GithubException.serviceUnavailable(),
-        l10n.githubApiExceptionMessageServiceUnavailable,
+        GitHubException.serviceUnavailable(),
+        l10n.gitHubExceptionMessageServiceUnavailable,
       );
     });
-    testWidgets('GithubException.unknownを与えて処理できるはず', (tester) async {
+    testWidgets('GitHubException.unknownを与えて処理できるはず', (tester) async {
       await _wrapTest(
         tester,
-        GithubException.unknown(),
-        l10n.githubApiExceptionMessageUnknown,
+        GitHubException.unknown(),
+        l10n.gitHubExceptionMessageUnknown,
       );
     });
-    testWidgets('GithubException.noInternetConnectionを与えて処理できるはず',
+    testWidgets('GitHubException.noInternetConnectionを与えて処理できるはず',
         (tester) async {
       await _wrapTest(
         tester,
-        GithubException.noInternetConnection(),
-        l10n.githubApiExceptionMessageNoInternetConnection,
+        GitHubException.noInternetConnection(),
+        l10n.gitHubExceptionMessageNoInternetConnection,
       );
     });
     testWidgets('Exceptionを与えて処理できるはず', (tester) async {
@@ -111,7 +111,7 @@ Future<void> _wrapTest(
   String message,
 ) async {
   await tester.pumpWidget(
-    GithubSearchApp(
+    GitHubSearchApp(
       home: AsyncValueHandler<Exception>(
         value: AsyncValue.error(e),
         builder: (value) => Text(value.toString()),

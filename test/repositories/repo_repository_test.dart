@@ -20,17 +20,17 @@ class _TestWidget extends ConsumerWidget {
 
 void main() {
   group('Provider', () {
-    testWidgets('repoRepositoryProviderからGithubRepoRepositoryが取得できるはず',
+    testWidgets('repoRepositoryProviderからGitHubRepoRepositoryが取得できるはず',
         (tester) async {
       await tester.pumpWidget(
         ProviderScope(
-          child: GithubSearchApp(
+          child: GitHubSearchApp(
             home: const _TestWidget(),
           ),
         ),
       );
       await tester.pump();
-      expect(find.text('GithubRepoRepository'), findsOneWidget);
+      expect(find.text('GitHubRepoRepository'), findsOneWidget);
     });
   });
 }

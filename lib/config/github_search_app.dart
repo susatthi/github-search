@@ -14,8 +14,8 @@ import 'package:github_search/presentation/widgets/repo/repo_detail_view_control
 import 'package:github_search/utils/l10n.dart';
 import 'package:go_router/go_router.dart';
 
-class GithubSearchApp extends StatelessWidget {
-  GithubSearchApp({
+class GitHubSearchApp extends StatelessWidget {
+  GitHubSearchApp({
     Key? key,
     this.home,
   }) : super(key: key);
@@ -35,7 +35,7 @@ class GithubSearchApp extends StatelessWidget {
       return MaterialApp(
         localizationsDelegates: L10n.localizationsDelegates,
         supportedLocales: L10n.supportedLocales,
-        title: 'GithubSearchTest',
+        title: 'GitHubSearchTest',
         onGenerateTitle: (context) => L10n.of(context).appName,
         theme: theme,
         home: home,
@@ -47,7 +47,7 @@ class GithubSearchApp extends StatelessWidget {
       routeInformationParser: _router.routeInformationParser,
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
-      title: 'GithubSearch',
+      title: 'GitHubSearch',
       onGenerateTitle: (context) => L10n.of(context).appName,
       theme: theme,
     );

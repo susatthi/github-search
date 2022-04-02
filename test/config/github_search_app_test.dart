@@ -11,7 +11,7 @@ import '../test_utils/mocks.dart';
 
 void main() {
   testWidgets('存在しないパスに遷移するとエラー画面を表示するはず', (tester) async {
-    await tester.pumpWidget(mockGithubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp);
     await tester.pump();
 
     // 存在しないパスに遷移する

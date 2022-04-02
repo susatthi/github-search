@@ -2,10 +2,10 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-/// Github API の定義
+/// GitHub API の定義
 /// 各APIはUriを返す
-class GithubApi {
-  const GithubApi();
+class GitHubApi {
+  const GitHubApi();
 
   static const _scheme = 'https';
   static const _apiUrl = 'api.github.com';
@@ -27,8 +27,8 @@ class GithubApi {
   /// https://docs.github.com/ja/rest/reference/search#search-repositories
   Uri searchRepos({
     required String query,
-    GithubParamSearchReposSort? sort,
-    GithubParamOrder? order,
+    GitHubParamSearchReposSort? sort,
+    GitHubParamOrder? order,
     int? perPage,
     int? page,
   }) {
@@ -63,17 +63,17 @@ class GithubApi {
 }
 
 /// Sorts the results of your query
-enum GithubParamSearchReposSort {
+enum GitHubParamSearchReposSort {
   stars,
   forks,
   helpWantedIssues,
 }
 
-extension GithubParamSearchReposSortHelper on GithubParamSearchReposSort {
-  static final names = <GithubParamSearchReposSort, String>{
-    GithubParamSearchReposSort.stars: 'stars',
-    GithubParamSearchReposSort.forks: 'forks',
-    GithubParamSearchReposSort.helpWantedIssues: 'help-wanted-issues',
+extension GitHubParamSearchReposSortHelper on GitHubParamSearchReposSort {
+  static final names = <GitHubParamSearchReposSort, String>{
+    GitHubParamSearchReposSort.stars: 'stars',
+    GitHubParamSearchReposSort.forks: 'forks',
+    GitHubParamSearchReposSort.helpWantedIssues: 'help-wanted-issues',
   };
 
   /// override
@@ -83,7 +83,7 @@ extension GithubParamSearchReposSortHelper on GithubParamSearchReposSort {
 /// Determines whether the first search result returned is the highest number
 /// of matches (desc) or lowest number of matches (asc). This parameter is
 /// ignored unless you provide sort.
-enum GithubParamOrder {
+enum GitHubParamOrder {
   asc,
   desc,
 }

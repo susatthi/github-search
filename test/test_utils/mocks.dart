@@ -79,25 +79,25 @@ final mockHttpClient = MockClient(
   },
 );
 
-/// モック版のGithubHttpClient
-final mockGithubHttpClient =
-    GithubHttpClient(token: 'dummy', client: mockHttpClient);
+/// モック版のGitHubHttpClient
+final mockGitHubHttpClient =
+    GitHubHttpClient(token: 'dummy', client: mockHttpClient);
 
-/// モック版のGithubRepoRepository
-final mockGithubRepoRepository = GithubRepoRepository(
-  api: const GithubApi(),
-  client: mockGithubHttpClient,
+/// モック版のGitHubRepoRepository
+final mockGitHubRepoRepository = GitHubRepoRepository(
+  api: const GitHubApi(),
+  client: mockGitHubHttpClient,
 );
 
-/// モック版のGithubSearchApp
-final mockGithubSearchApp = ProviderScope(
+/// モック版のGitHubSearchApp
+final mockGitHubSearchApp = ProviderScope(
   overrides: [
-    // モック版のGithubHttpClientを使う
-    repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
+    // モック版のGitHubHttpClientを使う
+    repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
     // リポジトリ検索文字列の初期値を設定する
     searchReposQueryProvider.overrideWithProvider(
       StateProvider<String>((ref) => 'flutter'),
     ),
   ],
-  child: GithubSearchApp(),
+  child: GitHubSearchApp(),
 );
