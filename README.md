@@ -182,24 +182,39 @@ bin/dartdoc
   - プルリクエストが作成や更新された時、もしくは `main` または `develop` ブランチに `push` されたときに CI / CD が発火します。
 
 ```mermaid
-%%{init:{'theme':'base','themeVariables':{'primaryColor':'#C85B2E','primaryTextColor':'#ffffff','lineColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
-stateDiagram-v2 
-    [*] --> 静的解析
-    静的解析 --> テスト
-    テスト --> Codecovに結果を送信
-    Codecovに結果を送信 --> Androidビルド
-    Codecovに結果を送信 --> iOSビルド
-    Codecovに結果を送信 --> Webビルド
-    Codecovに結果を送信 --> macOSビルド
-    Codecovに結果を送信 --> Windowsビルド
-    Codecovに結果を送信 --> APIドキュメント作成
-    Androidビルド --> Slackに結果を送信
-    iOSビルド --> Slackに結果を送信
-    Webビルド --> Slackに結果を送信
-    macOSビルド --> Slackに結果を送信
-    Windowsビルド --> Slackに結果を送信
-    APIドキュメント作成 --> Slackに結果を送信
-    Slackに結果を送信 --> [*]
+%%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
+flowchart LR
+    Start((開始)) --> Analyze(静的解析)
+    subgraph テスト
+    Analyze --> Test(単体テスト)
+    Test --> UploadCoverage(Codecovに結果を送信)
+    end
+    subgraph ビルド
+    UploadCoverage --> BuildAndroid(Androidビルド)
+    UploadCoverage --> BuildiOS(iOSビルド)
+    UploadCoverage --> BuildWeb(Webビルド)
+    UploadCoverage --> BuildMacOS(macOSビルド)
+    UploadCoverage --> BuildWindows(Windowsビルド)
+    UploadCoverage --> CreateApiDoc(APIドキュメント作成)
+    end
+    subgraph レポート
+    BuildAndroid --> NotifySlack(Slackに結果を送信)
+    BuildiOS --> NotifySlack
+    BuildWeb --> NotifySlack
+    BuildMacOS --> NotifySlack
+    BuildWindows --> NotifySlack
+    CreateApiDoc --> NotifySlack
+    end
+    NotifySlack --> End((終了))
+
+    classDef anchor fill:#4063DD, color:#ffffff;
+    classDef testJob fill:#4063DD, color:#ffffff;
+    classDef buildJob fill:#d32f2f, color:#ffffff;
+    classDef reportJob fill:#437C40, color:#ffffff;
+    %% class Start,End anchor;
+    class Analyze,Test,UploadCoverage testJob;
+    class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc buildJob;
+    class NotifySlack reportJob;
 ```
 
 ## ライセンス
