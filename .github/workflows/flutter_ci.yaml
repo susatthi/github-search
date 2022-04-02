@@ -317,6 +317,7 @@ jobs:
         run: |
           flutter config --enable-web
           flutter build web -t lib/main.dart --web-renderer html
+        shell: bash
 
   # API doc 作成ジョブ
   # テストジョブが成功したら実行する
