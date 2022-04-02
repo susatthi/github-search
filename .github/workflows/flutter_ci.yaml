@@ -311,13 +311,13 @@ jobs:
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
         run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        shell: bash
 
       # Web Release Build
       - name: Build for Web
         run: |
           flutter config --enable-web
           flutter build web -t lib/main.dart --web-renderer html
-        shell: bash
 
   # API doc 作成ジョブ
   # テストジョブが成功したら実行する
