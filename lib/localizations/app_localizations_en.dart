@@ -8,7 +8,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'GithubSearch';
+  String get appName => 'GitHubSearch';
 
   @override
   String get error => 'Error';
@@ -20,28 +20,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forksCount => 'Forks count';
 
   @override
-  String get githubApiExceptionMessageBadRequest => 'Illegal request sent. (400)';
+  String get gitHubExceptionMessageBadRequest => 'Illegal request sent. (400)';
 
   @override
-  String get githubApiExceptionMessageBadCredentials => 'Illegal request sent. (401)';
+  String get gitHubExceptionMessageBadCredentials => 'Illegal request sent. (401)';
 
   @override
-  String get githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again. (403)';
+  String get gitHubExceptionMessageMaximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again. (403)';
 
   @override
-  String get githubApiExceptionMessageNotFound => 'No data found. (404)';
+  String get gitHubExceptionMessageNotFound => 'No data found. (404)';
 
   @override
-  String get githubApiExceptionMessageValidationFailed => 'Illegal request sent. (422)';
+  String get gitHubExceptionMessageValidationFailed => 'Illegal request sent. (422)';
 
   @override
-  String get githubApiExceptionMessageServiceUnavailable => 'Please wait a while and try again.  (503)';
+  String get gitHubExceptionMessageServiceUnavailable => 'Please wait a while and try again.  (503)';
 
   @override
-  String get githubApiExceptionMessageUnknown => 'An unknown error has occurred. (-1)';
+  String get gitHubExceptionMessageUnknown => 'An unknown error has occurred. (-1)';
 
   @override
-  String get githubApiExceptionMessageNoInternetConnection => 'Please try again in a good communication environment. (-2)';
+  String get gitHubExceptionMessageNoInternetConnection => 'Please try again in a good communication environment. (-2)';
 
   @override
   String get issuesCount => 'Issues count';

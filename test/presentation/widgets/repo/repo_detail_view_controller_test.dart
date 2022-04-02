@@ -53,7 +53,7 @@ void main() {
     test('Controllerを生成するとリポジトリエンティティを取得するはず', () async {
       final container = ProviderContainer(
         overrides: [
-          repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
+          repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
           repoDetailViewControllerProvider.overrideWithProvider(
             repoDetailViewControllerProviderFamily(repoDetailViewParameter),
           ),

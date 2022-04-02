@@ -3,7 +3,7 @@
 # found in the LICENSE file.
 
 name: github_search
-description: Search Github repositories.
+description: Search GitHub repositories.
 publish_to: 'none'
 version: 0.1.1+2
 

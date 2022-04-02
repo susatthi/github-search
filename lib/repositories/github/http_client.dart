@@ -9,9 +9,9 @@ import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/utils/logger.dart';
 import 'package:http/http.dart' as http;
 
-/// Github API 用の HTTPクライアント
-class GithubHttpClient {
-  const GithubHttpClient({
+/// GitHub API 用の HTTPクライアント
+class GitHubHttpClient {
+  const GitHubHttpClient({
     required String token,
     required http.Client client,
   })  : _token = token,
@@ -46,23 +46,23 @@ class GithubHttpClient {
           final data = json.decode(response.body) as Map<String, dynamic>;
           return responseBuilder(data);
         case 400:
-          throw GithubException.badRequest();
+          throw GitHubException.badRequest();
         case 401:
-          throw GithubException.badCredentials();
+          throw GitHubException.badCredentials();
         case 403:
-          throw GithubException.maximumNumberOfLoginAttemptsExceeded();
+          throw GitHubException.maximumNumberOfLoginAttemptsExceeded();
         case 404:
-          throw GithubException.notFound();
+          throw GitHubException.notFound();
         case 422:
-          throw GithubException.validationFailed();
+          throw GitHubException.validationFailed();
         case 503:
-          throw GithubException.serviceUnavailable();
+          throw GitHubException.serviceUnavailable();
         default:
-          throw GithubException.unknown();
+          throw GitHubException.unknown();
       }
     } on SocketException catch (e) {
       logger.warning(e);
-      throw GithubException.noInternetConnection();
+      throw GitHubException.noInternetConnection();
     }
   }
 }

@@ -34,25 +34,25 @@ class AsyncValueHandler<T> extends StatelessWidget {
   /// エラー文字列に変換する
   String _toString(BuildContext context, Object error) {
     final l10n = L10n.of(context);
-    if (error is GithubException) {
+    if (error is GitHubException) {
       switch (error.code) {
-        case GithubException.codeBadRequest:
-          return l10n.githubApiExceptionMessageBadRequest;
-        case GithubException.codeBadCredentials:
-          return l10n.githubApiExceptionMessageBadCredentials;
-        case GithubException.codeMaximumNumberOfLoginAttemptsExceeded:
+        case GitHubException.codeBadRequest:
+          return l10n.gitHubExceptionMessageBadRequest;
+        case GitHubException.codeBadCredentials:
+          return l10n.gitHubExceptionMessageBadCredentials;
+        case GitHubException.codeMaximumNumberOfLoginAttemptsExceeded:
           return l10n
-              .githubApiExceptionMessageMaximumNumberOfLoginAttemptsExceeded;
-        case GithubException.codeNotFound:
-          return l10n.githubApiExceptionMessageNotFound;
-        case GithubException.codeValidationFailed:
-          return l10n.githubApiExceptionMessageValidationFailed;
-        case GithubException.codeServiceUnavailable:
-          return l10n.githubApiExceptionMessageServiceUnavailable;
-        case GithubException.codeUnknown:
-          return l10n.githubApiExceptionMessageUnknown;
-        case GithubException.codeNoInternetConnection:
-          return l10n.githubApiExceptionMessageNoInternetConnection;
+              .gitHubExceptionMessageMaximumNumberOfLoginAttemptsExceeded;
+        case GitHubException.codeNotFound:
+          return l10n.gitHubExceptionMessageNotFound;
+        case GitHubException.codeValidationFailed:
+          return l10n.gitHubExceptionMessageValidationFailed;
+        case GitHubException.codeServiceUnavailable:
+          return l10n.gitHubExceptionMessageServiceUnavailable;
+        case GitHubException.codeUnknown:
+          return l10n.gitHubExceptionMessageUnknown;
+        case GitHubException.codeNoInternetConnection:
+          return l10n.gitHubExceptionMessageNoInternetConnection;
       }
     }
     return error.toString();

@@ -6,17 +6,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/github/api.dart';
 
 void main() {
-  late GithubApi api;
+  late GitHubApi api;
   setUp(() {
-    api = const GithubApi();
+    api = const GitHubApi();
   });
 
   group('searchRepos()', () {
     test('クエリパラメータが正しいはず', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GithubParamSearchReposSort.stars,
-        order: GithubParamOrder.desc,
+        sort: GitHubParamSearchReposSort.stars,
+        order: GitHubParamOrder.desc,
         perPage: 10,
         page: 2,
       );

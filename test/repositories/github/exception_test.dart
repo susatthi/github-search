@@ -8,59 +8,59 @@ import 'package:github_search/repositories/github/exception.dart';
 void main() {
   group('コンストラクタ', () {
     test('生成出来るはず', () {
-      expect(const GithubException(), isNotNull);
-      expect(const GithubException('dummy'), isNotNull);
-      expect(const GithubException('dummy', 'code'), isNotNull);
+      expect(const GitHubException(), isNotNull);
+      expect(const GitHubException('dummy'), isNotNull);
+      expect(const GitHubException('dummy', 'code'), isNotNull);
     });
   });
   group('factories', () {
     test('badRequestが生成出来るはず', () {
-      final e = GithubException.badRequest();
+      final e = GitHubException.badRequest();
       expect(e.code, 'bad-request');
     });
     test('badCredentialsが生成出来るはず', () {
-      final e = GithubException.badCredentials();
+      final e = GitHubException.badCredentials();
       expect(e.code, 'bad-credentials');
     });
     test('maximumNumberOfLoginAttemptsExceededが生成出来るはず', () {
-      final e = GithubException.maximumNumberOfLoginAttemptsExceeded();
+      final e = GitHubException.maximumNumberOfLoginAttemptsExceeded();
       expect(e.code, 'maximum-number-of-login-attempts-exceeded');
     });
     test('notFoundが生成出来るはず', () {
-      final e = GithubException.notFound();
+      final e = GitHubException.notFound();
       expect(e.code, 'not-found');
     });
     test('validationFailedが生成出来るはず', () {
-      final e = GithubException.validationFailed();
+      final e = GitHubException.validationFailed();
       expect(e.code, 'validation-failed');
     });
     test('serviceUnavailableが生成出来るはず', () {
-      final e = GithubException.serviceUnavailable();
+      final e = GitHubException.serviceUnavailable();
       expect(e.code, 'service-unavailable');
     });
     test('unknownが生成出来るはず', () {
-      final e = GithubException.unknown();
+      final e = GitHubException.unknown();
       expect(e.code, 'unknown');
     });
     test('noInternetConnectionが生成出来るはず', () {
-      final e = GithubException.noInternetConnection();
+      final e = GitHubException.noInternetConnection();
       expect(e.code, 'no-internet-connection');
     });
   });
   group('operator ==', () {
     test('一致するはず', () {
-      final e1 = GithubException.badRequest();
-      final e2 = GithubException.badRequest();
+      final e1 = GitHubException.badRequest();
+      final e2 = GitHubException.badRequest();
       expect(e1 == e2, true);
     });
     test('一致しないはず', () {
-      final e1 = GithubException.badRequest();
-      final e2 = GithubException.badCredentials();
+      final e1 = GitHubException.badRequest();
+      final e2 = GitHubException.badCredentials();
       expect(e1 == e2, false);
 
-      const e3 = GithubException(
+      const e3 = GitHubException(
         'foo',
-        GithubException.codeBadRequest,
+        GitHubException.codeBadRequest,
       );
       expect(e1 == e3, false);
       final e4 = Exception();
@@ -69,8 +69,8 @@ void main() {
   });
   group('toString()', () {
     test('nullではないはず', () {
-      expect(GithubException.badRequest().toString(), isNotNull);
-      expect(const GithubException().toString(), isNotNull);
+      expect(GitHubException.badRequest().toString(), isNotNull);
+      expect(const GitHubException().toString(), isNotNull);
     });
   });
 }

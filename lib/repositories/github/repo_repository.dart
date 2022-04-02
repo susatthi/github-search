@@ -8,16 +8,16 @@ import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
-/// GithubAPI用リポジトリRepository
-class GithubRepoRepository implements RepoRepository {
-  const GithubRepoRepository({
-    required GithubApi api,
-    required GithubHttpClient client,
+/// GitHubAPI用リポジトリRepository
+class GitHubRepoRepository implements RepoRepository {
+  const GitHubRepoRepository({
+    required GitHubApi api,
+    required GitHubHttpClient client,
   })  : _api = api,
         _client = client;
 
-  final GithubApi _api;
-  final GithubHttpClient _client;
+  final GitHubApi _api;
+  final GitHubHttpClient _client;
 
   @override
   Future<SearchReposResult> searchRepos({

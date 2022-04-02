@@ -15,12 +15,12 @@ import 'package:http/http.dart' as http;
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) {
     const token = String.fromEnvironment(
-      kDartDefineKeyGithubOAuthToken,
-      defaultValue: Env.githubOAuthToken,
+      kDartDefineKeyGitHubOAuthToken,
+      defaultValue: Env.gitHubOAuthToken,
     );
-    return GithubRepoRepository(
-      api: const GithubApi(),
-      client: GithubHttpClient(client: http.Client(), token: token),
+    return GitHubRepoRepository(
+      api: const GitHubApi(),
+      client: GitHubHttpClient(client: http.Client(), token: token),
     );
   },
 );

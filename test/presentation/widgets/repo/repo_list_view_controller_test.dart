@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     final container = ProviderContainer(
       overrides: [
-        repoRepositoryProvider.overrideWithValue(mockGithubRepoRepository),
+        repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
         searchReposQueryProvider.overrideWithProvider(
           StateProvider<String>((ref) => 'flutter'),
         ),

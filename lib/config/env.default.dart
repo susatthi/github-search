@@ -5,8 +5,8 @@
 /// 環境変数
 /// `env.dart` にリネームして使うこと
 class Env {
-  /// Github API を使うためのOAuthトークン
-  static const githubOAuthToken = 'YOUR_OAUTH_TOKEN';
+  /// GitHub API を使うためのOAuthトークン
+  static const gitHubOAuthToken = 'YOUR_OAUTH_TOKEN';
 
   /// 検索文字列のデフォルト値
   static const defaultSearchValue = 'YOUR_SEARCH_VALUE';
