@@ -5,14 +5,14 @@
 # found in the LICENSE file.
 
 # 静的解析を実行する
-flutter analyze
+fvm flutter analyze
 if [ $? -gt 0 ]; then
   # flutter analyze でエラーがあれば処理終了
   exit 1
 fi
 
 # テストを実行する
-flutter test --no-test-assets --coverage
+fvm flutter test --no-test-assets --coverage
 
 # カバレッジから不要な結果を削除する
 lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
