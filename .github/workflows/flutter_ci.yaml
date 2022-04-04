@@ -365,7 +365,6 @@ jobs:
       # API ドキュメントを GitHub Pages にデプロイ
       - name: Deploy API doc to GitHub Pages
 #        if: ${{ github.ref == 'refs/heads/main' }}
-        if: ${{ github.ref == 'refs/heads/feature/51_deploy_api_doc' }} # debug
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
