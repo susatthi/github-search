@@ -319,7 +319,7 @@ jobs:
           flutter config --enable-web
           flutter build web -t lib/main.dart --web-renderer html
 
-  # API doc 作成ジョブ
+  # API ドキュメント作成ジョブ
   # テストジョブが成功したら実行する
   flutter_api_doc:
     name: Flutter API doc
@@ -355,12 +355,21 @@ jobs:
           dart pub global activate dartdoc
           dartdoc
 
-      # API ファイルを artifacts にアップロード
+      # API ドキュメントを artifacts にアップロード
       - name: Upload API doc to Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: api-doc
           path: doc/api
+
+      # main ブランチのときだけ API ドキュメントを GitHub Pages にデプロイ
+      - name: Deploy API doc to GitHub Pages
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: doc/api
+          publish_branch: gh-pages  # default: gh-pages
 
   # Slack通知ジョブ
   # すべてのジョブが終了したら実行する

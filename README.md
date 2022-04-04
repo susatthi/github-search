@@ -133,8 +133,8 @@ graph TD
 ## ビルド方法
 
 - カレントディレクトリで下記コマンドを実行してください。
-  - `bin/flutter_env` は引数で与えられた環境変数を基にビルドに必要な `lib/src/config/env.dart` を作成してくれます。
-  - 作成された `lib/src/config/env.dart` を直接編集しても大丈夫です。
+  - `bin/flutter_env` は引数で与えられた環境変数を基にビルドに必要な `lib/config/env.dart` を作成してくれます。
+  - 作成された `lib/config/env.dart` を直接編集しても大丈夫です。
 
 ```shell
 bin/flutter_env -g [アクセストークン] -s [検索文字列の初期値]
@@ -170,9 +170,11 @@ bin/flutter_gen
 bin/flutter_test
 ```
 
-### ドキュメント
+### API ドキュメント
 
-- API ドキュメントを生成する場合は下記コマンドを実行してください。
+- [API ドキュメント](https://keyber-inc.github.io/github_search/) で公開しています。
+
+- ローカルで生成する場合は下記コマンドを実行してください。
 
 ```shell
 bin/dartdoc
@@ -198,14 +200,15 @@ flowchart LR
     UploadCoverage --> BuildMacOS(macOSビルド)
     UploadCoverage --> BuildWindows(Windowsビルド)
     UploadCoverage --> CreateApiDoc(APIドキュメント作成)
+    CreateApiDoc --> DeployGitHubPages(GitHubPagesにデプロイ)
     end
     subgraph レポート
-    BuildAndroid --> NotifySlack(Slackに結果を送信)
-    BuildiOS --> NotifySlack
-    BuildWeb --> NotifySlack
-    BuildMacOS --> NotifySlack
-    BuildWindows --> NotifySlack
-    CreateApiDoc --> NotifySlack
+    BuildAndroid ---> NotifySlack(Slackに結果を送信)
+    BuildiOS ---> NotifySlack
+    BuildWeb ---> NotifySlack
+    BuildMacOS ---> NotifySlack
+    BuildWindows ---> NotifySlack
+    DeployGitHubPages --> NotifySlack
     end
     NotifySlack --> End((終了))
 
@@ -215,7 +218,7 @@ flowchart LR
     classDef reportJob fill:#437C40, color:#ffffff;
     %% class Start,End anchor;
     class Analyze,Test,UploadCoverage testJob;
-    class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc buildJob;
+    class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc,DeployGitHubPages buildJob;
     class NotifySlack reportJob;
 ```
 
