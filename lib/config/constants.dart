@@ -2,10 +2,10 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-/// GitHub API を使うためのOAuthトークンのキー
+/// GitHub API を使うためのアクセストークンのキー
 /// --dart-defineで指定する
-/// 例: flutter run --dart-define GITHUB_OAUTH_TOKEN=YOUR_OAUTH_TOKEN
-const kDartDefineKeyGitHubOAuthToken = 'GITHUB_OAUTH_TOKEN';
+/// 例: flutter run --dart-define GITHUB_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+const kDartDefineKeyGitHubAccessToken = 'GITHUB_ACCESS_TOKEN';
 
 /// 検索文字列のデフォルト値のキー
 /// --dart-defineで指定する

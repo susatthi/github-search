@@ -7,7 +7,7 @@
 本アプリを通して自分なりの最適なアーキテクチャを確立し、リファレンスコードにすることを目的にしています。
 
 > **:warning: 注意**  
-> このアプリは `GitHub API` を利用するために GitHub の `OAuthトークン` をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に `OAuthトークン` を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。
+> このアプリは `GitHub API` を利用するために GitHub の `アクセストークン` をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に `アクセストークン` を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。
 
 ![github_search_0 1 0_demo](https://user-images.githubusercontent.com/13707135/160549736-a056820a-d1ab-4261-a27e-f3bf9aca9487.gif)
 
@@ -78,7 +78,7 @@ graph TD
     end
     subgraph 環境変数
     SearchText --> EnvSearchText{{検索文字列初期値<br>String}}
-    GitHubHttpClient ---> EnvOAuthToken{{OAuth トークン<br>String}}
+    GitHubHttpClient ---> EnvAccessToken{{アクセストークン<br>String}}
     end
 
     classDef widget fill:#4063DD, color:#ffffff;
@@ -90,7 +90,7 @@ graph TD
     class ListViewController,DetailViewController controller;
     class SearchText,ListViewState,DetailViewState,ViewParameter state;
     class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi repository;
-    class EnvSearchText,EnvOAuthToken env;
+    class EnvSearchText,EnvAccessToken env;
 ```
 
 - `一覧 View`が更新される例
@@ -137,12 +137,12 @@ graph TD
   - 作成された `lib/src/config/env.dart` を直接編集しても大丈夫です。
 
 ```shell
-bin/flutter_env -g [GitHub OAuth トークン] -s [検索文字列の初期値]
+bin/flutter_env -g [アクセストークン] -s [検索文字列の初期値]
 ```
 
 |パラメータ名                   |          |説明                                                       |
 |-----------------------------|----------|----------------------------------------------------------|
-|`-g [GitHub OAuth トークン]`  |`Must`    |値には [GitHub 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください。|
+|`-g [アクセストークン]`         |`Must`    |値には [GitHub 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください。|
 |`-s [検索文字列の初期値]`       |`Optional`|好きな文字列を設定してください。指定しない場合は空文字が設定されます。|
 |`-h`                         |          |ヘルプを表示します。                                          |
 

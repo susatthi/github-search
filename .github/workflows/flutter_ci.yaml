@@ -52,7 +52,7 @@ jobs:
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -110,7 +110,7 @@ jobs:
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Android Release Build
       - name: Build for Android
@@ -152,7 +152,7 @@ jobs:
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -208,7 +208,7 @@ jobs:
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -266,7 +266,7 @@ jobs:
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
         shell: bash
 
       # Windows Release Build
@@ -311,7 +311,7 @@ jobs:
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_OAUTH_TOKEN }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Web Release Build
       - name: Build for Web
