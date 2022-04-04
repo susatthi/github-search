@@ -17,7 +17,7 @@ class GitHubHttpClient {
   })  : _token = token,
         _client = client;
 
-  /// OAuthトークン
+  /// アクセストークン
   final String _token;
 
   /// HTTPクライアント
