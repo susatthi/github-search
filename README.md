@@ -6,6 +6,9 @@
 
 本アプリを通して自分なりの最適なアーキテクチャを確立し、リファレンスコードにすることを目的にしています。
 
+> **:warning: 注意**  
+> このアプリは `GitHub API` を利用するために GitHub の `OAuthトークン` をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に `OAuthトークン` を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。
+
 ![github_search_0 1 0_demo](https://user-images.githubusercontent.com/13707135/160549736-a056820a-d1ab-4261-a27e-f3bf9aca9487.gif)
 
 ## アプリの機能
@@ -27,7 +30,6 @@
 ### 今後対応予定
 
 - [hive](https://pub.dev/packages/hive) or [shared_preferences](https://pub.dev/packages/shared_preferences) の利用
-- CD
 - Integration テスト
 - テーマ対応
 - ダークモード対応
@@ -176,10 +178,10 @@ bin/flutter_test
 bin/dartdoc
 ```
 
-## CI / CD
+## CI
 
-- [GitHub Actions](https://github.co.jp/features/actions) を利用して CI / CD を構築しています。
-  - プルリクエストが作成や更新された時、もしくは `main` または `develop` ブランチに `push` されたときに CI / CD が発火します。
+- [GitHub Actions](https://github.co.jp/features/actions) を利用して CI を構築しています。
+  - プルリクエストが作成や更新された時、もしくは `main` または `develop` ブランチに `push` されたときに CI が発火します。
 
 ```mermaid
 %%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
