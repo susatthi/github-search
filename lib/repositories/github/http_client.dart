@@ -35,9 +35,9 @@ class GitHubHttpClient {
     required T Function(Map<String, dynamic> data) responseBuilder,
   }) async {
     try {
-      logger.info('request: uri=$uri');
+      logger.i('request: uri=$uri');
       final response = await _client.get(uri, headers: _headers);
-      logger.info(
+      logger.i(
         'response: statusCode=${response.statusCode}, '
         'contentLength=${response.contentLength}',
       );
@@ -61,7 +61,7 @@ class GitHubHttpClient {
           throw GitHubException.unknown();
       }
     } on SocketException catch (e) {
-      logger.warning(e);
+      logger.w(e);
       throw GitHubException.noInternetConnection();
     }
   }
