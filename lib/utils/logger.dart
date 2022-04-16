@@ -12,6 +12,39 @@ final logger = Logger(
 );
 
 class _PrettyPrinter extends LogPrinter {
+  _PrettyPrinter({
+    this.stackTraceBeginIndex = 0,
+    this.methodCount = 2,
+    this.errorMethodCount = 8,
+    this.lineLength = 120,
+    this.colors = true,
+    this.printEmojis = true,
+    this.printTime = false,
+    this.excludeBox = const {},
+    this.noBoxingByDefault = false,
+  }) {
+    _startTime ??= DateTime.now();
+
+    final doubleDividerLine = StringBuffer();
+    final singleDividerLine = StringBuffer();
+    for (var i = 0; i < lineLength - 1; i++) {
+      doubleDividerLine.write(doubleDivider);
+      singleDividerLine.write(singleDivider);
+    }
+
+    _topBorder = '$topLeftCorner$doubleDividerLine';
+    _middleBorder = '$middleCorner$singleDividerLine';
+    _bottomBorder = '$bottomLeftCorner$doubleDividerLine';
+
+    // Translate excludeBox map (constant if default) to includeBox
+    // map with all Level enum possibilities
+    includeBox = {};
+    for (final l in Level.values) {
+      includeBox[l] = !noBoxingByDefault;
+    }
+    excludeBox.forEach((k, v) => includeBox[k] = !v);
+  }
+
   static const topLeftCorner = '┌';
   static const bottomLeftCorner = '└';
   static const middleCorner = '├';
@@ -60,8 +93,8 @@ class _PrettyPrinter extends LogPrinter {
 
   /// The index which to begin the stack trace at
   ///
-  /// This can be useful if, for instance, Logger is wrapped in another class and
-  /// you wish to remove these wrapped calls from stack trace
+  /// This can be useful if, for instance, Logger is wrapped in
+  /// another class and you wish to remove these wrapped calls from stack trace
   final int stackTraceBeginIndex;
   final int methodCount;
   final int errorMethodCount;
@@ -70,12 +103,16 @@ class _PrettyPrinter extends LogPrinter {
   final bool printEmojis;
   final bool printTime;
 
-  /// To prevent ascii 'boxing' of any log [Level] include the level in map for excludeBox,
-  /// for example to prevent boxing of [Level.verbose] and [Level.info] use excludeBox:{Level.verbose:true, Level.info:true}
+  /// To prevent ascii 'boxing' of any log [Level] include the level
+  /// in map for excludeBox,
+  /// for example to prevent boxing of [Level.verbose] and [Level.info]
+  /// use excludeBox:{Level.verbose:true, Level.info:true}
   final Map<Level, bool> excludeBox;
 
-  /// To make the default for every level to prevent boxing entirely set [noBoxingByDefault] to true
-  /// (boxing can still be turned on for some levels by using something like excludeBox:{Level.error:false} )
+  /// To make the default for every level to prevent boxing entirely
+  /// set [noBoxingByDefault] to true
+  /// (boxing can still be turned on for some levels by using something
+  /// like excludeBox:{Level.error:false} )
   final bool noBoxingByDefault;
 
   late final Map<Level, bool> includeBox;
@@ -84,39 +121,9 @@ class _PrettyPrinter extends LogPrinter {
   String _middleBorder = '';
   String _bottomBorder = '';
 
-  _PrettyPrinter({
-    this.stackTraceBeginIndex = 0,
-    this.methodCount = 2,
-    this.errorMethodCount = 8,
-    this.lineLength = 120,
-    this.colors = true,
-    this.printEmojis = true,
-    this.printTime = false,
-    this.excludeBox = const {},
-    this.noBoxingByDefault = false,
-  }) {
-    _startTime ??= DateTime.now();
-
-    var doubleDividerLine = StringBuffer();
-    var singleDividerLine = StringBuffer();
-    for (var i = 0; i < lineLength - 1; i++) {
-      doubleDividerLine.write(doubleDivider);
-      singleDividerLine.write(singleDivider);
-    }
-
-    _topBorder = '$topLeftCorner$doubleDividerLine';
-    _middleBorder = '$middleCorner$singleDividerLine';
-    _bottomBorder = '$bottomLeftCorner$doubleDividerLine';
-
-    // Translate excludeBox map (constant if default) to includeBox map with all Level enum possibilities
-    includeBox = {};
-    Level.values.forEach((l) => includeBox[l] = !noBoxingByDefault);
-    excludeBox.forEach((k, v) => includeBox[k] = !v);
-  }
-
   @override
   List<String> log(LogEvent event) {
-    var messageStr = stringifyMessage(event.message);
+    final messageStr = stringifyMessage(event.message);
 
     String? stackTraceStr;
     if (event.stackTrace == null) {
@@ -127,7 +134,7 @@ class _PrettyPrinter extends LogPrinter {
       stackTraceStr = formatStackTrace(event.stackTrace, errorMethodCount);
     }
 
-    var errorStr = event.error?.toString();
+    final errorStr = event.error?.toString();
 
     String? timeStr;
     if (printTime) {
@@ -148,9 +155,9 @@ class _PrettyPrinter extends LogPrinter {
     if (stackTraceBeginIndex > 0 && stackTraceBeginIndex < lines.length - 1) {
       lines = lines.sublist(stackTraceBeginIndex);
     }
-    var formatted = <String>[];
+    final formatted = <String>[];
     var count = 0;
-    for (var line in lines) {
+    for (final line in lines) {
       if (_discardDeviceStacktraceLine(line) ||
           _discardWebStacktraceLine(line) ||
           _discardBrowserStacktraceLine(line) ||
@@ -171,7 +178,7 @@ class _PrettyPrinter extends LogPrinter {
   }
 
   bool _discardDeviceStacktraceLine(String line) {
-    var match = _deviceStackTraceRegex.matchAsPrefix(line);
+    final match = _deviceStackTraceRegex.matchAsPrefix(line);
     if (match == null) {
       return false;
     }
@@ -179,7 +186,7 @@ class _PrettyPrinter extends LogPrinter {
   }
 
   bool _discardWebStacktraceLine(String line) {
-    var match = _webStackTraceRegex.matchAsPrefix(line);
+    final match = _webStackTraceRegex.matchAsPrefix(line);
     if (match == null) {
       return false;
     }
@@ -188,7 +195,7 @@ class _PrettyPrinter extends LogPrinter {
   }
 
   bool _discardBrowserStacktraceLine(String line) {
-    var match = _browserStackTraceRegex.matchAsPrefix(line);
+    final match = _browserStackTraceRegex.matchAsPrefix(line);
     if (match == null) {
       return false;
     }
@@ -198,22 +205,28 @@ class _PrettyPrinter extends LogPrinter {
 
   String getTime() {
     String _threeDigits(int n) {
-      if (n >= 100) return '$n';
-      if (n >= 10) return '0$n';
+      if (n >= 100) {
+        return '$n';
+      }
+      if (n >= 10) {
+        return '0$n';
+      }
       return '00$n';
     }
 
     String _twoDigits(int n) {
-      if (n >= 10) return '$n';
+      if (n >= 10) {
+        return '$n';
+      }
       return '0$n';
     }
 
-    var now = DateTime.now();
-    var h = _twoDigits(now.hour);
-    var min = _twoDigits(now.minute);
-    var sec = _twoDigits(now.second);
-    var ms = _threeDigits(now.millisecond);
-    var timeSinceStart = now.difference(_startTime!).toString();
+    final now = DateTime.now();
+    final h = _twoDigits(now.hour);
+    final min = _twoDigits(now.minute);
+    final sec = _twoDigits(now.second);
+    final ms = _threeDigits(now.millisecond);
+    final timeSinceStart = now.difference(_startTime!).toString();
     return '$h:$min:$sec.$ms (+$timeSinceStart)';
   }
 
@@ -226,7 +239,7 @@ class _PrettyPrinter extends LogPrinter {
     final dynamic finalMessage =
         message is dynamic Function() ? message() : message;
     if (finalMessage is Map || finalMessage is Iterable) {
-      var encoder = JsonEncoder.withIndent('  ', toEncodableFallback);
+      final encoder = JsonEncoder.withIndent('  ', toEncodableFallback);
       return encoder.convert(finalMessage);
     } else {
       return finalMessage.toString();
@@ -270,14 +283,16 @@ class _PrettyPrinter extends LogPrinter {
   ) {
     // This code is non trivial and a type annotation here helps understanding.
     // ignore: omit_local_variable_types
-    List<String> buffer = [];
-    var verticalLineAtLevel = (includeBox[level]!) ? (verticalLine + ' ') : '';
-    var color = _getLevelColor(level);
-    if (includeBox[level]!) buffer.add(color(_topBorder));
+    final buffer = <String>[];
+    final verticalLineAtLevel = (includeBox[level]!) ? ('$verticalLine ') : '';
+    final color = _getLevelColor(level);
+    if (includeBox[level]!) {
+      buffer.add(color(_topBorder));
+    }
 
     if (error != null) {
-      var errorColor = _getErrorColor(level);
-      for (var line in error.split('\n')) {
+      final errorColor = _getErrorColor(level);
+      for (final line in error.split('\n')) {
         buffer.add(
           color(verticalLineAtLevel) +
               errorColor.resetForeground +
@@ -285,26 +300,34 @@ class _PrettyPrinter extends LogPrinter {
               errorColor.resetBackground,
         );
       }
-      if (includeBox[level]!) buffer.add(color(_middleBorder));
+      if (includeBox[level]!) {
+        buffer.add(color(_middleBorder));
+      }
     }
 
     if (stacktrace != null) {
-      for (var line in stacktrace.split('\n')) {
+      for (final line in stacktrace.split('\n')) {
         buffer.add(color('$verticalLineAtLevel$line'));
       }
-      if (includeBox[level]!) buffer.add(color(_middleBorder));
+      if (includeBox[level]!) {
+        buffer.add(color(_middleBorder));
+      }
     }
 
     if (time != null) {
       buffer.add(color('$verticalLineAtLevel$time'));
-      if (includeBox[level]!) buffer.add(color(_middleBorder));
+      if (includeBox[level]!) {
+        buffer.add(color(_middleBorder));
+      }
     }
 
-    var emoji = _getEmoji(level);
-    for (var line in message.split('\n')) {
+    final emoji = _getEmoji(level);
+    for (final line in message.split('\n')) {
       buffer.add(color('$verticalLineAtLevel$emoji$line'));
     }
-    if (includeBox[level]!) buffer.add(color(_bottomBorder));
+    if (includeBox[level]!) {
+      buffer.add(color(_bottomBorder));
+    }
 
     return buffer;
   }
