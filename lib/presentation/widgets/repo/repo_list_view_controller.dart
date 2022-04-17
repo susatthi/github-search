@@ -14,7 +14,7 @@ final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(searchReposQueryProvider);
-    logger.info('create RepoListViewController: query=$query');
+    logger.i('create RepoListViewController: query=$query');
     return RepoListViewController(
       reposRepository,
       query: query,
@@ -51,7 +51,7 @@ class RepoListViewController
         query: trimQuery,
         perPage: perPage,
       );
-      logger.info(
+      logger.i(
         'result: totalCount=${result.totalCount}, '
         'items=${result.items.length}, ',
       );
@@ -80,7 +80,7 @@ class RepoListViewController
       );
 
       value.items.addAll(result.items.map(RepoData.from).toList());
-      logger.info(
+      logger.i(
         'result: totalCount=${result.totalCount}, '
         'fetchItems=${result.items.length}, '
         'totalItems=${value.items.length}, ',

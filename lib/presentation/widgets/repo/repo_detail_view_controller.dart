@@ -20,7 +20,7 @@ final repoDetailViewControllerProviderFamily = StateNotifierProvider.family
         RepoDetailViewParameter>(
   (ref, parameter) {
     final repoRepository = ref.watch(repoRepositoryProvider);
-    logger.info('create RepoDetailViewController: parameter=$parameter');
+    logger.i('create RepoDetailViewController: parameter=$parameter');
     return RepoDetailViewController(
       repoRepository,
       parameter: parameter,

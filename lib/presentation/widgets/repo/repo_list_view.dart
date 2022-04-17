@@ -80,7 +80,7 @@ class _CircularProgressListTile extends ConsumerWidget {
       ),
       onVisibilityChanged: (info) async {
         if (info.visibleFraction > 0.1) {
-          logger.info('appeared progress: info=$info');
+          logger.i('appeared progress: info=$info');
           // 表示されたので次のページを取得する
           await controller.fetchNextPage();
         }
