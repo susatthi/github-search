@@ -10,7 +10,6 @@ import 'package:stack_trace/stack_trace.dart';
 final logger = Logger(
   printer: _PrettyPrinter(
     loggerName: '[APP]',
-    printCaller: false,
     stackTraceLevel: Level.error,
   ),
 );
@@ -110,13 +109,22 @@ class _PrettyPrinter extends LogPrinter {
 
   @override
   List<String> log(LogEvent event) {
+    List<String>? stackTraceLines;
+    if (event.stackTrace != null) {
+      // stackTrace があれば優先して表示する
+      stackTraceLines = _getStackTrace(stackTrace: event.stackTrace);
+    } else if (event.level.index >= stackTraceLevel.index) {
+      // 致命的エラーの場合は stackTrace を表示する
+      stackTraceLines = _getStackTrace();
+    }
+
     return _formatAndPrint(
       level: event.level,
       message: _stringifyMessage(event.message),
       time: printTime ? _getCurrentTime() : null,
       caller: printCaller ? _getCaller() : null,
       error: event.error?.toString(),
-      stackTrace: _getStackTrace(stackTrace: event.stackTrace),
+      stackTrace: stackTraceLines,
     );
   }
 
