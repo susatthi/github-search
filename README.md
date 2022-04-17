@@ -163,6 +163,16 @@ bin/flutter_gen
 
 ### テスト
 
+- ローカルでテストを行うためには事前に次のライブラリをインストールしてください。
+
+```
+# lcov のインストール
+brew install lcov
+
+# dart_dot_reporter のインストール
+flutter pub global activate dart_dot_reporter
+```
+
 - ローカルでテストを行う場合は下記コマンドを実行してください。
   - 静的解析 => テスト => カバレッジの結果を表示 を行います。
 
