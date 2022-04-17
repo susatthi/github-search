@@ -61,7 +61,7 @@ jobs:
       # テストを実行
       - name: Run Flutter Test
         run: |
-          flutter test --no-test-assets --coverage --machine > test-results.json
+          flutter test --no-test-assets --coverage --machine > test-report.json
           sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
@@ -70,8 +70,8 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test
-          path: test-results.json
+          name: Flutter Test Report
+          path: test-report.json
           reporter: flutter-json
 
       # Codecov に結果を送信

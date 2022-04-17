@@ -13,10 +13,10 @@ fi
 
 # テストを実行する
 echo 'Testing github-search...'
-fvm flutter test --no-test-assets --coverage --machine > test-results.json
+fvm flutter test --no-test-assets --coverage --machine > test-report.json
 if [ $? -gt 0 ]; then
   # flutter test でエラーがあれば結果を表示して処理終了
-  flutter pub global run dart_dot_reporter test-results.json --show-message
+  flutter pub global run dart_dot_reporter test-report.json --show-message
   exit 1
 fi
 echo 'Tests done!'
@@ -28,7 +28,7 @@ lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverag
 genhtml coverage/lcov.info -o coverage/html
 
 # テスト結果をコンソールに表示する
-flutter pub global run dart_dot_reporter test-results.json --show-message
+flutter pub global run dart_dot_reporter test-report.json --show-message
 
 # カバレッジ結果を表示する
 open coverage/html/index.html
