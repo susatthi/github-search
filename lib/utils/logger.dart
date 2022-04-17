@@ -8,14 +8,14 @@ import 'package:logger/logger.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 final logger = Logger(
-  printer: _PrettyPrinter(
+  printer: SinglePrettyPrinter(
     loggerName: '[APP]',
     stackTraceLevel: Level.error,
   ),
 );
 
-class _PrettyPrinter extends LogPrinter {
-  _PrettyPrinter({
+class SinglePrettyPrinter extends LogPrinter {
+  SinglePrettyPrinter({
     this.loggerName,
     this.colors = true,
     this.printCaller = true,
@@ -246,7 +246,12 @@ class _PrettyPrinter extends LogPrinter {
       buffer.add(color(caller));
     }
 
-    final logs = <String>['${buffer.join(' ')}${color(':')} ${color(message)}'];
+    final logs = <String>[];
+    if (buffer.isNotEmpty) {
+      logs.add('${buffer.join(' ')}${color(':')} ${color(message)}');
+    } else {
+      logs.add(color(message));
+    }
 
     // エラーがあれば次の行に追記する
     if (error != null) {
