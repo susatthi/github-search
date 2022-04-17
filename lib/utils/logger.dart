@@ -110,14 +110,13 @@ class _PrettyPrinter extends LogPrinter {
 
   @override
   List<String> log(LogEvent event) {
-    // event.error と event.stackTrace は無視する
     return _formatAndPrint(
-      event.level,
-      _stringifyMessage(event.message),
-      printTime ? _getCurrentTime() : null,
-      printCaller ? _getCaller() : null,
-      // 致命的なエラーが発生したのでStackTraceを表示する
-      event.level.index >= stackTraceLevel.index ? _getStackTrace() : [],
+      level: event.level,
+      message: _stringifyMessage(event.message),
+      time: printTime ? _getCurrentTime() : null,
+      caller: printCaller ? _getCaller() : null,
+      error: event.error?.toString(),
+      stackTrace: _getStackTrace(stackTrace: event.stackTrace),
     );
   }
 
@@ -145,8 +144,10 @@ class _PrettyPrinter extends LogPrinter {
   }
 
   /// スタックトレースを返す
-  List<String> _getStackTrace() {
-    final lines = StackTrace.current.toString().split('\n');
+  List<String> _getStackTrace({
+    StackTrace? stackTrace,
+  }) {
+    final lines = (stackTrace ?? StackTrace.current).toString().split('\n');
     final formatted = <String>[];
     var count = 0;
     for (final line in lines) {
@@ -210,13 +211,14 @@ class _PrettyPrinter extends LogPrinter {
   }
 
   /// フォーマットして出力する
-  List<String> _formatAndPrint(
-    Level level,
-    String message,
+  List<String> _formatAndPrint({
+    required Level level,
+    required String message,
     String? time,
     String? caller,
-    List<String> stackTrace,
-  ) {
+    String? error,
+    List<String>? stackTrace,
+  }) {
     final buffer = <String>[];
     final color = _getLevelColor(level);
 
@@ -238,8 +240,13 @@ class _PrettyPrinter extends LogPrinter {
 
     final logs = <String>['${buffer.join(' ')}${color(':')} ${color(message)}'];
 
-    // stackTrace があればメッセージの次の行から追記する
-    if (stackTrace.isNotEmpty) {
+    // エラーがあれば次の行に追記する
+    if (error != null) {
+      logs.add(color(error));
+    }
+
+    // stackTrace があれば次の行に追記する
+    if (stackTrace != null && stackTrace.isNotEmpty) {
       for (final line in stackTrace) {
         logs.add(color(line));
       }
