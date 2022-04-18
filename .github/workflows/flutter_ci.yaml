@@ -1,4 +1,4 @@
-# Copyright 2022 Keyber Inc. All rights reserved.
+# Copyright 2022 susatthi All rights reserved.
 # Use of this source code is governed by a MIT license that can be
 # found in the LICENSE file.
 
@@ -61,7 +61,7 @@ jobs:
       # テストを実行
       - name: Run Flutter Test
         run: |
-          flutter test --no-test-assets --coverage --machine > test-report.json
+          flutter test --no-test-assets --coverage --machine > test-report.log
           sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
@@ -71,7 +71,7 @@ jobs:
         if: always()
         with:
           name: Flutter Test Report
-          path: test-report.json
+          path: test-report.log
           reporter: flutter-json
 
       # Codecov に結果を送信

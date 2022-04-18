@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.keyber.github_search">
+    package="jp.susatthi.github_search">
    <application
         android:label="GitHub"
         android:name="${applicationName}"

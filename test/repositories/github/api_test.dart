@@ -1,4 +1,4 @@
-// Copyright 2022 Keyber Inc. All rights reserved.
+// Copyright 2022 susatthi All rights reserved.
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
@@ -70,17 +70,17 @@ void main() {
   group('getRepo()', () {
     test('エンドポイントが正しいはず', () {
       final uri = api.getRepo(
-        ownerName: 'keyber-inc',
-        repoName: 'github_search',
+        ownerName: 'susatthi',
+        repoName: 'github-search',
       );
-      expect(uri.path, '/repos/keyber-inc/github_search');
+      expect(uri.path, '/repos/susatthi/github-search');
     });
     test('ownerNameが空文字の場合はassertが発生するはず', () {
       expect(
         () {
           api.getRepo(
             ownerName: '',
-            repoName: 'github_search',
+            repoName: 'github-search',
           );
         },
         throwsAssertionError,
@@ -90,7 +90,7 @@ void main() {
       expect(
         () {
           api.getRepo(
-            ownerName: 'keyber-inc',
+            ownerName: 'susatthi',
             repoName: '',
           );
         },

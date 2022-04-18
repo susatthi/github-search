@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "jp.keyber.github_search"
+        applicationId "jp.susatthi.github_search"
         minSdkVersion 26
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()

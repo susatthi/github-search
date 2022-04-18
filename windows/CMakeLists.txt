@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(github_search LANGUAGES CXX)
+project(github-search LANGUAGES CXX)
 
-set(BINARY_NAME "github_search")
+set(BINARY_NAME "github-search")
 
 cmake_policy(SET CMP0063 NEW)
 

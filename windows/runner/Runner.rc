@@ -95,13 +95,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "jp.keyber" "\0"
-            VALUE "FileDescription", "github_search" "\0"
+            VALUE "CompanyName", "jp.susatthi" "\0"
+            VALUE "FileDescription", "github-search" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "github_search" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 jp.keyber. All rights reserved." "\0"
-            VALUE "OriginalFilename", "github_search.exe" "\0"
-            VALUE "ProductName", "github_search" "\0"
+            VALUE "InternalName", "github-search" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 susatthi All rights reserved." "\0"
+            VALUE "OriginalFilename", "github-search.exe" "\0"
+            VALUE "ProductName", "github-search" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
