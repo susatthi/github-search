@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/keyber-inc/github_search/branch/develop/graph/badge.svg?token=C48OG86U8O)](https://codecov.io/gh/keyber-inc/github_search)
+[![codecov](https://codecov.io/gh/susatthi/github-search/branch/develop/graph/badge.svg?token=C48OG86U8O)](https://codecov.io/gh/susatthi/github-search)
 
 # GitHub Search
 
@@ -182,7 +182,7 @@ bin/flutter_test
 
 ### API ドキュメント
 
-- [API ドキュメント](https://keyber-inc.github.io/github_search/) で公開しています。
+- [API ドキュメント](https://susatthi.github.io/github-search/) で公開しています。
 
 - ローカルで生成する場合は下記コマンドを実行してください。
 

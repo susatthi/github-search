@@ -1,6 +1,6 @@
 {
-    "name": "github_search",
-    "short_name": "github_search",
+    "name": "github-search",
+    "short_name": "github-search",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
