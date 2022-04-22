@@ -126,7 +126,6 @@ void main() {
       '【String】ログが出力されるはず',
       Logger(
         printer: SinglePrettyPrinter(
-          loggerName: null,
           colors: false,
           printCaller: false,
           printEmojis: false,
@@ -152,8 +151,6 @@ void main() {
       '【String】ログが出力されるはず＋カラー',
       Logger(
         printer: SinglePrettyPrinter(
-          loggerName: null,
-          colors: true,
           printCaller: false,
           printEmojis: false,
           printLevels: false,
@@ -165,9 +162,7 @@ void main() {
       '【String】ログが出力されるはず＋呼び出し場所',
       Logger(
         printer: SinglePrettyPrinter(
-          loggerName: null,
           colors: false,
-          printCaller: true,
           printEmojis: false,
           printLevels: false,
           printTime: false,
@@ -178,10 +173,8 @@ void main() {
       '【String】ログが出力されるはず＋絵文字',
       Logger(
         printer: SinglePrettyPrinter(
-          loggerName: null,
           colors: false,
           printCaller: false,
-          printEmojis: true,
           printLevels: false,
           printTime: false,
         ),
@@ -191,11 +184,9 @@ void main() {
       '【String】ログが出力されるはず＋ログレベル',
       Logger(
         printer: SinglePrettyPrinter(
-          loggerName: null,
           colors: false,
           printCaller: false,
           printEmojis: false,
-          printLevels: true,
           printTime: false,
         ),
       ),
@@ -204,12 +195,10 @@ void main() {
       '【String】ログが出力されるはず＋タイムスタンプ',
       Logger(
         printer: SinglePrettyPrinter(
-          loggerName: null,
           colors: false,
           printCaller: false,
           printEmojis: false,
           printLevels: false,
-          printTime: true,
         ),
       ),
     );
@@ -219,7 +208,6 @@ void main() {
         printer: SinglePrettyPrinter(
           loggerName: '[APP]',
           colors: false,
-          printCaller: true,
           printEmojis: false,
           printLevels: false,
           printTime: false,
