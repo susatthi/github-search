@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:github_search/assets/fonts.gen.dart';
-import 'package:github_search/presentation/pages/error/error_page.dart';
-import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
-import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
-import 'package:github_search/presentation/widgets/repo/repo_detail_view_controller.dart';
 import 'package:go_router/go_router.dart';
 
+import '../assets/fonts.gen.dart';
 import '../localizations/strings.g.dart';
+import '../presentation/pages/error/error_page.dart';
+import '../presentation/pages/repo/repo_index_page.dart';
+import '../presentation/pages/repo/repo_view_page.dart';
+import '../presentation/widgets/repo/repo_detail_view_controller.dart';
 
 class GitHubSearchApp extends StatelessWidget {
   const GitHubSearchApp({

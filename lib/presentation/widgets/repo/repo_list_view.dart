@@ -4,13 +4,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
-import 'package:github_search/presentation/widgets/common/async_value_handler.dart';
-import 'package:github_search/presentation/widgets/repo/repo_list_view_controller.dart';
-import 'package:github_search/presentation/widgets/repo/repo_list_view_state.dart';
-import 'package:github_search/utils/logger.dart';
 import 'package:go_router/go_router.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+
+import '../../../utils/logger.dart';
+import '../../pages/repo/repo_view_page.dart';
+import '../common/async_value_handler.dart';
+import 'repo_list_view_controller.dart';
+import 'repo_list_view_state.dart';
 
 /// リポジトリ一覧View
 class RepoListView extends ConsumerWidget {

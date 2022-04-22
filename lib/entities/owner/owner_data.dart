@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:github_search/entities/owner/owner.dart';
+import 'owner.dart';
 
 /// UI用オーナーEntity
 class OwnerData {

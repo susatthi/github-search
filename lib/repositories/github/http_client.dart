@@ -5,9 +5,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:github_search/repositories/github/exception.dart';
-import 'package:github_search/utils/logger.dart';
 import 'package:http/http.dart' as http;
+
+import '../../utils/logger.dart';
+import 'exception.dart';
 
 /// GitHub API 用の HTTPクライアント
 class GitHubHttpClient {

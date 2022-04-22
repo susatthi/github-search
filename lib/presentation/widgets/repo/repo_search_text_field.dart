@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
-import 'package:github_search/config/env.dart';
 
+import '../../../config/constants.dart';
+import '../../../config/env.dart';
 import '../../../localizations/strings.g.dart';
 
 /// リポジトリ検索文字列
