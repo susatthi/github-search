@@ -13,6 +13,7 @@ import '../../../localizations/strings.g.dart';
 final searchReposQueryProvider = StateProvider<String>(
   (ref) => const String.fromEnvironment(
     dartDefineKeyDefaultSearchValue,
+    //ignore: avoid_redundant_argument_values
     defaultValue: Env.defaultSearchValue,
   ),
 );
