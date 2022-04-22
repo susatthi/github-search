@@ -16,7 +16,7 @@ import 'github/repo_repository.dart';
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) {
     const token = String.fromEnvironment(
-      kDartDefineKeyGitHubAccessToken,
+      dartDefineKeyGitHubAccessToken,
       defaultValue: Env.gitHubAccessToken,
     );
     return GitHubRepoRepository(

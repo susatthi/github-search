@@ -38,8 +38,8 @@ class RepoDetailViewParameter extends Equatable {
 
   factory RepoDetailViewParameter.from(GoRouterState state) =>
       RepoDetailViewParameter(
-        ownerName: state.params[kPageParamKeyOwnerName]!,
-        repoName: state.params[kPageParamKeyRepoName]!,
+        ownerName: state.params[pageParamKeyOwnerName]!,
+        repoName: state.params[pageParamKeyRepoName]!,
       );
 
   /// オーナー名

@@ -12,7 +12,8 @@ import '../../../localizations/strings.g.dart';
 /// リポジトリ検索文字列
 final searchReposQueryProvider = StateProvider<String>(
   (ref) => const String.fromEnvironment(
-    kDartDefineKeyDefaultSearchValue,
+    dartDefineKeyDefaultSearchValue,
+    //ignore: avoid_redundant_argument_values
     defaultValue: Env.defaultSearchValue,
   ),
 );

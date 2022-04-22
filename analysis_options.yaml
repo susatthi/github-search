@@ -8,6 +8,7 @@ include: package:pedantic_mono/analysis_options.yaml
 linter:
   rules:
     avoid_classes_with_only_static_members: false
+    constant_identifier_names: true
     prefer_relative_imports: true
 
 # see: https://github.com/rrousselGit/freezed/issues/488#issuecomment-894358980
