@@ -3,14 +3,15 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
-import 'package:github_search/config/env.dart';
-import 'package:github_search/entities/repo/repo.dart';
-import 'package:github_search/entities/search_repos_result/search_repos_result.dart';
-import 'package:github_search/repositories/github/api.dart';
-import 'package:github_search/repositories/github/http_client.dart';
-import 'package:github_search/repositories/github/repo_repository.dart';
 import 'package:http/http.dart' as http;
+
+import '../config/constants.dart';
+import '../config/env.dart';
+import '../entities/repo/repo.dart';
+import '../entities/search_repos_result/search_repos_result.dart';
+import 'github/api.dart';
+import 'github/http_client.dart';
+import 'github/repo_repository.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) {

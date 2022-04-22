@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/repositories/github/exception.dart';
 
 import '../../../localizations/strings.g.dart';
+import '../../../repositories/github/exception.dart';
 
 /// AsyncValueのerrorとloadingをよしなに処理する
 class AsyncValueHandler<T> extends StatelessWidget {

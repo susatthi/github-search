@@ -4,12 +4,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/entities/repo/repo_data.dart';
-import 'package:github_search/presentation/widgets/common/async_value_handler.dart';
-import 'package:github_search/presentation/widgets/common/cached_circle_avatar.dart';
-import 'package:github_search/presentation/widgets/repo/repo_detail_view_controller.dart';
 
+import '../../../entities/repo/repo_data.dart';
 import '../../../localizations/strings.g.dart';
+import '../common/async_value_handler.dart';
+import '../common/cached_circle_avatar.dart';
+import 'repo_detail_view_controller.dart';
 
 /// リポジトリ詳細View
 class RepoDetailView extends ConsumerWidget {

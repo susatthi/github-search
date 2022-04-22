@@ -4,11 +4,12 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
-import 'package:github_search/entities/repo/repo_data.dart';
-import 'package:github_search/repositories/repo_repository.dart';
-import 'package:github_search/utils/logger.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../config/constants.dart';
+import '../../../entities/repo/repo_data.dart';
+import '../../../repositories/repo_repository.dart';
+import '../../../utils/logger.dart';
 
 final repoDetailViewControllerProvider = StateNotifierProvider.autoDispose<
     RepoDetailViewController, AsyncValue<RepoData>>(

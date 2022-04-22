@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:github_search/entities/owner/owner.dart';
+
+import '../owner/owner.dart';
 
 part 'repo.freezed.dart';
 part 'repo.g.dart';

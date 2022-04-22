@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:github_search/entities/owner/owner_data.dart';
-import 'package:github_search/entities/repo/repo.dart';
+import '../owner/owner_data.dart';
+import 'repo.dart';
 
 /// UI用リポジトリEntity
 class RepoData {
