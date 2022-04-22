@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  csv:
+    dependency: transitive
+    description:
+      name: csv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.1"
   dart_style:
     dependency: transitive
     description:
@@ -211,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  fast_i18n:
+    dependency: "direct dev"
+    description:
+      name: fast_i18n
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.12.1"
   ffi:
     dependency: transitive
     description:

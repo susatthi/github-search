@@ -6,11 +6,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/github_search_app.dart';
 
+import 'config/github_search_app.dart';
+import 'localizations/strings.g.dart';
 import 'utils/url_strategy/url_strategy.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // CacheManagerのログレベルを設定する
   CacheManager.logLevel =
       kDebugMode ? CacheManagerLogLevel.verbose : CacheManagerLogLevel.none;
@@ -19,9 +22,14 @@ void main() {
   // see: https://docs.flutter.dev/development/ui/navigation/url-strategies
   usePathUrlStrategy();
 
+  // fast_i18n の初期化
+  LocaleSettings.useDeviceLocale();
+
   runApp(
     ProviderScope(
-      child: GitHubSearchApp(),
+      child: TranslationProvider(
+        child: GitHubSearchApp(),
+      ),
     ),
   );
 }

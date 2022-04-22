@@ -18,7 +18,7 @@
   - 無限スクロール対応
 - [go_router](https://pub.dev/packages/go_router) を使った新しいルーティング
 - [http](https://pub.dev/packages/http) を使った REST API の実装
-- 多言語対応（日本語/英語）
+- [fast_i18n](https://pub.dev/packages/fast_i18n) を使った多言語対応（日本語/英語）
 - カスタムフォント対応
 - [mockito](https://pub.dev/packages/mockito) を使った Unit / Widget テスト
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) を使ったアプリアイコン

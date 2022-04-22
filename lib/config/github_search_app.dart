@@ -4,6 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:github_search/assets/fonts.gen.dart';
@@ -11,8 +12,9 @@ import 'package:github_search/presentation/pages/error/error_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/presentation/widgets/repo/repo_detail_view_controller.dart';
-import 'package:github_search/utils/l10n.dart';
 import 'package:go_router/go_router.dart';
+
+import '../localizations/strings.g.dart';
 
 class GitHubSearchApp extends StatelessWidget {
   GitHubSearchApp({
@@ -33,10 +35,11 @@ class GitHubSearchApp extends StatelessWidget {
     if (home != null) {
       // テスト用
       return MaterialApp(
-        localizationsDelegates: L10n.localizationsDelegates,
-        supportedLocales: L10n.supportedLocales,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        supportedLocales: LocaleSettings.supportedLocales,
+        locale: TranslationProvider.of(context).flutterLocale,
         title: 'GitHubSearchTest',
-        onGenerateTitle: (context) => L10n.of(context).appName,
+        onGenerateTitle: (context) => i18n.appName,
         theme: theme,
         home: home,
       );
@@ -45,10 +48,11 @@ class GitHubSearchApp extends StatelessWidget {
     return MaterialApp.router(
       routerDelegate: _router.routerDelegate,
       routeInformationParser: _router.routeInformationParser,
-      localizationsDelegates: L10n.localizationsDelegates,
-      supportedLocales: L10n.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: LocaleSettings.supportedLocales,
+      locale: TranslationProvider.of(context).flutterLocale,
       title: 'GitHubSearch',
-      onGenerateTitle: (context) => L10n.of(context).appName,
+      onGenerateTitle: (context) => i18n.appName,
       theme: theme,
     );
   }
