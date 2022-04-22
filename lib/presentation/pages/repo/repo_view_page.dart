@@ -13,7 +13,7 @@ class RepoViewPage extends StatelessWidget {
   const RepoViewPage({Key? key}) : super(key: key);
 
   static const name = 'repo_view';
-  static const path = ':$kPageParamKeyOwnerName/:$kPageParamKeyRepoName';
+  static const path = ':$pageParamKeyOwnerName/:$pageParamKeyRepoName';
 
   /// 画面遷移用のパラメータを返す
   static Map<String, String> params({
@@ -21,8 +21,8 @@ class RepoViewPage extends StatelessWidget {
     required String repoName,
   }) =>
       {
-        kPageParamKeyOwnerName: ownerName,
-        kPageParamKeyRepoName: repoName,
+        pageParamKeyOwnerName: ownerName,
+        pageParamKeyRepoName: repoName,
       };
 
   @override
