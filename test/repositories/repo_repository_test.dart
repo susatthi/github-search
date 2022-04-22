@@ -23,9 +23,9 @@ void main() {
     testWidgets('repoRepositoryProviderからGitHubRepoRepositoryが取得できるはず',
         (tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: GitHubSearchApp(
-            home: const _TestWidget(),
+            home: _TestWidget(),
           ),
         ),
       );

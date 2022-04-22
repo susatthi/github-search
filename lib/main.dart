@@ -26,10 +26,8 @@ void main() {
   LocaleSettings.useDeviceLocale();
 
   runApp(
-    ProviderScope(
-      child: TranslationProvider(
-        child: GitHubSearchApp(),
-      ),
+    const ProviderScope(
+      child: GitHubSearchApp(),
     ),
   );
 }

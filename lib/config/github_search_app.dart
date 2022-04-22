@@ -17,13 +17,31 @@ import 'package:go_router/go_router.dart';
 import '../localizations/strings.g.dart';
 
 class GitHubSearchApp extends StatelessWidget {
-  GitHubSearchApp({
+  const GitHubSearchApp({
     Key? key,
     this.home,
   }) : super(key: key);
 
   /// 初期表示画面（テスト用）
   @visibleForOverriding
+  final Widget? home;
+
+  @override
+  Widget build(BuildContext context) {
+    return TranslationProvider(
+      child: _GitHubSearchApp(
+        home: home,
+      ),
+    );
+  }
+}
+
+class _GitHubSearchApp extends StatelessWidget {
+  _GitHubSearchApp({
+    Key? key,
+    this.home,
+  }) : super(key: key);
+
   final Widget? home;
 
   @override

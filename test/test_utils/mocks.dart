@@ -99,5 +99,5 @@ final mockGitHubSearchApp = ProviderScope(
       StateProvider<String>((ref) => 'flutter'),
     ),
   ],
-  child: GitHubSearchApp(),
+  child: const GitHubSearchApp(),
 );

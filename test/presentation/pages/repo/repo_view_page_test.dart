@@ -27,9 +27,9 @@ void main() {
           ),
         ),
       ],
-      child: GitHubSearchApp(
+      child: const GitHubSearchApp(
         // リポジトリ詳細画面を直接表示する
-        home: const RepoViewPage(),
+        home: RepoViewPage(),
       ),
     );
   });
