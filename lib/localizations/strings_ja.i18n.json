@@ -1,0 +1,24 @@
+{
+  "appName": "GitHubSearch",
+  "error": "エラー",
+  "errorOccurred": "エラーが発生しました。",
+  "forksCount": "Fork数",
+  "gitHubExceptionMessage": {
+    "badRequest": "不正なリクエストが送信されました。(400)",
+    "badCredentials": "不正なリクエストが送信されました。(401)",
+    "maximumNumberOfLoginAttemptsExceeded": "しばらく時間をおいてから再度お試しください。(403)",
+    "notFound": "データが見つかりませんでした。(404)",
+    "validationFailed": "不正なリクエストが送信されました。(422)",
+    "serviceUnavailable": "しばらく時間をおいてから再度お試しください。(503)",
+    "unknown": "不明なエラーが発生しました。(-1)",
+    "noInternetConnection": "通信環境の良いところで再度お試しください。(-2)"
+  },
+  "issuesCount": "Issue数",
+  "ownerName": "オーナー名",
+  "projectLanguage": "プロジェクト言語",
+  "repo": "リポジトリ",
+  "repoName": "リポジトリ名",
+  "starsCount": "Star数",
+  "searchRepos": "リポジトリを検索",
+  "watchersCount": "Watcher数"
+}

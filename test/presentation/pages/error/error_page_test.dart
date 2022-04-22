@@ -5,20 +5,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/github_search_app.dart';
-import 'package:github_search/localizations/app_localizations_en.dart';
+import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/error/error_page.dart';
 
 void main() {
-  final l10n = AppLocalizationsEn();
   testWidgets('errorがnullでも問題ないはず', (tester) async {
     await tester.pumpWidget(
-      ProviderScope(
+      const ProviderScope(
         child: GitHubSearchApp(
-          home: const ErrorPage(),
+          home: ErrorPage(),
         ),
       ),
     );
-    expect(find.text(l10n.errorOccurred), findsOneWidget);
+    expect(find.text(i18n.errorOccurred), findsOneWidget);
   });
   testWidgets('errorがある場合でも問題ないはず', (tester) async {
     final error = Exception('dummy');

@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:github_search/utils/l10n.dart';
+
+import '../../../localizations/strings.g.dart';
 
 /// エラー画面
 class ErrorPage extends StatelessWidget {
@@ -19,10 +20,10 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(L10n.of(context).error),
+        title: Text(i18n.error),
       ),
       body: Center(
-        child: Text(error?.toString() ?? L10n.of(context).errorOccurred),
+        child: Text(error?.toString() ?? i18n.errorOccurred),
       ),
     );
   }
