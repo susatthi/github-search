@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../../../localizations/strings.g.dart';
 import '../../widgets/repo/repo_list_view.dart';
+import '../../widgets/repo/repo_search_order_toggle_button.dart';
+import '../../widgets/repo/repo_search_sort_selector_dialog.dart';
 import '../../widgets/repo/repo_search_text_field.dart';
 
 /// リポジトリ一覧画面
@@ -20,6 +22,17 @@ class RepoIndexPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(i18n.appName),
+        actions: [
+          const RepoSearchOrderToggleButton(),
+          IconButton(
+            onPressed: () => showDialog<void>(
+              context: context,
+              builder: (context) => const RepoSearchSortSelectorDialog(),
+            ),
+            icon: const Icon(Icons.sort),
+            tooltip: i18n.sort,
+          ),
+        ],
       ),
       body: Column(
         children: const [

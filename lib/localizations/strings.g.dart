@@ -3,9 +3,9 @@
  * Generated file. Do not edit.
  *
  * Locales: 2
- * Strings: 40 (20.0 per locale)
+ * Strings: 50 (25.0 per locale)
  *
- * Built on 2022-04-22 at 21:23 UTC
+ * Built on 2022-04-24 at 06:18 UTC
  */
 
 import 'package:flutter/widgets.dart';
@@ -304,10 +304,14 @@ class _StringsEn {
 
 	// Translations
 	String get appName => 'GitHubSearch';
+	String get asc => 'Asc';
+	String get bestMatch => 'Best match';
+	String get desc => 'Desc';
 	String get error => 'Error';
 	String get errorOccurred => 'An error has occurred.';
 	String get forksCount => 'Forks count';
 	late final _StringsGitHubExceptionMessageEn gitHubExceptionMessage = _StringsGitHubExceptionMessageEn._(_root);
+	String get helpWantedIssuesCount => 'Help wanted ${_root.issuesCount}';
 	String get issuesCount => 'Issues count';
 	String get ownerName => 'Owner name';
 	String get projectLanguage => 'Project language';
@@ -315,6 +319,7 @@ class _StringsEn {
 	String get repoName => 'Repository name';
 	String get starsCount => 'Stars count';
 	String get searchRepos => 'Search repositories';
+	String get sort => 'Sort';
 	String get watchersCount => 'Watchers count';
 }
 
@@ -348,10 +353,14 @@ class _StringsJa implements _StringsEn {
 
 	// Translations
 	@override String get appName => 'GitHubSearch';
+	@override String get asc => '昇順';
+	@override String get bestMatch => 'ベストマッチ';
+	@override String get desc => '降順';
 	@override String get error => 'エラー';
 	@override String get errorOccurred => 'エラーが発生しました。';
 	@override String get forksCount => 'Fork数';
 	@override late final _StringsGitHubExceptionMessageJa gitHubExceptionMessage = _StringsGitHubExceptionMessageJa._(_root);
+	@override String get helpWantedIssuesCount => '助けを求めている${_root.issuesCount}';
 	@override String get issuesCount => 'Issue数';
 	@override String get ownerName => 'オーナー名';
 	@override String get projectLanguage => 'プロジェクト言語';
@@ -359,6 +368,7 @@ class _StringsJa implements _StringsEn {
 	@override String get repoName => 'リポジトリ名';
 	@override String get starsCount => 'Star数';
 	@override String get searchRepos => 'リポジトリを検索';
+	@override String get sort => '並び替え';
 	@override String get watchersCount => 'Watcher数';
 }
 

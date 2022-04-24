@@ -8,6 +8,8 @@ import '../../../entities/repo/repo_data.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'repo_list_view_state.dart';
+import 'repo_search_order_toggle_button.dart';
+import 'repo_search_sort_selector_dialog.dart';
 import 'repo_search_text_field.dart';
 
 final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
@@ -15,10 +17,17 @@ final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(searchReposQueryProvider);
-    logger.i('create RepoListViewController: query=$query');
+    final sort = ref.watch(searchReposSortProvider);
+    final order = ref.watch(searchReposOrderProvider);
+    logger.i(
+      'create RepoListViewController: query=$query, '
+      'sort=${sort.name}, order=${order.name}',
+    );
     return RepoListViewController(
       reposRepository,
       query: query,
+      sort: sort,
+      order: order,
     );
   },
 );
@@ -28,6 +37,8 @@ class RepoListViewController
   RepoListViewController(
     this._reposRepository, {
     required this.query,
+    required this.sort,
+    required this.order,
   }) : super(const AsyncValue.loading()) {
     _search();
   }
@@ -36,6 +47,12 @@ class RepoListViewController
 
   /// 検索文字列
   final String query;
+
+  /// 検索ソート
+  final RepoParamSearchReposSort sort;
+
+  /// 検索オーダー
+  final RepoParamSearchReposOrder order;
 
   /// 1ページに取得するレポジトリの数
   static const perPage = 30;
@@ -50,6 +67,8 @@ class RepoListViewController
 
       final result = await _reposRepository.searchRepos(
         query: trimQuery,
+        sort: sort,
+        order: order,
         perPage: perPage,
       );
       logger.i(
@@ -76,6 +95,8 @@ class RepoListViewController
     state = await AsyncValue.guard(() async {
       final result = await _reposRepository.searchRepos(
         query: query,
+        sort: sort,
+        order: order,
         perPage: perPage,
         page: value.page + 1,
       );

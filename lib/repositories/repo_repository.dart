@@ -31,6 +31,8 @@ abstract class RepoRepository {
   /// リポジトリを検索する
   Future<SearchReposResult> searchRepos({
     required String query,
+    required RepoParamSearchReposSort sort,
+    required RepoParamSearchReposOrder order,
     int? perPage,
     int? page,
   });
@@ -40,4 +42,18 @@ abstract class RepoRepository {
     required String ownerName,
     required String repoName,
   });
+}
+
+/// リポジトリ検索用ソート
+enum RepoParamSearchReposSort {
+  bestMatch,
+  stars,
+  forks,
+  helpWantedIssues,
+}
+
+/// リポジトリ検索用オーダー
+enum RepoParamSearchReposOrder {
+  desc,
+  asc,
 }

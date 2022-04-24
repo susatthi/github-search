@@ -22,12 +22,16 @@ class GitHubRepoRepository implements RepoRepository {
   @override
   Future<SearchReposResult> searchRepos({
     required String query,
+    required RepoParamSearchReposSort sort,
+    required RepoParamSearchReposOrder order,
     int? perPage,
     int? page,
   }) async =>
       _client.get<SearchReposResult>(
         uri: _api.searchRepos(
           query: query,
+          sort: GitHubParamSearchReposSortHelper.valueOf(sort),
+          order: GitHubParamSearchReposOrderHelper.valueOf(order),
           perPage: perPage,
           page: page,
         ),

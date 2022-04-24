@@ -1,5 +1,8 @@
 {
   "appName": "GitHubSearch",
+  "asc": "昇順",
+  "bestMatch": "ベストマッチ",
+  "desc": "降順",
   "error": "エラー",
   "errorOccurred": "エラーが発生しました。",
   "forksCount": "Fork数",
@@ -13,6 +16,7 @@
     "unknown": "不明なエラーが発生しました。(-1)",
     "noInternetConnection": "通信環境の良いところで再度お試しください。(-2)"
   },
+  "helpWantedIssuesCount": "助けを求めている@:issuesCount",
   "issuesCount": "Issue数",
   "ownerName": "オーナー名",
   "projectLanguage": "プロジェクト言語",
@@ -20,5 +24,6 @@
   "repoName": "リポジトリ名",
   "starsCount": "Star数",
   "searchRepos": "リポジトリを検索",
+  "sort": "並び替え",
   "watchersCount": "Watcher数"
 }
