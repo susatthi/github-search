@@ -8,8 +8,8 @@ import '../../../entities/repo/repo_data.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'repo_list_view_state.dart';
-import 'repo_search_order_toggle_button.dart';
-import 'repo_search_sort_selector_dialog.dart';
+import 'repo_search_repos_order.dart';
+import 'repo_search_repos_sort.dart';
 import 'repo_search_text_field.dart';
 
 final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
@@ -17,8 +17,8 @@ final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(searchReposQueryProvider);
-    final sort = ref.watch(searchReposSortProvider);
-    final order = ref.watch(searchReposOrderProvider);
+    final sort = ref.watch(repoSearchReposSortProvider);
+    final order = ref.watch(repoSearchReposOrderProvider);
     logger.i(
       'create RepoListViewController: query=$query, '
       'sort=${sort.name}, order=${order.name}',

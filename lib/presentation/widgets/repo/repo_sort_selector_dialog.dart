@@ -8,15 +8,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
-
-/// リポジトリ検索用ソート
-final searchReposSortProvider = StateProvider<RepoParamSearchReposSort>(
-  (ref) => RepoParamSearchReposSort.bestMatch,
-);
+import 'repo_search_repos_sort.dart';
 
 /// リポジトリ検索用ソート選択ダイアログ
-class RepoSearchSortSelectorDialog extends ConsumerWidget {
-  const RepoSearchSortSelectorDialog({Key? key}) : super(key: key);
+class RepoSortSelectorDialog extends ConsumerWidget {
+  const RepoSortSelectorDialog({Key? key}) : super(key: key);
 
   Map<String, RepoParamSearchReposSort> get _items => {
         i18n.bestMatch: RepoParamSearchReposSort.bestMatch,
@@ -27,7 +23,7 @@ class RepoSearchSortSelectorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sort = ref.watch(searchReposSortProvider);
+    final sort = ref.watch(repoSearchReposSortProvider);
     return SimpleDialog(
       children: _items.entries
           .map(
@@ -39,7 +35,9 @@ class RepoSearchSortSelectorDialog extends ConsumerWidget {
               title: Text(e.key),
               onTap: () {
                 logger.i('Changed ${e.value.name}');
-                ref.read(searchReposSortProvider.notifier).state = e.value;
+                ref
+                    .read(repoSearchReposSortProvider.notifier)
+                    .update(sort: e.value);
                 Navigator.of(context).pop();
               },
             ),

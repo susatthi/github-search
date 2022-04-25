@@ -9,15 +9,11 @@ import '../../../localizations/strings.g.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'repo_list_view_controller.dart';
-
-/// リポジトリ検索用オーダー
-final searchReposOrderProvider = StateProvider<RepoParamSearchReposOrder>(
-  (ref) => RepoParamSearchReposOrder.desc,
-);
+import 'repo_search_repos_order.dart';
 
 /// リポジトリ検索用オーダートグルボタン
-class RepoSearchOrderToggleButton extends ConsumerWidget {
-  const RepoSearchOrderToggleButton({Key? key}) : super(key: key);
+class RepoOrderToggleButton extends ConsumerWidget {
+  const RepoOrderToggleButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,14 +39,16 @@ class _ToggleButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final order = ref.watch(searchReposOrderProvider);
+    final order = ref.watch(repoSearchReposOrderProvider);
     logger.d('enabled=$enabled, order=${order.name}');
     return IconButton(
       onPressed: enabled
           ? () {
               final newOrder = order.toggle;
               logger.i('Chanced $newOrder');
-              ref.read(searchReposOrderProvider.notifier).state = newOrder;
+              ref
+                  .read(repoSearchReposOrderProvider.notifier)
+                  .update(order: newOrder);
             }
           : null,
       icon: Icon(order.icon),

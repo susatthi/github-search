@@ -8,7 +8,7 @@ import '../repo_repository.dart';
 import 'api.dart';
 import 'http_client.dart';
 
-/// GitHubAPI用リポジトリRepository
+/// GitHubAPI版リポジトリRepository
 class GitHubRepoRepository implements RepoRepository {
   const GitHubRepoRepository({
     required GitHubApi api,

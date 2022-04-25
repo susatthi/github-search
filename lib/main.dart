@@ -6,12 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import 'config/constants.dart';
 import 'config/github_search_app.dart';
 import 'localizations/strings.g.dart';
+import 'repositories/hive/app_data_repository.dart';
 import 'utils/url_strategy/url_strategy.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // CacheManagerのログレベルを設定する
@@ -25,9 +28,16 @@ void main() {
   // fast_i18n の初期化
   LocaleSettings.useDeviceLocale();
 
+  // hive の初期化
+  await Hive.initFlutter();
+  final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
+
   runApp(
-    const ProviderScope(
-      child: GitHubSearchApp(),
+    ProviderScope(
+      overrides: [
+        appDataBoxProvider.overrideWithValue(box),
+      ],
+      child: const GitHubSearchApp(),
     ),
   );
 }

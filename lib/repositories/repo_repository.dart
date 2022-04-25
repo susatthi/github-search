@@ -52,8 +52,26 @@ enum RepoParamSearchReposSort {
   helpWantedIssues,
 }
 
+extension RepoParamSearchReposSortHelper on RepoParamSearchReposSort {
+  /// 文字列からソートを返す
+  /// 見つからない場合は IterableElementError.noElement() を投げる
+  static RepoParamSearchReposSort valueOf(String name) {
+    return RepoParamSearchReposSort.values
+        .firstWhere((element) => element.name == name);
+  }
+}
+
 /// リポジトリ検索用オーダー
 enum RepoParamSearchReposOrder {
   desc,
   asc,
+}
+
+extension RepoParamSearchReposOrderHelper on RepoParamSearchReposOrder {
+  /// 文字列からオーダーを返す
+  /// 見つからない場合は IterableElementError.noElement() を投げる
+  static RepoParamSearchReposOrder valueOf(String name) {
+    return RepoParamSearchReposOrder.values
+        .firstWhere((element) => element.name == name);
+  }
 }

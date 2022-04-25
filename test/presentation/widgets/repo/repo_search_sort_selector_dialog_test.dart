@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_sort_selector_dialog.dart';
+import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialog.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
 void main() {

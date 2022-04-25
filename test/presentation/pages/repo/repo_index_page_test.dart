@@ -10,8 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_order_toggle_button.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_sort_selector_dialog.dart';
+import 'package:github_search/presentation/widgets/repo/repo_order_toggle_button.dart';
+import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialog.dart';
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
@@ -35,7 +35,7 @@ void main() {
 
     expect(find.byIcon(Icons.search), findsOneWidget);
     expect(find.byType(TextField), findsOneWidget);
-    expect(find.byType(RepoSearchOrderToggleButton), findsOneWidget);
+    expect(find.byType(RepoOrderToggleButton), findsOneWidget);
     expect(find.byIcon(Icons.sort), findsOneWidget);
   });
   testWidgets('エラーが発生したらエラー画面を表示するはず', (tester) async {
@@ -68,7 +68,7 @@ void main() {
     expect(find.byIcon(Icons.arrow_upward), findsNothing);
 
     // オーダートグルボタンが disable になっているので押せないはず
-    await tester.tap(find.byType(RepoSearchOrderToggleButton));
+    await tester.tap(find.byType(RepoOrderToggleButton));
     await tester.pump();
 
     // エラー画面が表示されるはず
@@ -157,14 +157,14 @@ void main() {
 
     // ソート選択ダイアログが表示したはず
     await tester.pump();
-    expect(find.byType(RepoSearchSortSelectorDialog), findsOneWidget);
+    expect(find.byType(RepoSortSelectorDialog), findsOneWidget);
 
     // stars をタップ
     await tester.tap(find.text(i18n.starsCount));
     await tester.pump();
 
     // ソート選択ダイアログが閉じたはず
-    expect(find.byType(RepoSearchSortSelectorDialog), findsNothing);
+    expect(find.byType(RepoSortSelectorDialog), findsNothing);
 
     // スター数に変更されたはず
     await tester.pump();
@@ -187,7 +187,7 @@ void main() {
 
     // オーダーアイコンをタップ
     testLogger.i('Tap order toggle button');
-    await tester.tap(find.byType(RepoSearchOrderToggleButton));
+    await tester.tap(find.byType(RepoOrderToggleButton));
     await tester.pump();
 
     // 昇順になったはず
@@ -196,7 +196,7 @@ void main() {
 
     // もう一度オーダーアイコンをタップ
     testLogger.i('Tap order toggle button');
-    await tester.tap(find.byType(RepoSearchOrderToggleButton));
+    await tester.tap(find.byType(RepoOrderToggleButton));
     await tester.pump();
 
     // 降順になったはず

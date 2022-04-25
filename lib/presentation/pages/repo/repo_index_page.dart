@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 import '../../../localizations/strings.g.dart';
 import '../../widgets/repo/repo_list_view.dart';
-import '../../widgets/repo/repo_search_order_toggle_button.dart';
-import '../../widgets/repo/repo_search_sort_selector_dialog.dart';
+import '../../widgets/repo/repo_order_toggle_button.dart';
 import '../../widgets/repo/repo_search_text_field.dart';
+import '../../widgets/repo/repo_sort_selector_dialog.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatelessWidget {
@@ -23,11 +23,11 @@ class RepoIndexPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(i18n.appName),
         actions: [
-          const RepoSearchOrderToggleButton(),
+          const RepoOrderToggleButton(),
           IconButton(
             onPressed: () => showDialog<void>(
               context: context,
-              builder: (context) => const RepoSearchSortSelectorDialog(),
+              builder: (context) => const RepoSortSelectorDialog(),
             ),
             icon: const Icon(Icons.sort),
             tooltip: i18n.sort,
