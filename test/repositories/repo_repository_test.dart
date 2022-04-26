@@ -2,35 +2,60 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
-class _TestWidget extends ConsumerWidget {
-  const _TestWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final repoRepository = ref.watch(repoRepositoryProvider);
-    return Text(repoRepository.runtimeType.toString());
-  }
-}
-
 void main() {
-  group('Provider', () {
-    testWidgets('repoRepositoryProviderからGitHubRepoRepositoryが取得できるはず',
-        (tester) async {
-      await tester.pumpWidget(
-        const ProviderScope(
-          child: GitHubSearchApp(
-            home: _TestWidget(),
-          ),
+  late ProviderContainer container;
+  setUp(() async {
+    container = ProviderContainer();
+  });
+
+  group('repoRepositoryProvider', () {
+    test('repoRepositoryProviderからGitHubRepoRepositoryが取得できるはず', () async {
+      final repoRepository = container.read(repoRepositoryProvider);
+      expect(repoRepository.runtimeType.toString(), 'GitHubRepoRepository');
+    });
+  });
+  group('RepoParamSearchReposSortHelper', () {
+    test('valueOf()でenum値が取れるはず', () async {
+      expect(
+        RepoParamSearchReposSortHelper.valueOf(
+          RepoParamSearchReposSort.bestMatch.name,
         ),
+        RepoParamSearchReposSort.bestMatch,
       );
-      await tester.pump();
-      expect(find.text('GitHubRepoRepository'), findsOneWidget);
+    });
+    test('valueOf()でExceptionがthrowされるはず', () async {
+      expect(
+        () {
+          RepoParamSearchReposSortHelper.valueOf(
+            'unknown value',
+          );
+        },
+        throwsStateError,
+      );
+    });
+  });
+  group('RepoParamSearchReposOrderHelper', () {
+    test('valueOf()でenum値が取れるはず', () async {
+      expect(
+        RepoParamSearchReposOrderHelper.valueOf(
+          RepoParamSearchReposOrder.asc.name,
+        ),
+        RepoParamSearchReposOrder.asc,
+      );
+    });
+    test('valueOf()でExceptionがthrowされるはず', () async {
+      expect(
+        () {
+          RepoParamSearchReposOrderHelper.valueOf(
+            'unknown value',
+          );
+        },
+        throwsStateError,
+      );
     });
   });
 }

@@ -6,12 +6,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/pages/error/error_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 
 import '../test_utils/mocks.dart';
 
 void main() {
+  late Box<dynamic> appDataBox;
+  setUp(() async {
+    appDataBox = await openAppDataBox();
+  });
+
+  tearDown(() async {
+    await closeAppDataBox();
+  });
+
   testWidgets('存在しないパスに遷移するとエラー画面を表示するはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     // 存在しないパスに遷移する

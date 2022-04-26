@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/repositories/repo_repository.dart';
 
 import 'hive/app_data_repository.dart';
+import 'repo_repository.dart';
 
 final appDataRepositoryProvider = Provider<AppDataRepository>(
   (ref) {

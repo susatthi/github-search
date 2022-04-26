@@ -2,8 +2,6 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,23 +13,26 @@ import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialo
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
+import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
-import 'package:http/testing.dart';
+import 'package:hive/hive.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 
-/// 常にエラーを返すHTTPクライアント
-final errorHttpClient = MockClient(
-  (request) async {
-    throw const SocketException('');
-  },
-);
-
 void main() {
+  late Box<dynamic> appDataBox;
+  setUp(() async {
+    appDataBox = await openAppDataBox();
+  });
+
+  tearDown(() async {
+    await closeAppDataBox();
+  });
+
   testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
 
     expect(find.byIcon(Icons.search), findsOneWidget);
     expect(find.byType(TextField), findsOneWidget);
@@ -47,10 +48,12 @@ void main() {
               api: const GitHubApi(),
               client: GitHubHttpClient(
                 token: 'dummy',
-                client: errorHttpClient,
+                client: mockHttpClientError,
               ),
             ),
           ),
+          // モック版のHiveBoxを使う
+          appDataBoxProvider.overrideWithValue(appDataBox),
         ],
         child: const GitHubSearchApp(),
       ),
@@ -82,7 +85,7 @@ void main() {
     expect(find.byIcon(Icons.arrow_upward), findsNothing);
   });
   testWidgets('テキスト検索を実行して検索結果が表示されるはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -98,7 +101,7 @@ void main() {
     expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
   });
   testWidgets('キーボードのDone押下でもテキスト検索を実行するはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -114,7 +117,7 @@ void main() {
     expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
   });
   testWidgets('一番下までスクロールしたら次のページを取得するはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -125,7 +128,7 @@ void main() {
     expect(find.text('mahmudahsan/flutter'), findsOneWidget);
   });
   testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -139,7 +142,7 @@ void main() {
     expect(find.byType(RepoViewPage), findsOneWidget);
   });
   testWidgets('ソートボタン押下で並び替えができるはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     expect(find.text('flutter/flutter'), findsOneWidget);
@@ -160,7 +163,9 @@ void main() {
     expect(find.byType(RepoSortSelectorDialog), findsOneWidget);
 
     // stars をタップ
-    await tester.tap(find.text(i18n.starsCount));
+    await tester.runAsync<void>(() async {
+      await tester.tap(find.text(i18n.starsCount));
+    });
     await tester.pump();
 
     // ソート選択ダイアログが閉じたはず
@@ -179,15 +184,17 @@ void main() {
   });
 
   testWidgets('オーダーボタン押下で昇順降順を切り替えられるはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
+    await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
     await tester.pump();
 
     // 最初は降順のはず
     expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
 
     // オーダーアイコンをタップ
-    testLogger.i('Tap order toggle button');
-    await tester.tap(find.byType(RepoOrderToggleButton));
+    await tester.runAsync<void>(() async {
+      testLogger.i('Tap order toggle button 1');
+      await tester.tap(find.byType(RepoOrderToggleButton));
+    });
     await tester.pump();
 
     // 昇順になったはず
@@ -195,8 +202,10 @@ void main() {
     await tester.pump();
 
     // もう一度オーダーアイコンをタップ
-    testLogger.i('Tap order toggle button');
-    await tester.tap(find.byType(RepoOrderToggleButton));
+    await tester.runAsync<void>(() async {
+      testLogger.i('Tap order toggle button 2');
+      await tester.tap(find.byType(RepoOrderToggleButton));
+    });
     await tester.pump();
 
     // 降順になったはず
