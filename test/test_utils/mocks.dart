@@ -4,7 +4,6 @@
 
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/constants.dart';
 import 'package:github_search/config/github_search_app.dart';
@@ -12,7 +11,6 @@ import 'package:github_search/presentation/widgets/repo/repo_search_text_field.d
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
-import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_test/hive_test.dart';
@@ -105,11 +103,10 @@ final mockHttpClientError = MockClient(
 );
 
 /// モック版のアプリデータ用HiveBoxを返す
-Future<Box<dynamic>> openAppDataBox() async {
+Future<void> openAppDataBox() async {
   await setUpTestHive();
   final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
   await box.clear();
-  return box;
 }
 
 /// モック版のアプリデータ用HiveBoxをクローズする
@@ -128,18 +125,14 @@ final mockGitHubRepoRepository = GitHubRepoRepository(
 );
 
 /// モック版のGitHubSearchAppを返す
-Widget mockGitHubSearchApp(Box<dynamic> appDataBox) {
-  return ProviderScope(
-    overrides: [
-      // モック版のGitHubHttpClientを使う
-      repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
-      // リポジトリ検索文字列の初期値を設定する
-      searchReposQueryProvider.overrideWithProvider(
-        StateProvider<String>((ref) => 'flutter'),
-      ),
-      // モック版のHiveBoxを使う
-      appDataBoxProvider.overrideWithValue(appDataBox),
-    ],
-    child: const GitHubSearchApp(),
-  );
-}
+final mockGitHubSearchApp = ProviderScope(
+  overrides: [
+    // モック版のGitHubHttpClientを使う
+    repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
+    // リポジトリ検索文字列の初期値を設定する
+    searchReposQueryProvider.overrideWithProvider(
+      StateProvider<String>((ref) => 'flutter'),
+    ),
+  ],
+  child: const GitHubSearchApp(),
+);

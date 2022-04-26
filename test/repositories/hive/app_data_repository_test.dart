@@ -2,19 +2,20 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/config/constants.dart';
 import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
+import 'package:hive/hive.dart';
 
 import '../../test_utils/mocks.dart';
 
 void main() {
   late HiveAppDataRepository repository;
   setUp(() async {
-    final appDataBox = await openAppDataBox();
+    await openAppDataBox();
     repository = HiveAppDataRepository(
-      box: appDataBox,
+      box: Hive.box<dynamic>(hiveBoxNameAppData),
     );
   });
 
@@ -22,16 +23,6 @@ void main() {
     await closeAppDataBox();
   });
 
-  group('appDataBoxProvider', () {
-    test('overrideしていない場合はExceptionをthrowするはず', () async {
-      expect(
-        () {
-          ProviderContainer().read(appDataBoxProvider);
-        },
-        throwsException,
-      );
-    });
-  });
   group('HiveAppDataRepository', () {
     test('setSearchReposSort() / getSearchReposSort()', () async {
       // 初期値はベストマッチのはず

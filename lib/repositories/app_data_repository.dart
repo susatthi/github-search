@@ -3,13 +3,15 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 
+import '../config/constants.dart';
 import 'hive/app_data_repository.dart';
 import 'repo_repository.dart';
 
 final appDataRepositoryProvider = Provider<AppDataRepository>(
   (ref) {
-    final box = ref.watch(appDataBoxProvider);
+    final box = Hive.box<dynamic>(hiveBoxNameAppData);
     return HiveAppDataRepository(
       box: box,
     );

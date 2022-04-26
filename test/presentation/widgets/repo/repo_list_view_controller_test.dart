@@ -6,25 +6,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/widgets/repo/repo_list_view_controller.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
-import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
-import 'package:hive/hive.dart';
 
 import '../../../test_utils/mocks.dart';
 
 void main() {
-  late Box<dynamic> appDataBox;
   late RepoListViewController controller;
   setUp(() async {
-    appDataBox = await openAppDataBox();
+    await openAppDataBox();
     final container = ProviderContainer(
       overrides: [
         repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
         searchReposQueryProvider.overrideWithProvider(
           StateProvider<String>((ref) => 'flutter'),
         ),
-        // モック版のHiveBoxを使う
-        appDataBoxProvider.overrideWithValue(appDataBox),
       ],
     );
     controller = container

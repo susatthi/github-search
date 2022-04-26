@@ -9,18 +9,15 @@ import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
 import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialog.dart';
-import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 import 'package:github_search/utils/extensions.dart';
-import 'package:hive/hive.dart';
 
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
-  late Box<dynamic> appDataBox;
   setUp(() async {
-    appDataBox = await openAppDataBox();
+    await openAppDataBox();
   });
 
   tearDown(() async {
@@ -38,8 +35,6 @@ void main() {
             searchReposQueryProvider.overrideWithProvider(
               StateProvider<String>((ref) => 'flutter'),
             ),
-            // モック版のHiveBoxを使う
-            appDataBoxProvider.overrideWithValue(appDataBox),
           ],
           child: GitHubSearchApp(
             home: Builder(

@@ -11,7 +11,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'config/constants.dart';
 import 'config/github_search_app.dart';
 import 'localizations/strings.g.dart';
-import 'repositories/hive/app_data_repository.dart';
 import 'utils/url_strategy/url_strategy.dart';
 
 Future<void> main() async {
@@ -30,14 +29,11 @@ Future<void> main() async {
 
   // hive の初期化
   await Hive.initFlutter();
-  final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
+  await Hive.openBox<dynamic>(hiveBoxNameAppData);
 
   runApp(
-    ProviderScope(
-      overrides: [
-        appDataBoxProvider.overrideWithValue(box),
-      ],
-      child: const GitHubSearchApp(),
+    const ProviderScope(
+      child: GitHubSearchApp(),
     ),
   );
 }

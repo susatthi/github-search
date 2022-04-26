@@ -2,16 +2,10 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../app_data_repository.dart';
 import '../repo_repository.dart';
-
-/// アプリデータ用のBoxプロバイダー
-final appDataBoxProvider = Provider<Box<dynamic>>(
-  (_) => throw Exception('Provider was not initialized'),
-);
 
 /// Hive版アプリデータRepository
 class HiveAppDataRepository implements AppDataRepository {

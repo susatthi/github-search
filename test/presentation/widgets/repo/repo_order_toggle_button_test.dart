@@ -9,16 +9,13 @@ import 'package:github_search/presentation/widgets/repo/repo_order_toggle_button
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
-import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
-import 'package:hive/hive.dart';
 
 import '../../../test_utils/mocks.dart';
 
 void main() {
-  late Box<dynamic> appDataBox;
   setUp(() async {
-    appDataBox = await openAppDataBox();
+    await openAppDataBox();
   });
 
   tearDown(() async {
@@ -27,7 +24,7 @@ void main() {
 
   group('RepoOrderToggleButton', () {
     testWidgets('ローディング中は無効化になるはず', (tester) async {
-      await tester.pumpWidget(mockGitHubSearchApp(appDataBox));
+      await tester.pumpWidget(mockGitHubSearchApp);
 
       // ローディング中は無効化になるはず
       expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
@@ -68,8 +65,6 @@ void main() {
                 ),
               ),
             ),
-            // モック版のHiveBoxを使う
-            appDataBoxProvider.overrideWithValue(appDataBox),
           ],
           child: const GitHubSearchApp(),
         ),

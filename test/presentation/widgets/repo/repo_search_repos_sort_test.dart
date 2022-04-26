@@ -5,23 +5,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_repos_sort.dart';
-import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
-import 'package:hive/hive.dart';
 
 import '../../../test_utils/mocks.dart';
 
 void main() {
   late ProviderContainer container;
-  late Box<dynamic> appDataBox;
   setUp(() async {
-    appDataBox = await openAppDataBox();
-    container = ProviderContainer(
-      overrides: [
-        // モック版のHiveBoxを使う
-        appDataBoxProvider.overrideWithValue(appDataBox),
-      ],
-    );
+    await openAppDataBox();
+    container = ProviderContainer();
   });
 
   tearDown(() async {
