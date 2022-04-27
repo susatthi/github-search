@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/presentation/widgets/repo/repo_order_toggle_button.dart';
+import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
@@ -68,6 +69,10 @@ void main() {
                   client: mockHttpClientError,
                 ),
               ),
+            ),
+            // リポジトリ検索文字列の初期値を設定する
+            searchReposQueryProvider.overrideWithProvider(
+              StateProvider<String>((ref) => 'flutter'),
             ),
           ],
           child: const GitHubSearchApp(),
