@@ -9,12 +9,13 @@
 > **:warning: 注意**  
 > このアプリは `GitHub API` を利用するために GitHub の `アクセストークン` をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に `アクセストークン` を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。
 
-![github_search_0 1 0_demo](https://user-images.githubusercontent.com/13707135/160549736-a056820a-d1ab-4261-a27e-f3bf9aca9487.gif)
+![github_search_0_5_0_demo](https://user-images.githubusercontent.com/13707135/165467407-238ec9e2-dc46-4ef7-9856-efe8a098f8c8.gif)
 
 ## アプリの機能
 
 - シンプルな UI / UX
   - GitHub リポジトリの検索と詳細表示
+  - 検索結果の並び替えと [hive](https://pub.dev/packages/hive) を使ったデータの永続化
   - 無限スクロール対応
 - [go_router](https://pub.dev/packages/go_router) を使った新しいルーティング
 - [http](https://pub.dev/packages/http) を使った REST API の実装
@@ -29,7 +30,6 @@
 
 ### 今後対応予定
 
-- [hive](https://pub.dev/packages/hive) or [shared_preferences](https://pub.dev/packages/shared_preferences) の利用
 - Integration テスト
 - テーマ対応
 - ダークモード対応
@@ -55,10 +55,19 @@ graph TD
     subgraph プレゼンテーション層
     IndexPage(一覧ページ<br>StatelessWidget) --> SearchTextField(検索テキストフィールド<br>ConsumerWidget)
     IndexPage --> ListView(一覧 View<br>ConsumerWidget)
+    IndexPage --> OrderToggleButton(オーダー値ボタン<br>ConsumerWidget)
+    IndexPage --> SortSelectorDialog(ソート値選択ダイアログ<br>ConsumerWidget)    
     SearchTextField --> SearchText([検索文字列<br>String])
     ListView --> ListViewState([一覧 View 状態<br>State])
     ListViewState --> ListViewController(一覧 View コントローラ<br>StateNotifier)
     ListViewController --> SearchText
+    ListViewController --> Order
+    ListViewController --> Sort
+    OrderToggleButton --> ListViewState
+    OrderToggleButton --> Order([オーダー値<br>Enum])
+    SortSelectorDialog --> Sort([ソート値<br>Enum])
+    Order --> OrderController(オーダー値コントローラ<br>StateNotifier)
+    Sort --> SortController(ソート値コントローラ<br>StateNotifier)
     ViewPage(詳細ページ<br>StatelessWidget) --> DetailView(詳細 View<br>ConsumerWidget)
     DetailView --> DetailViewState([詳細 View 状態<br>State])
     DetailViewState --> DetailViewController(詳細 View コントローラ<br>StateNotifier)
@@ -67,13 +76,18 @@ graph TD
     subgraph データ層
     ListViewController --> RepoRepository(リポジトリ用リポジトリ)
     DetailViewController ---> RepoRepository
-    RepoRepository --> GitHubRepoRepository(GitHub 向けリポジトリ用リポジトリ)
+    OrderController --> AppDataRepository(アプリデータ用リポジトリ)
+    SortController --> AppDataRepository
+    RepoRepository --> GitHubRepoRepository(GitHub 版リポジトリ用リポジトリ)
+    AppDataRepository --> HiveAppDataRepository(Hive 版アプリデータ用リポジトリ)
     subgraph DTO
     GitHubRepoRepository --> GitHubHttpClient(GitHub 向け HTTP クライアント)
     GitHubRepoRepository --> GitHubApiDef(GitHub API 定義)
+    HiveAppDataRepository --> HiveBox(Hive.box)
     end
     subgraph データソース
     GitHubHttpClient --> GitHubApi(GitHub API)
+    HiveBox --> File(File)
     end
     end
     subgraph 環境変数
@@ -86,41 +100,43 @@ graph TD
     classDef state fill:#BDB5F4, color:#ffffff;    
     classDef repository fill:#437C40, color:#ffffff;
     classDef env fill:#7c7d7c, color:#ffffff;
-    class IndexPage,ViewPage,ListView,SearchTextField,DetailView widget;
-    class ListViewController,DetailViewController controller;
-    class SearchText,ListViewState,DetailViewState,ViewParameter state;
-    class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi repository;
+    class IndexPage,ViewPage,ListView,SearchTextField,DetailView,OrderToggleButton,SortSelectorDialog widget;
+    class ListViewController,DetailViewController,OrderController,SortController controller;
+    class SearchText,ListViewState,DetailViewState,ViewParameter,Order,Sort state;
+    class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi,AppDataRepository,HiveAppDataRepository,HiveBox,File repository;
     class EnvSearchText,EnvAccessToken env;
 ```
 
-- `一覧 View`が更新される例
+- 検索実行時に `一覧 View` が更新される例
   - `一覧 View`の依存関係は、`一覧 View` → `一覧 View 状態` → `一覧 View コントローラ` → `検索文字列`となっています。ユーザが検索文字列を変更し検索を実行した場合、`検索文字列`が更新されます。すると`検索文字列`に依存している`一覧 View コントローラ`が更新され、`リポジトリ用リポジトリ`に`検索文字列`を与えてリポジトリの検索を実行し、その結果をもとに`一覧 View 状態`を更新します。すると`一覧 View 状態`に依存している`一覧 View`がリビルドされて再描画されます。
+- ソート値変更時に `一覧 View` が更新される例
+  - ユーザがソート値選択ダイアログを表示してソート値を変更した場合、`ソート値`が更新されます。すると`ソート値`に依存している`一覧 View コントローラ`が更新され、`リポジトリ用リポジトリ`に`ソート値`を与えてリポジトリの検索を実行し、その結果をもとに`一覧 View 状態`を更新します。すると`一覧 View 状態`に依存している`一覧 View`がリビルドされて再描画されます。
 - `詳細 View`への画面遷移の例
   - `一覧 View`の`ListTile`がタップされると`オーナー名とリポジトリ名`を表示したい内容に更新して`詳細ページ`に画面遷移します。`詳細画面`が開くと`詳細 View`がビルドされ、`詳細 View コントローラ`も作成されます。`詳細 View コントローラ`は`オーナー名とリポジトリ名`を`リポジトリ用リポジトリ`に与えてリポジトリの取得を実行し、その結果をもとに`詳細 View 状態`を更新します。すると`詳細 View 状態`に依存している`詳細 View`がリビルドされて再描画されます。
 
 ## フォルダ構成
 
-|フォルダ名                  | 説明
-|----------------------------|--
-| / `assets`                    | `assets`にアクセスする自動生成されるユーティリティクラス
-| / `config`                    | アプリケーション、定義値、環境変数
-| / `entities`                  | モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（`_data` suffix がつく）
-| / `localizations`             | 言語ファイル（`arb` ファイル）、`flutter gen-l10n` で生成されるクラス
-| / `presentation` / `pages`    | プレゼンテーション層のファイル<br>画面Widget
-| / `presentation` / `widgets`  | プレゼンテーション層のファイル<br>部品Widget、Controller、State
-| / `repositories`              | データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理
-| / `utils`                     | 拡張機能、ロガーなど便利クラス
+|フォルダ名                         | 説明
+|---------------------------------|--
+| / `assets`                      | `assets`にアクセスする自動生成されるユーティリティクラス
+| / `config`                      | アプリケーション、定義値、環境変数
+| / `entities`                    | モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（`_data` suffix がつく）
+| / `localizations`               | 言語ファイル（`arb` ファイル）、`flutter gen-l10n` で生成されるクラス
+| / `presentation` / `pages`      | プレゼンテーション層のファイル<br>画面Widget
+| / `presentation` / `components` | プレゼンテーション層のファイル<br>部品Widget、Controller、State
+| / `repositories`                | データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理
+| / `utils`                       | 拡張機能、ロガーなど便利クラス
 
 ## 環境
 
 |                | Version                          |
 |----------------|----------------------------------|
 | Xcode          | 13.3                             |
-| Android Studio | Bumblebee 2021.1.1 Patch 2       |
-| Flutter        | 2.10.3                           |
+| Android Studio | Bumblebee 2021.1.1 Patch 3       |
+| Flutter        | 2.10.5                           |
 | Swift          | 5.6                              |
 | Kotlin         | 1.6.10                           |
-| Chrome         | 99                               |
+| Chrome         | 100                              |
 
 ## 対象 OSバージョン
 
