@@ -22,17 +22,19 @@ void main() {
     await closeAppDataBox(tmpDir);
   });
 
-  testWidgets('存在しないパスに遷移するとエラー画面を表示するはず', (tester) async {
-    await tester.pumpWidget(mockGitHubSearchApp);
-    await tester.pump();
+  group('GitHubSearchApp', () {
+    testWidgets('存在しないパスに遷移するとエラー画面を表示するはず', (tester) async {
+      await tester.pumpWidget(mockGitHubSearchApp());
+      await tester.pump();
 
-    // 存在しないパスに遷移する
-    tester
-        .element(find.byWidgetPredicate((widget) => widget is RepoIndexPage))
-        .go('/unknown');
-    await tester.pumpAndSettle();
+      // 存在しないパスに遷移する
+      tester
+          .element(find.byWidgetPredicate((widget) => widget is RepoIndexPage))
+          .go('/unknown');
+      await tester.pumpAndSettle();
 
-    // エラー画面が表示されるはず
-    expect(find.byType(ErrorPage), findsOneWidget);
+      // エラー画面が表示されるはず
+      expect(find.byType(ErrorPage), findsOneWidget);
+    });
   });
 }

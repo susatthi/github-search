@@ -2,10 +2,22 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../config/constants.dart';
 import '../app_data_repository.dart';
 import '../repo_repository.dart';
+
+/// Hive版アプリデータRepositoryプロバイダー
+final hiveAppDataRepositoryProvider = Provider<HiveAppDataRepository>(
+  (ref) {
+    final box = Hive.box<dynamic>(hiveBoxNameAppData);
+    return HiveAppDataRepository(
+      box: box,
+    );
+  },
+);
 
 /// Hive版アプリデータRepository
 class HiveAppDataRepository implements AppDataRepository {

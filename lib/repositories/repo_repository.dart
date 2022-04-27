@@ -6,22 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../entities/repo/repo.dart';
 import '../entities/search_repos_result/search_repos_result.dart';
-import 'github/api.dart';
-import 'github/http_client.dart';
 import 'github/repo_repository.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
-  (ref) {
-    final token = ref.watch(githubAccessTokenProvider);
-    final client = ref.watch(httpClientProvider);
-    return GitHubRepoRepository(
-      api: const GitHubApi(),
-      client: GitHubHttpClient(
-        token: token,
-        client: client,
-      ),
-    );
-  },
+  (ref) => ref.watch(githubRepoRepositoryProvider),
 );
 
 /// リポジトリRepository

@@ -10,13 +10,14 @@ import 'package:github_search/presentation/widgets/repo/repo_search_repos_sort.d
 import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   late Directory tmpDir;
   late ProviderContainer container;
   setUp(() async {
     tmpDir = await openAppDataBox();
-    container = ProviderContainer();
+    container = mockProviderContainer();
   });
 
   tearDown(() async {
@@ -30,7 +31,7 @@ void main() {
     });
   });
   group('RepoSearchReposSortController', () {
-    test('ソートを変更できるはず', () async {
+    test('ソート値を変更できるはず', () async {
       // スター数に変更する
       final controller = container.read(repoSearchReposSortProvider.notifier)
         ..update(sort: RepoParamSearchReposSort.stars);

@@ -10,8 +10,8 @@ import '../../test_utils/utils.dart';
 
 void main() {
   final ownerJsonObject = TestAssets.readJsonMap('github/owner.json')!;
-  group('from()', () {
-    test('インスタンスを作成できるはず', () async {
+  group('OwnerData', () {
+    test('from()でインスタンスを作成できるはず', () async {
       final owner = Owner.fromJson(ownerJsonObject);
       final ownerData = OwnerData.from(owner);
       expect(ownerData, isNotNull);

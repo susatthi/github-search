@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
@@ -12,13 +11,10 @@ import '../../test_utils/mocks.dart';
 void main() {
   late GitHubRepoRepository repository;
   setUp(() {
-    repository = GitHubRepoRepository(
-      api: const GitHubApi(),
-      client: mockGitHubHttpClient,
-    );
+    repository = mockProviderContainer().read(githubRepoRepositoryProvider);
   });
 
-  group('searchRepos()', () {
+  group('GitHubRepoRepository.searchRepos()', () {
     test('検索できるはず', () async {
       final result = await repository.searchRepos(
         query: 'flutter',
@@ -28,7 +24,7 @@ void main() {
       expect(result, isNotNull);
     });
   });
-  group('getRepo()', () {
+  group('GitHubRepoRepository.getRepo()', () {
     test('取得できるはず', () async {
       final repo = await repository.getRepo(
         ownerName: 'flutter',

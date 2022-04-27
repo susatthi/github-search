@@ -10,31 +10,25 @@ import '../../test_utils/utils.dart';
 void main() {
   final jsonMap =
       TestAssets.readJsonMap('github/search_repos_flutter_page1.json')!;
-  group('fromJson()', () {
-    test('インスタンスを作成できるはず', () async {
+  group('SearchReposResult', () {
+    test('fromJson()でインスタンスを作成できるはず', () async {
       final result = SearchReposResult.fromJson(jsonMap);
       expect(result, isNotNull);
     });
-  });
-  group('toString()', () {
-    test('正しく動くはず', () async {
+    test('toString()', () async {
       final result = SearchReposResult.fromJson(jsonMap);
       expect(result.toString(), isNotNull);
     });
-  });
-  group('toJson()', () {
-    test('正しく動くはず', () async {
+    test('toJson()', () async {
       final result = SearchReposResult.fromJson(jsonMap);
       expect(result.toJson(), isMap);
     });
-  });
-  group('copyWith()', () {
-    test('一致するはず', () async {
+    test('copyWith()一致するはず', () async {
       final result = SearchReposResult.fromJson(jsonMap);
       final cloned = result.copyWith();
       expect(result.totalCount == cloned.totalCount, true);
     });
-    test('一致しないはず', () async {
+    test('copyWith()一致しないはず', () async {
       final result = SearchReposResult.fromJson(jsonMap);
       final cloned = result.copyWith(
         totalCount: -1,

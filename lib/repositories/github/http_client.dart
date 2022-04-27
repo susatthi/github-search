@@ -13,7 +13,7 @@ import '../../config/env.dart';
 import '../../utils/logger.dart';
 import 'exception.dart';
 
-/// GitHubアクセストークン
+/// GitHubアクセストークンプロバイダー
 final githubAccessTokenProvider = Provider<String>(
   (ref) => const String.fromEnvironment(
     dartDefineKeyGitHubAccessToken,
@@ -21,9 +21,21 @@ final githubAccessTokenProvider = Provider<String>(
   ),
 );
 
-/// HTTPクライアント
+/// HTTPクライアントプロバイダー
 final httpClientProvider = Provider<http.Client>(
   (ref) => http.Client(),
+);
+
+/// GitHub API 用の HTTPクライアントプロバイダー
+final githubHttpClientProvider = Provider<GitHubHttpClient>(
+  (ref) {
+    final token = ref.watch(githubAccessTokenProvider);
+    final client = ref.watch(httpClientProvider);
+    return GitHubHttpClient(
+      token: token,
+      client: client,
+    );
+  },
 );
 
 /// GitHub API 用の HTTPクライアント

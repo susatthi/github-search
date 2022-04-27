@@ -9,7 +9,7 @@ import '../../../config/constants.dart';
 import '../../../config/env.dart';
 import '../../../localizations/strings.g.dart';
 
-/// リポジトリ検索文字列
+/// リポジトリ検索文字列プロバイダー
 final searchReposQueryProvider = StateProvider<String>(
   (ref) => const String.fromEnvironment(
     dartDefineKeyDefaultSearchValue,

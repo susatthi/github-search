@@ -6,13 +6,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/entities/owner/owner.dart';
 import 'package:github_search/entities/repo/repo.dart';
 import 'package:github_search/repositories/github/exception.dart';
+import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../test_utils/mocks.dart';
 
 void main() {
+  late GitHubHttpClient client;
+  setUp(() {
+    client = mockProviderContainer().read(githubHttpClientProvider);
+  });
+
   group('get()', () {
     test('200 OK', () async {
-      final repo = await mockGitHubHttpClient.get<Repo>(
+      final repo = await client.get<Repo>(
         uri: Uri(path: '/repos/flutter/flutter'),
         responseBuilder: Repo.fromJson,
       );
@@ -20,7 +26,7 @@ void main() {
     });
     test('400 BadRequest', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '400'),
           responseBuilder: Owner.fromJson,
         );
@@ -30,7 +36,7 @@ void main() {
     });
     test('401 BadCredentials', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '401'),
           responseBuilder: Owner.fromJson,
         );
@@ -40,7 +46,7 @@ void main() {
     });
     test('403 MaximumNumberOfLoginAttemptsExceeded', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '403'),
           responseBuilder: Owner.fromJson,
         );
@@ -53,7 +59,7 @@ void main() {
     });
     test('404 NotFound', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '404'),
           responseBuilder: Owner.fromJson,
         );
@@ -63,7 +69,7 @@ void main() {
     });
     test('422 ValidationFailed', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '422'),
           responseBuilder: Owner.fromJson,
         );
@@ -73,7 +79,7 @@ void main() {
     });
     test('503 ServiceUnavailable', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '503'),
           responseBuilder: Owner.fromJson,
         );
@@ -83,7 +89,7 @@ void main() {
     });
     test('Unknown', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: '555'),
           responseBuilder: Owner.fromJson,
         );
@@ -93,7 +99,7 @@ void main() {
     });
     test('NoInternetConnection', () async {
       try {
-        await mockGitHubHttpClient.get<Owner>(
+        await client.get<Owner>(
           uri: Uri(path: 'socketException'),
           responseBuilder: Owner.fromJson,
         );

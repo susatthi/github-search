@@ -9,32 +9,26 @@ import '../../test_utils/utils.dart';
 
 void main() {
   final ownerJsonObject = TestAssets.readJsonMap('github/owner.json')!;
-  group('fromJson()', () {
-    test('インスタンスを作成できるはず', () async {
+  group('Owner', () {
+    test('fromJson()でインスタンスを作成できるはず', () async {
       final owner = Owner.fromJson(ownerJsonObject);
       expect(owner, isNotNull);
     });
-  });
-  group('toString()', () {
-    test('正しく動くはず', () async {
+    test('toString()', () async {
       final owner = Owner.fromJson(ownerJsonObject);
       expect(owner.toString(), isNotNull);
     });
-  });
-  group('toJson()', () {
-    test('正しく動くはず', () async {
+    test('toJson()', () async {
       final owner = Owner.fromJson(ownerJsonObject);
       expect(owner.toJson(), isMap);
     });
-  });
-  group('copyWith()', () {
-    test('一致するはず', () async {
+    test('copyWith()一致するはず', () async {
       final owner = Owner.fromJson(ownerJsonObject);
       final cloned = owner.copyWith();
       expect(owner.login == cloned.login, true);
       expect(owner.avatarUrl == cloned.avatarUrl, true);
     });
-    test('一致しないはず', () async {
+    test('copyWith()一致しないはず', () async {
       final owner = Owner.fromJson(ownerJsonObject);
       final cloned = owner.copyWith(
         login: 'dummy',

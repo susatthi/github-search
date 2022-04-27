@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../repositories/app_data_repository.dart';
 import '../../../repositories/repo_repository.dart';
 
+/// リポジトリ検索用オーダー値プロバイダー
 final repoSearchReposOrderProvider = StateNotifierProvider<
     RepoSearchReposOrderController, RepoParamSearchReposOrder>(
   (ref) {
@@ -17,6 +18,7 @@ final repoSearchReposOrderProvider = StateNotifierProvider<
   },
 );
 
+/// リポジトリ検索用オーダー値コントローラー
 class RepoSearchReposOrderController
     extends StateNotifier<RepoParamSearchReposOrder> {
   RepoSearchReposOrderController(
@@ -25,7 +27,7 @@ class RepoSearchReposOrderController
 
   final AppDataRepository _appDataRepository;
 
-  /// オーダーを更新する
+  /// オーダー値を更新する
   void update({
     required RepoParamSearchReposOrder order,
   }) {

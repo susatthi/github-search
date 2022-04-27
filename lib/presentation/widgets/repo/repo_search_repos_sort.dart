@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../repositories/app_data_repository.dart';
 import '../../../repositories/repo_repository.dart';
 
+/// リポジトリ検索用ソート値プロバイダー
 final repoSearchReposSortProvider = StateNotifierProvider<
     RepoSearchReposSortController, RepoParamSearchReposSort>(
   (ref) {
@@ -17,6 +18,7 @@ final repoSearchReposSortProvider = StateNotifierProvider<
   },
 );
 
+/// リポジトリ検索用ソート値コントローラー
 class RepoSearchReposSortController
     extends StateNotifier<RepoParamSearchReposSort> {
   RepoSearchReposSortController(
@@ -25,7 +27,7 @@ class RepoSearchReposSortController
 
   final AppDataRepository _appDataRepository;
 
-  /// ソートを更新する
+  /// ソート値を更新する
   void update({
     required RepoParamSearchReposSort sort,
   }) {
