@@ -34,7 +34,7 @@ void main() {
     test('ソート値を変更できるはず', () async {
       // スター数に変更する
       final controller = container.read(repoSearchReposSortProvider.notifier)
-        ..update(sort: RepoParamSearchReposSort.stars);
+        ..sort = RepoParamSearchReposSort.stars;
 
       // スター数のはず
       expect(
@@ -43,7 +43,7 @@ void main() {
       );
 
       // フォーク数に変更する
-      controller.update(sort: RepoParamSearchReposSort.forks);
+      controller.sort = RepoParamSearchReposSort.forks;
 
       // フォーク数のはず
       expect(
@@ -52,7 +52,7 @@ void main() {
       );
 
       // ヘルプ数に変更する
-      controller.update(sort: RepoParamSearchReposSort.helpWantedIssues);
+      controller.sort = RepoParamSearchReposSort.helpWantedIssues;
 
       // ヘルプ数のはず
       expect(
@@ -61,7 +61,7 @@ void main() {
       );
 
       // ベストマッチに変更する
-      controller.update(sort: RepoParamSearchReposSort.bestMatch);
+      controller.sort = RepoParamSearchReposSort.bestMatch;
 
       // ベストマッチのはず
       expect(

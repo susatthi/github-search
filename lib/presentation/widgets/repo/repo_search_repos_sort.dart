@@ -28,9 +28,8 @@ class RepoSearchReposSortController
   final AppDataRepository _appDataRepository;
 
   /// ソート値を更新する
-  void update({
-    required RepoParamSearchReposSort sort,
-  }) {
+  // ignore: avoid_setters_without_getters
+  set sort(RepoParamSearchReposSort sort) {
     _appDataRepository.setSearchReposSort(sort);
     state = _appDataRepository.getSearchReposSort();
   }

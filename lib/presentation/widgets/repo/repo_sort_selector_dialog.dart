@@ -35,9 +35,7 @@ class RepoSortSelectorDialog extends ConsumerWidget {
               title: Text(e.key),
               onTap: () {
                 logger.i('Changed ${e.value.name}');
-                ref
-                    .read(repoSearchReposSortProvider.notifier)
-                    .update(sort: e.value);
+                ref.read(repoSearchReposSortProvider.notifier).sort = e.value;
                 Navigator.of(context).pop();
               },
             ),

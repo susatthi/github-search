@@ -28,9 +28,8 @@ class RepoSearchReposOrderController
   final AppDataRepository _appDataRepository;
 
   /// オーダー値を更新する
-  void update({
-    required RepoParamSearchReposOrder order,
-  }) {
+  // ignore: avoid_setters_without_getters
+  set order(RepoParamSearchReposOrder order) {
     _appDataRepository.setSearchReposOrder(order);
     state = _appDataRepository.getSearchReposOrder();
   }

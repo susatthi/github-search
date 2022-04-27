@@ -34,7 +34,7 @@ void main() {
     test('オーダー値を変更できるはず', () async {
       // 昇順に変更する
       final controller = container.read(repoSearchReposOrderProvider.notifier)
-        ..update(order: RepoParamSearchReposOrder.asc);
+        ..order = RepoParamSearchReposOrder.asc;
 
       // 昇順のはず
       expect(
@@ -43,7 +43,7 @@ void main() {
       );
 
       // 降順に変更する
-      controller.update(order: RepoParamSearchReposOrder.desc);
+      controller.order = RepoParamSearchReposOrder.desc;
 
       // 降順のはず
       expect(
