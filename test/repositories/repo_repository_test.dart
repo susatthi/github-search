@@ -20,19 +20,19 @@ void main() {
       expect(repoRepository.runtimeType.toString(), 'GitHubRepoRepository');
     });
   });
-  group('RepoParamSearchReposSortHelper', () {
+  group('RepoSearchReposSortHelper', () {
     test('valueOf()でenum値が取れるはず', () async {
       expect(
-        RepoParamSearchReposSortHelper.valueOf(
-          RepoParamSearchReposSort.bestMatch.name,
+        RepoSearchReposSortHelper.valueOf(
+          RepoSearchReposSort.bestMatch.name,
         ),
-        RepoParamSearchReposSort.bestMatch,
+        RepoSearchReposSort.bestMatch,
       );
     });
     test('valueOf()でExceptionがthrowされるはず', () async {
       expect(
         () {
-          RepoParamSearchReposSortHelper.valueOf(
+          RepoSearchReposSortHelper.valueOf(
             'unknown value',
           );
         },
@@ -40,19 +40,19 @@ void main() {
       );
     });
   });
-  group('RepoParamSearchReposOrderHelper', () {
+  group('RepoSearchReposOrderHelper', () {
     test('valueOf()でenum値が取れるはず', () async {
       expect(
-        RepoParamSearchReposOrderHelper.valueOf(
-          RepoParamSearchReposOrder.asc.name,
+        RepoSearchReposOrderHelper.valueOf(
+          RepoSearchReposOrder.asc.name,
         ),
-        RepoParamSearchReposOrder.asc,
+        RepoSearchReposOrder.asc,
       );
     });
     test('valueOf()でExceptionがthrowされるはず', () async {
       expect(
         () {
-          RepoParamSearchReposOrderHelper.valueOf(
+          RepoSearchReposOrderHelper.valueOf(
             'unknown value',
           );
         },

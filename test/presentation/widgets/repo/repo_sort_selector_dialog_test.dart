@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialog.dart';
+import 'package:github_search/presentation/components/repo/repo_sort_selector_dialog.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../../../test_utils/hive.dart';

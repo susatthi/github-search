@@ -16,8 +16,8 @@ void main() {
     test('クエリパラメータが正しいはず1', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GitHubParamSearchReposSort.stars,
-        order: GitHubParamSearchReposOrder.desc,
+        sort: GitHubRepoSearchReposSort.stars,
+        order: GitHubRepoSearchReposOrder.desc,
         perPage: 10,
         page: 2,
       );
@@ -26,8 +26,8 @@ void main() {
     test('クエリパラメータが正しいはず2', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GitHubParamSearchReposSort.forks,
-        order: GitHubParamSearchReposOrder.asc,
+        sort: GitHubRepoSearchReposSort.forks,
+        order: GitHubRepoSearchReposOrder.asc,
         perPage: 20,
         page: 3,
       );
@@ -36,8 +36,8 @@ void main() {
     test('クエリパラメータが正しいはず3', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GitHubParamSearchReposSort.helpWantedIssues,
-        order: GitHubParamSearchReposOrder.asc,
+        sort: GitHubRepoSearchReposSort.helpWantedIssues,
+        order: GitHubRepoSearchReposOrder.asc,
         perPage: 20,
         page: 3,
       );
@@ -126,73 +126,73 @@ void main() {
       );
     });
   });
-  group('GitHubParamSearchReposSortHelper', () {
+  group('GitHubRepoSearchReposSortHelper', () {
     test('stars.name', () {
-      expect(GitHubParamSearchReposSort.stars.name, 'stars');
+      expect(GitHubRepoSearchReposSort.stars.name, 'stars');
     });
     test('forks.name', () {
-      expect(GitHubParamSearchReposSort.forks.name, 'forks');
+      expect(GitHubRepoSearchReposSort.forks.name, 'forks');
     });
     test('helpWantedIssues.name', () {
       expect(
-        GitHubParamSearchReposSort.helpWantedIssues.name,
+        GitHubRepoSearchReposSort.helpWantedIssues.name,
         'help-wanted-issues',
       );
     });
     test('valueOf(bestMatch)', () {
       expect(
-        GitHubParamSearchReposSortHelper.valueOf(
-          RepoParamSearchReposSort.bestMatch,
+        GitHubRepoSearchReposSortHelper.valueOf(
+          RepoSearchReposSort.bestMatch,
         ),
         null,
       );
     });
     test('valueOf(stars)', () {
       expect(
-        GitHubParamSearchReposSortHelper.valueOf(
-          RepoParamSearchReposSort.stars,
+        GitHubRepoSearchReposSortHelper.valueOf(
+          RepoSearchReposSort.stars,
         ),
-        GitHubParamSearchReposSort.stars,
+        GitHubRepoSearchReposSort.stars,
       );
     });
     test('valueOf(forks)', () {
       expect(
-        GitHubParamSearchReposSortHelper.valueOf(
-          RepoParamSearchReposSort.forks,
+        GitHubRepoSearchReposSortHelper.valueOf(
+          RepoSearchReposSort.forks,
         ),
-        GitHubParamSearchReposSort.forks,
+        GitHubRepoSearchReposSort.forks,
       );
     });
     test('valueOf(helpWantedIssues)', () {
       expect(
-        GitHubParamSearchReposSortHelper.valueOf(
-          RepoParamSearchReposSort.helpWantedIssues,
+        GitHubRepoSearchReposSortHelper.valueOf(
+          RepoSearchReposSort.helpWantedIssues,
         ),
-        GitHubParamSearchReposSort.helpWantedIssues,
+        GitHubRepoSearchReposSort.helpWantedIssues,
       );
     });
   });
-  group('GitHubParamSearchReposOrderHelper', () {
+  group('GitHubRepoSearchReposOrderHelper', () {
     test('desc.name', () {
-      expect(GitHubParamSearchReposOrder.desc.name, 'desc');
+      expect(GitHubRepoSearchReposOrder.desc.name, 'desc');
     });
     test('asc.name', () {
-      expect(GitHubParamSearchReposOrder.asc.name, 'asc');
+      expect(GitHubRepoSearchReposOrder.asc.name, 'asc');
     });
     test('valueOf(desc)', () {
       expect(
-        GitHubParamSearchReposOrderHelper.valueOf(
-          RepoParamSearchReposOrder.desc,
+        GitHubRepoSearchReposOrderHelper.valueOf(
+          RepoSearchReposOrder.desc,
         ),
-        GitHubParamSearchReposOrder.desc,
+        GitHubRepoSearchReposOrder.desc,
       );
     });
     test('valueOf(asc)', () {
       expect(
-        GitHubParamSearchReposOrderHelper.valueOf(
-          RepoParamSearchReposOrder.asc,
+        GitHubRepoSearchReposOrderHelper.valueOf(
+          RepoSearchReposOrder.asc,
         ),
-        GitHubParamSearchReposOrder.asc,
+        GitHubRepoSearchReposOrder.asc,
       );
     });
   });

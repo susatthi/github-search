@@ -5,7 +5,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/env.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_repos_query.dart';
+import 'package:github_search/presentation/components/repo/repo_search_repos_query.dart';
 
 void main() {
   late ProviderContainer container;

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../config/constants.dart';
 import '../../../localizations/strings.g.dart';
-import '../../widgets/repo/repo_detail_view.dart';
+import '../../components/repo/repo_detail_view.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {

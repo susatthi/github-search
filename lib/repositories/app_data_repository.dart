@@ -16,21 +16,21 @@ final appDataRepositoryProvider = Provider<AppDataRepository>(
 abstract class AppDataRepository {
   /// デフォルト値
   static const defaultValues = <AppDataKey, Object?>{
-    AppDataKey.searchReposSort: RepoParamSearchReposSort.bestMatch,
-    AppDataKey.searchReposOrder: RepoParamSearchReposOrder.desc,
+    AppDataKey.searchReposSort: RepoSearchReposSort.bestMatch,
+    AppDataKey.searchReposOrder: RepoSearchReposOrder.desc,
   };
 
   /// リポジトリ検索用ソートを設定する
-  void setSearchReposSort(RepoParamSearchReposSort sort);
+  void setSearchReposSort(RepoSearchReposSort sort);
 
   /// リポジトリ検索用ソートを返す
-  RepoParamSearchReposSort getSearchReposSort();
+  RepoSearchReposSort getSearchReposSort();
 
   /// リポジトリ検索用オーダーを設定する
-  void setSearchReposOrder(RepoParamSearchReposOrder order);
+  void setSearchReposOrder(RepoSearchReposOrder order);
 
   /// リポジトリ検索用オーダーを設定する
-  RepoParamSearchReposOrder getSearchReposOrder();
+  RepoSearchReposOrder getSearchReposOrder();
 }
 
 /// データのキー名

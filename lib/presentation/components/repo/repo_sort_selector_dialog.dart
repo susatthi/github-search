@@ -14,11 +14,11 @@ import 'repo_search_repos_sort.dart';
 class RepoSortSelectorDialog extends ConsumerWidget {
   const RepoSortSelectorDialog({Key? key}) : super(key: key);
 
-  Map<String, RepoParamSearchReposSort> get _items => {
-        i18n.bestMatch: RepoParamSearchReposSort.bestMatch,
-        i18n.starsCount: RepoParamSearchReposSort.stars,
-        i18n.forksCount: RepoParamSearchReposSort.forks,
-        i18n.helpWantedIssuesCount: RepoParamSearchReposSort.helpWantedIssues,
+  Map<String, RepoSearchReposSort> get _items => {
+        i18n.bestMatch: RepoSearchReposSort.bestMatch,
+        i18n.starsCount: RepoSearchReposSort.stars,
+        i18n.forksCount: RepoSearchReposSort.forks,
+        i18n.helpWantedIssuesCount: RepoSearchReposSort.helpWantedIssues,
       };
 
   @override

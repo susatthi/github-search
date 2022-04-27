@@ -28,68 +28,68 @@ void main() {
       // 初期値はベストマッチのはず
       expect(
         repository.getSearchReposSort(),
-        RepoParamSearchReposSort.bestMatch,
+        RepoSearchReposSort.bestMatch,
       );
 
       // スター数に変更する
-      repository.setSearchReposSort(RepoParamSearchReposSort.stars);
+      repository.setSearchReposSort(RepoSearchReposSort.stars);
 
       // スター数になるはず
       expect(
         repository.getSearchReposSort(),
-        RepoParamSearchReposSort.stars,
+        RepoSearchReposSort.stars,
       );
 
       // フォーク数に変更する
-      repository.setSearchReposSort(RepoParamSearchReposSort.forks);
+      repository.setSearchReposSort(RepoSearchReposSort.forks);
 
       // フォーク数になるはず
       expect(
         repository.getSearchReposSort(),
-        RepoParamSearchReposSort.forks,
+        RepoSearchReposSort.forks,
       );
 
       // ヘルプ数に変更する
-      repository.setSearchReposSort(RepoParamSearchReposSort.helpWantedIssues);
+      repository.setSearchReposSort(RepoSearchReposSort.helpWantedIssues);
 
       // ヘルプ数になるはず
       expect(
         repository.getSearchReposSort(),
-        RepoParamSearchReposSort.helpWantedIssues,
+        RepoSearchReposSort.helpWantedIssues,
       );
 
       // ベストマッチに変更する
-      repository.setSearchReposSort(RepoParamSearchReposSort.bestMatch);
+      repository.setSearchReposSort(RepoSearchReposSort.bestMatch);
 
       // ベストマッチになるはず
       expect(
         repository.getSearchReposSort(),
-        RepoParamSearchReposSort.bestMatch,
+        RepoSearchReposSort.bestMatch,
       );
     });
     test('setSearchReposOrder() / getSearchReposOrder()', () async {
       // 初期値は降順のはず
       expect(
         repository.getSearchReposOrder(),
-        RepoParamSearchReposOrder.desc,
+        RepoSearchReposOrder.desc,
       );
 
       // 昇順に変更する
-      repository.setSearchReposOrder(RepoParamSearchReposOrder.asc);
+      repository.setSearchReposOrder(RepoSearchReposOrder.asc);
 
       // 昇順になるはず
       expect(
         repository.getSearchReposOrder(),
-        RepoParamSearchReposOrder.asc,
+        RepoSearchReposOrder.asc,
       );
 
       // 降順に変更する
-      repository.setSearchReposOrder(RepoParamSearchReposOrder.desc);
+      repository.setSearchReposOrder(RepoSearchReposOrder.desc);
 
       // 降順になるはず
       expect(
         repository.getSearchReposOrder(),
-        RepoParamSearchReposOrder.desc,
+        RepoSearchReposOrder.desc,
       );
     });
   });

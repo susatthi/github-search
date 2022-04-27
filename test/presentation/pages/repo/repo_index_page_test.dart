@@ -7,9 +7,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
+import 'package:github_search/presentation/components/repo/repo_order_toggle_button.dart';
+import 'package:github_search/presentation/components/repo/repo_sort_selector_dialog.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
-import 'package:github_search/presentation/widgets/repo/repo_order_toggle_button.dart';
-import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialog.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 

@@ -5,7 +5,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/widgets/repo/repo_order_toggle_button.dart';
+import 'package:github_search/presentation/components/repo/repo_order_toggle_button.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../../test_utils/hive.dart';

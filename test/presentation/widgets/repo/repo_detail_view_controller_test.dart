@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/widgets/repo/repo_detail_view_controller.dart';
+import 'package:github_search/presentation/components/repo/repo_detail_view_controller.dart';
 
 import '../../../test_utils/mocks.dart';
 
