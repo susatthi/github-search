@@ -5,23 +5,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/env.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
+import 'package:github_search/presentation/widgets/repo/repo_search_repos_query.dart';
 
 void main() {
   late ProviderContainer container;
-  setUp(() {
+  setUp(() async {
     container = ProviderContainer();
   });
 
-  group('searchReposQueryProvider', () {
+  group('repoSearchReposInitQueryProvider', () {
     test('初期値は環境変数の値と一致するはず', () async {
-      final query = container.read(searchReposQueryProvider);
+      final query = container.read(repoSearchReposInitQueryProvider);
       expect(query, Env.defaultSearchValue);
     });
+  });
+  group('RepoSearchReposQueryController', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      container.read(searchReposQueryProvider.notifier).state = 'dummy';
-      final query = container.read(searchReposQueryProvider);
+      container.read(repoSearchReposQueryProvider.notifier).query = 'dummy';
+      final query = container.read(repoSearchReposQueryProvider);
       expect(query, 'dummy');
     });
   });

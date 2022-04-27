@@ -9,15 +9,15 @@ import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'repo_list_view_state.dart';
 import 'repo_search_repos_order.dart';
+import 'repo_search_repos_query.dart';
 import 'repo_search_repos_sort.dart';
-import 'repo_search_text_field.dart';
 
 /// リポジトリ一覧Viewコントローラープロバイダー
 final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
     RepoListViewController, AsyncValue<RepoListViewState>>(
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);
-    final query = ref.watch(searchReposQueryProvider);
+    final query = ref.watch(repoSearchReposQueryProvider);
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
     logger.i(
