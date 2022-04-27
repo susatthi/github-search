@@ -8,8 +8,8 @@ import '../../../repositories/app_data_repository.dart';
 import '../../../repositories/repo_repository.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
-final repoSearchReposSortProvider = StateNotifierProvider<
-    RepoSearchReposSortController, RepoParamSearchReposSort>(
+final repoSearchReposSortProvider =
+    StateNotifierProvider<RepoSearchReposSortController, RepoSearchReposSort>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
     return RepoSearchReposSortController(
@@ -19,8 +19,7 @@ final repoSearchReposSortProvider = StateNotifierProvider<
 );
 
 /// リポジトリ検索用ソート値コントローラー
-class RepoSearchReposSortController
-    extends StateNotifier<RepoParamSearchReposSort> {
+class RepoSearchReposSortController extends StateNotifier<RepoSearchReposSort> {
   RepoSearchReposSortController(
     this._appDataRepository,
   ) : super(_appDataRepository.getSearchReposSort());
@@ -29,7 +28,7 @@ class RepoSearchReposSortController
 
   /// ソート値を更新する
   // ignore: avoid_setters_without_getters
-  set sort(RepoParamSearchReposSort sort) {
+  set sort(RepoSearchReposSort sort) {
     _appDataRepository.setSearchReposSort(sort);
     state = _appDataRepository.getSearchReposSort();
   }

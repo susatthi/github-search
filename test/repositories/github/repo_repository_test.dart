@@ -18,8 +18,8 @@ void main() {
     test('検索できるはず', () async {
       final result = await repository.searchRepos(
         query: 'flutter',
-        sort: RepoParamSearchReposSort.bestMatch,
-        order: RepoParamSearchReposOrder.desc,
+        sort: RepoSearchReposSort.bestMatch,
+        order: RepoSearchReposOrder.desc,
       );
       expect(result, isNotNull);
     });

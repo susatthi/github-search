@@ -29,8 +29,8 @@ class GitHubApi {
   /// https://docs.github.com/ja/rest/reference/search#search-repositories
   Uri searchRepos({
     required String query,
-    GitHubParamSearchReposSort? sort,
-    GitHubParamSearchReposOrder? order,
+    GitHubRepoSearchReposSort? sort,
+    GitHubRepoSearchReposOrder? order,
     int? perPage,
     int? page,
   }) {
@@ -65,53 +65,53 @@ class GitHubApi {
 }
 
 /// GitHub リポジトリ検索用ソート
-enum GitHubParamSearchReposSort {
+enum GitHubRepoSearchReposSort {
   stars,
   forks,
   helpWantedIssues,
 }
 
-extension GitHubParamSearchReposSortHelper on GitHubParamSearchReposSort {
-  static final names = <GitHubParamSearchReposSort, String>{
-    GitHubParamSearchReposSort.stars: 'stars',
-    GitHubParamSearchReposSort.forks: 'forks',
-    GitHubParamSearchReposSort.helpWantedIssues: 'help-wanted-issues',
+extension GitHubRepoSearchReposSortHelper on GitHubRepoSearchReposSort {
+  static final names = <GitHubRepoSearchReposSort, String>{
+    GitHubRepoSearchReposSort.stars: 'stars',
+    GitHubRepoSearchReposSort.forks: 'forks',
+    GitHubRepoSearchReposSort.helpWantedIssues: 'help-wanted-issues',
   };
 
   /// override
   String get name => names[this]!;
 
-  /// RepoParamSearchReposSort => GitHubParamSearchReposSort
-  static GitHubParamSearchReposSort? valueOf(RepoParamSearchReposSort sort) {
+  /// RepoSearchReposSort => GitHubRepoSearchReposSort
+  static GitHubRepoSearchReposSort? valueOf(RepoSearchReposSort sort) {
     switch (sort) {
-      case RepoParamSearchReposSort.bestMatch:
+      case RepoSearchReposSort.bestMatch:
         return null;
-      case RepoParamSearchReposSort.stars:
-        return GitHubParamSearchReposSort.stars;
-      case RepoParamSearchReposSort.forks:
-        return GitHubParamSearchReposSort.forks;
-      case RepoParamSearchReposSort.helpWantedIssues:
-        return GitHubParamSearchReposSort.helpWantedIssues;
+      case RepoSearchReposSort.stars:
+        return GitHubRepoSearchReposSort.stars;
+      case RepoSearchReposSort.forks:
+        return GitHubRepoSearchReposSort.forks;
+      case RepoSearchReposSort.helpWantedIssues:
+        return GitHubRepoSearchReposSort.helpWantedIssues;
     }
   }
 }
 
 /// GitHub リポジトリ検索用オーダー
-enum GitHubParamSearchReposOrder {
+enum GitHubRepoSearchReposOrder {
   desc,
   asc,
 }
 
-extension GitHubParamSearchReposOrderHelper on GitHubParamSearchReposOrder {
-  /// RepoParamOrder => GitHubParamOrder
-  static GitHubParamSearchReposOrder valueOf(
-    RepoParamSearchReposOrder order,
+extension GitHubRepoSearchReposOrderHelper on GitHubRepoSearchReposOrder {
+  /// RepoSearchReposOrder => GitHubRepoSearchReposOrder
+  static GitHubRepoSearchReposOrder valueOf(
+    RepoSearchReposOrder order,
   ) {
     switch (order) {
-      case RepoParamSearchReposOrder.desc:
-        return GitHubParamSearchReposOrder.desc;
-      case RepoParamSearchReposOrder.asc:
-        return GitHubParamSearchReposOrder.asc;
+      case RepoSearchReposOrder.desc:
+        return GitHubRepoSearchReposOrder.desc;
+      case RepoSearchReposOrder.asc:
+        return GitHubRepoSearchReposOrder.asc;
     }
   }
 }

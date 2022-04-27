@@ -36,36 +36,36 @@ class HiveAppDataRepository implements AppDataRepository {
           .value as T?;
 
   @override
-  void setSearchReposSort(RepoParamSearchReposSort sort) {
+  void setSearchReposSort(RepoSearchReposSort sort) {
     _box.put(AppDataKey.searchReposSort.name, sort.name);
   }
 
   @override
-  RepoParamSearchReposSort getSearchReposSort() {
-    final defaultValue = _getDefaultValue<RepoParamSearchReposSort>(
+  RepoSearchReposSort getSearchReposSort() {
+    final defaultValue = _getDefaultValue<RepoSearchReposSort>(
       AppDataKey.searchReposSort,
     );
     final name = _box.get(
       AppDataKey.searchReposSort.name,
       defaultValue: defaultValue?.name,
     ) as String;
-    return RepoParamSearchReposSortHelper.valueOf(name);
+    return RepoSearchReposSortHelper.valueOf(name);
   }
 
   @override
-  void setSearchReposOrder(RepoParamSearchReposOrder order) {
+  void setSearchReposOrder(RepoSearchReposOrder order) {
     _box.put(AppDataKey.searchReposOrder.name, order.name);
   }
 
   @override
-  RepoParamSearchReposOrder getSearchReposOrder() {
-    final defaultValue = _getDefaultValue<RepoParamSearchReposOrder>(
+  RepoSearchReposOrder getSearchReposOrder() {
+    final defaultValue = _getDefaultValue<RepoSearchReposOrder>(
       AppDataKey.searchReposOrder,
     );
     final name = _box.get(
       AppDataKey.searchReposOrder.name,
       defaultValue: defaultValue?.name,
     ) as String;
-    return RepoParamSearchReposOrderHelper.valueOf(name);
+    return RepoSearchReposOrderHelper.valueOf(name);
   }
 }

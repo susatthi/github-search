@@ -61,30 +61,30 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
   }
 }
 
-extension _RepoParamSearchReposOrderHelper on RepoParamSearchReposOrder {
+extension _RepoParamSearchReposOrderHelper on RepoSearchReposOrder {
   /// トグルしたオーダー値を返す
-  RepoParamSearchReposOrder get toggle {
+  RepoSearchReposOrder get toggle {
     switch (this) {
-      case RepoParamSearchReposOrder.desc:
-        return RepoParamSearchReposOrder.asc;
-      case RepoParamSearchReposOrder.asc:
-        return RepoParamSearchReposOrder.desc;
+      case RepoSearchReposOrder.desc:
+        return RepoSearchReposOrder.asc;
+      case RepoSearchReposOrder.asc:
+        return RepoSearchReposOrder.desc;
     }
   }
 
   /// アイコンデータ
-  static final icons = <RepoParamSearchReposOrder, IconData>{
-    RepoParamSearchReposOrder.desc: Icons.arrow_downward,
-    RepoParamSearchReposOrder.asc: Icons.arrow_upward,
+  static final icons = <RepoSearchReposOrder, IconData>{
+    RepoSearchReposOrder.desc: Icons.arrow_downward,
+    RepoSearchReposOrder.asc: Icons.arrow_upward,
   };
 
   /// アイコンデータを返す
   IconData get icon => icons[this]!;
 
   /// 表示名
-  static final labels = <RepoParamSearchReposOrder, String>{
-    RepoParamSearchReposOrder.desc: i18n.desc,
-    RepoParamSearchReposOrder.asc: i18n.asc,
+  static final labels = <RepoSearchReposOrder, String>{
+    RepoSearchReposOrder.desc: i18n.desc,
+    RepoSearchReposOrder.asc: i18n.asc,
   };
 
   /// 表示名を返す

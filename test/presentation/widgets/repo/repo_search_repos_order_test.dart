@@ -27,28 +27,28 @@ void main() {
   group('repoSearchReposOrderProvider', () {
     test('初期値は降順のはず', () async {
       final order = container.read(repoSearchReposOrderProvider);
-      expect(order, RepoParamSearchReposOrder.desc);
+      expect(order, RepoSearchReposOrder.desc);
     });
   });
   group('RepoSearchReposOrderController', () {
     test('オーダー値を変更できるはず', () async {
       // 昇順に変更する
       final controller = container.read(repoSearchReposOrderProvider.notifier)
-        ..order = RepoParamSearchReposOrder.asc;
+        ..order = RepoSearchReposOrder.asc;
 
       // 昇順のはず
       expect(
         container.read(repoSearchReposOrderProvider),
-        RepoParamSearchReposOrder.asc,
+        RepoSearchReposOrder.asc,
       );
 
       // 降順に変更する
-      controller.order = RepoParamSearchReposOrder.desc;
+      controller.order = RepoSearchReposOrder.desc;
 
       // 降順のはず
       expect(
         container.read(repoSearchReposOrderProvider),
-        RepoParamSearchReposOrder.desc,
+        RepoSearchReposOrder.desc,
       );
     });
   });

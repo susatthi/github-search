@@ -27,46 +27,46 @@ void main() {
   group('repoSearchReposSortProvider', () {
     test('初期値はベストマッチのはず', () async {
       final sort = container.read(repoSearchReposSortProvider);
-      expect(sort, RepoParamSearchReposSort.bestMatch);
+      expect(sort, RepoSearchReposSort.bestMatch);
     });
   });
   group('RepoSearchReposSortController', () {
     test('ソート値を変更できるはず', () async {
       // スター数に変更する
       final controller = container.read(repoSearchReposSortProvider.notifier)
-        ..sort = RepoParamSearchReposSort.stars;
+        ..sort = RepoSearchReposSort.stars;
 
       // スター数のはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoParamSearchReposSort.stars,
+        RepoSearchReposSort.stars,
       );
 
       // フォーク数に変更する
-      controller.sort = RepoParamSearchReposSort.forks;
+      controller.sort = RepoSearchReposSort.forks;
 
       // フォーク数のはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoParamSearchReposSort.forks,
+        RepoSearchReposSort.forks,
       );
 
       // ヘルプ数に変更する
-      controller.sort = RepoParamSearchReposSort.helpWantedIssues;
+      controller.sort = RepoSearchReposSort.helpWantedIssues;
 
       // ヘルプ数のはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoParamSearchReposSort.helpWantedIssues,
+        RepoSearchReposSort.helpWantedIssues,
       );
 
       // ベストマッチに変更する
-      controller.sort = RepoParamSearchReposSort.bestMatch;
+      controller.sort = RepoSearchReposSort.bestMatch;
 
       // ベストマッチのはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoParamSearchReposSort.bestMatch,
+        RepoSearchReposSort.bestMatch,
       );
     });
   });

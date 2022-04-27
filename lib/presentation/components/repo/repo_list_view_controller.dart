@@ -51,10 +51,10 @@ class RepoListViewController
   final String query;
 
   /// 検索ソート
-  final RepoParamSearchReposSort sort;
+  final RepoSearchReposSort sort;
 
   /// 検索オーダー
-  final RepoParamSearchReposOrder order;
+  final RepoSearchReposOrder order;
 
   /// 1ページに取得するレポジトリの数
   static const perPage = 30;
