@@ -32,3 +32,5 @@ targets:
           # 複数系に対応しない場合はoffに設定
           pluralization:
             auto: off
+          # タイムスタンプは出力しない
+          timestamp: false
