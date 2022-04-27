@@ -17,7 +17,7 @@ class RepoDetailView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoDetailViewControllerProvider);
+    final asyncValue = ref.watch(repoDetailViewStateProvider);
     return AsyncValueHandler<RepoData>(
       value: asyncValue,
       builder: (data) => _RepoDetailView(data: data),

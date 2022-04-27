@@ -11,14 +11,14 @@ import '../../../entities/repo/repo_data.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 
-/// リポジトリ詳細Viewコントローラープロバイダー
-final repoDetailViewControllerProvider = StateNotifierProvider.autoDispose<
+/// リポジトリ詳細View状態プロバイダー
+final repoDetailViewStateProvider = StateNotifierProvider.autoDispose<
     RepoDetailViewController, AsyncValue<RepoData>>(
   (ref) => throw StateError('Provider was not initialized'),
 );
 
-/// リポジトリ詳細Viewコントローラープロバイダー（Family）
-final repoDetailViewControllerProviderFamily = StateNotifierProvider.family
+/// リポジトリ詳細View状態プロバイダー（Family）
+final repoDetailViewStateProviderFamily = StateNotifierProvider.family
     .autoDispose<RepoDetailViewController, AsyncValue<RepoData>,
         RepoDetailViewParameter>(
   (ref, parameter) {

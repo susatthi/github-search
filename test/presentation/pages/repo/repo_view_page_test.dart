@@ -15,8 +15,8 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewControllerProvider.overrideWithProvider(
-              repoDetailViewControllerProviderFamily(
+            repoDetailViewStateProvider.overrideWithProvider(
+              repoDetailViewStateProviderFamily(
                 const RepoDetailViewParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
