@@ -46,6 +46,10 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
+      # Flutter SDK のバージョン確認
+      - name: Check Flutter SDK version
+        run: flutter --version
+
       # flutter pub get を実行
       - name: Install Flutter dependencies
         run: flutter pub get

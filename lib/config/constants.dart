@@ -15,3 +15,6 @@ const dartDefineKeyDefaultSearchValue = 'DEFAULT_SEARCH_VALUE';
 /// 画面遷移時に渡すパラメータのキー
 const pageParamKeyOwnerName = 'owner_name';
 const pageParamKeyRepoName = 'repo_name';
+
+/// Hive の Box 名
+const hiveBoxNameAppData = 'appData';

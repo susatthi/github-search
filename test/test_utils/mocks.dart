@@ -14,6 +14,7 @@ import 'package:github_search/repositories/repo_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
+import 'logger.dart';
 import 'utils.dart';
 
 /// モック版のHTTPクライアント
@@ -25,11 +26,23 @@ final mockHttpClient = MockClient(
     if (path == '/search/repositories') {
       final query = request.url.queryParameters['q'];
       final page = request.url.queryParameters['page'] ?? 1;
+      final sort = request.url.queryParameters['sort'];
+
+      // JSONファイル名を生成する
+      final jsonFileNameBuffer = StringBuffer('search_repos_')
+        ..write(query)
+        ..write('_page$page');
+      if (sort != null) {
+        jsonFileNameBuffer.write('_$sort');
+      }
+      jsonFileNameBuffer.write('.json');
+
+      // JSONファイルのパス
+      final jsonFilePath = 'github/${jsonFileNameBuffer.toString()}';
+      testLogger.i('Required json file at $jsonFilePath');
 
       // 検索文字列からテスト用のJSONファイルを読み込む
-      final jsonString = TestAssets.readString(
-        'github/search_repos_${query}_page$page.json',
-      );
+      final jsonString = TestAssets.readString(jsonFilePath);
       if (jsonString != null) {
         return http.Response(
           jsonString,
@@ -79,6 +92,13 @@ final mockHttpClient = MockClient(
   },
 );
 
+/// 常にエラーを返すモック版のHTTPクライアント
+final mockHttpClientError = MockClient(
+  (request) async {
+    throw const SocketException('');
+  },
+);
+
 /// モック版のGitHubHttpClient
 final mockGitHubHttpClient =
     GitHubHttpClient(token: 'dummy', client: mockHttpClient);
@@ -89,7 +109,7 @@ final mockGitHubRepoRepository = GitHubRepoRepository(
   client: mockGitHubHttpClient,
 );
 
-/// モック版のGitHubSearchApp
+/// モック版のGitHubSearchAppを返す
 final mockGitHubSearchApp = ProviderScope(
   overrides: [
     // モック版のGitHubHttpClientを使う

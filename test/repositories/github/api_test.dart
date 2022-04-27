@@ -4,6 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/github/api.dart';
+import 'package:github_search/repositories/repo_repository.dart';
 
 void main() {
   late GitHubApi api;
@@ -12,15 +13,42 @@ void main() {
   });
 
   group('searchRepos()', () {
-    test('クエリパラメータが正しいはず', () {
+    test('クエリパラメータが正しいはず1', () {
       final uri = api.searchRepos(
         query: 'query',
         sort: GitHubParamSearchReposSort.stars,
-        order: GitHubParamOrder.desc,
+        order: GitHubParamSearchReposOrder.desc,
         perPage: 10,
         page: 2,
       );
       expect(uri.query, 'q=query&sort=stars&order=desc&per_page=10&page=2');
+    });
+    test('クエリパラメータが正しいはず2', () {
+      final uri = api.searchRepos(
+        query: 'query',
+        sort: GitHubParamSearchReposSort.forks,
+        order: GitHubParamSearchReposOrder.asc,
+        perPage: 20,
+        page: 3,
+      );
+      expect(uri.query, 'q=query&sort=forks&order=asc&per_page=20&page=3');
+    });
+    test('クエリパラメータが正しいはず3', () {
+      final uri = api.searchRepos(
+        query: 'query',
+        sort: GitHubParamSearchReposSort.helpWantedIssues,
+        order: GitHubParamSearchReposOrder.asc,
+        perPage: 20,
+        page: 3,
+      );
+      expect(
+        uri.query,
+        'q=query&sort=help-wanted-issues&order=asc&per_page=20&page=3',
+      );
+    });
+    test('クエリパラメータが正しいはず4', () {
+      final uri = api.searchRepos(query: 'query');
+      expect(uri.query, 'q=query');
     });
     test('検索文字列が空の場合はassertが発生するはず', () {
       expect(
@@ -95,6 +123,52 @@ void main() {
           );
         },
         throwsAssertionError,
+      );
+    });
+  });
+  group('GitHubParamSearchReposSortHelper', () {
+    test('stars.name', () {
+      expect(GitHubParamSearchReposSort.stars.name, 'stars');
+    });
+    test('stars.forks', () {
+      expect(GitHubParamSearchReposSort.forks.name, 'forks');
+    });
+    test('stars.helpWantedIssues', () {
+      expect(
+        GitHubParamSearchReposSort.helpWantedIssues.name,
+        'help-wanted-issues',
+      );
+    });
+    test('valueOf(bestMatch)', () {
+      expect(
+        GitHubParamSearchReposSortHelper.valueOf(
+          RepoParamSearchReposSort.bestMatch,
+        ),
+        null,
+      );
+    });
+    test('valueOf(stars)', () {
+      expect(
+        GitHubParamSearchReposSortHelper.valueOf(
+          RepoParamSearchReposSort.stars,
+        ),
+        GitHubParamSearchReposSort.stars,
+      );
+    });
+    test('valueOf(forks)', () {
+      expect(
+        GitHubParamSearchReposSortHelper.valueOf(
+          RepoParamSearchReposSort.forks,
+        ),
+        GitHubParamSearchReposSort.forks,
+      );
+    });
+    test('valueOf(helpWantedIssues)', () {
+      expect(
+        GitHubParamSearchReposSortHelper.valueOf(
+          RepoParamSearchReposSort.helpWantedIssues,
+        ),
+        GitHubParamSearchReposSort.helpWantedIssues,
       );
     });
   });

@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import '../repo_repository.dart';
+
 /// GitHub API の定義
 /// 各APIはUriを返す
 class GitHubApi {
@@ -28,7 +30,7 @@ class GitHubApi {
   Uri searchRepos({
     required String query,
     GitHubParamSearchReposSort? sort,
-    GitHubParamOrder? order,
+    GitHubParamSearchReposOrder? order,
     int? perPage,
     int? page,
   }) {
@@ -62,7 +64,7 @@ class GitHubApi {
   }
 }
 
-/// Sorts the results of your query
+/// GitHub リポジトリ検索用ソート
 enum GitHubParamSearchReposSort {
   stars,
   forks,
@@ -78,12 +80,38 @@ extension GitHubParamSearchReposSortHelper on GitHubParamSearchReposSort {
 
   /// override
   String get name => names[this]!;
+
+  /// RepoParamSearchReposSort => GitHubParamSearchReposSort
+  static GitHubParamSearchReposSort? valueOf(RepoParamSearchReposSort sort) {
+    switch (sort) {
+      case RepoParamSearchReposSort.bestMatch:
+        return null;
+      case RepoParamSearchReposSort.stars:
+        return GitHubParamSearchReposSort.stars;
+      case RepoParamSearchReposSort.forks:
+        return GitHubParamSearchReposSort.forks;
+      case RepoParamSearchReposSort.helpWantedIssues:
+        return GitHubParamSearchReposSort.helpWantedIssues;
+    }
+  }
 }
 
-/// Determines whether the first search result returned is the highest number
-/// of matches (desc) or lowest number of matches (asc). This parameter is
-/// ignored unless you provide sort.
-enum GitHubParamOrder {
-  asc,
+/// GitHub リポジトリ検索用オーダー
+enum GitHubParamSearchReposOrder {
   desc,
+  asc,
+}
+
+extension GitHubParamSearchReposOrderHelper on GitHubParamSearchReposOrder {
+  /// RepoParamOrder => GitHubParamOrder
+  static GitHubParamSearchReposOrder valueOf(
+    RepoParamSearchReposOrder order,
+  ) {
+    switch (order) {
+      case RepoParamSearchReposOrder.desc:
+        return GitHubParamSearchReposOrder.desc;
+      case RepoParamSearchReposOrder.asc:
+        return GitHubParamSearchReposOrder.asc;
+    }
+  }
 }

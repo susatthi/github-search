@@ -5,6 +5,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
+import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../test_utils/mocks.dart';
 
@@ -19,7 +20,11 @@ void main() {
 
   group('searchRepos()', () {
     test('検索できるはず', () async {
-      final result = await repository.searchRepos(query: 'flutter');
+      final result = await repository.searchRepos(
+        query: 'flutter',
+        sort: RepoParamSearchReposSort.bestMatch,
+        order: RepoParamSearchReposOrder.desc,
+      );
       expect(result, isNotNull);
     });
   });

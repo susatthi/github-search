@@ -13,7 +13,7 @@ void main() {
     container = ProviderContainer();
   });
 
-  group('Provider', () {
+  group('searchReposQueryProvider', () {
     test('初期値は環境変数の値と一致するはず', () async {
       final query = container.read(searchReposQueryProvider);
       expect(query, Env.defaultSearchValue);

@@ -1,5 +1,8 @@
 {
   "appName": "GitHubSearch",
+  "asc": "Asc",
+  "bestMatch": "Best match",
+  "desc": "Desc",
   "error": "Error",
   "errorOccurred": "An error has occurred.",
   "forksCount": "Forks count",
@@ -13,6 +16,7 @@
     "unknown": "An unknown error has occurred. (-1)",
     "noInternetConnection": "Please try again in a good communication environment. (-2)"
   },
+  "helpWantedIssuesCount": "Help wanted @:issuesCount",
   "issuesCount": "Issues count",
   "ownerName": "Owner name",
   "projectLanguage": "Project language",
@@ -20,5 +24,6 @@
   "repoName": "Repository name",
   "starsCount": "Stars count",
   "searchRepos": "Search repositories",
+  "sort": "Sort",
   "watchersCount": "Watchers count"
 }
