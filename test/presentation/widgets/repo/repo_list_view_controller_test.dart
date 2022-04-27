@@ -2,18 +2,22 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/widgets/repo/repo_list_view_controller.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
+import '../../../test_utils/hive.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  late Directory tmpDir;
   late RepoListViewController controller;
   setUp(() async {
-    await openAppDataBox();
+    tmpDir = await openAppDataBox();
     final container = ProviderContainer(
       overrides: [
         repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
@@ -31,7 +35,7 @@ void main() {
   });
 
   tearDown(() async {
-    await closeAppDataBox();
+    await closeAppDataBox(tmpDir);
   });
 
   group('RepoListViewController', () {

@@ -5,15 +5,12 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/constants.dart';
 import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_test/hive_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
@@ -101,18 +98,6 @@ final mockHttpClientError = MockClient(
     throw const SocketException('');
   },
 );
-
-/// モック版のアプリデータ用HiveBoxを返す
-Future<void> openAppDataBox() async {
-  await setUpTestHive();
-  final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
-  await box.clear();
-}
-
-/// モック版のアプリデータ用HiveBoxをクローズする
-Future<void> closeAppDataBox() async {
-  await tearDownTestHive();
-}
 
 /// モック版のGitHubHttpClient
 final mockGitHubHttpClient =

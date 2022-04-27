@@ -44,8 +44,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^1.1.1
-  hive_test: ^1.0.1
   mockito: ^5.1.0
+  path: ^1.8.0
   pedantic_mono: ^1.18.0
 
 flutter:

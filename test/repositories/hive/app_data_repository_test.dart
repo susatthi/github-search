@@ -2,25 +2,28 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/constants.dart';
 import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 import 'package:hive/hive.dart';
 
-import '../../test_utils/mocks.dart';
+import '../../test_utils/hive.dart';
 
 void main() {
+  late Directory tmpDir;
   late HiveAppDataRepository repository;
   setUp(() async {
-    await openAppDataBox();
+    tmpDir = await openAppDataBox();
     repository = HiveAppDataRepository(
       box: Hive.box<dynamic>(hiveBoxNameAppData),
     );
   });
 
   tearDown(() async {
-    await closeAppDataBox();
+    await closeAppDataBox(tmpDir);
   });
 
   group('HiveAppDataRepository', () {

@@ -2,21 +2,24 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/app_data_repository.dart';
 
-import '../test_utils/mocks.dart';
+import '../test_utils/hive.dart';
 
 void main() {
+  late Directory tmpDir;
   late ProviderContainer container;
   setUp(() async {
-    await openAppDataBox();
+    tmpDir = await openAppDataBox();
     container = ProviderContainer();
   });
 
   tearDown(() async {
-    await closeAppDataBox();
+    await closeAppDataBox(tmpDir);
   });
 
   group('appDataRepositoryProvider', () {
