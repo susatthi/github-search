@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_repos_sort.dart';
+import 'package:github_search/presentation/components/repo/repo_search_repos_sort.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../../test_utils/hive.dart';
