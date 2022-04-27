@@ -10,13 +10,14 @@ import 'package:github_search/presentation/widgets/repo/repo_search_repos_order.
 import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   late Directory tmpDir;
   late ProviderContainer container;
   setUp(() async {
     tmpDir = await openAppDataBox();
-    container = ProviderContainer();
+    container = mockProviderContainer();
   });
 
   tearDown(() async {
@@ -30,10 +31,10 @@ void main() {
     });
   });
   group('RepoSearchReposOrderController', () {
-    test('オーダーを変更できるはず', () async {
+    test('オーダー値を変更できるはず', () async {
       // 昇順に変更する
       final controller = container.read(repoSearchReposOrderProvider.notifier)
-        ..update(order: RepoParamSearchReposOrder.asc);
+        ..order = RepoParamSearchReposOrder.asc;
 
       // 昇順のはず
       expect(
@@ -42,7 +43,7 @@ void main() {
       );
 
       // 降順に変更する
-      controller.update(order: RepoParamSearchReposOrder.desc);
+      controller.order = RepoParamSearchReposOrder.desc;
 
       // 降順のはず
       expect(

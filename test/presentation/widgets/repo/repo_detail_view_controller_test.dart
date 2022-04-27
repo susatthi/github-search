@@ -5,7 +5,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/widgets/repo/repo_detail_view_controller.dart';
-import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../../test_utils/mocks.dart';
 
@@ -15,9 +14,9 @@ void main() {
     repoName: 'flutter',
   );
 
-  group('Provider', () {
-    test('repoDetailViewControllerProviderは最初はStateErrorをthrowするはず', () async {
-      final container = ProviderContainer();
+  group('repoDetailViewControllerProvider', () {
+    test('最初はStateErrorをthrowするはず', () async {
+      final container = mockProviderContainer();
       // ignore: prefer_function_declarations_over_variables
       final func = () {
         try {
@@ -30,7 +29,7 @@ void main() {
       expect(func, throwsStateError);
     });
     test('overridesすればStateErrorをthrowしないはず', () async {
-      final container = ProviderContainer(
+      final container = mockProviderContainer(
         overrides: [
           repoDetailViewControllerProvider.overrideWithProvider(
             repoDetailViewControllerProviderFamily(repoDetailViewParameter),
@@ -51,9 +50,8 @@ void main() {
   });
   group('RepoDetailViewController', () {
     test('Controllerを生成するとリポジトリエンティティを取得するはず', () async {
-      final container = ProviderContainer(
+      final container = mockProviderContainer(
         overrides: [
-          repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
           repoDetailViewControllerProvider.overrideWithProvider(
             repoDetailViewControllerProviderFamily(repoDetailViewParameter),
           ),

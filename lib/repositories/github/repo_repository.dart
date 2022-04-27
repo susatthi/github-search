@@ -2,11 +2,24 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../entities/repo/repo.dart';
 import '../../entities/search_repos_result/search_repos_result.dart';
 import '../repo_repository.dart';
 import 'api.dart';
 import 'http_client.dart';
+
+/// GitHubAPI版リポジトリRepositoryプロバイダー
+final githubRepoRepositoryProvider = Provider<GitHubRepoRepository>(
+  (ref) {
+    final githubHttpClient = ref.watch(githubHttpClientProvider);
+    return GitHubRepoRepository(
+      api: const GitHubApi(),
+      client: githubHttpClient,
+    );
+  },
+);
 
 /// GitHubAPI版リポジトリRepository
 class GitHubRepoRepository implements RepoRepository {

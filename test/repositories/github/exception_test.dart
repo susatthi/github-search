@@ -6,14 +6,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/github/exception.dart';
 
 void main() {
-  group('コンストラクタ', () {
+  group('GitHubException()', () {
     test('生成出来るはず', () {
       expect(const GitHubException(), isNotNull);
       expect(const GitHubException('dummy'), isNotNull);
       expect(const GitHubException('dummy', 'code'), isNotNull);
     });
   });
-  group('factories', () {
+  group('GitHubException.factories', () {
     test('badRequestが生成出来るはず', () {
       final e = GitHubException.badRequest();
       expect(e.code, 'bad-request');
@@ -47,7 +47,7 @@ void main() {
       expect(e.code, 'no-internet-connection');
     });
   });
-  group('operator ==', () {
+  group('GitHubException.operator ==', () {
     test('一致するはず', () {
       final e1 = GitHubException.badRequest();
       final e2 = GitHubException.badRequest();
@@ -67,7 +67,7 @@ void main() {
       expect(e1 == e4, false);
     });
   });
-  group('toString()', () {
+  group('GitHubException.toString()', () {
     test('nullではないはず', () {
       expect(GitHubException.badRequest().toString(), isNotNull);
       expect(const GitHubException().toString(), isNotNull);

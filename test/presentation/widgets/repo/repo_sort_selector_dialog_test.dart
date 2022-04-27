@@ -5,13 +5,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
 import 'package:github_search/presentation/widgets/repo/repo_sort_selector_dialog.dart';
-import 'package:github_search/repositories/repo_repository.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../../../test_utils/hive.dart';
@@ -31,27 +27,17 @@ void main() {
   group('RepoSortSelectorDialog', () {
     testWidgets('各選択肢を選択してソートが変更されるはず', (tester) async {
       await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            // モック版のGitHubHttpClientを使う
-            repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
-            // リポジトリ検索文字列の初期値を設定する
-            searchReposQueryProvider.overrideWithProvider(
-              StateProvider<String>((ref) => 'flutter'),
-            ),
-          ],
-          child: GitHubSearchApp(
-            home: Builder(
-              builder: (BuildContext context) {
-                return TextButton(
-                  onPressed: () => showDialog<void>(
-                    context: context,
-                    builder: (context) => const RepoSortSelectorDialog(),
-                  ),
-                  child: const Text('button'),
-                );
-              },
-            ),
+        mockGitHubSearchApp(
+          home: Builder(
+            builder: (BuildContext context) {
+              return TextButton(
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (context) => const RepoSortSelectorDialog(),
+                ),
+                child: const Text('button'),
+              );
+            },
           ),
         ),
       );

@@ -5,18 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../config/constants.dart';
-import '../../../config/env.dart';
 import '../../../localizations/strings.g.dart';
-
-/// リポジトリ検索文字列
-final searchReposQueryProvider = StateProvider<String>(
-  (ref) => const String.fromEnvironment(
-    dartDefineKeyDefaultSearchValue,
-    //ignore: avoid_redundant_argument_values
-    defaultValue: Env.defaultSearchValue,
-  ),
-);
+import 'repo_search_repos_query.dart';
 
 /// リポジトリ検索用テキストフィールド
 class RepoSearchTextField extends ConsumerStatefulWidget {
@@ -33,7 +23,7 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   @override
   void initState() {
     super.initState();
-    _controller.text = ref.read(searchReposQueryProvider);
+    _controller.text = ref.read(repoSearchReposQueryProvider);
   }
 
   @override
@@ -53,13 +43,13 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
           child: const Icon(Icons.search),
           onTap: () {
             FocusScope.of(context).unfocus();
-            ref.read(searchReposQueryProvider.notifier).state =
+            ref.read(repoSearchReposQueryProvider.notifier).query =
                 _controller.text;
           },
         ),
       ),
       onSubmitted: (text) {
-        ref.read(searchReposQueryProvider.notifier).state = text;
+        ref.read(repoSearchReposQueryProvider.notifier).query = text;
       },
     );
   }

@@ -7,8 +7,6 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/widgets/repo/repo_list_view_controller.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
-import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../../test_utils/hive.dart';
 import '../../../test_utils/mocks.dart';
@@ -18,15 +16,7 @@ void main() {
   late RepoListViewController controller;
   setUp(() async {
     tmpDir = await openAppDataBox();
-    final container = ProviderContainer(
-      overrides: [
-        repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
-        searchReposQueryProvider.overrideWithProvider(
-          StateProvider<String>((ref) => 'flutter'),
-        ),
-      ],
-    );
-    controller = container
+    controller = mockProviderContainer()
         .listen(
           repoListViewControllerProvider.notifier,
           (previous, next) {},

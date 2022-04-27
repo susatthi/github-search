@@ -11,8 +11,8 @@ import '../../test_utils/utils.dart';
 void main() {
   final repoJsonObject =
       TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!;
-  group('from()', () {
-    test('インスタンスを作成できるはず', () async {
+  group('RepoData', () {
+    test('from()でインスタンスを作成できるはず', () async {
       final repo = Repo.fromJson(repoJsonObject);
       final repoData = RepoData.from(repo);
       expect(repoData, isNotNull);

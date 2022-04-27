@@ -5,21 +5,18 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/config/constants.dart';
 import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
-import 'package:hive/hive.dart';
 
 import '../../test_utils/hive.dart';
+import '../../test_utils/mocks.dart';
 
 void main() {
   late Directory tmpDir;
   late HiveAppDataRepository repository;
   setUp(() async {
     tmpDir = await openAppDataBox();
-    repository = HiveAppDataRepository(
-      box: Hive.box<dynamic>(hiveBoxNameAppData),
-    );
+    repository = mockProviderContainer().read(hiveAppDataRepositoryProvider);
   });
 
   tearDown(() async {

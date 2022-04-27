@@ -12,7 +12,7 @@ void main() {
     api = const GitHubApi();
   });
 
-  group('searchRepos()', () {
+  group('GitHubApi.searchRepos()', () {
     test('クエリパラメータが正しいはず1', () {
       final uri = api.searchRepos(
         query: 'query',
@@ -95,7 +95,7 @@ void main() {
       );
     });
   });
-  group('getRepo()', () {
+  group('GitHubApi.getRepo()', () {
     test('エンドポイントが正しいはず', () {
       final uri = api.getRepo(
         ownerName: 'susatthi',
@@ -130,10 +130,10 @@ void main() {
     test('stars.name', () {
       expect(GitHubParamSearchReposSort.stars.name, 'stars');
     });
-    test('stars.forks', () {
+    test('forks.name', () {
       expect(GitHubParamSearchReposSort.forks.name, 'forks');
     });
-    test('stars.helpWantedIssues', () {
+    test('helpWantedIssues.name', () {
       expect(
         GitHubParamSearchReposSort.helpWantedIssues.name,
         'help-wanted-issues',
@@ -169,6 +169,30 @@ void main() {
           RepoParamSearchReposSort.helpWantedIssues,
         ),
         GitHubParamSearchReposSort.helpWantedIssues,
+      );
+    });
+  });
+  group('GitHubParamSearchReposOrderHelper', () {
+    test('desc.name', () {
+      expect(GitHubParamSearchReposOrder.desc.name, 'desc');
+    });
+    test('asc.name', () {
+      expect(GitHubParamSearchReposOrder.asc.name, 'asc');
+    });
+    test('valueOf(desc)', () {
+      expect(
+        GitHubParamSearchReposOrderHelper.valueOf(
+          RepoParamSearchReposOrder.desc,
+        ),
+        GitHubParamSearchReposOrder.desc,
+      );
+    });
+    test('valueOf(asc)', () {
+      expect(
+        GitHubParamSearchReposOrderHelper.valueOf(
+          RepoParamSearchReposOrder.asc,
+        ),
+        GitHubParamSearchReposOrder.asc,
       );
     });
   });

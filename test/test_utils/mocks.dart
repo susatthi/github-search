@@ -4,13 +4,11 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/github_search_app.dart';
-import 'package:github_search/presentation/widgets/repo/repo_search_text_field.dart';
-import 'package:github_search/repositories/github/api.dart';
+import 'package:github_search/presentation/widgets/repo/repo_search_repos_query.dart';
 import 'package:github_search/repositories/github/http_client.dart';
-import 'package:github_search/repositories/github/repo_repository.dart';
-import 'package:github_search/repositories/repo_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
@@ -99,25 +97,40 @@ final mockHttpClientError = MockClient(
   },
 );
 
-/// モック版のGitHubHttpClient
-final mockGitHubHttpClient =
-    GitHubHttpClient(token: 'dummy', client: mockHttpClient);
-
-/// モック版のGitHubRepoRepository
-final mockGitHubRepoRepository = GitHubRepoRepository(
-  api: const GitHubApi(),
-  client: mockGitHubHttpClient,
-);
-
 /// モック版のGitHubSearchAppを返す
-final mockGitHubSearchApp = ProviderScope(
-  overrides: [
-    // モック版のGitHubHttpClientを使う
-    repoRepositoryProvider.overrideWithValue(mockGitHubRepoRepository),
-    // リポジトリ検索文字列の初期値を設定する
-    searchReposQueryProvider.overrideWithProvider(
-      StateProvider<String>((ref) => 'flutter'),
+Widget mockGitHubSearchApp({
+  List<Override>? overrides,
+  Widget? home,
+}) {
+  return ProviderScope(
+    overrides: [
+      // GitHubアクセストークンをダミー文字列にする
+      githubAccessTokenProvider.overrideWithValue('dummy'),
+      // モック版のHTTPクライアントを使う
+      httpClientProvider.overrideWithValue(mockHttpClient),
+      // リポジトリ検索文字列の初期値を設定する
+      repoSearchReposInitQueryProvider.overrideWithValue('flutter'),
+      ...?overrides,
+    ],
+    child: GitHubSearchApp(
+      home: home,
     ),
-  ],
-  child: const GitHubSearchApp(),
-);
+  );
+}
+
+/// モック版のProviderContainerを返す
+ProviderContainer mockProviderContainer({
+  List<Override>? overrides,
+}) {
+  return ProviderContainer(
+    overrides: [
+      // GitHubアクセストークンをダミー文字列にする
+      githubAccessTokenProvider.overrideWithValue('dummy'),
+      // モック版のHTTPクライアントを使う
+      httpClientProvider.overrideWithValue(mockHttpClient),
+      // リポジトリ検索文字列の初期値を設定する
+      repoSearchReposInitQueryProvider.overrideWithValue('flutter'),
+      ...?overrides,
+    ],
+  );
+}
