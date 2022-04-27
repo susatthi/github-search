@@ -61,7 +61,6 @@ jobs:
       # テストを実行
       - name: Run Flutter Test
         run: |
-#          flutter test --no-test-assets --coverage --machine > test-report.log
           flutter test --no-test-assets --coverage -v
           sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
