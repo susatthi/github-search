@@ -3,10 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
 
-import '../config/constants.dart';
-import '../config/env.dart';
 import '../entities/repo/repo.dart';
 import '../entities/search_repos_result/search_repos_result.dart';
 import 'github/api.dart';
@@ -15,13 +12,14 @@ import 'github/repo_repository.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) {
-    const token = String.fromEnvironment(
-      dartDefineKeyGitHubAccessToken,
-      defaultValue: Env.gitHubAccessToken,
-    );
+    final token = ref.watch(githubAccessTokenProvider);
+    final client = ref.watch(httpClientProvider);
     return GitHubRepoRepository(
       api: const GitHubApi(),
-      client: GitHubHttpClient(client: http.Client(), token: token),
+      client: GitHubHttpClient(
+        token: token,
+        client: client,
+      ),
     );
   },
 );

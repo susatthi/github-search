@@ -5,10 +5,26 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
+import '../../config/constants.dart';
+import '../../config/env.dart';
 import '../../utils/logger.dart';
 import 'exception.dart';
+
+/// GitHubアクセストークン
+final githubAccessTokenProvider = Provider<String>(
+  (ref) => const String.fromEnvironment(
+    dartDefineKeyGitHubAccessToken,
+    defaultValue: Env.gitHubAccessToken,
+  ),
+);
+
+/// HTTPクライアント
+final httpClientProvider = Provider<http.Client>(
+  (ref) => http.Client(),
+);
 
 /// GitHub API 用の HTTPクライアント
 class GitHubHttpClient {
