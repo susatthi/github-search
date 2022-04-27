@@ -46,9 +46,13 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
+      # Flutter SDK のバージョン確認
+      - name: Check Flutter SDK version
+        run: flutter --version
+
       # flutter pub get を実行
       - name: Install Flutter dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -115,7 +119,7 @@ jobs:
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -123,7 +127,7 @@ jobs:
 
       # Android Release Build
       - name: Build for Android
-        run: fvm flutter build appbundle -t lib/main.dart --release
+        run: flutter build appbundle -t lib/main.dart --release
 
   # iOS ビルドジョブ
   # テストジョブが成功したら実行する
@@ -157,7 +161,7 @@ jobs:
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -179,7 +183,7 @@ jobs:
 
       # iOS Release Build
       - name: Build for iOS
-        run: fvm flutter build ipa -t lib/main.dart --release
+        run: flutter build ipa -t lib/main.dart --release
 
   # macOS ビルドジョブ
   # テストジョブが成功したら実行する
@@ -213,7 +217,7 @@ jobs:
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -236,8 +240,8 @@ jobs:
       # iOS Release Build
       - name: Build for macOS
         run: |
-          fvm flutter config --enable-macos-desktop
-          fvm flutter build macos -t lib/main.dart --release
+          flutter config --enable-macos-desktop
+          flutter build macos -t lib/main.dart --release
 
   # Windows ビルドジョブ
   # テストジョブが成功したら実行する
@@ -271,7 +275,7 @@ jobs:
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -281,8 +285,8 @@ jobs:
       # Windows Release Build
       - name: Build for Windows
         run: |
-          fvm flutter config --enable-windows-desktop
-          fvm flutter build windows -t lib/main.dart --release
+          flutter config --enable-windows-desktop
+          flutter build windows -t lib/main.dart --release
 
   # Web ビルドジョブ
   # テストジョブが成功したら実行する
@@ -316,7 +320,7 @@ jobs:
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
@@ -325,8 +329,8 @@ jobs:
       # Web Release Build
       - name: Build for Web
         run: |
-          fvm flutter config --enable-web
-          fvm flutter build web -t lib/main.dart --web-renderer html
+          flutter config --enable-web
+          flutter build web -t lib/main.dart --web-renderer html
 
   # API ドキュメント作成ジョブ
   # テストジョブが成功したら実行する
