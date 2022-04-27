@@ -19,7 +19,7 @@ class RepoListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoListViewControllerProvider);
+    final asyncValue = ref.watch(repoListViewStateProvider);
     return AsyncValueHandler<RepoListViewState>(
       value: asyncValue,
       builder: (state) => _RepoListView(state: state),
@@ -68,7 +68,7 @@ class _CircularProgressListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(repoListViewControllerProvider.notifier);
+    final controller = ref.watch(repoListViewStateProvider.notifier);
     return VisibilityDetector(
       key: const Key('for detect visibility'),
       child: Column(

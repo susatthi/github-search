@@ -20,7 +20,7 @@ void main() {
       // ignore: prefer_function_declarations_over_variables
       final func = () {
         try {
-          container.read(repoDetailViewControllerProvider);
+          container.read(repoDetailViewStateProvider);
         } on ProviderException catch (e) {
           // ignore: only_throw_errors
           throw (e.exception as ProviderException).exception;
@@ -31,15 +31,15 @@ void main() {
     test('overridesすればStateErrorをthrowしないはず', () async {
       final container = mockProviderContainer(
         overrides: [
-          repoDetailViewControllerProvider.overrideWithProvider(
-            repoDetailViewControllerProviderFamily(repoDetailViewParameter),
+          repoDetailViewStateProvider.overrideWithProvider(
+            repoDetailViewStateProviderFamily(repoDetailViewParameter),
           ),
         ],
       );
       // ignore: prefer_function_declarations_over_variables
       final func = () {
         try {
-          container.read(repoDetailViewControllerProvider);
+          container.read(repoDetailViewStateProvider);
         } on ProviderException catch (e) {
           // ignore: only_throw_errors
           throw (e.exception as ProviderException).exception;
@@ -52,14 +52,14 @@ void main() {
     test('Controllerを生成するとリポジトリエンティティを取得するはず', () async {
       final container = mockProviderContainer(
         overrides: [
-          repoDetailViewControllerProvider.overrideWithProvider(
-            repoDetailViewControllerProviderFamily(repoDetailViewParameter),
+          repoDetailViewStateProvider.overrideWithProvider(
+            repoDetailViewStateProviderFamily(repoDetailViewParameter),
           ),
         ],
       );
       final controller = container
           .listen(
-            repoDetailViewControllerProvider.notifier,
+            repoDetailViewStateProvider.notifier,
             (previous, next) {},
           )
           .read();

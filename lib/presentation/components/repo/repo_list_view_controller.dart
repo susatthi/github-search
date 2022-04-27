@@ -12,8 +12,8 @@ import 'repo_search_repos_order.dart';
 import 'repo_search_repos_query.dart';
 import 'repo_search_repos_sort.dart';
 
-/// リポジトリ一覧Viewコントローラープロバイダー
-final repoListViewControllerProvider = StateNotifierProvider.autoDispose<
+/// リポジトリ一覧View状態プロバイダー
+final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewController, AsyncValue<RepoListViewState>>(
   (ref) {
     final reposRepository = ref.watch(repoRepositoryProvider);

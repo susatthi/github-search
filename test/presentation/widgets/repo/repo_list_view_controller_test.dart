@@ -18,7 +18,7 @@ void main() {
     tmpDir = await openAppDataBox();
     controller = mockProviderContainer()
         .listen(
-          repoListViewControllerProvider.notifier,
+          repoListViewStateProvider.notifier,
           (previous, next) {},
         )
         .read();
