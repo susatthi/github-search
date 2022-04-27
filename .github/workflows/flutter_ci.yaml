@@ -60,12 +60,12 @@ jobs:
 
       # 静的解析を実行
       - name: Run Flutter Analyze
-        run: fvm flutter analyze
+        run: flutter analyze
 
       # テストを実行
       - name: Run Flutter Test
         run: |
-          fvm flutter test --no-test-assets --coverage
+          flutter test --no-test-assets --coverage
           sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
