@@ -16,7 +16,7 @@ import 'repo_search_repos_sort.dart';
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewController, AsyncValue<RepoListViewState>>(
   (ref) {
-    final reposRepository = ref.watch(repoRepositoryProvider);
+    final repoRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(repoSearchReposQueryProvider);
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
@@ -25,7 +25,7 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
       'sort=${sort.name}, order=${order.name}',
     );
     return RepoListViewController(
-      reposRepository,
+      repoRepository,
       query: query,
       sort: sort,
       order: order,
@@ -37,7 +37,7 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
 class RepoListViewController
     extends StateNotifier<AsyncValue<RepoListViewState>> {
   RepoListViewController(
-    this._reposRepository, {
+    this._repoRepository, {
     required this.query,
     required this.sort,
     required this.order,
@@ -45,7 +45,7 @@ class RepoListViewController
     _search();
   }
 
-  final RepoRepository _reposRepository;
+  final RepoRepository _repoRepository;
 
   /// 検索文字列
   final String query;
@@ -67,7 +67,7 @@ class RepoListViewController
         return const RepoListViewState();
       }
 
-      final result = await _reposRepository.searchRepos(
+      final result = await _repoRepository.searchRepos(
         query: trimQuery,
         sort: sort,
         order: order,
@@ -95,7 +95,7 @@ class RepoListViewController
 
     // 次のページを取得する
     state = await AsyncValue.guard(() async {
-      final result = await _reposRepository.searchRepos(
+      final result = await _repoRepository.searchRepos(
         query: query,
         sort: sort,
         order: order,
