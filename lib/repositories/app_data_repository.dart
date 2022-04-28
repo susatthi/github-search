@@ -16,8 +16,8 @@ final appDataRepositoryProvider = Provider<AppDataRepository>(
 abstract class AppDataRepository {
   /// デフォルト値
   static const defaultValues = <AppDataKey, Object?>{
-    AppDataKey.searchReposSort: RepoSearchReposSort.bestMatch,
-    AppDataKey.searchReposOrder: RepoSearchReposOrder.desc,
+    AppDataKey.repoSearchReposSort: RepoSearchReposSort.bestMatch,
+    AppDataKey.repoSearchReposOrder: RepoSearchReposOrder.desc,
   };
 
   /// リポジトリ検索用ソートを設定する
@@ -35,6 +35,9 @@ abstract class AppDataRepository {
 
 /// アプリデータのキー名
 enum AppDataKey {
-  searchReposSort,
-  searchReposOrder,
+  /// リポジトリ検索ソート値
+  repoSearchReposSort,
+
+  /// リポジトリ検索オーダー値
+  repoSearchReposOrder,
 }
