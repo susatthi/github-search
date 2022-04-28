@@ -44,7 +44,12 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <p><a href="https://codecov.io/gh/keyber-inc/github_search"><img src="https://codecov.io/gh/keyber-inc/github_search/branch/develop/graph/badge.svg?token=C48OG86U8O" alt="codecov"></a></p>
+  <p align="center">
+<a href="https://github.com/susatthi/github-search/actions/workflows/flutter_ci.yaml"><img src="https://github.com/susatthi/github-search/actions/workflows/flutter_ci.yaml/badge.svg" alt="Flutter CI"></a>
+<a href="https://codecov.io/gh/susatthi/github-search"><img src="https://codecov.io/gh/susatthi/github-search/branch/develop/graph/badge.svg?token=C48OG86U8O" alt="codecov"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-purple" alt="MIT"></a>
+<img width="100%" src="https://user-images.githubusercontent.com/13707135/165474118-d7a43467-7e8e-4dc7-9aed-2e1dd1456ea6.png">
+</p>
 <h1 id="github-search">GitHub Search</h1>
 <p><a href="https://docs.github.com/ja/rest">GitHub API</a> を利用して GitHub のリポジトリを検索するアプリです。<a href="https://github.com/yumemi-inc/flutter-engineer-codecheck">株式会社ゆめみのFlutterエンジニアコードチェック</a>の要件を満たすよう実装しています。</p>
 <p>本アプリを通して自分なりの最適なアーキテクチャを確立し、リファレンスコードにすることを目的にしています。</p>
@@ -52,18 +57,43 @@
 <p><strong>:warning: 注意</strong><br>
 このアプリは <code>GitHub API</code> を利用するために GitHub の <code>アクセストークン</code> をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に <code>アクセストークン</code> を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。</p>
 </blockquote>
-<p><img src="https://user-images.githubusercontent.com/13707135/160549736-a056820a-d1ab-4261-a27e-f3bf9aca9487.gif" alt="github_search_0 1 0_demo"></p>
-<h2 id="">アプリの機能</h2>
+<p><img src="https://user-images.githubusercontent.com/13707135/165467407-238ec9e2-dc46-4ef7-9856-efe8a098f8c8.gif" alt="github_search_0_5_0_demo"></p>
+<h2 id="">ビルド方法</h2>
+<ul>
+<li>ソースコードを clone してください。</li>
+</ul>
+<pre class="language-bash"><code class="language-bash">git clone https://github.com/susatthi/github-search.git
+</code></pre>
+<ul>
+<li>
+<p>本アプリで使用する GitHub の<a href="https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">個人アクセストークン</a>を取得してください。</p>
+</li>
+<li>
+<p>カレントディレクトリで次のコマンドを実行してください。</p>
+</li>
+</ul>
+<pre class="language-bash"><code class="language-bash"># 引数で与えられた環境変数を基にビルドに必要な `lib/config/env.dart` を作成してくれます。
+# 作成された `lib/config/env.dart` を直接編集しても大丈夫です。
+
+bin/flutter_env -g [GitHubアクセストークン] -s [検索文字列の初期値]
+</code></pre>
+<table><thead><tr><th>パラメータ</th><th></th><th>説明</th></tr></thead><tbody><tr><td><code>-g</code></td><td><code>Must</code></td><td>値には <a href="https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">GitHub 個人アクセストークン</a> を設定してください。</td></tr><tr><td><code>-s</code></td><td><code>Optional</code></td><td>好きな文字列を設定してください。指定しない場合は空文字が設定されます。</td></tr><tr><td><code>-h</code></td><td></td><td>ヘルプを表示します。</td></tr></tbody></table>
+<ul>
+<li>Configurations を選択してビルドしてください</li>
+</ul>
+<table><thead><tr><th>Configurations 名</th><th>説明</th></tr></thead><tbody><tr><td><code>app</code></td><td>アプリ（iOS / Android）向け</td></tr><tr><td><code>web</code></td><td>Web 向け</td></tr></tbody></table>
+<h2 id="-2">アプリの機能</h2>
 <ul>
 <li>シンプルな UI / UX
 <ul>
 <li>GitHub リポジトリの検索と詳細表示</li>
+<li>検索結果の並び替えと <a href="https://pub.dev/packages/hive">hive</a> を使ったデータの永続化</li>
 <li>無限スクロール対応</li>
 </ul>
 </li>
 <li><a href="https://pub.dev/packages/go_router">go_router</a> を使った新しいルーティング</li>
 <li><a href="https://pub.dev/packages/http">http</a> を使った REST API の実装</li>
-<li>多言語対応（日本語/英語）</li>
+<li><a href="https://pub.dev/packages/fast_i18n">fast_i18n</a> を使った多言語対応（日本語/英語）</li>
 <li>カスタムフォント対応</li>
 <li><a href="https://pub.dev/packages/mockito">mockito</a> を使った Unit / Widget テスト</li>
 <li><a href="https://pub.dev/packages/flutter_launcher_icons">flutter_launcher_icons</a> を使ったアプリアイコン</li>
@@ -75,15 +105,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="-2">今後対応予定</h3>
+<h3 id="-3">今後対応予定</h3>
 <ul>
-<li><a href="https://pub.dev/packages/hive">hive</a> or <a href="https://pub.dev/packages/shared_preferences">shared_preferences</a> の利用</li>
 <li>Integration テスト</li>
 <li>テーマ対応</li>
 <li>ダークモード対応</li>
 <li>よりよい UI / UX</li>
 </ul>
-<h3 id="-3">対応しないこと</h3>
+<h3 id="-4">対応しないこと</h3>
 <ul>
 <li>Firebase 連携</li>
 <li>Flavor 対応（develop / staging / production などの環境分け）</li>
@@ -91,7 +120,7 @@
 <h2 id="--">アーキテクチャ / パッケージ</h2>
 <ul>
 <li><a href="https://pub.dev/packages/flutter_riverpod">flutter_riverpod</a> + <a href="https://pub.dev/packages/state_notifier">state_notifier</a> + <a href="https://pub.dev/packages/freezed">freezed</a> + <a href="https://pub.dev/packages/go_router">go_router</a></li>
-<li><a href="https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/">CODE WITH ANDREA</a> の下記アーキテクチャを参考にしています。本アプリでは、Application Layer は省略しています。</li>
+<li><a href="https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/">CODE WITH ANDREA</a> の次のアーキテクチャを参考にしています。本アプリでは、Application Layer は省略しています。</li>
 </ul>
 <p><img src="https://user-images.githubusercontent.com/13707135/160351645-7acb5ab6-34f9-45a8-9f95-80147af6c408.png" alt="CODE_WITH_ANDREA"></p>
 <ul>
@@ -102,10 +131,19 @@ graph TD
     subgraph プレゼンテーション層
     IndexPage(一覧ページ&lt;br&gt;StatelessWidget) --&gt; SearchTextField(検索テキストフィールド&lt;br&gt;ConsumerWidget)
     IndexPage --&gt; ListView(一覧 View&lt;br&gt;ConsumerWidget)
+    IndexPage --&gt; OrderToggleButton(オーダー値ボタン&lt;br&gt;ConsumerWidget)
+    IndexPage --&gt; SortSelectorDialog(ソート値選択ダイアログ&lt;br&gt;ConsumerWidget)    
     SearchTextField --&gt; SearchText([検索文字列&lt;br&gt;String])
     ListView --&gt; ListViewState([一覧 View 状態&lt;br&gt;State])
     ListViewState --&gt; ListViewController(一覧 View コントローラ&lt;br&gt;StateNotifier)
     ListViewController --&gt; SearchText
+    ListViewController --&gt; Order
+    ListViewController --&gt; Sort
+    OrderToggleButton --&gt; ListViewState
+    OrderToggleButton --&gt; Order([オーダー値&lt;br&gt;Enum])
+    SortSelectorDialog --&gt; Sort([ソート値&lt;br&gt;Enum])
+    Order --&gt; OrderController(オーダー値コントローラ&lt;br&gt;StateNotifier)
+    Sort --&gt; SortController(ソート値コントローラ&lt;br&gt;StateNotifier)
     ViewPage(詳細ページ&lt;br&gt;StatelessWidget) --&gt; DetailView(詳細 View&lt;br&gt;ConsumerWidget)
     DetailView --&gt; DetailViewState([詳細 View 状態&lt;br&gt;State])
     DetailViewState --&gt; DetailViewController(詳細 View コントローラ&lt;br&gt;StateNotifier)
@@ -114,13 +152,18 @@ graph TD
     subgraph データ層
     ListViewController --&gt; RepoRepository(リポジトリ用リポジトリ)
     DetailViewController ---&gt; RepoRepository
-    RepoRepository --&gt; GitHubRepoRepository(GitHub 向けリポジトリ用リポジトリ)
+    OrderController --&gt; AppDataRepository(アプリデータ用リポジトリ)
+    SortController --&gt; AppDataRepository
+    RepoRepository --&gt; GitHubRepoRepository(GitHub 版リポジトリ用リポジトリ)
+    AppDataRepository --&gt; HiveAppDataRepository(Hive 版アプリデータ用リポジトリ)
     subgraph DTO
     GitHubRepoRepository --&gt; GitHubHttpClient(GitHub 向け HTTP クライアント)
     GitHubRepoRepository --&gt; GitHubApiDef(GitHub API 定義)
+    HiveAppDataRepository --&gt; HiveBox(Hive.box)
     end
     subgraph データソース
     GitHubHttpClient --&gt; GitHubApi(GitHub API)
+    HiveBox --&gt; File(File)
     end
     end
     subgraph 環境変数
@@ -133,16 +176,21 @@ graph TD
     classDef state fill:#BDB5F4, color:#ffffff;    
     classDef repository fill:#437C40, color:#ffffff;
     classDef env fill:#7c7d7c, color:#ffffff;
-    class IndexPage,ViewPage,ListView,SearchTextField,DetailView widget;
-    class ListViewController,DetailViewController controller;
-    class SearchText,ListViewState,DetailViewState,ViewParameter state;
-    class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi repository;
+    class IndexPage,ViewPage,ListView,SearchTextField,DetailView,OrderToggleButton,SortSelectorDialog widget;
+    class ListViewController,DetailViewController,OrderController,SortController controller;
+    class SearchText,ListViewState,DetailViewState,ViewParameter,Order,Sort state;
+    class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi,AppDataRepository,HiveAppDataRepository,HiveBox,File repository;
     class EnvSearchText,EnvAccessToken env;
 </code></pre>
 <ul>
-<li><code>一覧 View</code>が更新される例
+<li>検索実行時に <code>一覧 View</code> が更新される例
 <ul>
 <li><code>一覧 View</code>の依存関係は、<code>一覧 View</code> → <code>一覧 View 状態</code> → <code>一覧 View コントローラ</code> → <code>検索文字列</code>となっています。ユーザが検索文字列を変更し検索を実行した場合、<code>検索文字列</code>が更新されます。すると<code>検索文字列</code>に依存している<code>一覧 View コントローラ</code>が更新され、<code>リポジトリ用リポジトリ</code>に<code>検索文字列</code>を与えてリポジトリの検索を実行し、その結果をもとに<code>一覧 View 状態</code>を更新します。すると<code>一覧 View 状態</code>に依存している<code>一覧 View</code>がリビルドされて再描画されます。</li>
+</ul>
+</li>
+<li>ソート値変更時に <code>一覧 View</code> が更新される例
+<ul>
+<li>ユーザがソート値選択ダイアログを表示してソート値を変更した場合、<code>ソート値</code>が更新されます。すると<code>ソート値</code>に依存している<code>一覧 View コントローラ</code>が更新され、<code>リポジトリ用リポジトリ</code>に<code>ソート値</code>を与えてリポジトリの検索を実行し、その結果をもとに<code>一覧 View 状態</code>を更新します。すると<code>一覧 View 状態</code>に依存している<code>一覧 View</code>がリビルドされて再描画されます。</li>
 </ul>
 </li>
 <li><code>詳細 View</code>への画面遷移の例
@@ -151,49 +199,43 @@ graph TD
 </ul>
 </li>
 </ul>
-<h2 id="-4">フォルダ構成</h2>
-<table><thead><tr><th>フォルダ名</th><th>説明</th></tr></thead><tbody><tr><td>/ <code>assets</code></td><td><code>assets</code>にアクセスする自動生成されるユーティリティクラス</td></tr><tr><td>/ <code>config</code></td><td>アプリケーション、定義値、環境変数</td></tr><tr><td>/ <code>entities</code></td><td>モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（<code>_data</code> suffix がつく）</td></tr><tr><td>/ <code>localizations</code></td><td>言語ファイル（<code>arb</code> ファイル）、<code>flutter gen-l10n</code> で生成されるクラス</td></tr><tr><td>/ <code>presentation</code> / <code>pages</code></td><td>プレゼンテーション層のファイル<br>画面Widget</td></tr><tr><td>/ <code>presentation</code> / <code>widgets</code></td><td>プレゼンテーション層のファイル<br>部品Widget、Controller、State</td></tr><tr><td>/ <code>repositories</code></td><td>データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理</td></tr><tr><td>/ <code>utils</code></td><td>拡張機能、ロガーなど便利クラス</td></tr></tbody></table>
-<h2 id="-5">環境</h2>
-<table><thead><tr><th></th><th>Version</th></tr></thead><tbody><tr><td>Xcode</td><td>13.3</td></tr><tr><td>Android Studio</td><td>Bumblebee 2021.1.1 Patch 2</td></tr><tr><td>Flutter</td><td>2.10.3</td></tr><tr><td>Swift</td><td>5.6</td></tr><tr><td>Kotlin</td><td>1.6.10</td></tr><tr><td>Chrome</td><td>99</td></tr></tbody></table>
+<h2 id="-5">フォルダ構成</h2>
+<table><thead><tr><th>フォルダ名</th><th>説明</th></tr></thead><tbody><tr><td><code>/assets</code></td><td><code>assets</code>にアクセスする自動生成されるユーティリティクラス</td></tr><tr><td><code>/config</code></td><td>アプリケーション、定義値、環境変数</td></tr><tr><td><code>/entities</code></td><td>モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（<code>_data</code> suffix がつく）</td></tr><tr><td><code>/localizations</code></td><td>言語ファイル（<code>json</code> ファイル）、自動生成されるクラス</td></tr><tr><td><code>/presentation/pages</code></td><td>プレゼンテーション層のファイル<br>画面Widget</td></tr><tr><td><code>/presentation/components</code></td><td>プレゼンテーション層のファイル<br>部品Widget、Controller、State</td></tr><tr><td><code>/repositories</code></td><td>データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理</td></tr><tr><td><code>/utils</code></td><td>拡張機能、ロガーなど便利クラス</td></tr></tbody></table>
+<h2 id="-6">環境</h2>
+<table><thead><tr><th></th><th>Version</th></tr></thead><tbody><tr><td>Xcode</td><td>13.3</td></tr><tr><td>Android Studio</td><td>Bumblebee 2021.1.1 Patch 3</td></tr><tr><td>Flutter</td><td>2.10.5</td></tr><tr><td>Swift</td><td>5.6</td></tr><tr><td>Kotlin</td><td>1.6.10</td></tr><tr><td>Chrome</td><td>100</td></tr></tbody></table>
 <h2 id="-os">対象 OSバージョン</h2>
 <table><thead><tr><th></th><th>OS Version</th></tr></thead><tbody><tr><td>iOS</td><td>9.0 ~ 15.4</td></tr><tr><td>Android</td><td>8.0 ~ 13</td></tr></tbody></table>
-<h2 id="-6">ビルド方法</h2>
-<ul>
-<li>カレントディレクトリで下記コマンドを実行してください。
-<ul>
-<li><code>bin/flutter_env</code> は引数で与えられた環境変数を基にビルドに必要な <code>lib/src/config/env.dart</code> を作成してくれます。</li>
-<li>作成された <code>lib/src/config/env.dart</code> を直接編集しても大丈夫です。</li>
-</ul>
-</li>
-</ul>
-<pre class="language-shell"><code class="language-shell">bin/flutter_env -g [アクセストークン] -s [検索文字列の初期値]
-</code></pre>
-<table><thead><tr><th>パラメータ名</th><th></th><th>説明</th></tr></thead><tbody><tr><td><code>-g [アクセストークン]</code></td><td><code>Must</code></td><td>値には <a href="https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">GitHub 個人アクセストークン</a> を設定してください。</td></tr><tr><td><code>-s [検索文字列の初期値]</code></td><td><code>Optional</code></td><td>好きな文字列を設定してください。指定しない場合は空文字が設定されます。</td></tr><tr><td><code>-h</code></td><td></td><td>ヘルプを表示します。</td></tr></tbody></table>
-<ul>
-<li>Configurations を選択してビルドしてください</li>
-</ul>
-<table><thead><tr><th>Configurations 名</th><th>説明</th></tr></thead><tbody><tr><td><code>app</code></td><td>アプリ（iOS / Android）向け</td></tr><tr><td><code>web</code></td><td>Web 向け</td></tr></tbody></table>
 <h3 id="-7">コードの自動生成</h3>
 <ul>
-<li><code>arb</code> ファイルを変更した場合や <code>freezed</code> を使った <code>dart</code> ファイルを変更した場合は下記コマンドを実行してください。</li>
+<li><code>localizations/*.json</code> ファイルを変更した場合や <code>freezed</code> を使った <code>dart</code> ファイルを変更した場合は次のコマンドを実行してください。</li>
 </ul>
-<pre class="language-shell"><code class="language-shell">bin/flutter_gen
+<pre class="language-bash"><code class="language-bash">bin/flutter_gen
 </code></pre>
-<h3 id="-8">テスト</h3>
+<h3 id="unittest--widgettest">単体テスト（UnitTest / WidgetTest）</h3>
 <ul>
-<li>ローカルでテストを行う場合は下記コマンドを実行してください。
-<ul>
-<li>静的解析 =&gt; テスト =&gt; カバレッジの結果を表示 を行います。</li>
+<li>ローカルで単体テストを行うためには事前に次のライブラリをインストールしてください。</li>
 </ul>
+<pre class="language-bash"><code class="language-bash"># lcov のインストール
+brew install lcov
+
+# dart_dot_reporter のインストール
+flutter pub global activate dart_dot_reporter
+</code></pre>
+<ul>
+<li>次のコマンドで単体テスト（静的解析 =&gt; テスト =&gt; カバレッジの結果を表示 ）を実行します。</li>
+</ul>
+<pre class="language-bash"><code class="language-bash">bin/flutter_test
+</code></pre>
+<h3 id="api-">API ドキュメント</h3>
+<ul>
+<li>
+<p><a href="https://susatthi.github.io/github-search/">API ドキュメント</a> で公開しています。</p>
+</li>
+<li>
+<p>生成する場合は次のコマンドを実行してください。</p>
 </li>
 </ul>
-<pre class="language-shell"><code class="language-shell">bin/flutter_test
-</code></pre>
-<h3 id="-9">ドキュメント</h3>
-<ul>
-<li>API ドキュメントを生成する場合は下記コマンドを実行してください。</li>
-</ul>
-<pre class="language-shell"><code class="language-shell">bin/dartdoc
+<pre class="language-bash"><code class="language-bash">bin/dartdoc
 </code></pre>
 <h2 id="ci">CI</h2>
 <ul>
@@ -217,14 +259,15 @@ flowchart LR
     UploadCoverage --&gt; BuildMacOS(macOSビルド)
     UploadCoverage --&gt; BuildWindows(Windowsビルド)
     UploadCoverage --&gt; CreateApiDoc(APIドキュメント作成)
+    CreateApiDoc --&gt; DeployGitHubPages(GitHubPagesにデプロイ)
     end
     subgraph レポート
-    BuildAndroid --&gt; NotifySlack(Slackに結果を送信)
-    BuildiOS --&gt; NotifySlack
-    BuildWeb --&gt; NotifySlack
-    BuildMacOS --&gt; NotifySlack
-    BuildWindows --&gt; NotifySlack
-    CreateApiDoc --&gt; NotifySlack
+    BuildAndroid ---&gt; NotifySlack(Slackに結果を送信)
+    BuildiOS ---&gt; NotifySlack
+    BuildWeb ---&gt; NotifySlack
+    BuildMacOS ---&gt; NotifySlack
+    BuildWindows ---&gt; NotifySlack
+    DeployGitHubPages --&gt; NotifySlack
     end
     NotifySlack --&gt; End((終了))
 
@@ -234,10 +277,10 @@ flowchart LR
     classDef reportJob fill:#437C40, color:#ffffff;
     %% class Start,End anchor;
     class Analyze,Test,UploadCoverage testJob;
-    class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc buildJob;
+    class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc,DeployGitHubPages buildJob;
     class NotifySlack reportJob;
 </code></pre>
-<h2 id="-10">ライセンス</h2>
+<h2 id="-8">ライセンス</h2>
 <p>MIT</p>
 </section>
 
@@ -246,231 +289,259 @@ flowchart LR
           <h2>Libraries</h2>
         <dl>
           <dt id="api">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_api/file-___home_runner_work_github_search_github_search_lib_repositories_github_api-library.html">api</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_api/file-___home_runner_work_github-search_github-search_lib_repositories_github_api-library.html">api</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
-          <dt id="app_localizations">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations/file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations-library.html">app_localizations</a></span> 
+          <dt id="app_data_repository">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_hive_app_data_repository/file-___home_runner_work_github-search_github-search_lib_repositories_hive_app_data_repository-library.html">app_data_repository</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
-          <dt id="app_localizations_en">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_en/file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_en-library.html">app_localizations_en</a></span> 
-
-</dt>
-<dd> 
-</dd>
-
-          <dt id="app_localizations_ja">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_ja/file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_ja-library.html">app_localizations_ja</a></span> 
+          <dt id="app_data_repository">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_app_data_repository/file-___home_runner_work_github-search_github-search_lib_repositories_app_data_repository-library.html">app_data_repository</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="async_value_handler">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_async_value_handler/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_async_value_handler-library.html">async_value_handler</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_common_async_value_handler/file-___home_runner_work_github-search_github-search_lib_presentation_components_common_async_value_handler-library.html">async_value_handler</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="cached_circle_avatar">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_cached_circle_avatar/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_cached_circle_avatar-library.html">cached_circle_avatar</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_common_cached_circle_avatar/file-___home_runner_work_github-search_github-search_lib_presentation_components_common_cached_circle_avatar-library.html">cached_circle_avatar</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="constants">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_config_constants/file-___home_runner_work_github_search_github_search_lib_config_constants-library.html">constants</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_config_constants/file-___home_runner_work_github-search_github-search_lib_config_constants-library.html">constants</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="env.default">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_config_env.default/file-___home_runner_work_github_search_github_search_lib_config_env.default-library.html">env.default</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_config_env.default/file-___home_runner_work_github-search_github-search_lib_config_env.default-library.html">env.default</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="error_page">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_pages_error_error_page/file-___home_runner_work_github_search_github_search_lib_presentation_pages_error_error_page-library.html">error_page</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_pages_error_error_page/file-___home_runner_work_github-search_github-search_lib_presentation_pages_error_error_page-library.html">error_page</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="exception">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_exception/file-___home_runner_work_github_search_github_search_lib_repositories_github_exception-library.html">exception</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_exception/file-___home_runner_work_github-search_github-search_lib_repositories_github_exception-library.html">exception</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="extensions">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_utils_extensions/file-___home_runner_work_github_search_github_search_lib_utils_extensions-library.html">extensions</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_utils_extensions/file-___home_runner_work_github-search_github-search_lib_utils_extensions-library.html">extensions</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="github_search_app">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_config_github_search_app/file-___home_runner_work_github_search_github_search_lib_config_github_search_app-library.html">github_search_app</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_config_github_search_app/file-___home_runner_work_github-search_github-search_lib_config_github_search_app-library.html">github_search_app</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="http_client">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_http_client/file-___home_runner_work_github_search_github_search_lib_repositories_github_http_client-library.html">http_client</a></span> 
-
-</dt>
-<dd> 
-</dd>
-
-          <dt id="l10n">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_utils_l10n/file-___home_runner_work_github_search_github_search_lib_utils_l10n-library.html">l10n</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_http_client/file-___home_runner_work_github-search_github-search_lib_repositories_github_http_client-library.html">http_client</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="logger">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_utils_logger/file-___home_runner_work_github_search_github_search_lib_utils_logger-library.html">logger</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_utils_logger/file-___home_runner_work_github-search_github-search_lib_utils_logger-library.html">logger</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="owner">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_entities_owner_owner/file-___home_runner_work_github_search_github_search_lib_entities_owner_owner-library.html">owner</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_entities_owner_owner/file-___home_runner_work_github-search_github-search_lib_entities_owner_owner-library.html">owner</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="owner_data">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_entities_owner_owner_data/file-___home_runner_work_github_search_github_search_lib_entities_owner_owner_data-library.html">owner_data</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_entities_owner_owner_data/file-___home_runner_work_github-search_github-search_lib_entities_owner_owner_data-library.html">owner_data</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_entities_repo_repo/file-___home_runner_work_github_search_github_search_lib_entities_repo_repo-library.html">repo</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_entities_repo_repo/file-___home_runner_work_github-search_github-search_lib_entities_repo_repo-library.html">repo</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_data">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_entities_repo_repo_data/file-___home_runner_work_github_search_github_search_lib_entities_repo_repo_data-library.html">repo_data</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_entities_repo_repo_data/file-___home_runner_work_github-search_github-search_lib_entities_repo_repo_data-library.html">repo_data</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_detail_view">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view-library.html">repo_detail_view</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view-library.html">repo_detail_view</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_detail_view_controller">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view_controller/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view_controller-library.html">repo_detail_view_controller</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view_controller/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view_controller-library.html">repo_detail_view_controller</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_index_page">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_index_page/file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_index_page-library.html">repo_index_page</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_index_page/file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_index_page-library.html">repo_index_page</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_list_view">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view-library.html">repo_list_view</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view-library.html">repo_list_view</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_list_view_controller">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_controller/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_controller-library.html">repo_list_view_controller</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_controller/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_controller-library.html">repo_list_view_controller</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_list_view_state">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_state/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_state-library.html">repo_list_view_state</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_state/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_state-library.html">repo_list_view_state</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="repo_order_toggle_button">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_order_toggle_button/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_order_toggle_button-library.html">repo_order_toggle_button</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_repository">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_repo_repository/file-___home_runner_work_github_search_github_search_lib_repositories_github_repo_repository-library.html">repo_repository</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_repo_repository/file-___home_runner_work_github-search_github-search_lib_repositories_repo_repository-library.html">repo_repository</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_repository">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_repositories_repo_repository/file-___home_runner_work_github_search_github_search_lib_repositories_repo_repository-library.html">repo_repository</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_repo_repository/file-___home_runner_work_github-search_github-search_lib_repositories_github_repo_repository-library.html">repo_repository</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="repo_search_repos_order">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_order/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_order-library.html">repo_search_repos_order</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="repo_search_repos_query">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_query/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_query-library.html">repo_search_repos_query</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="repo_search_repos_sort">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_sort/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_sort-library.html">repo_search_repos_sort</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_search_text_field">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_search_text_field/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_search_text_field-library.html">repo_search_text_field</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_text_field/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_text_field-library.html">repo_search_text_field</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="repo_sort_selector_dialog">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_sort_selector_dialog/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_sort_selector_dialog-library.html">repo_sort_selector_dialog</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="repo_view_page">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_view_page/file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_view_page-library.html">repo_view_page</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_view_page/file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_view_page-library.html">repo_view_page</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="search_repos_result">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_entities_search_repos_result_search_repos_result/file-___home_runner_work_github_search_github_search_lib_entities_search_repos_result_search_repos_result-library.html">search_repos_result</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_entities_search_repos_result_search_repos_result/file-___home_runner_work_github-search_github-search_lib_entities_search_repos_result_search_repos_result-library.html">search_repos_result</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="strings.g">
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_localizations_strings.g/file-___home_runner_work_github-search_github-search_lib_localizations_strings.g-library.html">strings.g</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="url_strategy">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy/file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy-library.html">url_strategy</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy/file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy-library.html">url_strategy</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="url_strategy_noop">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_noop/file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_noop-library.html">url_strategy_noop</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_noop/file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_noop-library.html">url_strategy_noop</a></span> 
 
 </dt>
 <dd> 
 </dd>
 
           <dt id="url_strategy_web">
-  <span class="name"><a href="file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_web/file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_web-library.html">url_strategy_web</a></span> 
+  <span class="name"><a href="file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_web/file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_web-library.html">url_strategy_web</a></span> 
 
 </dt>
 <dd> 
@@ -496,39 +567,43 @@ flowchart LR
     <h5 class="hidden-xs"><span class="package-name">github_search</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_api/file-___home_runner_work_github_search_github_search_lib_repositories_github_api-library.html">api</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations/file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations-library.html">app_localizations</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_en/file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_en-library.html">app_localizations_en</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_ja/file-___home_runner_work_github_search_github_search_lib_localizations_app_localizations_ja-library.html">app_localizations_ja</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_async_value_handler/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_async_value_handler-library.html">async_value_handler</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_cached_circle_avatar/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_common_cached_circle_avatar-library.html">cached_circle_avatar</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_config_constants/file-___home_runner_work_github_search_github_search_lib_config_constants-library.html">constants</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_config_env.default/file-___home_runner_work_github_search_github_search_lib_config_env.default-library.html">env.default</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_pages_error_error_page/file-___home_runner_work_github_search_github_search_lib_presentation_pages_error_error_page-library.html">error_page</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_exception/file-___home_runner_work_github_search_github_search_lib_repositories_github_exception-library.html">exception</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_utils_extensions/file-___home_runner_work_github_search_github_search_lib_utils_extensions-library.html">extensions</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_config_github_search_app/file-___home_runner_work_github_search_github_search_lib_config_github_search_app-library.html">github_search_app</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_http_client/file-___home_runner_work_github_search_github_search_lib_repositories_github_http_client-library.html">http_client</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_utils_l10n/file-___home_runner_work_github_search_github_search_lib_utils_l10n-library.html">l10n</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_utils_logger/file-___home_runner_work_github_search_github_search_lib_utils_logger-library.html">logger</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_entities_owner_owner/file-___home_runner_work_github_search_github_search_lib_entities_owner_owner-library.html">owner</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_entities_owner_owner_data/file-___home_runner_work_github_search_github_search_lib_entities_owner_owner_data-library.html">owner_data</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_entities_repo_repo/file-___home_runner_work_github_search_github_search_lib_entities_repo_repo-library.html">repo</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_entities_repo_repo_data/file-___home_runner_work_github_search_github_search_lib_entities_repo_repo_data-library.html">repo_data</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view-library.html">repo_detail_view</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view_controller/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_detail_view_controller-library.html">repo_detail_view_controller</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_index_page/file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_index_page-library.html">repo_index_page</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view-library.html">repo_list_view</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_controller/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_controller-library.html">repo_list_view_controller</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_state/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_list_view_state-library.html">repo_list_view_state</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_repositories_github_repo_repository/file-___home_runner_work_github_search_github_search_lib_repositories_github_repo_repository-library.html">repo_repository</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_repositories_repo_repository/file-___home_runner_work_github_search_github_search_lib_repositories_repo_repository-library.html">repo_repository</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_search_text_field/file-___home_runner_work_github_search_github_search_lib_presentation_widgets_repo_repo_search_text_field-library.html">repo_search_text_field</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_view_page/file-___home_runner_work_github_search_github_search_lib_presentation_pages_repo_repo_view_page-library.html">repo_view_page</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_entities_search_repos_result_search_repos_result/file-___home_runner_work_github_search_github_search_lib_entities_search_repos_result_search_repos_result-library.html">search_repos_result</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy/file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy-library.html">url_strategy</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_noop/file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_noop-library.html">url_strategy_noop</a></li>
-      <li><a href="file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_web/file-___home_runner_work_github_search_github_search_lib_utils_url_strategy_url_strategy_web-library.html">url_strategy_web</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_api/file-___home_runner_work_github-search_github-search_lib_repositories_github_api-library.html">api</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_hive_app_data_repository/file-___home_runner_work_github-search_github-search_lib_repositories_hive_app_data_repository-library.html">app_data_repository</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_app_data_repository/file-___home_runner_work_github-search_github-search_lib_repositories_app_data_repository-library.html">app_data_repository</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_common_async_value_handler/file-___home_runner_work_github-search_github-search_lib_presentation_components_common_async_value_handler-library.html">async_value_handler</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_common_cached_circle_avatar/file-___home_runner_work_github-search_github-search_lib_presentation_components_common_cached_circle_avatar-library.html">cached_circle_avatar</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_config_constants/file-___home_runner_work_github-search_github-search_lib_config_constants-library.html">constants</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_config_env.default/file-___home_runner_work_github-search_github-search_lib_config_env.default-library.html">env.default</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_pages_error_error_page/file-___home_runner_work_github-search_github-search_lib_presentation_pages_error_error_page-library.html">error_page</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_exception/file-___home_runner_work_github-search_github-search_lib_repositories_github_exception-library.html">exception</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_utils_extensions/file-___home_runner_work_github-search_github-search_lib_utils_extensions-library.html">extensions</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_config_github_search_app/file-___home_runner_work_github-search_github-search_lib_config_github_search_app-library.html">github_search_app</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_http_client/file-___home_runner_work_github-search_github-search_lib_repositories_github_http_client-library.html">http_client</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_utils_logger/file-___home_runner_work_github-search_github-search_lib_utils_logger-library.html">logger</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_entities_owner_owner/file-___home_runner_work_github-search_github-search_lib_entities_owner_owner-library.html">owner</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_entities_owner_owner_data/file-___home_runner_work_github-search_github-search_lib_entities_owner_owner_data-library.html">owner_data</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_entities_repo_repo/file-___home_runner_work_github-search_github-search_lib_entities_repo_repo-library.html">repo</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_entities_repo_repo_data/file-___home_runner_work_github-search_github-search_lib_entities_repo_repo_data-library.html">repo_data</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view-library.html">repo_detail_view</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view_controller/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_detail_view_controller-library.html">repo_detail_view_controller</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_index_page/file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_index_page-library.html">repo_index_page</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view-library.html">repo_list_view</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_controller/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_controller-library.html">repo_list_view_controller</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_state/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_list_view_state-library.html">repo_list_view_state</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_order_toggle_button/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_order_toggle_button-library.html">repo_order_toggle_button</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_repo_repository/file-___home_runner_work_github-search_github-search_lib_repositories_repo_repository-library.html">repo_repository</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_repositories_github_repo_repository/file-___home_runner_work_github-search_github-search_lib_repositories_github_repo_repository-library.html">repo_repository</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_order/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_order-library.html">repo_search_repos_order</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_query/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_query-library.html">repo_search_repos_query</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_sort/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_repos_sort-library.html">repo_search_repos_sort</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_text_field/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_search_text_field-library.html">repo_search_text_field</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_sort_selector_dialog/file-___home_runner_work_github-search_github-search_lib_presentation_components_repo_repo_sort_selector_dialog-library.html">repo_sort_selector_dialog</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_view_page/file-___home_runner_work_github-search_github-search_lib_presentation_pages_repo_repo_view_page-library.html">repo_view_page</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_entities_search_repos_result_search_repos_result/file-___home_runner_work_github-search_github-search_lib_entities_search_repos_result_search_repos_result-library.html">search_repos_result</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_localizations_strings.g/file-___home_runner_work_github-search_github-search_lib_localizations_strings.g-library.html">strings.g</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy/file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy-library.html">url_strategy</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_noop/file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_noop-library.html">url_strategy_noop</a></li>
+      <li><a href="file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_web/file-___home_runner_work_github-search_github-search_lib_utils_url_strategy_url_strategy_web-library.html">url_strategy_web</a></li>
 </ol>
 
   </div>
@@ -544,7 +619,7 @@ flowchart LR
       0.1.1+2
   </span>
 
-  <span> | © Keyber Inc.</span>
+  <span> | © susatthi</span>
 </footer>
 
 
