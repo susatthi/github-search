@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 //ignore: depend_on_referenced_packages
 import 'package:stack_trace/stack_trace.dart';
 
+/// カスタムロガー
 final logger = Logger(
   printer: SinglePrettyPrinter(
     loggerName: '[APP]',

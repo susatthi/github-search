@@ -33,7 +33,7 @@ abstract class AppDataRepository {
   RepoSearchReposOrder getSearchReposOrder();
 }
 
-/// データのキー名
+/// アプリデータのキー名
 enum AppDataKey {
   searchReposSort,
   searchReposOrder,

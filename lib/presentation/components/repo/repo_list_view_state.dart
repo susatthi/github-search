@@ -9,6 +9,7 @@ import '../../../entities/search_repos_result/search_repos_result.dart';
 
 part 'repo_list_view_state.freezed.dart';
 
+/// リポジトリ一覧View状態
 @freezed
 class RepoListViewState with _$RepoListViewState {
   const factory RepoListViewState({

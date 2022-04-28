@@ -16,6 +16,7 @@ import '../presentation/pages/error/error_page.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';
 
+/// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
   const GitHubSearchApp({
     Key? key,
