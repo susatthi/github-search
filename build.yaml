@@ -1,3 +1,7 @@
+# Copyright 2022 susatthi All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
 targets:
   $default:
     builders:
@@ -11,3 +15,22 @@ targets:
           include:
             - lib/src/entities/**/*.dart
             - lib/src/presentation/**/*state.dart
+      fast_i18n:
+        options:
+          # 入力ファイルへのパス
+          input_directory: lib/localizations
+          # 入力ファイル名の拡張子
+          input_file_pattern: .i18n.json
+          # 出力ファイルへのパス
+          output_directory: lib/localizations
+          # 出力ファイル名
+          output_file_name: strings.g.dart
+          # 言語リソースにアクセスするグローバルな変数名
+          translate_var: i18n
+          # 配列アクセスを禁止する場合はfalseに設定
+          flat_map: false
+          # 複数系に対応しない場合はoffに設定
+          pluralization:
+            auto: off
+          # タイムスタンプは出力しない
+          timestamp: false
