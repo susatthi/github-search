@@ -16,6 +16,38 @@
 
 ![github_search_0_5_0_demo](https://user-images.githubusercontent.com/13707135/165467407-238ec9e2-dc46-4ef7-9856-efe8a098f8c8.gif)
 
+## ビルド方法
+
+- ソースコードを clone してください。
+  
+```
+git clone https://github.com/susatthi/github-search.git
+```
+
+- 本アプリで使用する GitHub の[個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)を取得してください。
+
+- カレントディレクトリで次のコマンドを実行してください。
+
+```bash
+# 引数で与えられた環境変数を基にビルドに必要な `lib/config/env.dart` を作成してくれます。
+# 作成された `lib/config/env.dart` を直接編集しても大丈夫です。
+
+bin/flutter_env -g [GitHubアクセストークン] -s [検索文字列の初期値]
+```
+
+|パラメータ                     |          |説明                                                       |
+|-----------------------------|----------|----------------------------------------------------------|
+|`-g`                         |`Must`    |値には [GitHub 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください。|
+|`-s`                         |`Optional`|好きな文字列を設定してください。指定しない場合は空文字が設定されます。|
+|`-h`                         |          |ヘルプを表示します。                                          |
+
+- Configurations を選択してビルドしてください
+
+|Configurations 名 |説明                       |
+|------------------|--------------------------|
+|`app`             |アプリ（iOS / Android）向け |
+|`web`             |Web 向け                   |
+
 ## アプリの機能
 
 - シンプルな UI / UX
@@ -48,7 +80,7 @@
 ## アーキテクチャ / パッケージ
 
 - [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [state_notifier](https://pub.dev/packages/state_notifier) + [freezed](https://pub.dev/packages/freezed) + [go_router](https://pub.dev/packages/go_router)
-- [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) の下記アーキテクチャを参考にしています。本アプリでは、Application Layer は省略しています。
+- [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) の次のアーキテクチャを参考にしています。本アプリでは、Application Layer は省略しています。
 
 ![CODE_WITH_ANDREA](https://user-images.githubusercontent.com/13707135/160351645-7acb5ab6-34f9-45a8-9f95-80147af6c408.png)
 
@@ -151,42 +183,19 @@ graph TD
 |Android | 8.0 ~ 13      |
 
 
-## ビルド方法
-
-- カレントディレクトリで下記コマンドを実行してください。
-  - `bin/flutter_env` は引数で与えられた環境変数を基にビルドに必要な `lib/config/env.dart` を作成してくれます。
-  - 作成された `lib/config/env.dart` を直接編集しても大丈夫です。
-
-```shell
-bin/flutter_env -g [アクセストークン] -s [検索文字列の初期値]
-```
-
-|パラメータ名                   |          |説明                                                       |
-|-----------------------------|----------|----------------------------------------------------------|
-|`-g [アクセストークン]`         |`Must`    |値には [GitHub 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください。|
-|`-s [検索文字列の初期値]`       |`Optional`|好きな文字列を設定してください。指定しない場合は空文字が設定されます。|
-|`-h`                         |          |ヘルプを表示します。                                          |
-
-- Configurations を選択してビルドしてください
-
-|Configurations 名 |説明                       |
-|------------------|--------------------------|
-|`app`             |アプリ（iOS / Android）向け |
-|`web`             |Web 向け                   |
-
 ### コードの自動生成
 
-- `arb` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は下記コマンドを実行してください。
+- `localizations/*.json` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は次のコマンドを実行してください。
 
-```shell
+```bash
 bin/flutter_gen
 ```
 
-### テスト
+### 単体テスト（UnitTest / WidgetTest）
 
-- ローカルでテストを行うためには事前に次のライブラリをインストールしてください。
+- ローカルで単体テストを行うためには事前に次のライブラリをインストールしてください。
 
-```
+```bash
 # lcov のインストール
 brew install lcov
 
@@ -194,10 +203,9 @@ brew install lcov
 flutter pub global activate dart_dot_reporter
 ```
 
-- ローカルでテストを行う場合は下記コマンドを実行してください。
-  - 静的解析 => テスト => カバレッジの結果を表示 を行います。
+- 次のコマンドで単体テスト（静的解析 => テスト => カバレッジの結果を表示 ）を実行します。
 
-```shell
+```bash
 bin/flutter_test
 ```
 
@@ -205,9 +213,9 @@ bin/flutter_test
 
 - [API ドキュメント](https://susatthi.github.io/github-search/) で公開しています。
 
-- ローカルで生成する場合は下記コマンドを実行してください。
+- 生成する場合は次のコマンドを実行してください。
 
-```shell
+```bash
 bin/dartdoc
 ```
 

@@ -11,7 +11,7 @@ import '../../../utils/logger.dart';
 import 'repo_list_view_controller.dart';
 import 'repo_search_repos_order.dart';
 
-/// リポジトリ検索用オーダートグルボタン
+/// リポジトリ検索用オーダー値変更ボタン
 class RepoOrderToggleButton extends ConsumerWidget {
   const RepoOrderToggleButton({Key? key}) : super(key: key);
 

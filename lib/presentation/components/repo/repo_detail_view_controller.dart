@@ -31,7 +31,7 @@ final repoDetailViewStateProviderFamily = StateNotifierProvider.family
   },
 );
 
-/// パラメータ
+/// リポジトリ詳細View用パラメータ
 class RepoDetailViewParameter extends Equatable {
   const RepoDetailViewParameter({
     required this.ownerName,

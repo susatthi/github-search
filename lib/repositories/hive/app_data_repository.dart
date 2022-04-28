@@ -37,16 +37,16 @@ class HiveAppDataRepository implements AppDataRepository {
 
   @override
   void setSearchReposSort(RepoSearchReposSort sort) {
-    _box.put(AppDataKey.searchReposSort.name, sort.name);
+    _box.put(AppDataKey.repoSearchReposSort.name, sort.name);
   }
 
   @override
   RepoSearchReposSort getSearchReposSort() {
     final defaultValue = _getDefaultValue<RepoSearchReposSort>(
-      AppDataKey.searchReposSort,
+      AppDataKey.repoSearchReposSort,
     );
     final name = _box.get(
-      AppDataKey.searchReposSort.name,
+      AppDataKey.repoSearchReposSort.name,
       defaultValue: defaultValue?.name,
     ) as String;
     return RepoSearchReposSortHelper.valueOf(name);
@@ -54,16 +54,16 @@ class HiveAppDataRepository implements AppDataRepository {
 
   @override
   void setSearchReposOrder(RepoSearchReposOrder order) {
-    _box.put(AppDataKey.searchReposOrder.name, order.name);
+    _box.put(AppDataKey.repoSearchReposOrder.name, order.name);
   }
 
   @override
   RepoSearchReposOrder getSearchReposOrder() {
     final defaultValue = _getDefaultValue<RepoSearchReposOrder>(
-      AppDataKey.searchReposOrder,
+      AppDataKey.repoSearchReposOrder,
     );
     final name = _box.get(
-      AppDataKey.searchReposOrder.name,
+      AppDataKey.repoSearchReposOrder.name,
       defaultValue: defaultValue?.name,
     ) as String;
     return RepoSearchReposOrderHelper.valueOf(name);
