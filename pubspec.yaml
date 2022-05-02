@@ -23,7 +23,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   freezed_annotation: ^2.0.1
-  go_router: ^3.0.5
+  go_router: ^3.1.0
   hive: ^2.1.0
   hive_flutter: ^1.1.0
   http: ^0.13.4
