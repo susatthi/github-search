@@ -6,10 +6,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../config/constants.dart';
 import '../../../entities/repo/repo_data.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
+import '../../pages/repo/repo_view_page.dart';
 
 /// リポジトリ詳細View状態プロバイダー
 final repoDetailViewStateProvider = StateNotifierProvider.autoDispose<

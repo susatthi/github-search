@@ -11,7 +11,3 @@ const dartDefineKeyGitHubAccessToken = 'GITHUB_ACCESS_TOKEN';
 /// --dart-defineで指定する
 /// 例: flutter run --dart-define DEFAULT_SEARCH_VALUE=YOUR_SEARCH_VALUE
 const dartDefineKeyDefaultSearchValue = 'DEFAULT_SEARCH_VALUE';
-
-/// 画面遷移時に渡すパラメータのキー
-const pageParamKeyOwnerName = 'owner_name';
-const pageParamKeyRepoName = 'repo_name';
