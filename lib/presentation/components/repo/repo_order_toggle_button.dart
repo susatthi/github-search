@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
-import 'repo_list_view_controller.dart';
+import 'repo_list_view_notifier.dart';
 import 'repo_search_repos_order.dart';
 
 /// リポジトリ検索用オーダー値変更ボタン

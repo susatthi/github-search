@@ -14,17 +14,17 @@ import 'repo_search_repos_sort.dart';
 
 /// リポジトリ一覧View状態プロバイダー
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
-    RepoListViewController, AsyncValue<RepoListViewState>>(
+    RepoListViewNotifier, AsyncValue<RepoListViewState>>(
   (ref) {
     final repoRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(repoSearchReposQueryProvider);
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
     logger.i(
-      'create RepoListViewController: query=$query, '
+      'Create RepoListViewNotifier: query=$query, '
       'sort=${sort.name}, order=${order.name}',
     );
-    return RepoListViewController(
+    return RepoListViewNotifier(
       repoRepository,
       query: query,
       sort: sort,
@@ -33,10 +33,10 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
   },
 );
 
-/// リポジトリ一覧Viewコントローラー
-class RepoListViewController
+/// リポジトリ一覧ViewNotifier
+class RepoListViewNotifier
     extends StateNotifier<AsyncValue<RepoListViewState>> {
-  RepoListViewController(
+  RepoListViewNotifier(
     this._repoRepository, {
     required this.query,
     required this.sort,

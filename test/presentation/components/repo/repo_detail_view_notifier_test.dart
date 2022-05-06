@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/repo/repo_detail_view_controller.dart';
+import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
 
 import '../../../test_utils/mocks.dart';
 
@@ -14,7 +14,7 @@ void main() {
     repoName: 'flutter',
   );
 
-  group('repoDetailViewControllerProvider', () {
+  group('repoDetailViewStateProvider', () {
     test('最初はStateErrorをthrowするはず', () async {
       final container = mockProviderContainer();
       // ignore: prefer_function_declarations_over_variables
@@ -48,8 +48,8 @@ void main() {
       expect(func, func);
     });
   });
-  group('RepoDetailViewController', () {
-    test('Controllerを生成するとリポジトリエンティティを取得するはず', () async {
+  group('RepoDetailViewNotifier', () {
+    test('Notifierを生成するとリポジトリエンティティを取得するはず', () async {
       final container = mockProviderContainer(
         overrides: [
           repoDetailViewStateProvider.overrideWithProvider(
@@ -57,7 +57,7 @@ void main() {
           ),
         ],
       );
-      final controller = container
+      final notifier = container
           .listen(
             repoDetailViewStateProvider.notifier,
             (previous, next) {},
@@ -65,14 +65,14 @@ void main() {
           .read();
       // 初期値はAsyncLoading
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(controller.state is AsyncLoading, true);
+      expect(notifier.state is AsyncLoading, true);
 
       // データを取り終わるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(controller.state is AsyncData, true);
+      expect(notifier.state is AsyncData, true);
     });
   });
 }

@@ -9,18 +9,18 @@ import '../../../repositories/repo_repository.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
 final repoSearchReposSortProvider =
-    StateNotifierProvider<RepoSearchReposSortController, RepoSearchReposSort>(
+    StateNotifierProvider<RepoSearchReposSortNotifier, RepoSearchReposSort>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
-    return RepoSearchReposSortController(
+    return RepoSearchReposSortNotifier(
       appDataRepository,
     );
   },
 );
 
-/// リポジトリ検索用ソート値コントローラー
-class RepoSearchReposSortController extends StateNotifier<RepoSearchReposSort> {
-  RepoSearchReposSortController(
+/// リポジトリ検索用ソート値Notifier
+class RepoSearchReposSortNotifier extends StateNotifier<RepoSearchReposSort> {
+  RepoSearchReposSortNotifier(
     this._appDataRepository,
   ) : super(_appDataRepository.getSearchReposSort());
 

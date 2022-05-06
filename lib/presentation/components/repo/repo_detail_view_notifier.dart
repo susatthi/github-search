@@ -13,18 +13,18 @@ import '../../../utils/logger.dart';
 
 /// リポジトリ詳細View状態プロバイダー
 final repoDetailViewStateProvider = StateNotifierProvider.autoDispose<
-    RepoDetailViewController, AsyncValue<RepoData>>(
+    RepoDetailViewNotifier, AsyncValue<RepoData>>(
   (ref) => throw StateError('Provider was not initialized'),
 );
 
 /// リポジトリ詳細View状態プロバイダー（Family）
 final repoDetailViewStateProviderFamily = StateNotifierProvider.family
-    .autoDispose<RepoDetailViewController, AsyncValue<RepoData>,
+    .autoDispose<RepoDetailViewNotifier, AsyncValue<RepoData>,
         RepoDetailViewParameter>(
   (ref, parameter) {
     final repoRepository = ref.watch(repoRepositoryProvider);
-    logger.i('create RepoDetailViewController: parameter=$parameter');
-    return RepoDetailViewController(
+    logger.i('Create RepoDetailViewNotifier: parameter=$parameter');
+    return RepoDetailViewNotifier(
       repoRepository,
       parameter: parameter,
     );
@@ -54,9 +54,9 @@ class RepoDetailViewParameter extends Equatable {
   List<Object?> get props => [ownerName, repoName];
 }
 
-/// リポジトリ詳細Viewコントローラー
-class RepoDetailViewController extends StateNotifier<AsyncValue<RepoData>> {
-  RepoDetailViewController(
+/// リポジトリ詳細ViewNotifier
+class RepoDetailViewNotifier extends StateNotifier<AsyncValue<RepoData>> {
+  RepoDetailViewNotifier(
     this._repoRepository, {
     required this.parameter,
   }) : super(const AsyncValue.loading()) {

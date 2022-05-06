@@ -9,7 +9,7 @@ import '../../../entities/repo/repo_data.dart';
 import '../../../localizations/strings.g.dart';
 import '../common/async_value_handler.dart';
 import '../common/cached_circle_avatar.dart';
-import 'repo_detail_view_controller.dart';
+import 'repo_detail_view_notifier.dart';
 
 /// リポジトリ詳細View
 class RepoDetailView extends ConsumerWidget {

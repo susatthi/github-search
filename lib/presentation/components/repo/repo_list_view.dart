@@ -10,7 +10,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
 import '../common/async_value_handler.dart';
-import 'repo_list_view_controller.dart';
+import 'repo_list_view_notifier.dart';
 import 'repo_list_view_state.dart';
 
 /// リポジトリ一覧View
@@ -68,7 +68,6 @@ class _CircularProgressListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(repoListViewStateProvider.notifier);
     return VisibilityDetector(
       key: const Key('for detect visibility'),
       child: Column(
@@ -83,7 +82,7 @@ class _CircularProgressListTile extends ConsumerWidget {
         if (info.visibleFraction > 0.1) {
           logger.i('appeared progress: info=$info');
           // 表示されたので次のページを取得する
-          await controller.fetchNextPage();
+          await ref.read(repoListViewStateProvider.notifier).fetchNextPage();
         }
       },
     );

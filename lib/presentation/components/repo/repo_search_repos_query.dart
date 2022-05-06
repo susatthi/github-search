@@ -18,16 +18,16 @@ final repoSearchReposInitQueryProvider = Provider<String>(
 
 /// リポジトリ検索文字列プロバイダー
 final repoSearchReposQueryProvider =
-    StateNotifierProvider<RepoSearchReposQueryController, String>(
+    StateNotifierProvider<RepoSearchReposQueryNotifier, String>(
   (ref) {
     final query = ref.watch(repoSearchReposInitQueryProvider);
-    return RepoSearchReposQueryController(query);
+    return RepoSearchReposQueryNotifier(query);
   },
 );
 
-/// リポジトリ検索文字列コントローラー
-class RepoSearchReposQueryController extends StateNotifier<String> {
-  RepoSearchReposQueryController(
+/// リポジトリ検索文字列Notifier
+class RepoSearchReposQueryNotifier extends StateNotifier<String> {
+  RepoSearchReposQueryNotifier(
     String query,
   ) : super(query);
 
