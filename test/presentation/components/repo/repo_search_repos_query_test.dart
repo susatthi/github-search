@@ -19,7 +19,7 @@ void main() {
       expect(query, Env.defaultSearchValue);
     });
   });
-  group('RepoSearchReposQueryController', () {
+  group('RepoSearchReposQueryNotifier', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
       container.read(repoSearchReposQueryProvider.notifier).query = 'dummy';

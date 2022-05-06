@@ -30,10 +30,10 @@ void main() {
       expect(order, RepoSearchReposOrder.desc);
     });
   });
-  group('RepoSearchReposOrderController', () {
+  group('RepoSearchReposOrderNotifier', () {
     test('オーダー値を変更できるはず', () async {
       // 昇順に変更する
-      final controller = container.read(repoSearchReposOrderProvider.notifier)
+      final notifier = container.read(repoSearchReposOrderProvider.notifier)
         ..order = RepoSearchReposOrder.asc;
 
       // 昇順のはず
@@ -43,7 +43,7 @@ void main() {
       );
 
       // 降順に変更する
-      controller.order = RepoSearchReposOrder.desc;
+      notifier.order = RepoSearchReposOrder.desc;
 
       // 降順のはず
       expect(

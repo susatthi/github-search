@@ -9,19 +9,18 @@ import '../../../repositories/repo_repository.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー
 final repoSearchReposOrderProvider =
-    StateNotifierProvider<RepoSearchReposOrderController, RepoSearchReposOrder>(
+    StateNotifierProvider<RepoSearchReposOrderNotifier, RepoSearchReposOrder>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
-    return RepoSearchReposOrderController(
+    return RepoSearchReposOrderNotifier(
       appDataRepository,
     );
   },
 );
 
-/// リポジトリ検索用オーダー値コントローラー
-class RepoSearchReposOrderController
-    extends StateNotifier<RepoSearchReposOrder> {
-  RepoSearchReposOrderController(
+/// リポジトリ検索用オーダー値Notifier
+class RepoSearchReposOrderNotifier extends StateNotifier<RepoSearchReposOrder> {
+  RepoSearchReposOrderNotifier(
     this._appDataRepository,
   ) : super(_appDataRepository.getSearchReposOrder());
 

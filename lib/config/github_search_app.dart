@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 
 import '../assets/fonts.gen.dart';
 import '../localizations/strings.g.dart';
-import '../presentation/components/repo/repo_detail_view_controller.dart';
+import '../presentation/components/repo/repo_detail_view_notifier.dart';
 import '../presentation/pages/error/error_page.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';

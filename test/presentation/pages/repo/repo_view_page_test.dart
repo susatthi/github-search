@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/repo/repo_detail_view_controller.dart';
+import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/mocks.dart';
