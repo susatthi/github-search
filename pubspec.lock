@@ -465,7 +465,7 @@ packages:
     source: hosted
     version: "1.0.1"
   logger:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: logger
       url: "https://pub.dartlang.org"
@@ -667,6 +667,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  roggle:
+    dependency: "direct main"
+    description:
+      name: roggle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   rxdart:
     dependency: transitive
     description:
