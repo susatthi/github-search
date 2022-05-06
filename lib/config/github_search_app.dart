@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 
 import '../assets/fonts.gen.dart';
@@ -24,7 +23,7 @@ class GitHubSearchApp extends StatelessWidget {
   }) : super(key: key);
 
   /// 初期表示画面（テスト用）
-  @visibleForOverriding
+  @visibleForTesting
   final Widget? home;
 
   @override
