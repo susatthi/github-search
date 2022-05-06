@@ -22,7 +22,7 @@ dependencies:
   flutter_state_notifier: ^0.7.1
   flutter_web_plugins:
     sdk: flutter
-  freezed_annotation: ^2.0.1
+  freezed_annotation: ^2.0.3
   go_router: ^3.1.0
   hive: ^2.1.0
   hive_flutter: ^1.1.0
@@ -43,7 +43,7 @@ dev_dependencies:
   flutter_native_splash: ^2.1.6
   flutter_test:
     sdk: flutter
-  freezed: ^2.0.2
+  freezed: ^2.0.3
   mockito: ^5.1.0
   path: ^1.8.0
   pedantic_mono: ^1.18.0
