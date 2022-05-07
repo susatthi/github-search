@@ -155,14 +155,13 @@ graph TD
 
 |フォルダ名                         | 説明
 |---------------------------------|--
-| `/assets`                      | `assets`にアクセスする自動生成されるユーティリティクラス
 | `/config`                      | アプリケーション、定義値、環境変数
 | `/entities`                    | モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（`_data` suffix がつく）
 | `/localizations`               | 言語ファイル（`json` ファイル）、自動生成されるクラス
 | `/presentation/pages`          | プレゼンテーション層のファイル<br>画面Widget
 | `/presentation/components`     | プレゼンテーション層のファイル<br>部品Widget、Controller、State
 | `/repositories`                | データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理
-| `/utils`                       | 拡張機能、ロガーなど便利クラス
+| `/utils`                       | 拡張機能、ロガー、`assets`にアクセスする自動生成されるユーティリティクラスなど便利クラス
 
 ## 環境
 

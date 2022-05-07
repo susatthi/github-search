@@ -297,8 +297,7 @@ class _StringsEn {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsEn.build();
 
-	// ignore: unused_field
-	late final _StringsEn _root = this;
+	late final _StringsEn _root = this; // ignore: unused_field
 
 	// Translations
 	String get appName => 'GitHubSearch';
@@ -325,8 +324,7 @@ class _StringsEn {
 class _StringsGitHubExceptionMessageEn {
 	_StringsGitHubExceptionMessageEn._(this._root);
 
-	// ignore: unused_field
-	final _StringsEn _root;
+	final _StringsEn _root; // ignore: unused_field
 
 	// Translations
 	String get badRequest => 'Illegal request sent. (400)';
@@ -346,8 +344,7 @@ class _StringsJa implements _StringsEn {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsJa.build();
 
-	// ignore: unused_field
-	@override late final _StringsJa _root = this;
+	@override late final _StringsJa _root = this; // ignore: unused_field
 
 	// Translations
 	@override String get appName => 'GitHubSearch';
@@ -374,8 +371,7 @@ class _StringsJa implements _StringsEn {
 class _StringsGitHubExceptionMessageJa implements _StringsGitHubExceptionMessageEn {
 	_StringsGitHubExceptionMessageJa._(this._root);
 
-	// ignore: unused_field
-	@override final _StringsJa _root;
+	@override final _StringsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get badRequest => '不正なリクエストが送信されました。(400)';
