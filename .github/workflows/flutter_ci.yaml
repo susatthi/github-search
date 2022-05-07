@@ -67,7 +67,7 @@ jobs:
         run: |
           flutter test --no-test-assets --coverage --machine > test-report.log
           sudo apt-get install -y lcov
-          lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+          lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test

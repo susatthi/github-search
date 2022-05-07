@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../config/constants.dart';
 import '../../../localizations/strings.g.dart';
 import '../../components/repo/repo_detail_view.dart';
 
@@ -35,3 +34,7 @@ class RepoViewPage extends StatelessWidget {
     );
   }
 }
+
+/// 画面遷移時に渡すパラメータのキー
+const pageParamKeyOwnerName = 'owner_name';
+const pageParamKeyRepoName = 'repo_name';

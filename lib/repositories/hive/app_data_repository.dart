@@ -5,7 +5,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../config/constants.dart';
 import '../app_data_repository.dart';
 import '../repo_repository.dart';
 
@@ -69,3 +68,6 @@ class HiveAppDataRepository implements AppDataRepository {
     return RepoSearchReposOrderHelper.valueOf(name);
   }
 }
+
+/// Hive の Box 名
+const hiveBoxNameAppData = 'appData';
