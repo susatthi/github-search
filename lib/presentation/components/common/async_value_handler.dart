@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../localizations/strings.g.dart';
 import '../../../repositories/github/exception.dart';
+import '../../../utils/logger.dart';
 
 /// AsyncValueのerrorとloadingをよしなに処理する
 class AsyncValueHandler<T> extends StatelessWidget {
@@ -23,9 +24,12 @@ class AsyncValueHandler<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return value.when(
       data: builder,
-      error: (e, _) => Center(
-        child: Text(_toString(context, e)),
-      ),
+      error: (e, _) {
+        logger.w(e);
+        return Center(
+          child: Text(_toString(context, e)),
+        );
+      },
       loading: () => const Center(
         child: CircularProgressIndicator(),
       ),

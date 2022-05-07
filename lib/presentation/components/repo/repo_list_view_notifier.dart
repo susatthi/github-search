@@ -103,14 +103,14 @@ class RepoListViewNotifier
         page: value.page + 1,
       );
 
-      value.items.addAll(result.items.map(RepoData.from).toList());
+      final appendedItems = result.items.map(RepoData.from).toList();
       logger.i(
-        'result: totalCount=${result.totalCount}, '
+        'Result: totalCount=${result.totalCount}, '
         'fetchItems=${result.items.length}, '
-        'totalItems=${value.items.length}, ',
+        'totalItems=${value.items.length + appendedItems.length}, ',
       );
       return value.copyWith(
-        items: value.items,
+        items: value.items + appendedItems,
         hasNext: result.items.length == perPage,
         page: value.page + 1,
       );
