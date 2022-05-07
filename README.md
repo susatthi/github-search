@@ -84,7 +84,7 @@ bin/flutter_env -g [GitHubアクセストークン] -s [検索文字列の初期
 
 ![CODE_WITH_ANDREA](https://user-images.githubusercontent.com/13707135/160351645-7acb5ab6-34f9-45a8-9f95-80147af6c408.png)
 
-- 本アプリの依存関係図です。
+### 依存関係図
 
 ```mermaid
 %%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
@@ -150,6 +150,76 @@ graph TD
   - ユーザがソート値選択ダイアログを表示してソート値を変更した場合、`ソート値`が更新されます。すると`ソート値`に依存している`一覧 View コントローラ`が更新され、`リポジトリ用リポジトリ`に`ソート値`を与えてリポジトリの検索を実行し、その結果をもとに`一覧 View 状態`を更新します。すると`一覧 View 状態`に依存している`一覧 View`がリビルドされて再描画されます。
 - `詳細 View`への画面遷移の例
   - `一覧 View`の`ListTile`がタップされると`オーナー名とリポジトリ名`を表示したい内容に更新して`詳細ページ`に画面遷移します。`詳細画面`が開くと`詳細 View`がビルドされ、`詳細 View コントローラ`も作成されます。`詳細 View コントローラ`は`オーナー名とリポジトリ名`を`リポジトリ用リポジトリ`に与えてリポジトリの取得を実行し、その結果をもとに`詳細 View 状態`を更新します。すると`詳細 View 状態`に依存している`詳細 View`がリビルドされて再描画されます。
+
+### Riverpod の依存関係図
+
+- [riverpod_graph](https://github.com/rrousselGit/riverpod/tree/master/packages/riverpod_graph) を使って Riverpod の依存関係図を出力してみました。
+
+```mermaid
+flowchart TB
+  subgraph Arrows
+    direction LR
+    start1[ ] -..->|read| stop1[ ]
+    style start1 height:0px;
+    style stop1 height:0px;
+    start2[ ] --->|listen| stop2[ ]
+    style start2 height:0px;
+    style stop2 height:0px; 
+    start3[ ] ===>|watch| stop3[ ]
+    style start3 height:0px;
+    style stop3 height:0px; 
+  end
+
+  subgraph Type
+    direction TB
+    ConsumerWidget((widget));
+    Provider[[provider]];
+  end
+  _GitHubSearchApp((_GitHubSearchApp));
+  routerProvider ==> _GitHubSearchApp;
+  RepoDetailView((RepoDetailView));
+  repoDetailViewStateProvider ==> RepoDetailView;
+  RepoListView((RepoListView));
+  repoListViewStateProvider ==> RepoListView;
+  _CircularProgressListTile((_CircularProgressListTile));
+  repoListViewStateProvider -.-> _CircularProgressListTile;
+  RepoOrderToggleButton((RepoOrderToggleButton));
+  repoListViewStateProvider ==> RepoOrderToggleButton;
+  RepoOrderToggleButtonInternal((RepoOrderToggleButtonInternal));
+  repoSearchReposOrderProvider ==> RepoOrderToggleButtonInternal;
+  repoSearchReposOrderProvider -.-> RepoOrderToggleButtonInternal;
+  RepoSortSelectorDialog((RepoSortSelectorDialog));
+  repoSearchReposSortProvider ==> RepoSortSelectorDialog;
+  repoSearchReposSortProvider -.-> RepoSortSelectorDialog;
+  routerProvider[[routerProvider]];
+  appDataRepositoryProvider[[appDataRepositoryProvider]];
+  hiveAppDataRepositoryProvider ==> appDataRepositoryProvider;
+  hiveAppDataRepositoryProvider[[hiveAppDataRepositoryProvider]];
+  repoRepositoryProvider[[repoRepositoryProvider]];
+  githubRepoRepositoryProvider ==> repoRepositoryProvider;
+  githubRepoRepositoryProvider[[githubRepoRepositoryProvider]];
+  githubHttpClientProvider ==> githubRepoRepositoryProvider;
+  githubHttpClientProvider[[githubHttpClientProvider]];
+  githubAccessTokenProvider ==> githubHttpClientProvider;
+  httpClientProvider ==> githubHttpClientProvider;
+  githubAccessTokenProvider[[githubAccessTokenProvider]];
+  httpClientProvider[[httpClientProvider]];
+  repoDetailViewStateProvider[[repoDetailViewStateProvider]];
+  repoSearchReposOrderProvider[[repoSearchReposOrderProvider]];
+  appDataRepositoryProvider ==> repoSearchReposOrderProvider;
+  repoListViewStateProvider[[repoListViewStateProvider]];
+  repoRepositoryProvider ==> repoListViewStateProvider;
+  repoSearchReposQueryProvider ==> repoListViewStateProvider;
+  repoSearchReposSortProvider ==> repoListViewStateProvider;
+  repoSearchReposOrderProvider ==> repoListViewStateProvider;
+  repoSearchReposSortProvider[[repoSearchReposSortProvider]];
+  appDataRepositoryProvider ==> repoSearchReposSortProvider;
+  repoSearchReposQueryProvider[[repoSearchReposQueryProvider]];
+  repoSearchReposInitQueryProvider ==> repoSearchReposQueryProvider;
+  repoDetailViewStateProviderFamily[[repoDetailViewStateProviderFamily]];
+  repoRepositoryProvider ==> repoDetailViewStateProviderFamily;
+  repoSearchReposInitQueryProvider[[repoSearchReposInitQueryProvider]];
+```
 
 ## フォルダ構成
 
