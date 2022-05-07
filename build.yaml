@@ -8,13 +8,13 @@ targets:
       freezed:
         generate_for:
           include:
-            - lib/src/entities/**/*.dart
-            - lib/src/presentation/**/*state.dart
+            - lib/entities/**/*.dart
+            - lib/presentation/**/*state.dart
       json_serializable:
         generate_for:
           include:
-            - lib/src/entities/**/*.dart
-            - lib/src/presentation/**/*state.dart
+            - lib/entities/**/*.dart
+            - lib/presentation/**/*state.dart
       fast_i18n:
         options:
           # 入力ファイルへのパス
