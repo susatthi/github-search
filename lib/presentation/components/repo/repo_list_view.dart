@@ -5,9 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../entities/repo/repo_data.dart';
+import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
 import '../common/cached_circle_avatar.dart';
@@ -65,7 +67,7 @@ class _SliverRepoListView extends StatelessWidget {
               ],
             );
           }
-          return const _CircularProgressListTile();
+          return const _LastIndicator();
         },
         childCount: state.items.length + (state.hasNext ? 1 : 0),
       ),
@@ -196,19 +198,19 @@ class _LanguageLabel extends StatelessWidget {
   }
 }
 
-/// リストビューを一番下までスクロールしたときに表示するプログレス
-class _CircularProgressListTile extends ConsumerWidget {
-  const _CircularProgressListTile({Key? key}) : super(key: key);
+/// リストビューを一番下までスクロールしたときに表示するインジケーター
+class _LastIndicator extends ConsumerWidget {
+  const _LastIndicator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return VisibilityDetector(
       key: const Key('for detect visibility'),
       child: Column(
-        children: const [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: CircularProgressIndicator(),
+        children: [
+          SizedBox(
+            height: 64,
+            child: Lottie.asset(Assets.lottie.loadingIndicator),
           ),
         ],
       ),

@@ -31,6 +31,7 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.5.0
   json_serializable: ^6.2.0
+  lottie: ^1.3.0
   number_display: ^3.0.0
   roggle: ^0.1.0
   skeleton_loader: ^2.0.0+4
@@ -54,6 +55,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/lottie/
   fonts:
     - family: Murecho
       fonts:

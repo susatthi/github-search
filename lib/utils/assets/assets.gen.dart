@@ -33,10 +33,18 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/splash_dark.png');
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/loading-indicator.json
+  String get loadingIndicator => 'assets/lottie/loading-indicator.json';
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 
 class AssetGenImage extends AssetImage {
