@@ -12,44 +12,11 @@ part of 'repo.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Repo _$RepoFromJson(Map<String, dynamic> json) {
   return _Repo.fromJson(json);
 }
-
-/// @nodoc
-class _$RepoTearOff {
-  const _$RepoTearOff();
-
-  _Repo call(
-      {required String name,
-      @JsonKey(name: 'full_name') required String fullName,
-      required Owner owner,
-      @JsonKey(name: 'stargazers_count') required int stargazersCount,
-      @JsonKey(name: 'watchers_count') required int watchersCount,
-      String? language,
-      @JsonKey(name: 'forks_count') required int forksCount,
-      @JsonKey(name: 'open_issues_count') required int openIssuesCount}) {
-    return _Repo(
-      name: name,
-      fullName: fullName,
-      owner: owner,
-      stargazersCount: stargazersCount,
-      watchersCount: watchersCount,
-      language: language,
-      forksCount: forksCount,
-      openIssuesCount: openIssuesCount,
-    );
-  }
-
-  Repo fromJson(Map<String, Object?> json) {
-    return Repo.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Repo = _$RepoTearOff();
 
 /// @nodoc
 mixin _$Repo {
@@ -57,6 +24,7 @@ mixin _$Repo {
   @JsonKey(name: 'full_name')
   String get fullName => throw _privateConstructorUsedError;
   Owner get owner => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'stargazers_count')
   int get stargazersCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'watchers_count')
@@ -80,6 +48,7 @@ abstract class $RepoCopyWith<$Res> {
       {String name,
       @JsonKey(name: 'full_name') String fullName,
       Owner owner,
+      String? description,
       @JsonKey(name: 'stargazers_count') int stargazersCount,
       @JsonKey(name: 'watchers_count') int watchersCount,
       String? language,
@@ -102,6 +71,7 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
     Object? name = freezed,
     Object? fullName = freezed,
     Object? owner = freezed,
+    Object? description = freezed,
     Object? stargazersCount = freezed,
     Object? watchersCount = freezed,
     Object? language = freezed,
@@ -121,6 +91,10 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as Owner,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       stargazersCount: stargazersCount == freezed
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
@@ -153,14 +127,15 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
-  factory _$RepoCopyWith(_Repo value, $Res Function(_Repo) then) =
-      __$RepoCopyWithImpl<$Res>;
+abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
+  factory _$$_RepoCopyWith(_$_Repo value, $Res Function(_$_Repo) then) =
+      __$$_RepoCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
       @JsonKey(name: 'full_name') String fullName,
       Owner owner,
+      String? description,
       @JsonKey(name: 'stargazers_count') int stargazersCount,
       @JsonKey(name: 'watchers_count') int watchersCount,
       String? language,
@@ -172,26 +147,27 @@ abstract class _$RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
-    implements _$RepoCopyWith<$Res> {
-  __$RepoCopyWithImpl(_Repo _value, $Res Function(_Repo) _then)
-      : super(_value, (v) => _then(v as _Repo));
+class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
+    implements _$$_RepoCopyWith<$Res> {
+  __$$_RepoCopyWithImpl(_$_Repo _value, $Res Function(_$_Repo) _then)
+      : super(_value, (v) => _then(v as _$_Repo));
 
   @override
-  _Repo get _value => super._value as _Repo;
+  _$_Repo get _value => super._value as _$_Repo;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? fullName = freezed,
     Object? owner = freezed,
+    Object? description = freezed,
     Object? stargazersCount = freezed,
     Object? watchersCount = freezed,
     Object? language = freezed,
     Object? forksCount = freezed,
     Object? openIssuesCount = freezed,
   }) {
-    return _then(_Repo(
+    return _then(_$_Repo(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -204,6 +180,10 @@ class __$RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as Owner,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       stargazersCount: stargazersCount == freezed
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
@@ -235,6 +215,7 @@ class _$_Repo implements _Repo {
       {required this.name,
       @JsonKey(name: 'full_name') required this.fullName,
       required this.owner,
+      required this.description,
       @JsonKey(name: 'stargazers_count') required this.stargazersCount,
       @JsonKey(name: 'watchers_count') required this.watchersCount,
       this.language,
@@ -250,6 +231,8 @@ class _$_Repo implements _Repo {
   final String fullName;
   @override
   final Owner owner;
+  @override
+  final String? description;
   @override
   @JsonKey(name: 'stargazers_count')
   final int stargazersCount;
@@ -267,17 +250,19 @@ class _$_Repo implements _Repo {
 
   @override
   String toString() {
-    return 'Repo(name: $name, fullName: $fullName, owner: $owner, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount)';
+    return 'Repo(name: $name, fullName: $fullName, owner: $owner, description: $description, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Repo &&
+            other is _$_Repo &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality().equals(other.owner, owner) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
             const DeepCollectionEquality()
                 .equals(other.stargazersCount, stargazersCount) &&
             const DeepCollectionEquality()
@@ -289,12 +274,14 @@ class _$_Repo implements _Repo {
                 .equals(other.openIssuesCount, openIssuesCount));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(owner),
+      const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(stargazersCount),
       const DeepCollectionEquality().hash(watchersCount),
       const DeepCollectionEquality().hash(language),
@@ -303,8 +290,8 @@ class _$_Repo implements _Repo {
 
   @JsonKey(ignore: true)
   @override
-  _$RepoCopyWith<_Repo> get copyWith =>
-      __$RepoCopyWithImpl<_Repo>(this, _$identity);
+  _$$_RepoCopyWith<_$_Repo> get copyWith =>
+      __$$_RepoCopyWithImpl<_$_Repo>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -314,40 +301,47 @@ class _$_Repo implements _Repo {
 
 abstract class _Repo implements Repo {
   const factory _Repo(
-          {required String name,
-          @JsonKey(name: 'full_name') required String fullName,
-          required Owner owner,
-          @JsonKey(name: 'stargazers_count') required int stargazersCount,
-          @JsonKey(name: 'watchers_count') required int watchersCount,
-          String? language,
-          @JsonKey(name: 'forks_count') required int forksCount,
-          @JsonKey(name: 'open_issues_count') required int openIssuesCount}) =
-      _$_Repo;
+      {required final String name,
+      @JsonKey(name: 'full_name')
+          required final String fullName,
+      required final Owner owner,
+      required final String? description,
+      @JsonKey(name: 'stargazers_count')
+          required final int stargazersCount,
+      @JsonKey(name: 'watchers_count')
+          required final int watchersCount,
+      final String? language,
+      @JsonKey(name: 'forks_count')
+          required final int forksCount,
+      @JsonKey(name: 'open_issues_count')
+          required final int openIssuesCount}) = _$_Repo;
 
   factory _Repo.fromJson(Map<String, dynamic> json) = _$_Repo.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'full_name')
-  String get fullName;
+  String get fullName => throw _privateConstructorUsedError;
   @override
-  Owner get owner;
+  Owner get owner => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'stargazers_count')
-  int get stargazersCount;
+  int get stargazersCount => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'watchers_count')
-  int get watchersCount;
+  int get watchersCount => throw _privateConstructorUsedError;
   @override
-  String? get language;
+  String? get language => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'forks_count')
-  int get forksCount;
+  int get forksCount => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'open_issues_count')
-  int get openIssuesCount;
+  int get openIssuesCount => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RepoCopyWith<_Repo> get copyWith => throw _privateConstructorUsedError;
+  _$$_RepoCopyWith<_$_Repo> get copyWith => throw _privateConstructorUsedError;
 }

@@ -16,6 +16,7 @@ class Repo with _$Repo {
     required String name,
     @JsonKey(name: 'full_name') required String fullName,
     required Owner owner,
+    required String? description,
     @JsonKey(name: 'stargazers_count') required int stargazersCount,
     @JsonKey(name: 'watchers_count') required int watchersCount,
     String? language,
