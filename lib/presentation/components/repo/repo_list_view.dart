@@ -10,27 +10,37 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../../entities/repo/repo_data.dart';
 import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
-import '../common/async_value_handler.dart';
 import '../common/cached_circle_avatar.dart';
+import '../common/error_view.dart';
 import 'repo_list_view_notifier.dart';
 import 'repo_list_view_state.dart';
 
-/// リポジトリ一覧View
-class RepoListView extends ConsumerWidget {
-  const RepoListView({Key? key}) : super(key: key);
+/// Sliver版リポジトリ一覧View
+class SliverRepoListView extends ConsumerWidget {
+  const SliverRepoListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewStateProvider);
-    return AsyncValueHandler<RepoListViewState>(
-      value: asyncValue,
-      builder: (state) => _RepoListView(state: state),
+    return asyncValue.when(
+      data: (state) => _SliverRepoListView(state: state),
+      error: (e, s) => SliverFillRemaining(
+        child: ErrorView(
+          error: e,
+          stackTrace: s,
+        ),
+      ),
+      loading: () => const SliverFillRemaining(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }
 
-class _RepoListView extends StatelessWidget {
-  const _RepoListView({
+class _SliverRepoListView extends StatelessWidget {
+  const _SliverRepoListView({
     Key? key,
     required this.state,
   }) : super(key: key);
@@ -39,17 +49,23 @@ class _RepoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: state.items.length + (state.hasNext ? 1 : 0),
-      itemBuilder: (context, index) {
-        if (index < state.items.length) {
-          return _RepoListTile(
-            data: state.items[index],
-          );
-        }
-        return const _CircularProgressListTile();
-      },
-      separatorBuilder: (_, __) => const Divider(),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (index < state.items.length) {
+            return Column(
+              children: [
+                _RepoListTile(
+                  data: state.items[index],
+                ),
+                const Divider(),
+              ],
+            );
+          }
+          return const _CircularProgressListTile();
+        },
+        childCount: state.items.length + (state.hasNext ? 1 : 0),
+      ),
     );
   }
 }

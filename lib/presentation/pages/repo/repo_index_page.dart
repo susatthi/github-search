@@ -19,28 +19,28 @@ class RepoIndexPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.appName),
-        actions: [
-          const RepoOrderToggleButton(),
-          IconButton(
-            onPressed: () => showDialog<void>(
-              context: context,
-              builder: (context) => const RepoSortSelectorDialog(),
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              title: const RepoSearchTextField(),
+              actions: [
+                const RepoOrderToggleButton(),
+                IconButton(
+                  onPressed: () => showDialog<void>(
+                    context: context,
+                    builder: (context) => const RepoSortSelectorDialog(),
+                  ),
+                  icon: const Icon(Icons.sort),
+                  tooltip: i18n.sort,
+                ),
+              ],
             ),
-            icon: const Icon(Icons.sort),
-            tooltip: i18n.sort,
-          ),
-        ],
-      ),
-      body: Column(
-        children: const [
-          RepoSearchTextField(),
-          Expanded(
-            child: RepoListView(),
-          ),
-        ],
+            const SliverRepoListView(),
+          ],
+        ),
       ),
     );
   }
