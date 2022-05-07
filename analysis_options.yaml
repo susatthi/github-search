@@ -18,5 +18,6 @@ analyzer:
     - '**/*.freezed.dart'
     - '**/localizations/*.dart'
     - '**/generated_plugin_registrant.dart'
+    - '**/riverpod_graph.dart'
   errors:
     invalid_annotation_target: ignore
