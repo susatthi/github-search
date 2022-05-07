@@ -33,6 +33,7 @@ dependencies:
   json_serializable: ^6.2.0
   number_display: ^3.0.0
   roggle: ^0.1.0
+  skeleton_loader: ^2.0.0+4
   visibility_detector: ^0.2.2
 
 dev_dependencies:

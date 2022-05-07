@@ -12,6 +12,7 @@ import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
 import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
+import '../common/list_loader.dart';
 import 'repo_list_view_notifier.dart';
 import 'repo_list_view_state.dart';
 
@@ -31,8 +32,10 @@ class SliverRepoListView extends ConsumerWidget {
         ),
       ),
       loading: () => const SliverFillRemaining(
-        child: Center(
-          child: CircularProgressIndicator(),
+        child: ListLoader(
+          iconSize: _leadingSize,
+          boneItemCount: 4,
+          items: 12,
         ),
       ),
     );
@@ -86,7 +89,7 @@ class _RepoListTile extends StatelessWidget {
     return ListTile(
       leading: CachedCircleAvatar(
         url: data.owner.avatarUrl,
-        size: 40,
+        size: _leadingSize,
         loading: false,
       ),
       title: Column(
@@ -219,3 +222,6 @@ class _CircularProgressListTile extends ConsumerWidget {
     );
   }
 }
+
+/// ListTileのleadingのサイズ
+const _leadingSize = 40.0;
