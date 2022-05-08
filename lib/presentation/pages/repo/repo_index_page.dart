@@ -24,8 +24,11 @@ class RepoIndexPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               floating: true,
+              titleSpacing: 8,
               title: const RepoSearchTextField(),
+              actionsIconTheme: IconTheme.of(context),
               actions: [
                 const RepoOrderToggleButton(),
                 IconButton(

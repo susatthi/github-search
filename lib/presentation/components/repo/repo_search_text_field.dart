@@ -39,18 +39,43 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       decoration: InputDecoration(
         hintText: i18n.searchRepos,
         contentPadding: const EdgeInsets.all(10),
-        suffixIcon: InkWell(
-          child: const Icon(Icons.search),
-          onTap: () {
-            FocusScope.of(context).unfocus();
-            ref.read(repoSearchReposQueryProvider.notifier).query =
-                _controller.text;
+        prefixIcon: const Icon(Icons.search),
+        // 1文字以上あるときだけ削除アイコンを表示する
+        suffixIcon: ValueListenableBuilder<TextEditingValue>(
+          valueListenable: _controller,
+          builder: (_, value, __) {
+            return Visibility(
+              visible: value.text.isNotEmpty,
+              child: InkWell(
+                onTap: _controller.clear,
+                child: const Icon(Icons.close),
+              ),
+            );
           },
         ),
+        fillColor: Theme.of(context).backgroundColor,
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
       ),
+      // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         ref.read(repoSearchReposQueryProvider.notifier).query = text;
       },
+      // キーボードのEnterキーを検索ボタンにする
+      textInputAction: TextInputAction.search,
     );
   }
 }
