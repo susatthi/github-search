@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../../localizations/strings.g.dart';
+import '../../components/common/search_app_bar.dart';
 import '../../components/repo/repo_order_toggle_button.dart';
 import '../../components/repo/repo_search_text_field.dart';
 import '../../components/repo/repo_sort_selector_dialog.dart';
@@ -22,17 +22,8 @@ class RepoSearchPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-              // ステータスバーの背景色を同じにする
-              statusBarColor: Theme.of(context).backgroundColor,
-            ),
-            pinned: true,
-            titleSpacing: 0,
+          SearchAppBar(
             title: const RepoSearchTextField(),
-            iconTheme: IconTheme.of(context),
-            actionsIconTheme: IconTheme.of(context),
             actions: [
               const RepoOrderToggleButton(),
               IconButton(
@@ -44,6 +35,8 @@ class RepoSearchPage extends StatelessWidget {
                 tooltip: i18n.sort,
               ),
             ],
+            backgroundColor: Theme.of(context).backgroundColor,
+            pinned: true,
           ),
         ],
       ),

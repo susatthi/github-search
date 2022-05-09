@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../../config/router.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
+import '../../components/common/search_app_bar.dart';
 import '../../components/repo/repo_list_view.dart';
 import '../../components/repo/repo_order_toggle_button.dart';
 import '../../components/repo/repo_search_text_button.dart';
@@ -32,17 +32,8 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-              // ステータスバーの背景色を同じにする
-              statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-            ),
-            floating: true,
-            titleSpacing: 0,
+          SearchAppBar(
             title: const RepoSearchTextButton(),
-            iconTheme: IconTheme.of(context),
-            actionsIconTheme: IconTheme.of(context),
             actions: [
               const RepoOrderToggleButton(),
               IconButton(
@@ -62,6 +53,8 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
                 ),
               ),
             ),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            floating: true,
           ),
           const SliverRepoListView(),
         ],
@@ -73,7 +66,9 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
   void didChangeDependencies() {
     super.didChangeDependencies();
     pageRouteObserver.subscribe(
-        this, ModalRoute.of<void>(context)! as PageRoute);
+      this,
+      ModalRoute.of<void>(context)! as PageRoute,
+    );
   }
 
   @override
