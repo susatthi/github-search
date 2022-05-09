@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+/// アイテムの数
+const _itemCount = 20;
+
+/// ダミー行の高さ
+const _boneHeight = 14.0;
+
+/// ダミー行の数
+const _boneItemCount = 4;
+
 /// ListView用の読み込み中ローダー
 class ListLoader extends StatelessWidget {
   const ListLoader({
     Key? key,
     this.avatarSize = 56,
-  })  : assert(boneItemCount >= 2),
-        super(key: key);
+  }) : super(key: key);
 
   /// leading に表示するダミーアバターのサイズ
   final double avatarSize;
-
-  /// アイテムの数
-  static const itemCount = 20;
-
-  /// ダミー行の高さ
-  static const boneHeight = 14.0;
-
-  /// ダミー行の数
-  static const boneItemCount = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -32,51 +31,45 @@ class ListLoader extends StatelessWidget {
         child: ListView.separated(
           shrinkWrap: true,
           padding: EdgeInsets.zero,
-          itemBuilder: (_, __) => _ListTile(
-            iconSize: avatarSize,
-            boneItemCount: boneItemCount,
-            boneHeight: boneHeight,
+          itemBuilder: (_, __) => _LoaderListTile(
+            avatarSize: avatarSize,
           ),
           separatorBuilder: (context, _) => const Divider(
             color: Colors.white,
           ),
-          itemCount: itemCount,
+          itemCount: _itemCount,
         ),
       ),
     );
   }
 }
 
-class _ListTile extends StatelessWidget {
-  const _ListTile({
+class _LoaderListTile extends StatelessWidget {
+  const _LoaderListTile({
     Key? key,
-    required this.iconSize,
-    required this.boneItemCount,
-    required this.boneHeight,
+    required this.avatarSize,
   }) : super(key: key);
 
-  final double iconSize;
-  final int boneItemCount;
-  final double boneHeight;
+  final double avatarSize;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        radius: iconSize / 2,
+        radius: avatarSize / 2,
         backgroundColor: Colors.white,
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (var i = 0; i < boneItemCount - 1; i++)
-            _Bone(
+          for (var i = 0; i < _boneItemCount - 1; i++)
+            const _Bone(
               width: double.infinity,
-              height: boneHeight,
+              height: _boneHeight,
             ),
-          _Bone(
+          const _Bone(
             width: 64,
-            height: boneHeight,
+            height: _boneHeight,
           ),
         ],
       ),
