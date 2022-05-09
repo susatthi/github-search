@@ -7,8 +7,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../localizations/strings.g.dart';
-import '../utils/assets/fonts.gen.dart';
 import 'router.dart';
+import 'theme.dart';
 
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
@@ -41,10 +41,7 @@ class _GitHubSearchApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = ThemeData(
-      primarySwatch: Colors.blue,
-      fontFamily: FontFamily.murecho,
-    );
+    final theme = ref.watch(themeProvider);
     if (home != null) {
       // テスト用
       return MaterialApp(
