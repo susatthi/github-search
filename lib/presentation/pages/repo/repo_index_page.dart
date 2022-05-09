@@ -69,12 +69,13 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of<void>(context)!);
+    pageRouteObserver.subscribe(
+        this, ModalRoute.of<void>(context)! as PageRoute);
   }
 
   @override
   void dispose() {
-    routeObserver.unsubscribe(this);
+    pageRouteObserver.unsubscribe(this);
     super.dispose();
   }
 

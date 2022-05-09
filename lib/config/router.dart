@@ -58,12 +58,13 @@ final routerProvider = Provider<GoRouter>(
     errorBuilder: (context, state) => ErrorPage(
       error: state.error,
     ),
-    observers: [routeObserver],
+    observers: [pageRouteObserver],
     debugLogDiagnostics: !kReleaseMode,
   ),
 );
 
 /// ルートオブザーバー
 ///
-/// 画面のpush/popのイベント検知に使用する。
-final routeObserver = RouteObserver<ModalRoute<void>>();
+/// 画面のpush/popのイベント検知に使用する。ダイアログは検知したく
+/// ないのでModalRouteではなくPageRouteにしている
+final pageRouteObserver = RouteObserver<PageRoute<void>>();
