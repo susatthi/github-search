@@ -26,11 +26,13 @@ class RepoIndexPage extends StatefulWidget {
 
 class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
   final _animatedBackgroundKey = GlobalKey<_AnimatedAppBarBackgroundState>();
+  final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           SearchAppBar(
             title: const RepoSearchTextButton(),
@@ -56,7 +58,9 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             floating: true,
           ),
-          const SliverRepoListView(),
+          SliverRepoListView(
+            controller: _scrollController,
+          ),
         ],
       ),
     );
@@ -74,6 +78,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
   @override
   void dispose() {
     pageRouteObserver.unsubscribe(this);
+    _scrollController.dispose();
     super.dispose();
   }
 

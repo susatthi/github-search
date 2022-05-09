@@ -23,7 +23,12 @@ const _avatarSize = 40.0;
 
 /// Sliver版リポジトリ一覧View
 class SliverRepoListView extends ConsumerWidget {
-  const SliverRepoListView({Key? key}) : super(key: key);
+  const SliverRepoListView({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,11 +41,20 @@ class SliverRepoListView extends ConsumerWidget {
               stackTrace: s,
             ),
           ),
-          loading: () => const SliverFillRemaining(
-            child: ListLoader(
-              avatarSize: _avatarSize,
-            ),
-          ),
+          loading: () {
+            // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
+            // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
+            if (controller.hasClients) {
+              Future<void>.delayed(const Duration(milliseconds: 50), () {
+                controller.jumpTo(0);
+              });
+            }
+            return const SliverFillRemaining(
+              child: ListLoader(
+                avatarSize: _avatarSize,
+              ),
+            );
+          },
         ) ??
         const SliverFillRemaining();
   }
