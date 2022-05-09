@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../config/router.dart';
 import '../../../localizations/strings.g.dart';
@@ -28,40 +29,42 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              floating: true,
-              titleSpacing: 0,
-              title: const RepoSearchTextButton(),
-              iconTheme: IconTheme.of(context),
-              actionsIconTheme: IconTheme.of(context),
-              actions: [
-                const RepoOrderToggleButton(),
-                IconButton(
-                  onPressed: () => showDialog<void>(
-                    context: context,
-                    builder: (context) => const RepoSortSelectorDialog(),
-                  ),
-                  icon: const Icon(Icons.sort),
-                  tooltip: i18n.sort,
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+              // ステータスバーの背景色を同じにする
+              statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+            ),
+            floating: true,
+            titleSpacing: 0,
+            title: const RepoSearchTextButton(),
+            iconTheme: IconTheme.of(context),
+            actionsIconTheme: IconTheme.of(context),
+            actions: [
+              const RepoOrderToggleButton(),
+              IconButton(
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (context) => const RepoSortSelectorDialog(),
                 ),
-              ],
-              flexibleSpace: SafeArea(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: _AnimatedAppBarBackground(
-                    key: _animatedBackgroundKey,
-                  ),
+                icon: const Icon(Icons.sort),
+                tooltip: i18n.sort,
+              ),
+            ],
+            flexibleSpace: SafeArea(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: _AnimatedAppBarBackground(
+                  key: _animatedBackgroundKey,
                 ),
               ),
             ),
-            const SliverRepoListView(),
-          ],
-        ),
+          ),
+          const SliverRepoListView(),
+        ],
       ),
     );
   }

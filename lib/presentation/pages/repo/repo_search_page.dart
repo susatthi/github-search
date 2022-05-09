@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../localizations/strings.g.dart';
 import '../../components/repo/repo_order_toggle_button.dart';
@@ -18,31 +19,33 @@ class RepoSearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Theme.of(context).backgroundColor,
-              pinned: true,
-              titleSpacing: 0,
-              title: const RepoSearchTextField(),
-              iconTheme: IconTheme.of(context),
-              actionsIconTheme: IconTheme.of(context),
-              actions: [
-                const RepoOrderToggleButton(),
-                IconButton(
-                  onPressed: () => showDialog<void>(
-                    context: context,
-                    builder: (context) => const RepoSortSelectorDialog(),
-                  ),
-                  icon: const Icon(Icons.sort),
-                  tooltip: i18n.sort,
-                ),
-              ],
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Theme.of(context).backgroundColor,
+            systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+              // ステータスバーの背景色を同じにする
+              statusBarColor: Theme.of(context).backgroundColor,
             ),
-          ],
-        ),
+            pinned: true,
+            titleSpacing: 0,
+            title: const RepoSearchTextField(),
+            iconTheme: IconTheme.of(context),
+            actionsIconTheme: IconTheme.of(context),
+            actions: [
+              const RepoOrderToggleButton(),
+              IconButton(
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (context) => const RepoSortSelectorDialog(),
+                ),
+                icon: const Icon(Icons.sort),
+                tooltip: i18n.sort,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

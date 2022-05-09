@@ -48,6 +48,7 @@ class _GitHubSearchApp extends ConsumerWidget {
     if (home != null) {
       // テスト用
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         supportedLocales: LocaleSettings.supportedLocales,
         locale: TranslationProvider.of(context).flutterLocale,
@@ -60,6 +61,7 @@ class _GitHubSearchApp extends ConsumerWidget {
 
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
