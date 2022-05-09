@@ -19,14 +19,13 @@ class RepoOrderToggleButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // リポジトリ検索の実行中やエラー時はトグルボタンを無効化する
     final asyncValue = ref.watch(repoListViewStateProvider);
-    return asyncValue.when(
-      data: (state) => const RepoOrderToggleButtonInternal(),
-      error: (_, __) => const RepoOrderToggleButtonInternal(
-        enabled: false,
-      ),
-      loading: () => const RepoOrderToggleButtonInternal(
-        enabled: false,
-      ),
+    return RepoOrderToggleButtonInternal(
+      enabled: asyncValue?.when(
+            data: (state) => true,
+            error: (_, __) => false,
+            loading: () => false,
+          ) ??
+          false,
     );
   }
 }

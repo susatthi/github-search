@@ -25,22 +25,23 @@ class SliverRepoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewStateProvider);
-    return asyncValue.when(
-      data: (state) => _SliverRepoListView(state: state),
-      error: (e, s) => SliverFillRemaining(
-        child: ErrorView(
-          error: e,
-          stackTrace: s,
-        ),
-      ),
-      loading: () => const SliverFillRemaining(
-        child: ListLoader(
-          iconSize: _leadingSize,
-          boneItemCount: 4,
-          items: 12,
-        ),
-      ),
-    );
+    return asyncValue?.when(
+          data: (state) => _SliverRepoListView(state: state),
+          error: (e, s) => SliverFillRemaining(
+            child: ErrorView(
+              error: e,
+              stackTrace: s,
+            ),
+          ),
+          loading: () => const SliverFillRemaining(
+            child: ListLoader(
+              iconSize: _leadingSize,
+              boneItemCount: 4,
+              items: 12,
+            ),
+          ),
+        ) ??
+        const SliverFillRemaining();
   }
 }
 
