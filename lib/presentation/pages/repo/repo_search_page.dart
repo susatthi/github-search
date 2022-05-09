@@ -5,17 +5,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../localizations/strings.g.dart';
-import '../../components/repo/repo_list_view.dart';
 import '../../components/repo/repo_order_toggle_button.dart';
-import '../../components/repo/repo_search_text_button.dart';
+import '../../components/repo/repo_search_text_field.dart';
 import '../../components/repo/repo_sort_selector_dialog.dart';
 
-/// リポジトリ一覧画面
-class RepoIndexPage extends StatelessWidget {
-  const RepoIndexPage({Key? key}) : super(key: key);
+/// リポジトリ検索画面
+class RepoSearchPage extends StatelessWidget {
+  const RepoSearchPage({Key? key}) : super(key: key);
 
-  static const name = 'repo_index';
-  static const path = '/repo';
+  static const name = 'repo_search';
+  static const path = 'search';
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +23,10 @@ class RepoIndexPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              floating: true,
+              backgroundColor: Theme.of(context).backgroundColor,
+              pinned: true,
               titleSpacing: 0,
-              title: const RepoSearchTextButton(),
+              title: const RepoSearchTextField(),
               iconTheme: IconTheme.of(context),
               actionsIconTheme: IconTheme.of(context),
               actions: [
@@ -42,7 +41,6 @@ class RepoIndexPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SliverRepoListView(),
           ],
         ),
       ),

@@ -10,7 +10,25 @@ import 'repo_search_repos_query.dart';
 
 /// リポジトリ検索用テキストフィールド
 class RepoSearchTextField extends ConsumerStatefulWidget {
-  const RepoSearchTextField({Key? key}) : super(key: key);
+  const RepoSearchTextField({
+    Key? key,
+    this.readOnly = false,
+    this.prefixIcon,
+    this.onTap,
+    this.onTappedDelete,
+  }) : super(key: key);
+
+  /// trueにすると読み取り専用になる
+  final bool readOnly;
+
+  /// TextFieldの先頭にアイコンを表示する
+  final Widget? prefixIcon;
+
+  /// TextFieldをタップしたときのイベント
+  final GestureTapCallback? onTap;
+
+  /// 削除ボタンをタップしたあとのイベント
+  final GestureTapCallback? onTappedDelete;
 
   @override
   ConsumerState<RepoSearchTextField> createState() =>
@@ -34,12 +52,17 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
 
   @override
   Widget build(BuildContext context) {
+    // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
+    ref.listen(repoSearchReposQueryProvider, (previous, next) {
+      _controller.text = next.toString();
+    });
+
     return TextField(
       controller: _controller,
       decoration: InputDecoration(
         hintText: i18n.searchRepos,
         contentPadding: const EdgeInsets.all(10),
-        prefixIcon: const Icon(Icons.search),
+        prefixIcon: widget.prefixIcon,
         // 1文字以上あるときだけ削除アイコンを表示する
         suffixIcon: ValueListenableBuilder<TextEditingValue>(
           valueListenable: _controller,
@@ -47,25 +70,34 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
             return Visibility(
               visible: value.text.isNotEmpty,
               child: InkWell(
-                onTap: _controller.clear,
-                child: const Icon(Icons.close),
+                onTap: () {
+                  // 検索文字列をクリアする
+                  _controller.clear();
+                  widget.onTappedDelete?.call();
+                },
+                child: Icon(
+                  Icons.close,
+                  color: IconTheme.of(context).color,
+                ),
               ),
             );
           },
         ),
-        fillColor: Theme.of(context).backgroundColor,
-        filled: true,
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.white,
-            width: 2,
+            color: Colors.transparent,
           ),
           borderRadius: BorderRadius.circular(25),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.white,
-            width: 2,
+            color: Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Colors.transparent,
           ),
           borderRadius: BorderRadius.circular(25),
         ),
@@ -73,9 +105,14 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         ref.read(repoSearchReposQueryProvider.notifier).query = text;
+        Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする
       textInputAction: TextInputAction.search,
+      // trueにすると画面表示時に自動でキーボードを出してくれる
+      autofocus: true,
+      readOnly: widget.readOnly,
+      onTap: widget.onTap,
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../presentation/components/repo/repo_detail_view_notifier.dart';
 import '../presentation/pages/error/error_page.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
+import '../presentation/pages/repo/repo_search_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';
 
 /// 画面遷移の定義Provider
@@ -22,6 +23,15 @@ final routerProvider = Provider<GoRouter>(
         name: RepoIndexPage.name,
         builder: (context, state) => const RepoIndexPage(),
         routes: [
+          // リポジトリ検索画面
+          GoRoute(
+            path: RepoSearchPage.path,
+            name: RepoSearchPage.name,
+            pageBuilder: (context, state) => NoTransitionPage<void>(
+              key: state.pageKey,
+              child: const RepoSearchPage(),
+            ),
+          ),
           // リポジトリ詳細画面
           GoRoute(
             path: RepoViewPage.path,
