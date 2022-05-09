@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,9 +28,12 @@ final routerProvider = Provider<GoRouter>(
           GoRoute(
             path: RepoSearchPage.path,
             name: RepoSearchPage.name,
-            pageBuilder: (context, state) => NoTransitionPage<void>(
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: const RepoSearchPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      FadeTransition(opacity: animation, child: child),
             ),
           ),
           // リポジトリ詳細画面
@@ -54,6 +58,12 @@ final routerProvider = Provider<GoRouter>(
     errorBuilder: (context, state) => ErrorPage(
       error: state.error,
     ),
+    observers: [routeObserver],
     debugLogDiagnostics: !kReleaseMode,
   ),
 );
+
+/// ルートオブザーバー
+///
+/// 画面のpush/popのイベント検知に使用する。
+final routeObserver = RouteObserver<ModalRoute<void>>();
