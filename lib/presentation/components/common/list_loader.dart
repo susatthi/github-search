@@ -1,64 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:skeleton_loader/skeleton_loader.dart';
+import 'package:shimmer/shimmer.dart';
 
 /// ListView用の読み込み中ローダー
 class ListLoader extends StatelessWidget {
   const ListLoader({
     Key? key,
-    this.iconSize = 56,
-    this.items = 1,
-    this.boneHeight = 14,
-    this.boneItemCount = 2,
+    this.avatarSize = 56,
   })  : assert(boneItemCount >= 2),
         super(key: key);
 
-  /// leading に表示するダミーアイコンのサイズ
-  final double iconSize;
+  /// leading に表示するダミーアバターのサイズ
+  final double avatarSize;
 
   /// アイテムの数
-  final int items;
+  static const itemCount = 20;
 
   /// ダミー行の高さ
-  final double boneHeight;
+  static const boneHeight = 14.0;
 
   /// ダミー行の数
-  final int boneItemCount;
+  static const boneItemCount = 4;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
-      child: SkeletonLoader(
+      child: Shimmer.fromColors(
         baseColor: Colors.grey.shade300,
         highlightColor: Colors.grey.shade100,
-        items: items,
-        builder: Column(
-          children: [
-            ListTile(
-              leading: CircleAvatar(
-                radius: iconSize / 2,
-                backgroundColor: Colors.white,
-              ),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  for (var i = 0; i < boneItemCount - 1; i++)
-                    _Bone(
-                      width: double.infinity,
-                      height: boneHeight,
-                    ),
-                  _Bone(
-                    width: 64,
-                    height: boneHeight,
-                  ),
-                ],
-              ),
-            ),
-            const Divider(
-              color: Colors.white,
-            ),
-          ],
+        period: const Duration(milliseconds: 2000),
+        child: ListView.separated(
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemBuilder: (_, __) => _ListTile(
+            iconSize: avatarSize,
+            boneItemCount: boneItemCount,
+            boneHeight: boneHeight,
+          ),
+          separatorBuilder: (context, _) => const Divider(
+            color: Colors.white,
+          ),
+          itemCount: itemCount,
         ),
+      ),
+    );
+  }
+}
+
+class _ListTile extends StatelessWidget {
+  const _ListTile({
+    Key? key,
+    required this.iconSize,
+    required this.boneItemCount,
+    required this.boneHeight,
+  }) : super(key: key);
+
+  final double iconSize;
+  final int boneItemCount;
+  final double boneHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        radius: iconSize / 2,
+        backgroundColor: Colors.white,
+      ),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (var i = 0; i < boneItemCount - 1; i++)
+            _Bone(
+              width: double.infinity,
+              height: boneHeight,
+            ),
+          _Bone(
+            width: 64,
+            height: boneHeight,
+          ),
+        ],
       ),
     );
   }

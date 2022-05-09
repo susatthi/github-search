@@ -18,6 +18,9 @@ import '../common/list_loader.dart';
 import 'repo_list_view_notifier.dart';
 import 'repo_list_view_state.dart';
 
+/// ListTileのleadingに表示するアバターのサイズ
+const _avatarSize = 40.0;
+
 /// Sliver版リポジトリ一覧View
 class SliverRepoListView extends ConsumerWidget {
   const SliverRepoListView({Key? key}) : super(key: key);
@@ -35,9 +38,7 @@ class SliverRepoListView extends ConsumerWidget {
           ),
           loading: () => const SliverFillRemaining(
             child: ListLoader(
-              iconSize: _leadingSize,
-              boneItemCount: 4,
-              items: 12,
+              avatarSize: _avatarSize,
             ),
           ),
         ) ??
@@ -92,7 +93,7 @@ class _RepoListTile extends StatelessWidget {
     return ListTile(
       leading: CachedCircleAvatar(
         url: data.owner.avatarUrl,
-        size: _leadingSize,
+        size: _avatarSize,
         loading: false,
       ),
       title: Column(
@@ -225,6 +226,3 @@ class _LastIndicator extends ConsumerWidget {
     );
   }
 }
-
-/// ListTileのleadingのサイズ
-const _leadingSize = 40.0;
