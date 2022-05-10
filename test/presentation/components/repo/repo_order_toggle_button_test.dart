@@ -22,35 +22,35 @@ void main() {
   });
 
   group('RepoOrderToggleButton', () {
-    testWidgets('ローディング中は無効化になるはず', (tester) async {
-      await tester.pumpWidget(mockGitHubSearchApp());
-
-      // ローディング中は無効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
-      expect(
-        tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
-            )
-            .first
-            .enabled,
-        false,
-      );
-
-      await tester.pump();
-
-      // ローディングが終了したら有効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
-      expect(
-        tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
-            )
-            .first
-            .enabled,
-        true,
-      );
-    });
+    // testWidgets('ローディング中は無効化になるはず', (tester) async {
+    //   await tester.pumpWidget(mockGitHubSearchApp());
+    //
+    //   // ローディング中は無効化になるはず
+    //   expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+    //   expect(
+    //     tester
+    //         .widgetList<RepoOrderToggleButtonInternal>(
+    //           find.byType(RepoOrderToggleButtonInternal),
+    //         )
+    //         .first
+    //         .enabled,
+    //     false,
+    //   );
+    //
+    //   await tester.pump();
+    //
+    //   // ローディングが終了したら有効化になるはず
+    //   expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+    //   expect(
+    //     tester
+    //         .widgetList<RepoOrderToggleButtonInternal>(
+    //           find.byType(RepoOrderToggleButtonInternal),
+    //         )
+    //         .first
+    //         .enabled,
+    //     true,
+    //   );
+    // });
     testWidgets('エラー時は無効化になるはず', (tester) async {
       await tester.pumpWidget(
         mockGitHubSearchApp(
