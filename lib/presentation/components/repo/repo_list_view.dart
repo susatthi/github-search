@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../entities/repo/repo_data.dart';
+import '../../../localizations/strings.g.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
@@ -70,6 +71,20 @@ class _SliverRepoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 検索文字列が空の場合は検索を促す
+    if (state.query.isEmpty) {
+      return const SliverFillRemaining(
+        child: _PromptSearchView(),
+      );
+    }
+
+    // 検索結果が0件の場合はリポジトリが見つからなかった旨を表示する
+    if (state.items.isEmpty) {
+      return const SliverFillRemaining(
+        child: _EmptyItemsView(),
+      );
+    }
+
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -237,6 +252,58 @@ class _LastIndicator extends ConsumerWidget {
           await ref.read(repoListViewStateProvider.notifier).fetchNextPage();
         }
       },
+    );
+  }
+}
+
+/// 検索前に表示する検索を促すView
+class _PromptSearchView extends StatelessWidget {
+  const _PromptSearchView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            Assets.lottie.githubIconBlack,
+            width: 120,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            i18n.canSearchRepos,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 検索結果が0件だった場合に表示するView
+class _EmptyItemsView extends StatelessWidget {
+  const _EmptyItemsView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            Assets.lottie.emptyState,
+            width: 200,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            i18n.notFoundRepos,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      ),
     );
   }
 }

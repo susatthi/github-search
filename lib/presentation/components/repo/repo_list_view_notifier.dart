@@ -78,7 +78,7 @@ class RepoListViewNotifier
         'result: totalCount=${result.totalCount}, '
         'items=${result.items.length}, ',
       );
-      return RepoListViewState.from(result);
+      return RepoListViewState.from(result, trimQuery);
     });
   }
 

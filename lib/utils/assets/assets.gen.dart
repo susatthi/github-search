@@ -36,6 +36,12 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/empty-state.json
+  String get emptyState => 'assets/lottie/empty-state.json';
+
+  /// File path: assets/lottie/github-icon-black.json
+  String get githubIconBlack => 'assets/lottie/github-icon-black.json';
+
   /// File path: assets/lottie/loading-indicator.json
   String get loadingIndicator => 'assets/lottie/loading-indicator.json';
 }

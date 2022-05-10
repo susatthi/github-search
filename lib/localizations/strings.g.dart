@@ -3,7 +3,7 @@
  * Generated file. Do not edit.
  *
  * Locales: 2
- * Strings: 50 (25.0 per locale)
+ * Strings: 54 (27.0 per locale)
  */
 
 import 'package:flutter/widgets.dart';
@@ -303,6 +303,7 @@ class _StringsEn {
 	String get appName => 'GitHubSearch';
 	String get asc => 'Asc';
 	String get bestMatch => 'Best match';
+	String get canSearchRepos => 'You can search repositories';
 	String get desc => 'Desc';
 	String get error => 'Error';
 	String get errorOccurred => 'An error has occurred.';
@@ -310,6 +311,7 @@ class _StringsEn {
 	late final _StringsGitHubExceptionMessageEn gitHubExceptionMessage = _StringsGitHubExceptionMessageEn._(_root);
 	String get helpWantedIssuesCount => 'Help wanted ${_root.issuesCount}';
 	String get issuesCount => 'Issues count';
+	String get notFoundRepos => 'We couldn\'t find any repositories';
 	String get ownerName => 'Owner name';
 	String get projectLanguage => 'Project language';
 	String get repo => 'Repository';
@@ -350,6 +352,7 @@ class _StringsJa implements _StringsEn {
 	@override String get appName => 'GitHubSearch';
 	@override String get asc => '昇順';
 	@override String get bestMatch => 'ベストマッチ';
+	@override String get canSearchRepos => 'リポジトリを検索できます';
 	@override String get desc => '降順';
 	@override String get error => 'エラー';
 	@override String get errorOccurred => 'エラーが発生しました。';
@@ -357,6 +360,7 @@ class _StringsJa implements _StringsEn {
 	@override late final _StringsGitHubExceptionMessageJa gitHubExceptionMessage = _StringsGitHubExceptionMessageJa._(_root);
 	@override String get helpWantedIssuesCount => '助けを求めている${_root.issuesCount}';
 	@override String get issuesCount => 'Issue数';
+	@override String get notFoundRepos => 'リポジトリが見つかりませんでした';
 	@override String get ownerName => 'オーナー名';
 	@override String get projectLanguage => 'プロジェクト言語';
 	@override String get repo => 'リポジトリ';
