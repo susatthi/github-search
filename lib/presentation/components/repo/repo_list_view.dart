@@ -37,6 +37,7 @@ class SliverRepoListView extends ConsumerWidget {
     return asyncValue?.when(
           data: (state) => _SliverRepoListView(state: state),
           error: (e, s) => SliverFillRemaining(
+            hasScrollBody: false,
             child: ErrorView(
               error: e,
               stackTrace: s,
@@ -74,6 +75,7 @@ class _SliverRepoListView extends StatelessWidget {
     // 検索文字列が空の場合は検索を促す
     if (state.query.isEmpty) {
       return const SliverFillRemaining(
+        hasScrollBody: false,
         child: _PromptSearchView(),
       );
     }
@@ -81,6 +83,7 @@ class _SliverRepoListView extends StatelessWidget {
     // 検索結果が0件の場合はリポジトリが見つからなかった旨を表示する
     if (state.items.isEmpty) {
       return const SliverFillRemaining(
+        hasScrollBody: false,
         child: _EmptyItemsView(),
       );
     }
@@ -276,6 +279,7 @@ class _PromptSearchView extends StatelessWidget {
             i18n.canSearchRepos,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
+          const SizedBox(height: 40),
         ],
       ),
     );
@@ -302,6 +306,7 @@ class _EmptyItemsView extends StatelessWidget {
             i18n.notFoundRepos,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
+          const SizedBox(height: 40),
         ],
       ),
     );
