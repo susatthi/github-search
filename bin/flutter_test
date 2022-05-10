@@ -11,6 +11,10 @@ if [ $? -gt 0 ]; then
   exit 1
 fi
 
+# 前回のテスト結果を削除する
+rm -rf coverage
+echo 'Removed coverage dir'
+
 # テストを実行する
 echo 'Testing github-search...'
 fvm flutter test --no-test-assets --coverage --machine > test-report.log
