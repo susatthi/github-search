@@ -306,7 +306,7 @@ class _StringsEn {
 	String get canSearchRepos => 'You can search repositories';
 	String get desc => 'Desc';
 	String get error => 'Error';
-	String get errorOccurred => 'An error has occurred.';
+	String get errorOccurred => 'An error has occurred';
 	String get forksCount => 'Forks count';
 	late final _StringsGitHubExceptionMessageEn gitHubExceptionMessage = _StringsGitHubExceptionMessageEn._(_root);
 	String get helpWantedIssuesCount => 'Help wanted ${_root.issuesCount}';
@@ -329,14 +329,14 @@ class _StringsGitHubExceptionMessageEn {
 	final _StringsEn _root; // ignore: unused_field
 
 	// Translations
-	String get badRequest => 'Illegal request sent. (400)';
-	String get badCredentials => 'Illegal request sent. (401)';
-	String get maximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again. (403)';
-	String get notFound => 'No data found. (404)';
-	String get validationFailed => 'Illegal request sent. (422)';
-	String get serviceUnavailable => 'Please wait a while and try again.  (503)';
-	String get unknown => 'An unknown error has occurred. (-1)';
-	String get noInternetConnection => 'Please try again in a good communication environment. (-2)';
+	String get badRequest => 'Illegal request sent (400)';
+	String get badCredentials => 'Illegal request sent (401)';
+	String get maximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again (403)';
+	String get notFound => 'No data found (404)';
+	String get validationFailed => 'Illegal request sent (422)';
+	String get serviceUnavailable => 'Please wait a while and try again (503)';
+	String get unknown => 'An unknown error has occurred (-1)';
+	String get noInternetConnection => 'Please try again in a good communication environment (-2)';
 }
 
 // Path: <root>
@@ -355,7 +355,7 @@ class _StringsJa implements _StringsEn {
 	@override String get canSearchRepos => 'リポジトリを検索できます';
 	@override String get desc => '降順';
 	@override String get error => 'エラー';
-	@override String get errorOccurred => 'エラーが発生しました。';
+	@override String get errorOccurred => 'エラーが発生しました';
 	@override String get forksCount => 'Fork数';
 	@override late final _StringsGitHubExceptionMessageJa gitHubExceptionMessage = _StringsGitHubExceptionMessageJa._(_root);
 	@override String get helpWantedIssuesCount => '助けを求めている${_root.issuesCount}';
@@ -378,12 +378,12 @@ class _StringsGitHubExceptionMessageJa implements _StringsGitHubExceptionMessage
 	@override final _StringsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get badRequest => '不正なリクエストが送信されました。(400)';
-	@override String get badCredentials => '不正なリクエストが送信されました。(401)';
-	@override String get maximumNumberOfLoginAttemptsExceeded => 'しばらく時間をおいてから再度お試しください。(403)';
-	@override String get notFound => 'データが見つかりませんでした。(404)';
-	@override String get validationFailed => '不正なリクエストが送信されました。(422)';
-	@override String get serviceUnavailable => 'しばらく時間をおいてから再度お試しください。(503)';
-	@override String get unknown => '不明なエラーが発生しました。(-1)';
-	@override String get noInternetConnection => '通信環境の良いところで再度お試しください。(-2)';
+	@override String get badRequest => '不正なリクエストが送信されました (400)';
+	@override String get badCredentials => '不正なリクエストが送信されました (401)';
+	@override String get maximumNumberOfLoginAttemptsExceeded => 'しばらく時間をおいてから再度お試しください (403)';
+	@override String get notFound => 'データが見つかりませんでした (404)';
+	@override String get validationFailed => '不正なリクエストが送信されました (422)';
+	@override String get serviceUnavailable => 'しばらく時間をおいてから再度お試しください (503)';
+	@override String get unknown => '不明なエラーが発生しました (-1)';
+	@override String get noInternetConnection => '通信環境の良いところで再度お試しください (-2)';
 }

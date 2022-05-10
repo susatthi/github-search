@@ -39,6 +39,9 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/empty-state.json
   String get emptyState => 'assets/lottie/empty-state.json';
 
+  /// File path: assets/lottie/error.json
+  String get error => 'assets/lottie/error.json';
+
   /// File path: assets/lottie/github-icon-black.json
   String get githubIconBlack => 'assets/lottie/github-icon-black.json';
 
