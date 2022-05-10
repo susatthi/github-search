@@ -49,9 +49,9 @@ class SliverRepoListView extends ConsumerWidget {
             // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
             // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
             if (controller.hasClients) {
-              Future<void>.delayed(const Duration(milliseconds: 50), () {
-                controller.jumpTo(0);
-              });
+              WidgetsBinding.instance?.addPostFrameCallback(
+                (_) => controller.jumpTo(0),
+              );
             }
             return const SliverFillRemaining(
               child: ListLoader(
