@@ -10,7 +10,9 @@ import '../utils/assets/fonts.gen.dart';
 /// テーマProvider
 final themeProvider = Provider<ThemeData>(
   (ref) => ThemeData(
-    primarySwatch: Colors.blue,
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: Colors.grey,
+    ),
     fontFamily: FontFamily.murecho,
   ),
 );

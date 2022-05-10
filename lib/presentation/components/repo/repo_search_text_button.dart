@@ -24,7 +24,7 @@ class RepoSearchTextButton extends ConsumerWidget {
         onPressed: null,
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
-            Theme.of(context).backgroundColor,
+            Theme.of(context).colorScheme.background,
           ),
           foregroundColor: MaterialStateProperty.all<Color?>(
             Theme.of(context).textTheme.titleMedium?.color,

@@ -35,7 +35,7 @@ class RepoSearchPage extends StatelessWidget {
                 tooltip: i18n.sort,
               ),
             ],
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             pinned: true,
           ),
         ],

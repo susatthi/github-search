@@ -166,7 +166,7 @@ class _AnimatedAppBarBackgroundState extends State<_AnimatedAppBarBackground> {
       height: _height,
       margin: _margin,
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.all(Radius.circular(_radius)),
       ),
       child: const SizedBox(
