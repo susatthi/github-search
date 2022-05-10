@@ -43,7 +43,7 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final order = ref.watch(repoSearchReposOrderProvider);
-    logger.d('enabled=$enabled, order=${order.name}');
+    logger.v('enabled=$enabled, order=${order.name}');
     return IconButton(
       onPressed: enabled
           ? () {
