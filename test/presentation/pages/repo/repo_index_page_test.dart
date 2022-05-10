@@ -12,6 +12,7 @@ import 'package:github_search/presentation/components/repo/repo_search_text_butt
 import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
@@ -108,17 +109,7 @@ void main() {
     //   expect(find.text('flutter/flutter'), findsNothing);
     //   expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
     // });
-    // testWidgets('一番下までスクロールしたら次のページを取得するはず', (tester) async {
-    //   await tester.pumpWidget(mockGitHubSearchApp());
-    //   await tester.pump();
-    //
-    //   expect(find.text('flutter/flutter'), findsOneWidget);
-    //   expect(find.text('mahmudahsan/flutter'), findsNothing);
-    //
-    //   // 一番下までスクロールする
-    //   await _doScroll(tester, find.byType(ListView), const Offset(0, 2000));
-    //   expect(find.text('mahmudahsan/flutter'), findsOneWidget);
-    // });
+
     // testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {
     //   await tester.pumpWidget(mockGitHubSearchApp());
     //   await tester.pump();
@@ -174,57 +165,33 @@ void main() {
     //   expect(find.text('mitesh77/Best-Flutter-UI-Templates'), findsOneWidget);
     //   expect(find.text('Tencent/MMKV'), findsOneWidget);
     // });
-    // testWidgets('オーダーボタン押下で昇順降順を切り替えられるはず', (tester) async {
-    //   await tester.pumpWidget(mockGitHubSearchApp());
-    //   await tester.pump();
-    //
-    //   // 最初は降順のはず
-    //   expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
-    //
-    //   // オーダーアイコンをタップ
-    //   await tester.runAsync<void>(() async {
-    //     testLogger.i('Tap order toggle button 1');
-    //     await tester.tap(find.byType(RepoOrderToggleButton));
-    //   });
-    //   await tester.pump();
-    //
-    //   // 昇順になったはず
-    //   expect(find.byIcon(Icons.arrow_upward), findsOneWidget);
-    //   await tester.pump();
-    //
-    //   // もう一度オーダーアイコンをタップ
-    //   await tester.runAsync<void>(() async {
-    //     testLogger.i('Tap order toggle button 2');
-    //     await tester.tap(find.byType(RepoOrderToggleButton));
-    //   });
-    //   await tester.pump();
-    //
-    //   // 降順になったはず
-    //   expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
-    // });
+    testWidgets('オーダーボタン押下で昇順降順を切り替えられるはず', (tester) async {
+      await tester.pumpWidget(mockGitHubSearchApp());
+      await tester.pump();
+
+      // 最初は降順のはず
+      expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
+
+      // オーダーアイコンをタップ
+      await tester.runAsync<void>(() async {
+        testLogger.i('Tap order toggle button 1');
+        await tester.tap(find.byType(RepoOrderToggleButton));
+      });
+      await tester.pump();
+
+      // 昇順になったはず
+      expect(find.byIcon(Icons.arrow_upward), findsOneWidget);
+      await tester.pump();
+
+      // もう一度オーダーアイコンをタップ
+      await tester.runAsync<void>(() async {
+        testLogger.i('Tap order toggle button 2');
+        await tester.tap(find.byType(RepoOrderToggleButton));
+      });
+      await tester.pump();
+
+      // 降順になったはず
+      expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
+    });
   });
 }
-
-/// Scrolls the specified widget by the specified offset and waits sufficiently
-/// long for the [VisibilityDetector] callbacks to fire.
-///
-/// see: https://github.com/google/flutter.widgets/blob/master/packages/visibility_detector/test/widget_test.dart
-// Future<void> _doScroll(
-//   WidgetTester tester,
-//   Finder finder,
-//   Offset scrollOffset,
-// ) async {
-//   // The scroll direction is the opposite of the direction to drag.  We also
-//   // must drag by [kDragSlopDefault] first to start the drag.
-//   final dragOffset = -Offset.fromDirection(
-//     scrollOffset.direction,
-//     scrollOffset.distance + kDragSlopDefault,
-//   );
-//   await tester.drag(finder, dragOffset);
-//
-//   // Wait for the drag to complete.
-//   await tester.pumpAndSettle();
-//
-//   // Wait for callbacks to fire.
-//   await tester.pump(VisibilityDetectorController.instance.updateInterval);
-// }

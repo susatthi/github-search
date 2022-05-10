@@ -28,10 +28,12 @@ const _avatarSize = 40.0;
 class SliverRepoListView extends ConsumerWidget {
   const SliverRepoListView({
     Key? key,
-    required this.controller,
+    this.controller,
   }) : super(key: key);
 
-  final ScrollController controller;
+  /// ローディングを表示したら強制的にスクロール位置をトップに戻すために
+  /// CustomScrollView の ScrollController をもらう
+  final ScrollController? controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,9 +50,9 @@ class SliverRepoListView extends ConsumerWidget {
           loading: () {
             // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
             // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
-            if (controller.hasClients) {
+            if (controller?.hasClients == true) {
               WidgetsBinding.instance?.addPostFrameCallback(
-                (_) => controller.jumpTo(0),
+                (_) => controller!.jumpTo(0),
               );
             }
             return const SliverFillRemaining(
@@ -78,7 +80,7 @@ class _SliverRepoListView extends StatelessWidget {
     if (state.query.isEmpty) {
       return const SliverFillRemaining(
         hasScrollBody: false,
-        child: _PromptSearchView(),
+        child: RepoPromptSearchView(),
       );
     }
 
@@ -86,7 +88,7 @@ class _SliverRepoListView extends StatelessWidget {
     if (state.items.isEmpty) {
       return const SliverFillRemaining(
         hasScrollBody: false,
-        child: _EmptyItemsView(),
+        child: RepoEmptyItemsView(),
       );
     }
 
@@ -151,7 +153,7 @@ class _RepoListTile extends StatelessWidget {
       subtitle: Row(
         children: [
           SizedBox(
-            width: 64,
+            width: 80,
             child: _StargazersCountLabel(
               text: data.stargazersCountShort,
             ),
@@ -252,7 +254,7 @@ class _LastIndicator extends ConsumerWidget {
       ),
       onVisibilityChanged: (info) async {
         if (info.visibleFraction > 0.1) {
-          logger.i('appeared progress: info=$info');
+          logger.i('Appeared progress: info=$info');
           // 表示されたので次のページを取得する
           await ref.read(repoListViewStateProvider.notifier).fetchNextPage();
         }
@@ -262,8 +264,9 @@ class _LastIndicator extends ConsumerWidget {
 }
 
 /// 検索前に表示する検索を促すView
-class _PromptSearchView extends StatelessWidget {
-  const _PromptSearchView({Key? key}) : super(key: key);
+@visibleForTesting
+class RepoPromptSearchView extends StatelessWidget {
+  const RepoPromptSearchView({Key? key}) : super(key: key);
 
   static final _lottieFilePaths = <String>[
     Assets.lottie.githubDarkMode,
@@ -301,8 +304,9 @@ class _PromptSearchView extends StatelessWidget {
 }
 
 /// 検索結果が0件だった場合に表示するView
-class _EmptyItemsView extends StatelessWidget {
-  const _EmptyItemsView({Key? key}) : super(key: key);
+@visibleForTesting
+class RepoEmptyItemsView extends StatelessWidget {
+  const RepoEmptyItemsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

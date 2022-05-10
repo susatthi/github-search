@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../localizations/strings.g.dart';
+import '../../../utils/logger.dart';
 import 'repo_search_repos_query.dart';
 
 /// リポジトリ検索用テキストフィールド
@@ -16,6 +17,7 @@ class RepoSearchTextField extends ConsumerStatefulWidget {
     this.prefixIcon,
     this.onTap,
     this.onTappedDelete,
+    this.controller,
   }) : super(key: key);
 
   /// trueにすると読み取り専用になる
@@ -30,23 +32,29 @@ class RepoSearchTextField extends ConsumerStatefulWidget {
   /// 削除ボタンをタップしたあとのイベント
   final GestureTapCallback? onTappedDelete;
 
+  /// TextEditingController
+  final TextEditingController? controller;
+
   @override
   ConsumerState<RepoSearchTextField> createState() =>
       _RepoSearchTextFieldState();
 }
 
 class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
-  final _controller = TextEditingController();
+  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = widget.controller ?? TextEditingController();
     _controller.text = ref.read(repoSearchReposQueryProvider);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
@@ -54,6 +62,10 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   Widget build(BuildContext context) {
     // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
     ref.listen(repoSearchReposQueryProvider, (previous, next) {
+      logger.i(
+        'Update query: current = ${_controller.text}, '
+        'next = ${next.toString()}',
+      );
       _controller.text = next.toString();
     });
 
@@ -67,6 +79,7 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
         suffixIcon: ValueListenableBuilder<TextEditingValue>(
           valueListenable: _controller,
           builder: (_, value, __) {
+            logger.i('Update delete icon: visible = ${value.text.isNotEmpty}');
             return Visibility(
               visible: value.text.isNotEmpty,
               child: InkWell(

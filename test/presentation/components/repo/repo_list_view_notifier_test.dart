@@ -51,6 +51,7 @@ void main() {
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, RepoListViewNotifier.perPage);
+      expect(state.query, 'flutter');
 
       // 次のページを取得する
       await notifier.fetchNextPage();
@@ -59,6 +60,7 @@ void main() {
       state = notifier.state?.value;
       expect(state!.page, 2);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);
+      expect(state.query, 'flutter');
     });
     test('1ページ目を未取得の状態でfetchNextPage()を実行しても問題ないはず', () async {
       // 初期値はAsyncLoading
