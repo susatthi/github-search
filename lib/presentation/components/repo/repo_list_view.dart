@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -263,6 +265,18 @@ class _LastIndicator extends ConsumerWidget {
 class _PromptSearchView extends StatelessWidget {
   const _PromptSearchView({Key? key}) : super(key: key);
 
+  static final _lottieFilePaths = <String>[
+    Assets.lottie.githubDarkMode,
+    Assets.lottie.githubLogo,
+    Assets.lottie.octocat,
+    Assets.lottie.coolOctovat,
+    Assets.lottie.dashboardZippeo,
+  ];
+
+  /// Lottieファイルパスをランダムで返す
+  String get lottieFilePath =>
+      _lottieFilePaths[Random().nextInt(_lottieFilePaths.length)];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -271,8 +285,8 @@ class _PromptSearchView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
-            Assets.lottie.githubIconBlack,
-            width: 120,
+            lottieFilePath,
+            width: 200,
           ),
           const SizedBox(height: 24),
           Text(
