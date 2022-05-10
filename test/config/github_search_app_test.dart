@@ -25,7 +25,9 @@ void main() {
     //
     //   // 存在しないパスに遷移する
     //   tester
-    //       .element(find.byWidgetPredicate((widget) => widget is RepoIndexPage))
+    //       .element(
+    //         find.byWidgetPredicate((widget) => widget is RepoIndexPage),
+    //       )
     //       .go('/unknown');
     //   await tester.pumpAndSettle();
     //

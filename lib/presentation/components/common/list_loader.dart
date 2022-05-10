@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-/// アイテムの数
-const _itemCount = 20;
-
-/// ダミー行の高さ
-const _boneHeight = 14.0;
-
-/// ダミー行の数
-const _boneItemCount = 4;
-
 /// ListView用の読み込み中ローダー
 class ListLoader extends StatelessWidget {
   const ListLoader({
@@ -19,6 +10,15 @@ class ListLoader extends StatelessWidget {
 
   /// leading に表示するダミーアバターのサイズ
   final double avatarSize;
+
+  /// アイテムの数
+  static const itemCount = 20;
+
+  /// ダミー行の高さ
+  static const boneHeight = 14.0;
+
+  /// ダミー行の数
+  static const boneItemCount = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class ListLoader extends StatelessWidget {
           separatorBuilder: (context, _) => const Divider(
             color: Colors.white,
           ),
-          itemCount: _itemCount,
+          itemCount: itemCount,
         ),
       ),
     );
@@ -62,14 +62,14 @@ class _LoaderListTile extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (var i = 0; i < _boneItemCount - 1; i++)
-            const _Bone(
+          for (var i = 0; i < ListLoader.boneItemCount - 1; i++)
+            const LoaderBone(
               width: double.infinity,
-              height: _boneHeight,
+              height: ListLoader.boneHeight,
             ),
-          const _Bone(
+          const LoaderBone(
             width: 64,
-            height: _boneHeight,
+            height: ListLoader.boneHeight,
           ),
         ],
       ),
@@ -77,8 +77,9 @@ class _LoaderListTile extends StatelessWidget {
   }
 }
 
-class _Bone extends StatelessWidget {
-  const _Bone({
+@visibleForTesting
+class LoaderBone extends StatelessWidget {
+  const LoaderBone({
     Key? key,
     this.width,
     this.height,
