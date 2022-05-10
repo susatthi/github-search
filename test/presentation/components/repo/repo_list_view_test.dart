@@ -10,7 +10,10 @@ import 'package:github_search/presentation/components/common/error_view.dart';
 import 'package:github_search/presentation/components/common/list_loader.dart';
 import 'package:github_search/presentation/components/repo/repo_list_view.dart';
 import 'package:github_search/presentation/components/repo/repo_search_repos_query.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/repositories/github/http_client.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mockito/mockito.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../test_utils/hive.dart';
@@ -33,11 +36,11 @@ class _MockPage extends StatelessWidget {
 }
 
 void main() {
-  // 項目押下の画面遷移のテストは画面側で実施する
-
   late Directory tmpDir;
+  late MockGoRouter mockGoRouter;
   setUp(() async {
     tmpDir = await openAppDataBox();
+    mockGoRouter = MockGoRouter();
   });
   tearDown(() async {
     await closeAppDataBox(tmpDir);
@@ -141,6 +144,44 @@ void main() {
         const Offset(0, 10000),
       );
       expect(find.text('mahmudahsan/flutter'), findsOneWidget);
+    });
+
+    testWidgets('ListTileをタップしたらリポジトリ詳細画面に遷移するはず', (tester) async {
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          home: InheritedGoRouter(
+            goRouter: mockGoRouter,
+            child: const _MockPage(),
+          ),
+        ),
+      );
+
+      await tester.pump();
+
+      verifyNever(
+        mockGoRouter.goNamed(
+          RepoViewPage.name,
+          params: RepoViewPage.params(
+            ownerName: 'flutter',
+            repoName: 'flutter',
+          ),
+        ),
+      );
+
+      // ListTileをタップする
+      expect(find.text('flutter/flutter'), findsOneWidget);
+      await tester.tap(find.text('flutter/flutter'));
+
+      // リポジトリ詳細画面に遷移するはず
+      verify(
+        mockGoRouter.goNamed(
+          RepoViewPage.name,
+          params: RepoViewPage.params(
+            ownerName: 'flutter',
+            repoName: 'flutter',
+          ),
+        ),
+      ).called(1);
     });
   });
 }

@@ -9,8 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/github_search_app.dart';
 import 'package:github_search/presentation/components/repo/repo_search_repos_query.dart';
 import 'package:github_search/repositories/github/http_client.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:mockito/mockito.dart';
 
 import 'logger.dart';
 import 'utils.dart';
@@ -134,3 +136,6 @@ ProviderContainer mockProviderContainer({
     ],
   );
 }
+
+/// モック版のGoRouter
+class MockGoRouter extends Mock implements GoRouter {}
