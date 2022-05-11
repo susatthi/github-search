@@ -25,7 +25,7 @@ class RepoIndexPage extends StatefulWidget {
 }
 
 class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
-  final _animatedBackgroundKey = GlobalKey<_AnimatedAppBarBackgroundState>();
+  final _animatedBackgroundKey = GlobalKey<AnimatedAppBarBackgroundState>();
   final _scrollController = ScrollController();
 
   @override
@@ -50,7 +50,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
             flexibleSpace: SafeArea(
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: _AnimatedAppBarBackground(
+                child: AnimatedAppBarBackground(
                   key: _animatedBackgroundKey,
                 ),
               ),
@@ -102,15 +102,17 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
 /// 検索用テキストボタン押下でリポジトリ検索画面に遷移する際、検索用テキストボタンの
 /// 背景がAppBar全体に広がるアニメーションを表現している。逆に戻ってきた時は閉じる
 /// アニメーションをする。
-class _AnimatedAppBarBackground extends StatefulWidget {
-  const _AnimatedAppBarBackground({Key? key}) : super(key: key);
+@visibleForTesting
+class AnimatedAppBarBackground extends StatefulWidget {
+  const AnimatedAppBarBackground({Key? key}) : super(key: key);
 
   @override
-  State<_AnimatedAppBarBackground> createState() =>
-      _AnimatedAppBarBackgroundState();
+  State<AnimatedAppBarBackground> createState() =>
+      AnimatedAppBarBackgroundState();
 }
 
-class _AnimatedAppBarBackgroundState extends State<_AnimatedAppBarBackground> {
+@visibleForTesting
+class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
   static const _animateDuration = Duration(milliseconds: 300);
 
   // 注意: 検索用テキストフィールドのサイズが変わったら下記のパラメータも変える必要がある
@@ -118,7 +120,7 @@ class _AnimatedAppBarBackgroundState extends State<_AnimatedAppBarBackground> {
   static const _initHeight = 48.0;
   static const _initRadius = 25.0;
 
-  bool _isFilled = false;
+  bool isFilled = false;
   Duration _duration = _animateDuration;
   EdgeInsets _margin = _initMargin;
   double _height = _initHeight;
@@ -128,13 +130,13 @@ class _AnimatedAppBarBackgroundState extends State<_AnimatedAppBarBackground> {
   void fill({
     bool animated = true,
   }) {
-    if (_isFilled) {
+    if (isFilled) {
       return;
     }
 
     final size = MediaQuery.of(context).size;
     setState(() {
-      _isFilled = true;
+      isFilled = true;
       _duration = animated ? _animateDuration : Duration.zero;
       _margin = EdgeInsets.zero;
       _height = size.height;
@@ -146,11 +148,11 @@ class _AnimatedAppBarBackgroundState extends State<_AnimatedAppBarBackground> {
   void collapse({
     bool animated = true,
   }) {
-    if (!_isFilled) {
+    if (!isFilled) {
       return;
     }
     setState(() {
-      _isFilled = false;
+      isFilled = false;
       _duration = animated ? _animateDuration : Duration.zero;
       _margin = _initMargin;
       _height = _initHeight;

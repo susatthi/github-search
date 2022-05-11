@@ -37,23 +37,25 @@ class RepoSearchTextField extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<RepoSearchTextField> createState() =>
-      _RepoSearchTextFieldState();
+      RepoSearchTextFieldState();
 }
 
-class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
-  late TextEditingController _controller;
+@visibleForTesting
+class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
+  late TextEditingController controller;
+  final focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? TextEditingController();
-    _controller.text = ref.read(repoSearchReposQueryProvider);
+    controller = widget.controller ?? TextEditingController();
+    controller.text = ref.read(repoSearchReposQueryProvider);
   }
 
   @override
   void dispose() {
     if (widget.controller == null) {
-      _controller.dispose();
+      controller.dispose();
     }
     super.dispose();
   }
@@ -62,30 +64,30 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   Widget build(BuildContext context) {
     // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
     ref.listen(repoSearchReposQueryProvider, (previous, next) {
-      logger.i(
-        'Update query: current = ${_controller.text}, '
+      logger.v(
+        'Update query: current = ${controller.text}, '
         'next = ${next.toString()}',
       );
-      _controller.text = next.toString();
+      controller.text = next.toString();
     });
 
     return TextField(
-      controller: _controller,
+      controller: controller,
       decoration: InputDecoration(
         hintText: i18n.searchRepos,
         contentPadding: const EdgeInsets.all(10),
         prefixIcon: widget.prefixIcon,
         // 1文字以上あるときだけ削除アイコンを表示する
         suffixIcon: ValueListenableBuilder<TextEditingValue>(
-          valueListenable: _controller,
+          valueListenable: controller,
           builder: (_, value, __) {
-            logger.i('Update delete icon: visible = ${value.text.isNotEmpty}');
+            logger.v('Update delete icon: visible = ${value.text.isNotEmpty}');
             return Visibility(
               visible: value.text.isNotEmpty,
               child: InkWell(
                 onTap: () {
                   // 検索文字列をクリアする
-                  _controller.clear();
+                  controller.clear();
                   widget.onTappedDelete?.call();
                 },
                 child: Icon(
@@ -117,6 +119,7 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       ),
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
+        logger.i('Called onSubmitted(): text = $text');
         ref.read(repoSearchReposQueryProvider.notifier).query = text;
         Navigator.of(context).pop();
       },
@@ -126,6 +129,7 @@ class _RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       autofocus: true,
       readOnly: widget.readOnly,
       onTap: widget.onTap,
+      focusNode: focusNode,
     );
   }
 }
