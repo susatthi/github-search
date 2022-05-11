@@ -3,12 +3,14 @@
 // found in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/components/repo/repo_detail_view_notifier.dart';
 import '../presentation/pages/error/error_page.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
+import '../presentation/pages/repo/repo_search_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';
 
 /// 画面遷移の定義Provider
@@ -22,6 +24,18 @@ final routerProvider = Provider<GoRouter>(
         name: RepoIndexPage.name,
         builder: (context, state) => const RepoIndexPage(),
         routes: [
+          // リポジトリ検索画面
+          GoRoute(
+            path: RepoSearchPage.path,
+            name: RepoSearchPage.name,
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: const RepoSearchPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      FadeTransition(opacity: animation, child: child),
+            ),
+          ),
           // リポジトリ詳細画面
           GoRoute(
             path: RepoViewPage.path,
@@ -44,6 +58,13 @@ final routerProvider = Provider<GoRouter>(
     errorBuilder: (context, state) => ErrorPage(
       error: state.error,
     ),
+    observers: [pageRouteObserver],
     debugLogDiagnostics: !kReleaseMode,
   ),
 );
+
+/// ルートオブザーバー
+///
+/// 画面のpush/popのイベント検知に使用する。ダイアログは検知したく
+/// ないのでModalRouteではなくPageRouteにしている
+final pageRouteObserver = RouteObserver<PageRoute<void>>();

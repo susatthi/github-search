@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../localizations/strings.g.dart';
+import '../../components/common/error_view.dart';
 
 /// エラー画面
 class ErrorPage extends StatelessWidget {
@@ -19,11 +20,10 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.error),
-      ),
       body: Center(
-        child: Text(error?.toString() ?? i18n.errorOccurred),
+        child: ErrorView(
+          error: error ?? i18n.errorOccurred,
+        ),
       ),
     );
   }

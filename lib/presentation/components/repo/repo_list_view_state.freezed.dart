@@ -12,32 +12,14 @@ part of 'repo_list_view_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$RepoListViewStateTearOff {
-  const _$RepoListViewStateTearOff();
-
-  _RepoListViewState call(
-      {List<RepoData> items = const <RepoData>[],
-      bool hasNext = false,
-      int page = 1}) {
-    return _RepoListViewState(
-      items: items,
-      hasNext: hasNext,
-      page: page,
-    );
-  }
-}
-
-/// @nodoc
-const $RepoListViewState = _$RepoListViewStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$RepoListViewState {
   List<RepoData> get items => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
+  String get query => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RepoListViewStateCopyWith<RepoListViewState> get copyWith =>
@@ -49,7 +31,7 @@ abstract class $RepoListViewStateCopyWith<$Res> {
   factory $RepoListViewStateCopyWith(
           RepoListViewState value, $Res Function(RepoListViewState) then) =
       _$RepoListViewStateCopyWithImpl<$Res>;
-  $Res call({List<RepoData> items, bool hasNext, int page});
+  $Res call({List<RepoData> items, bool hasNext, int page, String query});
 }
 
 /// @nodoc
@@ -66,6 +48,7 @@ class _$RepoListViewStateCopyWithImpl<$Res>
     Object? items = freezed,
     Object? hasNext = freezed,
     Object? page = freezed,
+    Object? query = freezed,
   }) {
     return _then(_value.copyWith(
       items: items == freezed
@@ -80,40 +63,45 @@ class _$RepoListViewStateCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      query: query == freezed
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$RepoListViewStateCopyWith<$Res>
+abstract class _$$_RepoListViewStateCopyWith<$Res>
     implements $RepoListViewStateCopyWith<$Res> {
-  factory _$RepoListViewStateCopyWith(
-          _RepoListViewState value, $Res Function(_RepoListViewState) then) =
-      __$RepoListViewStateCopyWithImpl<$Res>;
+  factory _$$_RepoListViewStateCopyWith(_$_RepoListViewState value,
+          $Res Function(_$_RepoListViewState) then) =
+      __$$_RepoListViewStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<RepoData> items, bool hasNext, int page});
+  $Res call({List<RepoData> items, bool hasNext, int page, String query});
 }
 
 /// @nodoc
-class __$RepoListViewStateCopyWithImpl<$Res>
+class __$$_RepoListViewStateCopyWithImpl<$Res>
     extends _$RepoListViewStateCopyWithImpl<$Res>
-    implements _$RepoListViewStateCopyWith<$Res> {
-  __$RepoListViewStateCopyWithImpl(
-      _RepoListViewState _value, $Res Function(_RepoListViewState) _then)
-      : super(_value, (v) => _then(v as _RepoListViewState));
+    implements _$$_RepoListViewStateCopyWith<$Res> {
+  __$$_RepoListViewStateCopyWithImpl(
+      _$_RepoListViewState _value, $Res Function(_$_RepoListViewState) _then)
+      : super(_value, (v) => _then(v as _$_RepoListViewState));
 
   @override
-  _RepoListViewState get _value => super._value as _RepoListViewState;
+  _$_RepoListViewState get _value => super._value as _$_RepoListViewState;
 
   @override
   $Res call({
     Object? items = freezed,
     Object? hasNext = freezed,
     Object? page = freezed,
+    Object? query = freezed,
   }) {
-    return _then(_RepoListViewState(
+    return _then(_$_RepoListViewState(
       items: items == freezed
-          ? _value.items
+          ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<RepoData>,
       hasNext: hasNext == freezed
@@ -124,6 +112,10 @@ class __$RepoListViewStateCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      query: query == freezed
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -132,58 +124,78 @@ class __$RepoListViewStateCopyWithImpl<$Res>
 
 class _$_RepoListViewState implements _RepoListViewState {
   const _$_RepoListViewState(
-      {this.items = const <RepoData>[], this.hasNext = false, this.page = 1});
+      {final List<RepoData> items = const <RepoData>[],
+      this.hasNext = false,
+      this.page = 1,
+      this.query = ''})
+      : _items = items;
 
-  @JsonKey()
+  final List<RepoData> _items;
   @override
-  final List<RepoData> items;
   @JsonKey()
+  List<RepoData> get items {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
+
   @override
+  @JsonKey()
   final bool hasNext;
-  @JsonKey()
   @override
+  @JsonKey()
   final int page;
+  @override
+  @JsonKey()
+  final String query;
 
   @override
   String toString() {
-    return 'RepoListViewState(items: $items, hasNext: $hasNext, page: $page)';
+    return 'RepoListViewState(items: $items, hasNext: $hasNext, page: $page, query: $query)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _RepoListViewState &&
-            const DeepCollectionEquality().equals(other.items, items) &&
+            other is _$_RepoListViewState &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
-            const DeepCollectionEquality().equals(other.page, page));
+            const DeepCollectionEquality().equals(other.page, page) &&
+            const DeepCollectionEquality().equals(other.query, query));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(items),
+      const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(hasNext),
-      const DeepCollectionEquality().hash(page));
+      const DeepCollectionEquality().hash(page),
+      const DeepCollectionEquality().hash(query));
 
   @JsonKey(ignore: true)
   @override
-  _$RepoListViewStateCopyWith<_RepoListViewState> get copyWith =>
-      __$RepoListViewStateCopyWithImpl<_RepoListViewState>(this, _$identity);
+  _$$_RepoListViewStateCopyWith<_$_RepoListViewState> get copyWith =>
+      __$$_RepoListViewStateCopyWithImpl<_$_RepoListViewState>(
+          this, _$identity);
 }
 
 abstract class _RepoListViewState implements RepoListViewState {
   const factory _RepoListViewState(
-      {List<RepoData> items, bool hasNext, int page}) = _$_RepoListViewState;
+      {final List<RepoData> items,
+      final bool hasNext,
+      final int page,
+      final String query}) = _$_RepoListViewState;
 
   @override
-  List<RepoData> get items;
+  List<RepoData> get items => throw _privateConstructorUsedError;
   @override
-  bool get hasNext;
+  bool get hasNext => throw _privateConstructorUsedError;
   @override
-  int get page;
+  int get page => throw _privateConstructorUsedError;
+  @override
+  String get query => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RepoListViewStateCopyWith<_RepoListViewState> get copyWith =>
+  _$$_RepoListViewStateCopyWith<_$_RepoListViewState> get copyWith =>
       throw _privateConstructorUsedError;
 }

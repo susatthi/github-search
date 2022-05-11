@@ -33,10 +33,39 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/splash_dark.png');
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/cool-octovat.json
+  String get coolOctovat => 'assets/lottie/cool-octovat.json';
+
+  /// File path: assets/lottie/dashboard-zippeo.json
+  String get dashboardZippeo => 'assets/lottie/dashboard-zippeo.json';
+
+  /// File path: assets/lottie/empty-state.json
+  String get emptyState => 'assets/lottie/empty-state.json';
+
+  /// File path: assets/lottie/error.json
+  String get error => 'assets/lottie/error.json';
+
+  /// File path: assets/lottie/github-dark-mode.json
+  String get githubDarkMode => 'assets/lottie/github-dark-mode.json';
+
+  /// File path: assets/lottie/github-logo.json
+  String get githubLogo => 'assets/lottie/github-logo.json';
+
+  /// File path: assets/lottie/loading-indicator.json
+  String get loadingIndicator => 'assets/lottie/loading-indicator.json';
+
+  /// File path: assets/lottie/octocat.json
+  String get octocat => 'assets/lottie/octocat.json';
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 
 class AssetGenImage extends AssetImage {

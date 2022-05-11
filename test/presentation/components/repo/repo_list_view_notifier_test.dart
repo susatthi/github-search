@@ -47,18 +47,20 @@ void main() {
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      var state = notifier.state.value;
+      var state = notifier.state?.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, RepoListViewNotifier.perPage);
+      expect(state.query, 'flutter');
 
       // 次のページを取得する
       await notifier.fetchNextPage();
 
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      state = notifier.state.value;
+      state = notifier.state?.value;
       expect(state!.page, 2);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);
+      expect(state.query, 'flutter');
     });
     test('1ページ目を未取得の状態でfetchNextPage()を実行しても問題ないはず', () async {
       // 初期値はAsyncLoading
@@ -77,7 +79,7 @@ void main() {
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      final state = notifier.state.value;
+      final state = notifier.state?.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, RepoListViewNotifier.perPage);
@@ -94,7 +96,7 @@ void main() {
 
       // 3ページを取得した結果4ページ目は無いはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      var state = notifier.state.value;
+      var state = notifier.state?.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);
@@ -104,7 +106,7 @@ void main() {
 
       // 4ページを取得しないはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      state = notifier.state.value;
+      state = notifier.state?.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);

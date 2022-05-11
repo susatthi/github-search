@@ -14,7 +14,7 @@ import 'repo_search_repos_sort.dart';
 
 /// リポジトリ一覧View状態プロバイダー
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
-    RepoListViewNotifier, AsyncValue<RepoListViewState>>(
+    RepoListViewNotifier, AsyncValue<RepoListViewState>?>(
   (ref) {
     final repoRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(repoSearchReposQueryProvider);
@@ -35,13 +35,13 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
 
 /// リポジトリ一覧ViewNotifier
 class RepoListViewNotifier
-    extends StateNotifier<AsyncValue<RepoListViewState>> {
+    extends StateNotifier<AsyncValue<RepoListViewState>?> {
   RepoListViewNotifier(
     this._repoRepository, {
     required this.query,
     required this.sort,
     required this.order,
-  }) : super(const AsyncValue.loading()) {
+  }) : super(null) {
     _search();
   }
 
@@ -60,12 +60,13 @@ class RepoListViewNotifier
   static const perPage = 30;
 
   Future<void> _search() async {
-    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final trimQuery = query.trim();
       if (trimQuery.isEmpty) {
         return const RepoListViewState();
       }
+
+      state = const AsyncValue.loading();
 
       final result = await _repoRepository.searchRepos(
         query: trimQuery,
@@ -77,13 +78,13 @@ class RepoListViewNotifier
         'result: totalCount=${result.totalCount}, '
         'items=${result.items.length}, ',
       );
-      return RepoListViewState.from(result);
+      return RepoListViewState.from(result, trimQuery);
     });
   }
 
   /// 次のページを取得する
   Future<void> fetchNextPage() async {
-    final value = state.value;
+    final value = state?.value;
     if (value == null) {
       return;
     }
@@ -103,14 +104,14 @@ class RepoListViewNotifier
         page: value.page + 1,
       );
 
-      value.items.addAll(result.items.map(RepoData.from).toList());
+      final appendedItems = result.items.map(RepoData.from).toList();
       logger.i(
-        'result: totalCount=${result.totalCount}, '
+        'Result: totalCount=${result.totalCount}, '
         'fetchItems=${result.items.length}, '
-        'totalItems=${value.items.length}, ',
+        'totalItems=${value.items.length + appendedItems.length}, ',
       );
       return value.copyWith(
-        items: value.items,
+        items: value.items + appendedItems,
         hasNext: result.items.length == perPage,
         page: value.page + 1,
       );

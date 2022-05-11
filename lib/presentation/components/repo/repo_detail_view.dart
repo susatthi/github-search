@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../entities/repo/repo_data.dart';
 import '../../../localizations/strings.g.dart';
-import '../common/async_value_handler.dart';
 import '../common/cached_circle_avatar.dart';
+import '../common/error_view.dart';
 import 'repo_detail_view_notifier.dart';
 
 /// リポジトリ詳細View
@@ -18,9 +18,15 @@ class RepoDetailView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoDetailViewStateProvider);
-    return AsyncValueHandler<RepoData>(
-      value: asyncValue,
-      builder: (data) => _RepoDetailView(data: data),
+    return asyncValue.when(
+      data: (data) => _RepoDetailView(data: data),
+      error: (e, s) => ErrorView(
+        error: e,
+        stackTrace: s,
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

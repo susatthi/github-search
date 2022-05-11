@@ -2,6 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/entities/owner/owner.dart';
 import 'package:github_search/entities/repo/repo.dart';
@@ -15,7 +16,16 @@ void main() {
   setUp(() {
     client = mockProviderContainer().read(githubHttpClientProvider);
   });
-
+  test('githubAccessTokenProvider', () async {
+    final container = ProviderContainer();
+    final token = container.read(githubAccessTokenProvider);
+    expect(token, isNotNull);
+  });
+  test('httpClientProvider', () async {
+    final container = ProviderContainer();
+    final httpClient = container.read(httpClientProvider);
+    expect(httpClient, isNotNull);
+  });
   group('get()', () {
     test('200 OK', () async {
       final repo = await client.get<Repo>(

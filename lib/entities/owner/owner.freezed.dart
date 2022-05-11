@@ -12,32 +12,11 @@ part of 'owner.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Owner _$OwnerFromJson(Map<String, dynamic> json) {
   return _Owner.fromJson(json);
 }
-
-/// @nodoc
-class _$OwnerTearOff {
-  const _$OwnerTearOff();
-
-  _Owner call(
-      {@JsonKey(name: 'login') required String login,
-      @JsonKey(name: 'avatar_url') required String avatarUrl}) {
-    return _Owner(
-      login: login,
-      avatarUrl: avatarUrl,
-    );
-  }
-
-  Owner fromJson(Map<String, Object?> json) {
-    return Owner.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Owner = _$OwnerTearOff();
 
 /// @nodoc
 mixin _$Owner {
@@ -87,9 +66,9 @@ class _$OwnerCopyWithImpl<$Res> implements $OwnerCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$OwnerCopyWith<$Res> implements $OwnerCopyWith<$Res> {
-  factory _$OwnerCopyWith(_Owner value, $Res Function(_Owner) then) =
-      __$OwnerCopyWithImpl<$Res>;
+abstract class _$$_OwnerCopyWith<$Res> implements $OwnerCopyWith<$Res> {
+  factory _$$_OwnerCopyWith(_$_Owner value, $Res Function(_$_Owner) then) =
+      __$$_OwnerCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'login') String login,
@@ -97,20 +76,20 @@ abstract class _$OwnerCopyWith<$Res> implements $OwnerCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$OwnerCopyWithImpl<$Res> extends _$OwnerCopyWithImpl<$Res>
-    implements _$OwnerCopyWith<$Res> {
-  __$OwnerCopyWithImpl(_Owner _value, $Res Function(_Owner) _then)
-      : super(_value, (v) => _then(v as _Owner));
+class __$$_OwnerCopyWithImpl<$Res> extends _$OwnerCopyWithImpl<$Res>
+    implements _$$_OwnerCopyWith<$Res> {
+  __$$_OwnerCopyWithImpl(_$_Owner _value, $Res Function(_$_Owner) _then)
+      : super(_value, (v) => _then(v as _$_Owner));
 
   @override
-  _Owner get _value => super._value as _Owner;
+  _$_Owner get _value => super._value as _$_Owner;
 
   @override
   $Res call({
     Object? login = freezed,
     Object? avatarUrl = freezed,
   }) {
-    return _then(_Owner(
+    return _then(_$_Owner(
       login: login == freezed
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
@@ -149,11 +128,12 @@ class _$_Owner implements _Owner {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Owner &&
+            other is _$_Owner &&
             const DeepCollectionEquality().equals(other.login, login) &&
             const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -162,8 +142,8 @@ class _$_Owner implements _Owner {
 
   @JsonKey(ignore: true)
   @override
-  _$OwnerCopyWith<_Owner> get copyWith =>
-      __$OwnerCopyWithImpl<_Owner>(this, _$identity);
+  _$$_OwnerCopyWith<_$_Owner> get copyWith =>
+      __$$_OwnerCopyWithImpl<_$_Owner>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -173,18 +153,19 @@ class _$_Owner implements _Owner {
 
 abstract class _Owner implements Owner {
   const factory _Owner(
-      {@JsonKey(name: 'login') required String login,
-      @JsonKey(name: 'avatar_url') required String avatarUrl}) = _$_Owner;
+      {@JsonKey(name: 'login') required final String login,
+      @JsonKey(name: 'avatar_url') required final String avatarUrl}) = _$_Owner;
 
   factory _Owner.fromJson(Map<String, dynamic> json) = _$_Owner.fromJson;
 
   @override
   @JsonKey(name: 'login')
-  String get login;
+  String get login => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'avatar_url')
-  String get avatarUrl;
+  String get avatarUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$OwnerCopyWith<_Owner> get copyWith => throw _privateConstructorUsedError;
+  _$$_OwnerCopyWith<_$_Owner> get copyWith =>
+      throw _privateConstructorUsedError;
 }

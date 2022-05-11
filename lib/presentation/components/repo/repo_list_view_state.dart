@@ -16,12 +16,14 @@ class RepoListViewState with _$RepoListViewState {
     @Default(<RepoData>[]) List<RepoData> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
+    @Default('') String query,
   }) = _RepoListViewState;
 
-  factory RepoListViewState.from(SearchReposResult result) {
+  factory RepoListViewState.from(SearchReposResult result, String query) {
     return RepoListViewState(
       items: result.items.map(RepoData.from).toList(),
       hasNext: result.items.length < result.totalCount,
+      query: query,
     );
   }
 }
