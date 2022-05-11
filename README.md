@@ -18,30 +18,32 @@
 
 ## ビルド方法
 
-- ソースコードを clone してください。
+#### ソースコードを clone
   
 ```bash
 git clone https://github.com/susatthi/github-search.git
 ```
 
-- 本アプリで使用する GitHub の[個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)を取得してください。
+#### GitHub の個人アクセストークンを取得
 
-- カレントディレクトリで次のコマンドを実行してください。
+本アプリで使用する GitHub の[個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)を取得して、カレントディレクトリで次のコマンドを実行してください。
 
 ```bash
 # 引数で与えられた環境変数を基にビルドに必要な `lib/config/env.dart` を作成してくれます。
 # 作成された `lib/config/env.dart` を直接編集しても大丈夫です。
 
-bin/flutter_env -g [GitHubアクセストークン] -s [検索文字列の初期値]
+bin/flutter_env -g [GitHub 個人アクセストークン] -s [検索文字列の初期値]
 ```
 
 |パラメータ                     |          |説明                                                       |
 |-----------------------------|----------|----------------------------------------------------------|
 |`-g`                         |`Must`    |値には [GitHub 個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を設定してください。|
-|`-s`                         |`Optional`|好きな文字列を設定してください。指定しない場合は空文字が設定されます。|
+|`-s`                         |`Optional`|値には好きな文字列を設定してください。指定しない場合は空文字が設定されます。|
 |`-h`                         |          |ヘルプを表示します。                                          |
 
-- Configurations を選択してビルドしてください
+#### ビルド
+
+Configurations を選択してビルドしてください。
 
 |Configurations 名 |説明                       |
 |------------------|--------------------------|
@@ -176,13 +178,14 @@ flowchart TB
     Provider[[provider]];
   end
   _GitHubSearchApp((_GitHubSearchApp));
+  themeProvider ==> _GitHubSearchApp;
   routerProvider ==> _GitHubSearchApp;
   RepoDetailView((RepoDetailView));
   repoDetailViewStateProvider ==> RepoDetailView;
-  RepoListView((RepoListView));
-  repoListViewStateProvider ==> RepoListView;
-  _CircularProgressListTile((_CircularProgressListTile));
-  repoListViewStateProvider -.-> _CircularProgressListTile;
+  SliverRepoListView((SliverRepoListView));
+  repoListViewStateProvider ==> SliverRepoListView;
+  _LastIndicator((_LastIndicator));
+  repoListViewStateProvider -.-> _LastIndicator;
   RepoOrderToggleButton((RepoOrderToggleButton));
   repoListViewStateProvider ==> RepoOrderToggleButton;
   RepoOrderToggleButtonInternal((RepoOrderToggleButtonInternal));
@@ -191,6 +194,9 @@ flowchart TB
   RepoSortSelectorDialog((RepoSortSelectorDialog));
   repoSearchReposSortProvider ==> RepoSortSelectorDialog;
   repoSearchReposSortProvider -.-> RepoSortSelectorDialog;
+  RepoSearchTextButton((RepoSearchTextButton));
+  repoSearchReposQueryProvider -.-> RepoSearchTextButton;
+  themeProvider[[themeProvider]];
   routerProvider[[routerProvider]];
   appDataRepositoryProvider[[appDataRepositoryProvider]];
   hiveAppDataRepositoryProvider ==> appDataRepositoryProvider;
