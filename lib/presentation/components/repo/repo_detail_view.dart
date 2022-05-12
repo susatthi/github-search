@@ -33,7 +33,6 @@ class RepoDetailView extends ConsumerWidget {
 
 class _RepoDetailView extends StatelessWidget {
   const _RepoDetailView({
-    super.key,
     required this.data,
   });
 

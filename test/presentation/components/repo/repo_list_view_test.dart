@@ -20,7 +20,7 @@ import '../../../test_utils/hive.dart';
 import '../../../test_utils/mocks.dart';
 
 class _MockPage extends StatelessWidget {
-  const _MockPage({super.key});
+  const _MockPage();
 
   @override
   Widget build(BuildContext context) {

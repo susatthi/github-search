@@ -68,7 +68,6 @@ class SliverRepoListView extends ConsumerWidget {
 
 class _SliverRepoListView extends StatelessWidget {
   const _SliverRepoListView({
-    super.key,
     required this.state,
   });
 
@@ -116,7 +115,6 @@ class _SliverRepoListView extends StatelessWidget {
 /// リポジトリListTile
 class _RepoListTile extends StatelessWidget {
   const _RepoListTile({
-    super.key,
     required this.data,
   });
 
@@ -182,7 +180,6 @@ class _RepoListTile extends StatelessWidget {
 /// スター数のアイコン＋ラベル
 class _StargazersCountLabel extends StatelessWidget {
   const _StargazersCountLabel({
-    super.key,
     required this.text,
   });
 
@@ -208,7 +205,6 @@ class _StargazersCountLabel extends StatelessWidget {
 /// プロジェクト言語のカラー＋ラベル
 class _LanguageLabel extends StatelessWidget {
   const _LanguageLabel({
-    super.key,
     required this.color,
     this.language,
   });
@@ -238,7 +234,7 @@ class _LanguageLabel extends StatelessWidget {
 
 /// リストビューを一番下までスクロールしたときに表示するインジケーター
 class _LastIndicator extends ConsumerWidget {
-  const _LastIndicator({super.key});
+  const _LastIndicator();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

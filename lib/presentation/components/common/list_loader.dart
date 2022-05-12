@@ -46,7 +46,6 @@ class ListLoader extends StatelessWidget {
 
 class _LoaderListTile extends StatelessWidget {
   const _LoaderListTile({
-    super.key,
     required this.avatarSize,
   });
 
