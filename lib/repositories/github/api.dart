@@ -66,22 +66,15 @@ class GitHubApi {
 
 /// GitHub リポジトリ検索用ソート
 enum GitHubRepoSearchReposSort {
-  stars,
-  forks,
-  helpWantedIssues,
-}
+  stars('stars'),
+  forks('forks'),
+  helpWantedIssues('help-wanted-issues');
 
-extension GitHubRepoSearchReposSortHelper on GitHubRepoSearchReposSort {
-  static final names = <GitHubRepoSearchReposSort, String>{
-    GitHubRepoSearchReposSort.stars: 'stars',
-    GitHubRepoSearchReposSort.forks: 'forks',
-    GitHubRepoSearchReposSort.helpWantedIssues: 'help-wanted-issues',
-  };
+  const GitHubRepoSearchReposSort(this.name);
 
-  /// override
-  String get name => names[this]!;
+  final String name;
 
-  /// RepoSearchReposSort => GitHubRepoSearchReposSort
+  /// RepoSearchReposSort => GitHubRepoSearchReposSort?
   static GitHubRepoSearchReposSort? valueOf(RepoSearchReposSort sort) {
     switch (sort) {
       case RepoSearchReposSort.bestMatch:
@@ -99,10 +92,8 @@ extension GitHubRepoSearchReposSortHelper on GitHubRepoSearchReposSort {
 /// GitHub リポジトリ検索用オーダー
 enum GitHubRepoSearchReposOrder {
   desc,
-  asc,
-}
+  asc;
 
-extension GitHubRepoSearchReposOrderHelper on GitHubRepoSearchReposOrder {
   /// RepoSearchReposOrder => GitHubRepoSearchReposOrder
   static GitHubRepoSearchReposOrder valueOf(
     RepoSearchReposOrder order,

@@ -35,10 +35,8 @@ enum RepoSearchReposSort {
   bestMatch,
   stars,
   forks,
-  helpWantedIssues,
-}
+  helpWantedIssues;
 
-extension RepoSearchReposSortHelper on RepoSearchReposSort {
   /// 文字列からソートを返す
   /// 見つからない場合は IterableElementError.noElement() を投げる
   static RepoSearchReposSort valueOf(String name) {
@@ -50,10 +48,8 @@ extension RepoSearchReposSortHelper on RepoSearchReposSort {
 /// リポジトリ検索用オーダー
 enum RepoSearchReposOrder {
   desc,
-  asc,
-}
+  asc;
 
-extension RepoSearchReposOrderHelper on RepoSearchReposOrder {
   /// 文字列からオーダーを返す
   /// 見つからない場合は IterableElementError.noElement() を投げる
   static RepoSearchReposOrder valueOf(String name) {

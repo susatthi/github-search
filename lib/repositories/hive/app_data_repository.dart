@@ -48,7 +48,7 @@ class HiveAppDataRepository implements AppDataRepository {
       AppDataKey.repoSearchReposSort.name,
       defaultValue: defaultValue?.name,
     ) as String;
-    return RepoSearchReposSortHelper.valueOf(name);
+    return RepoSearchReposSort.valueOf(name);
   }
 
   @override
@@ -65,7 +65,7 @@ class HiveAppDataRepository implements AppDataRepository {
       AppDataKey.repoSearchReposOrder.name,
       defaultValue: defaultValue?.name,
     ) as String;
-    return RepoSearchReposOrderHelper.valueOf(name);
+    return RepoSearchReposOrder.valueOf(name);
   }
 }
 
