@@ -13,7 +13,7 @@ import 'repo_search_repos_order.dart';
 
 /// リポジトリ検索用オーダー値変更ボタン
 class RepoOrderToggleButton extends ConsumerWidget {
-  const RepoOrderToggleButton({Key? key}) : super(key: key);
+  const RepoOrderToggleButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,9 +33,9 @@ class RepoOrderToggleButton extends ConsumerWidget {
 @visibleForTesting
 class RepoOrderToggleButtonInternal extends ConsumerWidget {
   const RepoOrderToggleButtonInternal({
-    Key? key,
+    super.key,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   /// 有効かどうか
   final bool enabled;
@@ -71,21 +71,23 @@ extension _RepoParamSearchReposOrderHelper on RepoSearchReposOrder {
     }
   }
 
-  /// アイコンデータ
-  static final icons = <RepoSearchReposOrder, IconData>{
-    RepoSearchReposOrder.desc: Icons.arrow_downward,
-    RepoSearchReposOrder.asc: Icons.arrow_upward,
-  };
-
   /// アイコンデータを返す
-  IconData get icon => icons[this]!;
-
-  /// 表示名
-  static final labels = <RepoSearchReposOrder, String>{
-    RepoSearchReposOrder.desc: i18n.desc,
-    RepoSearchReposOrder.asc: i18n.asc,
-  };
+  IconData get icon {
+    switch (this) {
+      case RepoSearchReposOrder.desc:
+        return Icons.arrow_downward;
+      case RepoSearchReposOrder.asc:
+        return Icons.arrow_upward;
+    }
+  }
 
   /// 表示名を返す
-  String get label => labels[this]!;
+  String get label {
+    switch (this) {
+      case RepoSearchReposOrder.desc:
+        return i18n.desc;
+      case RepoSearchReposOrder.asc:
+        return i18n.asc;
+    }
+  }
 }

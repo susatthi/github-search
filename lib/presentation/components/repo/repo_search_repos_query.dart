@@ -28,8 +28,8 @@ final repoSearchReposQueryProvider =
 /// リポジトリ検索文字列Notifier
 class RepoSearchReposQueryNotifier extends StateNotifier<String> {
   RepoSearchReposQueryNotifier(
-    String query,
-  ) : super(query);
+    super.query,
+  );
 
   /// 検索文字列を更新する
   // ignore: avoid_setters_without_getters

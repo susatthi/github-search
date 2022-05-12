@@ -126,7 +126,7 @@ void main() {
       );
     });
   });
-  group('GitHubRepoSearchReposSortHelper', () {
+  group('GitHubRepoSearchReposSort', () {
     test('stars.name', () {
       expect(GitHubRepoSearchReposSort.stars.name, 'stars');
     });
@@ -141,7 +141,7 @@ void main() {
     });
     test('valueOf(bestMatch)', () {
       expect(
-        GitHubRepoSearchReposSortHelper.valueOf(
+        GitHubRepoSearchReposSort.valueOf(
           RepoSearchReposSort.bestMatch,
         ),
         null,
@@ -149,7 +149,7 @@ void main() {
     });
     test('valueOf(stars)', () {
       expect(
-        GitHubRepoSearchReposSortHelper.valueOf(
+        GitHubRepoSearchReposSort.valueOf(
           RepoSearchReposSort.stars,
         ),
         GitHubRepoSearchReposSort.stars,
@@ -157,7 +157,7 @@ void main() {
     });
     test('valueOf(forks)', () {
       expect(
-        GitHubRepoSearchReposSortHelper.valueOf(
+        GitHubRepoSearchReposSort.valueOf(
           RepoSearchReposSort.forks,
         ),
         GitHubRepoSearchReposSort.forks,
@@ -165,14 +165,14 @@ void main() {
     });
     test('valueOf(helpWantedIssues)', () {
       expect(
-        GitHubRepoSearchReposSortHelper.valueOf(
+        GitHubRepoSearchReposSort.valueOf(
           RepoSearchReposSort.helpWantedIssues,
         ),
         GitHubRepoSearchReposSort.helpWantedIssues,
       );
     });
   });
-  group('GitHubRepoSearchReposOrderHelper', () {
+  group('GitHubRepoSearchReposOrder', () {
     test('desc.name', () {
       expect(GitHubRepoSearchReposOrder.desc.name, 'desc');
     });
@@ -181,7 +181,7 @@ void main() {
     });
     test('valueOf(desc)', () {
       expect(
-        GitHubRepoSearchReposOrderHelper.valueOf(
+        GitHubRepoSearchReposOrder.valueOf(
           RepoSearchReposOrder.desc,
         ),
         GitHubRepoSearchReposOrder.desc,
@@ -189,7 +189,7 @@ void main() {
     });
     test('valueOf(asc)', () {
       expect(
-        GitHubRepoSearchReposOrderHelper.valueOf(
+        GitHubRepoSearchReposOrder.valueOf(
           RepoSearchReposOrder.asc,
         ),
         GitHubRepoSearchReposOrder.asc,

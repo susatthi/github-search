@@ -9,12 +9,12 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 /// キャッシュするCircleAvatar
 class CachedCircleAvatar extends StatelessWidget {
   const CachedCircleAvatar({
-    Key? key,
+    super.key,
     required this.url,
     this.size = 80,
     this.loading = true,
     this.cacheManager,
-  }) : super(key: key);
+  });
 
   /// 画像のURL
   final String url;

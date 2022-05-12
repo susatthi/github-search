@@ -43,8 +43,8 @@ class GitHubRepoRepository implements RepoRepository {
       _client.get<SearchReposResult>(
         uri: _api.searchRepos(
           query: query,
-          sort: GitHubRepoSearchReposSortHelper.valueOf(sort),
-          order: GitHubRepoSearchReposOrderHelper.valueOf(order),
+          sort: GitHubRepoSearchReposSort.valueOf(sort),
+          order: GitHubRepoSearchReposOrder.valueOf(order),
           perPage: perPage,
           page: page,
         ),

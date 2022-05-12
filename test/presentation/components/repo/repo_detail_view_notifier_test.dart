@@ -13,7 +13,7 @@ import 'package:go_router/go_router.dart';
 import '../../../test_utils/mocks.dart';
 
 class _FirstPage extends StatelessWidget {
-  const _FirstPage({Key? key}) : super(key: key);
+  const _FirstPage();
 
   @override
   Widget build(BuildContext context) {

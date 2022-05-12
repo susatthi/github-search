@@ -15,7 +15,7 @@ import '../../components/repo/repo_sort_selector_dialog.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatefulWidget {
-  const RepoIndexPage({Key? key}) : super(key: key);
+  const RepoIndexPage({super.key});
 
   static const name = 'repo_index';
   static const path = '/repo';
@@ -104,7 +104,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
 /// アニメーションをする。
 @visibleForTesting
 class AnimatedAppBarBackground extends StatefulWidget {
-  const AnimatedAppBarBackground({Key? key}) : super(key: key);
+  const AnimatedAppBarBackground({super.key});
 
   @override
   State<AnimatedAppBarBackground> createState() =>

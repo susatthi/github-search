@@ -12,7 +12,7 @@ import 'repo_search_repos_sort.dart';
 
 /// リポジトリ検索用ソート選択ダイアログ
 class RepoSortSelectorDialog extends ConsumerWidget {
-  const RepoSortSelectorDialog({Key? key}) : super(key: key);
+  const RepoSortSelectorDialog({super.key});
 
   Map<String, RepoSearchReposSort> get _items => {
         i18n.bestMatch: RepoSearchReposSort.bestMatch,

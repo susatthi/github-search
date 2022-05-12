@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 /// 検索用AppBar
 class SearchAppBar extends StatelessWidget {
   const SearchAppBar({
-    Key? key,
+    super.key,
     this.title,
     this.actions,
     this.flexibleSpace,
     required this.backgroundColor,
     this.floating = false,
     this.pinned = false,
-  }) : super(key: key);
+  });
 
   final Widget? title;
   final List<Widget>? actions;
