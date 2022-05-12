@@ -10,9 +10,9 @@ import '../../components/common/error_view.dart';
 /// エラー画面
 class ErrorPage extends StatelessWidget {
   const ErrorPage({
-    Key? key,
+    super.key,
     this.error,
-  }) : super(key: key);
+  });
 
   /// 例外
   final Exception? error;

@@ -9,7 +9,7 @@ import '../../components/repo/repo_detail_view.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
-  const RepoViewPage({Key? key}) : super(key: key);
+  const RepoViewPage({super.key});
 
   static const name = 'repo_view';
   static const path = ':$pageParamKeyOwnerName/:$pageParamKeyRepoName';

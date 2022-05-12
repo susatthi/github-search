@@ -4,9 +4,9 @@ import 'package:shimmer/shimmer.dart';
 /// ListView用の読み込み中ローダー
 class ListLoader extends StatelessWidget {
   const ListLoader({
-    Key? key,
+    super.key,
     this.avatarSize = 56,
-  }) : super(key: key);
+  });
 
   /// leading に表示するダミーアバターのサイズ
   final double avatarSize;
@@ -46,9 +46,9 @@ class ListLoader extends StatelessWidget {
 
 class _LoaderListTile extends StatelessWidget {
   const _LoaderListTile({
-    Key? key,
+    super.key,
     required this.avatarSize,
-  }) : super(key: key);
+  });
 
   final double avatarSize;
 
@@ -80,10 +80,10 @@ class _LoaderListTile extends StatelessWidget {
 @visibleForTesting
 class LoaderBone extends StatelessWidget {
   const LoaderBone({
-    Key? key,
+    super.key,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
 
   final double? width;
   final double? height;

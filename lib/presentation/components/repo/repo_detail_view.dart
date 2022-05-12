@@ -13,7 +13,7 @@ import 'repo_detail_view_notifier.dart';
 
 /// リポジトリ詳細View
 class RepoDetailView extends ConsumerWidget {
-  const RepoDetailView({Key? key}) : super(key: key);
+  const RepoDetailView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,9 +33,9 @@ class RepoDetailView extends ConsumerWidget {
 
 class _RepoDetailView extends StatelessWidget {
   const _RepoDetailView({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final RepoData data;
 

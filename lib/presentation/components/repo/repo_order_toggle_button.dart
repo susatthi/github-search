@@ -13,7 +13,7 @@ import 'repo_search_repos_order.dart';
 
 /// リポジトリ検索用オーダー値変更ボタン
 class RepoOrderToggleButton extends ConsumerWidget {
-  const RepoOrderToggleButton({Key? key}) : super(key: key);
+  const RepoOrderToggleButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,9 +33,9 @@ class RepoOrderToggleButton extends ConsumerWidget {
 @visibleForTesting
 class RepoOrderToggleButtonInternal extends ConsumerWidget {
   const RepoOrderToggleButtonInternal({
-    Key? key,
+    super.key,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   /// 有効かどうか
   final bool enabled;

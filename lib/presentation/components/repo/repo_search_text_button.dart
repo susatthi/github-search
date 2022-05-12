@@ -12,7 +12,7 @@ import 'repo_search_text_field.dart';
 
 /// リポジトリ検索用テキストボタン
 class RepoSearchTextButton extends ConsumerWidget {
-  const RepoSearchTextButton({Key? key}) : super(key: key);
+  const RepoSearchTextButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

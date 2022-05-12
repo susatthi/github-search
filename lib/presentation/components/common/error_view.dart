@@ -10,10 +10,10 @@ import '../../../utils/logger.dart';
 /// エラーを画面上に表示する
 class ErrorView extends StatelessWidget {
   const ErrorView({
-    Key? key,
+    super.key,
     required this.error,
     this.stackTrace,
-  }) : super(key: key);
+  });
 
   final Object error;
   final StackTrace? stackTrace;

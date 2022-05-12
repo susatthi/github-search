@@ -27,9 +27,9 @@ const _avatarSize = 40.0;
 /// Sliver版リポジトリ一覧View
 class SliverRepoListView extends ConsumerWidget {
   const SliverRepoListView({
-    Key? key,
+    super.key,
     this.controller,
-  }) : super(key: key);
+  });
 
   /// ローディングを表示したら強制的にスクロール位置をトップに戻すために
   /// CustomScrollView の ScrollController をもらう
@@ -51,7 +51,7 @@ class SliverRepoListView extends ConsumerWidget {
             // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
             // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
             if (controller?.hasClients == true) {
-              WidgetsBinding.instance?.addPostFrameCallback(
+              WidgetsBinding.instance.addPostFrameCallback(
                 (_) => controller!.jumpTo(0),
               );
             }
@@ -68,9 +68,9 @@ class SliverRepoListView extends ConsumerWidget {
 
 class _SliverRepoListView extends StatelessWidget {
   const _SliverRepoListView({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final RepoListViewState state;
 
@@ -116,9 +116,9 @@ class _SliverRepoListView extends StatelessWidget {
 /// リポジトリListTile
 class _RepoListTile extends StatelessWidget {
   const _RepoListTile({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   /// UI用リポジトリEntity
   final RepoData data;
@@ -182,9 +182,9 @@ class _RepoListTile extends StatelessWidget {
 /// スター数のアイコン＋ラベル
 class _StargazersCountLabel extends StatelessWidget {
   const _StargazersCountLabel({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String text;
 
@@ -208,10 +208,10 @@ class _StargazersCountLabel extends StatelessWidget {
 /// プロジェクト言語のカラー＋ラベル
 class _LanguageLabel extends StatelessWidget {
   const _LanguageLabel({
-    Key? key,
+    super.key,
     required this.color,
     this.language,
-  }) : super(key: key);
+  });
 
   final Color color;
   final String? language;
@@ -238,7 +238,7 @@ class _LanguageLabel extends StatelessWidget {
 
 /// リストビューを一番下までスクロールしたときに表示するインジケーター
 class _LastIndicator extends ConsumerWidget {
-  const _LastIndicator({Key? key}) : super(key: key);
+  const _LastIndicator({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -266,7 +266,7 @@ class _LastIndicator extends ConsumerWidget {
 /// 検索前に表示する検索を促すView
 @visibleForTesting
 class RepoPromptSearchView extends StatelessWidget {
-  const RepoPromptSearchView({Key? key}) : super(key: key);
+  const RepoPromptSearchView({super.key});
 
   static final _lottieFilePaths = <String>[
     Assets.lottie.githubDarkMode,
@@ -306,7 +306,7 @@ class RepoPromptSearchView extends StatelessWidget {
 /// 検索結果が0件だった場合に表示するView
 @visibleForTesting
 class RepoEmptyItemsView extends StatelessWidget {
-  const RepoEmptyItemsView({Key? key}) : super(key: key);
+  const RepoEmptyItemsView({super.key});
 
   @override
   Widget build(BuildContext context) {

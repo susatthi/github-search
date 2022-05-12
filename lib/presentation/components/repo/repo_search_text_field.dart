@@ -12,13 +12,13 @@ import 'repo_search_repos_query.dart';
 /// リポジトリ検索用テキストフィールド
 class RepoSearchTextField extends ConsumerStatefulWidget {
   const RepoSearchTextField({
-    Key? key,
+    super.key,
     this.readOnly = false,
     this.prefixIcon,
     this.onTap,
     this.onTappedDelete,
     this.controller,
-  }) : super(key: key);
+  });
 
   /// trueにすると読み取り専用になる
   final bool readOnly;

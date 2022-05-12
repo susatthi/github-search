@@ -13,9 +13,9 @@ import 'theme.dart';
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
   const GitHubSearchApp({
-    Key? key,
+    super.key,
     this.home,
-  }) : super(key: key);
+  });
 
   /// 初期表示画面（テスト用）
   @visibleForTesting
@@ -33,9 +33,8 @@ class GitHubSearchApp extends StatelessWidget {
 
 class _GitHubSearchApp extends ConsumerWidget {
   const _GitHubSearchApp({
-    Key? key,
     this.home,
-  }) : super(key: key);
+  });
 
   final Widget? home;
 
