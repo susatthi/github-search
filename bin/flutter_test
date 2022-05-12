@@ -17,7 +17,8 @@ echo 'Removed coverage dir'
 
 # テストを実行する
 echo 'Testing github-search...'
-fvm flutter test --no-test-assets --coverage --machine > test-report.log
+#【暫定的にコメントアウト】fvm flutter test --no-test-assets --coverage --machine > test-report.log
+fvm flutter test --no-test-assets --machine > test-report.log
 if [ $? -gt 0 ]; then
   # flutter test でエラーがあれば結果を表示して処理終了
   fvm flutter pub global run dart_dot_reporter test-report.log --show-message
@@ -26,13 +27,13 @@ fi
 echo 'Tests done!'
 
 # カバレッジから不要な結果を削除する
-lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+#【暫定的にコメントアウト】lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
 
 # カバレッジ結果のHTMLを出力する
-genhtml coverage/lcov.info -o coverage/html
+#【暫定的にコメントアウト】genhtml coverage/lcov.info -o coverage/html
 
 # テスト結果をコンソールに表示する
 fvm flutter pub global run dart_dot_reporter test-report.log --show-message
 
 # カバレッジ結果を表示する
-open coverage/html/index.html
+#【暫定的にコメントアウト】open coverage/html/index.html

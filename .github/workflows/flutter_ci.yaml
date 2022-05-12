@@ -63,11 +63,14 @@ jobs:
         run: flutter analyze
 
       # テストを実行
+      # 【暫定対応】Flutter SDK 3.0.0 で、--coverage をつけてテストすると完了しない現象があるため暫定的に coverage を無効化する
+#      - name: Run Flutter Test
+#        run: |
+#          flutter test --no-test-assets --coverage --machine > test-report.log
+#          sudo apt-get install -y lcov
+#          lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
       - name: Run Flutter Test
-        run: |
-          flutter test --no-test-assets --coverage --machine > test-report.log
-          sudo apt-get install -y lcov
-          lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+        run: flutter test --no-test-assets --machine > test-report.log
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test
@@ -79,13 +82,14 @@ jobs:
           reporter: flutter-json
 
       # Codecov に結果を送信
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          file: coverage/lcov.info
-          fail_ci_if_error: true
-          flags: unittests
-          verbose: true
+      # 【暫定対応】Flutter SDK 3.0.0 で、--coverage をつけてテストすると完了しない現象があるため暫定的に coverage を無効化する
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v2
+#        with:
+#          file: coverage/lcov.info
+#          fail_ci_if_error: true
+#          flags: unittests
+#          verbose: true
 
   # Android ビルドジョブ
   # テストジョブが成功したら実行する
