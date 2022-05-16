@@ -1,0 +1,5 @@
+# see: https://zenn.dev/mamushi/articles/hide_generated_file_diff
+*.freezed.dart linguist-generated=true
+*.g.dart linguist-generated=true
+*.gen.dart linguist-generated=true
+*.gr.dart linguist-generated=true
