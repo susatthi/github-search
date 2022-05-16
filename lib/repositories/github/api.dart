@@ -42,8 +42,8 @@ class GitHubApi {
       parametersBuilder: () {
         return {
           'q': query,
-          if (sort != null) 'sort': sort.name,
-          if (order != null) 'order': order.name,
+          if (sort != null) 'sort': sort.jsonName,
+          if (order != null) 'order': order.jsonName,
           if (perPage != null) 'per_page': '$perPage',
           if (page != null) 'page': '$page',
         };
@@ -70,9 +70,9 @@ enum GitHubRepoSearchReposSort {
   forks('forks'),
   helpWantedIssues('help-wanted-issues');
 
-  const GitHubRepoSearchReposSort(this.name);
+  const GitHubRepoSearchReposSort(this.jsonName);
 
-  final String name;
+  final String jsonName;
 
   /// RepoSearchReposSort => GitHubRepoSearchReposSort?
   static GitHubRepoSearchReposSort? valueOf(RepoSearchReposSort sort) {
@@ -91,8 +91,12 @@ enum GitHubRepoSearchReposSort {
 
 /// GitHub リポジトリ検索用オーダー
 enum GitHubRepoSearchReposOrder {
-  desc,
-  asc;
+  desc('desc'),
+  asc('asc');
+
+  const GitHubRepoSearchReposOrder(this.jsonName);
+
+  final String jsonName;
 
   /// RepoSearchReposOrder => GitHubRepoSearchReposOrder
   static GitHubRepoSearchReposOrder valueOf(

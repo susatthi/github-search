@@ -127,15 +127,15 @@ void main() {
     });
   });
   group('GitHubRepoSearchReposSort', () {
-    test('stars.name', () {
-      expect(GitHubRepoSearchReposSort.stars.name, 'stars');
+    test('stars.jsonName', () {
+      expect(GitHubRepoSearchReposSort.stars.jsonName, 'stars');
     });
-    test('forks.name', () {
-      expect(GitHubRepoSearchReposSort.forks.name, 'forks');
+    test('forks.jsonName', () {
+      expect(GitHubRepoSearchReposSort.forks.jsonName, 'forks');
     });
-    test('helpWantedIssues.name', () {
+    test('helpWantedIssues.jsonName', () {
       expect(
-        GitHubRepoSearchReposSort.helpWantedIssues.name,
+        GitHubRepoSearchReposSort.helpWantedIssues.jsonName,
         'help-wanted-issues',
       );
     });
@@ -173,11 +173,11 @@ void main() {
     });
   });
   group('GitHubRepoSearchReposOrder', () {
-    test('desc.name', () {
-      expect(GitHubRepoSearchReposOrder.desc.name, 'desc');
+    test('desc.jsonName', () {
+      expect(GitHubRepoSearchReposOrder.desc.jsonName, 'desc');
     });
-    test('asc.name', () {
-      expect(GitHubRepoSearchReposOrder.asc.name, 'asc');
+    test('asc.jsonName', () {
+      expect(GitHubRepoSearchReposOrder.asc.jsonName, 'asc');
     });
     test('valueOf(desc)', () {
       expect(
