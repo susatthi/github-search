@@ -73,11 +73,11 @@ jobs:
         run: flutter analyze
 
       # テストを実行
-     - name: Run Flutter Test
-       run: |
-         flutter test --no-test-assets --coverage --machine > test-report.log
-         sudo apt-get install -y lcov
-         lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+      - name: Run Flutter Test
+        run: |
+          flutter test --no-test-assets --coverage --machine > test-report.log
+          sudo apt-get install -y lcov
+          lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
       - name: Run Flutter Test
         run: flutter test --no-test-assets --machine > test-report.log
 
@@ -91,13 +91,13 @@ jobs:
           reporter: flutter-json
 
       # Codecov に結果を送信
-     - name: Upload coverage to Codecov
-       uses: codecov/codecov-action@v2
-       with:
-         file: coverage/lcov.info
-         fail_ci_if_error: true
-         flags: unittests
-         verbose: true
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          file: coverage/lcov.info
+          fail_ci_if_error: true
+          flags: unittests
+          verbose: true
 
   # Android ビルドジョブの定義
   flutter_build_android:
