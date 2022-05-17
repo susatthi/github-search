@@ -10,6 +10,7 @@ import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/components/repo/repo_order_toggle_button.dart';
 import 'package:github_search/presentation/components/repo/repo_search_text_button.dart';
 import 'package:github_search/presentation/components/repo/repo_search_text_field.dart';
+import 'package:github_search/presentation/components/repo/repo_sort_button.dart';
 import 'package:github_search/presentation/components/repo/repo_sort_selector_bottom_sheet.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
@@ -38,9 +39,8 @@ void main() {
         ),
       );
 
-      expect(find.byType(RepoSearchTextButton), findsOneWidget);
-      expect(find.byType(RepoOrderToggleButton), findsOneWidget);
-      expect(find.byIcon(Icons.sort), findsOneWidget);
+      expect(find.byType(RepoSearchTextField), findsOneWidget);
+      expect(find.byType(RepoSortButton), findsOneWidget);
     });
     testWidgets('エラーが発生したらエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(
@@ -59,23 +59,6 @@ void main() {
         find.text(i18n.gitHubExceptionMessage.noInternetConnection),
         findsOneWidget,
       );
-
-      // オーダー変更ボタンは昇順のはず
-      expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
-      expect(find.byIcon(Icons.arrow_upward), findsNothing);
-
-      // オーダー変更ボタンが disable になっているので押せないはず
-      await tester.tap(find.byType(RepoOrderToggleButton));
-
-      // エラー画面が表示されるはず
-      expect(
-        find.text(i18n.gitHubExceptionMessage.noInternetConnection),
-        findsOneWidget,
-      );
-
-      // オーダー変更ボタンは昇順のままのはず
-      expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
-      expect(find.byIcon(Icons.arrow_upward), findsNothing);
     });
     testWidgets('テキスト検索を実行して検索結果が表示されるはず', (tester) async {
       await tester.pumpWidget(mockGitHubSearchApp());
@@ -102,7 +85,7 @@ void main() {
     });
     testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {
       await tester.pumpWidget(mockGitHubSearchApp());
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect(find.text('flutter/flutter'), findsOneWidget);
 
@@ -120,7 +103,7 @@ void main() {
           home: const RepoIndexPage(),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect(find.text('flutter/flutter'), findsOneWidget);
       expect(find.text('flutter/plugins'), findsOneWidget);
@@ -129,25 +112,23 @@ void main() {
       expect(find.text('kaina404/FlutterDouBan'), findsOneWidget);
       expect(find.text('samarthagarwal/FlutterScreens'), findsOneWidget);
 
-      // ソートアイコンをタップ
-      await tester.tap(find.byIcon(Icons.sort));
-      await tester.pump();
+      // ソートボタンをタップ
+      await tester.tap(find.byType(RepoSortButton));
+      await tester.pumpAndSettle();
 
-      // ソート選択が表示したはず
-      await tester.pump();
+      // ボトムシートが表示されたはず
       expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
 
       // stars をタップ
       await tester.runAsync<void>(() async {
         await tester.tap(find.text(i18n.starsCount));
       });
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // ソート選択が閉じたはず
       expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
 
       // スター数に変更されたはず
-      await tester.pump();
       expect(find.text('flutter/flutter'), findsOneWidget);
       expect(find.text('Solido/awesome-flutter'), findsOneWidget);
       expect(find.text('alibaba/flutter-go'), findsOneWidget);
@@ -163,6 +144,13 @@ void main() {
       );
       await tester.pump();
 
+      // ソートボタンをタップ
+      await tester.tap(find.byType(RepoSortButton));
+      await tester.pumpAndSettle();
+
+      // ボトムシートが表示されたはず
+      expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
+
       // 最初は降順のはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
 
@@ -171,18 +159,17 @@ void main() {
         testLogger.i('Tap order toggle button 1');
         await tester.tap(find.byType(RepoOrderToggleButton));
       });
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // 昇順になったはず
       expect(find.byIcon(Icons.arrow_upward), findsOneWidget);
-      await tester.pump();
 
       // もう一度オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 2');
         await tester.tap(find.byType(RepoOrderToggleButton));
       });
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // 降順になったはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);

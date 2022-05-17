@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../localizations/strings.g.dart';
 import 'repo_sort_selector_bottom_sheet.dart';
@@ -15,9 +14,14 @@ class RepoSortButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => showMaterialModalBottomSheet<void>(
+      onPressed: () => showModalBottomSheet<void>(
         context: context,
-        backgroundColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
         builder: (context) => const RepoSortSelectorBottomSheet(),
       ),
       icon: const Icon(Icons.sort),

@@ -26,42 +26,33 @@ class RepoSortSelectorBottomSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sort = ref.watch(repoSearchReposSortProvider);
     return SingleChildScrollView(
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-        ),
-        margin: EdgeInsets.zero,
-        child: Column(
-          children: [
-            ListTile(
-              title: Text(
-                i18n.sort,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              trailing: const RepoOrderToggleButton(),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              i18n.sort,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
-            ..._items.entries
-                .map(
-                  (e) => ListTile(
-                    leading: Visibility(
-                      visible: sort == e.value,
-                      child: const Icon(Icons.check),
-                    ),
-                    title: Text(e.key),
-                    onTap: () {
-                      logger.i('Changed ${e.value.name}');
-                      ref.read(repoSearchReposSortProvider.notifier).sort =
-                          e.value;
-                      Navigator.of(context).pop();
-                    },
+            trailing: const RepoOrderToggleButton(),
+          ),
+          ..._items.entries
+              .map(
+                (e) => ListTile(
+                  leading: Visibility(
+                    visible: sort == e.value,
+                    child: const Icon(Icons.check),
                   ),
-                )
-                .toList()
-          ],
-        ),
+                  title: Text(e.key),
+                  onTap: () {
+                    logger.i('Changed ${e.value.name}');
+                    ref.read(repoSearchReposSortProvider.notifier).sort =
+                        e.value;
+                    Navigator.of(context).pop();
+                  },
+                ),
+              )
+              .toList()
+        ],
       ),
     );
   }

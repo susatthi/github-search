@@ -4,12 +4,11 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/components/repo/repo_search_text_field.dart';
 import 'package:github_search/presentation/components/repo/repo_sort_button.dart';
 import 'package:github_search/presentation/components/repo/repo_sort_selector_bottom_sheet.dart';
-import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 
 import '../../../test_utils/hive.dart';
 import '../../../test_utils/mocks.dart';
@@ -24,44 +23,51 @@ void main() {
     await closeAppDataBox(tmpDir);
   });
 
-  group('RepoSearchPage', () {
-    testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
+  group('RepoSortButton', () {
+    testWidgets('正しく表示できるはず', (tester) async {
       await tester.pumpWidget(
         mockGitHubSearchApp(
-          home: const RepoSearchPage(),
-        ),
-      );
-
-      expect(find.byType(RepoSearchTextField), findsOneWidget);
-      expect(find.byType(RepoSortButton), findsOneWidget);
-
-      // RepoSearchTextに自動でフォーカスが当たるはず
-      final state = tester.firstState(find.byType(RepoSearchTextField))
-          as RepoSearchTextFieldState;
-      expect(state.focusNode.hasFocus, true);
-    });
-    testWidgets('ソートボタン押下でボトムシートが表示されるはず', (tester) async {
-      await tester.pumpWidget(
-        mockGitHubSearchApp(
-          home: const RepoSearchPage(),
+          home: const Scaffold(
+            body: RepoSortButton(),
+          ),
         ),
       );
       await tester.pump();
 
-      // ソートボタンをタップ
+      // tooltipが正しいはず
+      final button = tester.widget(find.byType(IconButton)) as IconButton;
+      expect(button.tooltip, i18n.sort);
+
+      // アイコンが正しいはず
+      final icon = button.icon as Icon;
+      expect(icon.icon, Icons.sort);
+    });
+
+    testWidgets('ボタン押下でボトムシートを表示するはず', (tester) async {
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          home: const Scaffold(
+            body: RepoSortButton(),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      // まだ表示されていないはず
+      expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
+
+      // ボタンをタップ
       await tester.tap(find.byType(RepoSortButton));
       await tester.pumpAndSettle();
 
-      // ソート選択ボトムシートが表示したはず
+      // 表示したはず
       expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
 
-      // stars をタップ
-      await tester.runAsync<void>(() async {
-        await tester.tap(find.text(i18n.starsCount));
-      });
+      // 適当なところをタップ
+      await tester.tapAt(const Offset(100, 100));
       await tester.pumpAndSettle();
 
-      // ソート選択が閉じたはず
+      // 消えたはず
       expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
     });
   });
