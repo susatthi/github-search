@@ -4,11 +4,10 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../localizations/strings.g.dart';
 import '../../components/common/search_app_bar.dart';
 import '../../components/repo/repo_order_toggle_button.dart';
 import '../../components/repo/repo_search_text_field.dart';
-import '../../components/repo/repo_sort_selector_dialog.dart';
+import '../../components/repo/repo_sort_button.dart';
 
 /// リポジトリ検索画面
 class RepoSearchPage extends StatelessWidget {
@@ -24,16 +23,9 @@ class RepoSearchPage extends StatelessWidget {
         slivers: [
           SearchAppBar(
             title: const RepoSearchTextField(),
-            actions: [
-              const RepoOrderToggleButton(),
-              IconButton(
-                onPressed: () => showDialog<void>(
-                  context: context,
-                  builder: (context) => const RepoSortSelectorDialog(),
-                ),
-                icon: const Icon(Icons.sort),
-                tooltip: i18n.sort,
-              ),
+            actions: const [
+              RepoOrderToggleButton(),
+              RepoSortButton(),
             ],
             backgroundColor: Theme.of(context).colorScheme.background,
             pinned: true,

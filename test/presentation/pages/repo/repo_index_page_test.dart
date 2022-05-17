@@ -10,7 +10,7 @@ import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/components/repo/repo_order_toggle_button.dart';
 import 'package:github_search/presentation/components/repo/repo_search_text_button.dart';
 import 'package:github_search/presentation/components/repo/repo_search_text_field.dart';
-import 'package:github_search/presentation/components/repo/repo_sort_selector_dialog.dart';
+import 'package:github_search/presentation/components/repo/repo_sort_selector_bottom_sheet.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
@@ -133,9 +133,9 @@ void main() {
       await tester.tap(find.byIcon(Icons.sort));
       await tester.pump();
 
-      // ソート選択ダイアログが表示したはず
+      // ソート選択が表示したはず
       await tester.pump();
-      expect(find.byType(RepoSortSelectorDialog), findsOneWidget);
+      expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
 
       // stars をタップ
       await tester.runAsync<void>(() async {
@@ -143,8 +143,8 @@ void main() {
       });
       await tester.pump();
 
-      // ソート選択ダイアログが閉じたはず
-      expect(find.byType(RepoSortSelectorDialog), findsNothing);
+      // ソート選択が閉じたはず
+      expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
 
       // スター数に変更されたはず
       await tester.pump();

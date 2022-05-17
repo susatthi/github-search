@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/components/repo/repo_sort_selector_dialog.dart';
+import 'package:github_search/presentation/components/repo/repo_sort_selector_bottom_sheet.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../../../test_utils/hive.dart';
@@ -24,7 +24,7 @@ void main() {
     await closeAppDataBox(tmpDir);
   });
 
-  group('RepoSortSelectorDialog', () {
+  group('RepoSortSelectorBottomSheet', () {
     testWidgets('各選択肢を選択してソートが変更されるはず', (tester) async {
       await tester.pumpWidget(
         mockGitHubSearchApp(
@@ -33,7 +33,7 @@ void main() {
               return TextButton(
                 onPressed: () => showDialog<void>(
                   context: context,
-                  builder: (context) => const RepoSortSelectorDialog(),
+                  builder: (context) => const RepoSortSelectorBottomSheet(),
                 ),
                 child: const Text('button'),
               );
@@ -43,7 +43,7 @@ void main() {
       );
       await tester.pump();
 
-      // ダイアログを表示する
+      // ボトムシートを表示する
       await tester.tap(find.text('button'));
       await tester.pump();
 
@@ -63,7 +63,7 @@ void main() {
       });
       await tester.pump();
 
-      // ダイアログを表示する
+      // ボトムシートを表示する
       await tester.tap(find.text('button'));
       await tester.pump();
 
@@ -77,7 +77,7 @@ void main() {
       });
       await tester.pump();
 
-      // ダイアログを表示する
+      // ボトムシートを表示する
       await tester.tap(find.text('button'));
       await tester.pump();
 
@@ -91,7 +91,7 @@ void main() {
       });
       await tester.pump();
 
-      // ダイアログを表示する
+      // ボトムシートを表示する
       await tester.tap(find.text('button'));
       await tester.pump();
 
