@@ -8,7 +8,6 @@ import '../../../config/router.dart';
 import '../../../utils/logger.dart';
 import '../../components/common/search_app_bar.dart';
 import '../../components/repo/repo_list_view.dart';
-import '../../components/repo/repo_order_toggle_button.dart';
 import '../../components/repo/repo_search_text_button.dart';
 import '../../components/repo/repo_sort_button.dart';
 
@@ -36,7 +35,6 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
           SearchAppBar(
             title: const RepoSearchTextButton(),
             actions: const [
-              RepoOrderToggleButton(),
               RepoSortButton(),
             ],
             flexibleSpace: SafeArea(
@@ -108,7 +106,7 @@ class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
   static const _animateDuration = Duration(milliseconds: 300);
 
   // 注意: 検索用テキストフィールドのサイズが変わったら下記のパラメータも変える必要がある
-  static const _initMargin = EdgeInsets.only(left: 18, right: 96);
+  static const _initMargin = EdgeInsets.only(left: 18, right: 48);
   static const _initHeight = 48.0;
   static const _initRadius = 25.0;
 

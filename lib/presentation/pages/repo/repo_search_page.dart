@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 
 import '../../components/common/search_app_bar.dart';
-import '../../components/repo/repo_order_toggle_button.dart';
 import '../../components/repo/repo_search_text_field.dart';
 import '../../components/repo/repo_sort_button.dart';
 
@@ -24,7 +23,6 @@ class RepoSearchPage extends StatelessWidget {
           SearchAppBar(
             title: const RepoSearchTextField(),
             actions: const [
-              RepoOrderToggleButton(),
               RepoSortButton(),
             ],
             backgroundColor: Theme.of(context).colorScheme.background,

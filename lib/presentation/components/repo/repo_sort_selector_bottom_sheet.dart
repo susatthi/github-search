@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
+import 'repo_order_toggle_button.dart';
 import 'repo_search_repos_sort.dart';
 
 /// リポジトリ検索用ソート選択ボトムシート
@@ -40,6 +41,7 @@ class RepoSortSelectorBottomSheet extends ConsumerWidget {
                 i18n.sort,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
+              trailing: const RepoOrderToggleButton(),
             ),
             ..._items.entries
                 .map(
