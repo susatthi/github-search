@@ -2,10 +2,12 @@
 # Use of this source code is governed by a MIT license that can be
 # found in the LICENSE file.
 
+# ワークフローの表示名
 name: Flutter CI
 
 on:
-  # プルリクエストが作成or更新された時
+
+  # プルリクエストが作成 or 更新された時
   pull_request:
     types:
       - opened
@@ -17,22 +19,30 @@ on:
       - main
       - develop
 
+# 複数のジョブを定義する
+# 各ジョブはそれぞれまったく別々の環境で実行される
 jobs:
-  # テストジョブ
-  # 最初に実行する
+
+  # 最初に実行するテストジョブの定義
   flutter_test:
+
+    # ジョブの表示名
     name: Flutter Test
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -63,12 +73,11 @@ jobs:
         run: flutter analyze
 
       # テストを実行
-      # 【暫定対応】Flutter SDK 3.0.0 で、--coverage をつけてテストすると完了しない現象があるため暫定的に coverage を無効化する
-#      - name: Run Flutter Test
-#        run: |
-#          flutter test --no-test-assets --coverage --machine > test-report.log
-#          sudo apt-get install -y lcov
-#          lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+     - name: Run Flutter Test
+       run: |
+         flutter test --no-test-assets --coverage --machine > test-report.log
+         sudo apt-get install -y lcov
+         lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
       - name: Run Flutter Test
         run: flutter test --no-test-assets --machine > test-report.log
 
@@ -82,32 +91,38 @@ jobs:
           reporter: flutter-json
 
       # Codecov に結果を送信
-      # 【暫定対応】Flutter SDK 3.0.0 で、--coverage をつけてテストすると完了しない現象があるため暫定的に coverage を無効化する
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v2
-#        with:
-#          file: coverage/lcov.info
-#          fail_ci_if_error: true
-#          flags: unittests
-#          verbose: true
+     - name: Upload coverage to Codecov
+       uses: codecov/codecov-action@v2
+       with:
+         file: coverage/lcov.info
+         fail_ci_if_error: true
+         flags: unittests
+         verbose: true
 
-  # Android ビルドジョブ
-  # テストジョブが成功したら実行する
+  # Android ビルドジョブの定義
   flutter_build_android:
+
+    # ジョブの表示名
     name: Flutter Build for Android
+
+    # テストジョブが成功したら実行する
     needs:
       - flutter_test
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -133,23 +148,30 @@ jobs:
       - name: Build for Android
         run: flutter build appbundle -t lib/main.dart --release
 
-  # iOS ビルドジョブ
-  # テストジョブが成功したら実行する
+  # iOS ビルドジョブの定義
   flutter_build_ios:
+
+    # ジョブの表示名
     name: Flutter Build for iOS
+
+    # テストジョブが成功したら実行する
     needs:
       - flutter_test
+
+    # ジョブを実行するOS
     runs-on: macos-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -189,23 +211,30 @@ jobs:
       - name: Build for iOS
         run: flutter build ipa -t lib/main.dart --release
 
-  # macOS ビルドジョブ
-  # テストジョブが成功したら実行する
+  # macOS ビルドジョブの定義
   flutter_build_macos:
+
+    # ジョブの表示名
     name: Flutter Build for macOS
+
+    # テストジョブが成功したら実行する
     needs:
       - flutter_test
+
+    # ジョブを実行するOS
     runs-on: macos-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -247,23 +276,30 @@ jobs:
           flutter config --enable-macos-desktop
           flutter build macos -t lib/main.dart --release
 
-  # Windows ビルドジョブ
-  # テストジョブが成功したら実行する
+  # Windows ビルドジョブの定義
   flutter_build_windows:
+
+    # ジョブの表示名
     name: Flutter Build for Windows
+
+    # テストジョブが成功したら実行する
     needs:
       - flutter_test
+
+    # ジョブを実行するOS
     runs-on: windows-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -292,23 +328,30 @@ jobs:
           flutter config --enable-windows-desktop
           flutter build windows -t lib/main.dart --release
 
-  # Web ビルドジョブ
-  # テストジョブが成功したら実行する
+  # Web ビルドジョブの定義
   flutter_build_web:
+
+    # ジョブの表示名
     name: Flutter Build for Web
+
+    # テストジョブが成功したら実行する
     needs:
       - flutter_test
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -336,23 +379,30 @@ jobs:
           flutter config --enable-web
           flutter build web -t lib/main.dart --web-renderer html
 
-  # API ドキュメント作成ジョブ
-  # テストジョブが成功したら実行する
+  # API ドキュメント作成ジョブの定義
   flutter_api_doc:
+
+    # ジョブの表示名
     name: Flutter API doc
+
+    # テストジョブが成功したら実行する
     needs:
       - flutter_test
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
+
+    # タイムアウト時間（分）
     timeout-minutes: 10
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
+      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@v1
 
@@ -388,11 +438,16 @@ jobs:
           publish_dir: doc/api
           publish_branch: gh-pages  # default: gh-pages
 
-  # Slack通知ジョブ
-  # すべてのジョブが終了したら実行する
+  # Slack通知ジョブの定義
   notify_slack:
+
+    # ジョブの表示名
     name: Notify to Slack
-    if: ${{ always() }}
+
+    # 常に実行する
+    if: always()
+
+    # すべてのジョブが終了したら実行する
     needs:
       - flutter_test
       - flutter_build_android
@@ -401,12 +456,17 @@ jobs:
       - flutter_build_macos
       - flutter_build_windows
       - flutter_api_doc
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
+
+    # 環境変数の定義
     env:
-      SLACK_CHANNEL: 個人開発_すさ_github_search
       SLACK_USERNAME: GitHub Actions
       SLACK_ICON: https://raw.githubusercontent.com/github/explore/2c7e603b797535e5ad8b4beb575ab3b7354666e1/topics/actions/actions.png
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    # ジョブの手順
     steps:
 
       # すべて成功したとき
