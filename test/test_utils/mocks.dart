@@ -12,7 +12,7 @@ import 'package:github_search/repositories/github/http_client.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import 'logger.dart';
 import 'utils.dart';

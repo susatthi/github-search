@@ -9,7 +9,7 @@ import 'package:github_search/presentation/components/repo/repo_search_repos_que
 import 'package:github_search/presentation/components/repo/repo_search_text_button.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
@@ -61,11 +61,11 @@ void main() {
         ),
       );
 
-      verifyNever(mockGoRouter.goNamed(RepoSearchPage.name));
+      verifyNever(() => mockGoRouter.goNamed(RepoSearchPage.name));
 
       // タップするとリポジトリ検索画面に遷移するはず
       await tester.tap(find.byType(RepoSearchTextButton));
-      verify(mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
+      verify(() => mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
     });
     testWidgets('削除ボタンをタップすると検索文字列をクリアしてリポジトリ検索画面に遷移するはず', (tester) async {
       const initQuery = 'foooooo';
@@ -97,7 +97,7 @@ void main() {
         ),
       );
 
-      verifyNever(mockGoRouter.goNamed(RepoSearchPage.name));
+      verifyNever(() => mockGoRouter.goNamed(RepoSearchPage.name));
       expect(_query, initQuery);
 
       // 削除ボタンをタップする
@@ -108,7 +108,7 @@ void main() {
       expect(_query, '');
 
       // リポジトリ検索画面に遷移するはず
-      verify(mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
+      verify(() => mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
     });
   });
 }

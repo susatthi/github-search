@@ -13,7 +13,7 @@ import 'package:github_search/presentation/components/repo/repo_search_repos_que
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../test_utils/hive.dart';
@@ -159,7 +159,7 @@ void main() {
       await tester.pump();
 
       verifyNever(
-        mockGoRouter.goNamed(
+        () => mockGoRouter.goNamed(
           RepoViewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',
@@ -174,7 +174,7 @@ void main() {
 
       // リポジトリ詳細画面に遷移するはず
       verify(
-        mockGoRouter.goNamed(
+        () => mockGoRouter.goNamed(
           RepoViewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',

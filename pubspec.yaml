@@ -48,7 +48,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.0.3+1
-  mockito: ^5.1.0
+  mocktail: ^0.3.0
   path: ^1.8.1
   pedantic_mono: ^1.19.0+1
 

@@ -60,7 +60,7 @@ Configurations を選択してビルドしてください。
 - [http](https://pub.dev/packages/http) を使った REST API の実装
 - [fast_i18n](https://pub.dev/packages/fast_i18n) を使った多言語対応（日本語/英語）
 - カスタムフォント対応
-- [mockito](https://pub.dev/packages/mockito) を使った Unit / Widget テスト
+- [mocktail](https://pub.dev/packages/mocktail) を使った Unit / Widget テスト
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) を使ったアプリアイコン
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
 - [GitHub Actions](https://github.co.jp/features/actions) による自動テストと自動ビルド
