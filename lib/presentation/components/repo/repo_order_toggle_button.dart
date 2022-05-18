@@ -52,9 +52,12 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
               ref.read(repoSearchReposOrderProvider.notifier).order = newOrder;
             }
           : null,
-      icon: Icon(order.icon),
+      icon: Icon(
+        order.icon,
+        color: Theme.of(context).textTheme.titleSmall?.color,
+      ),
       // ちらつきを防止するため無効化してても有効化と同じカラーにする
-      disabledColor: IconTheme.of(context).color,
+      disabledColor: Theme.of(context).textTheme.titleSmall?.color,
       tooltip: order.label,
     );
   }
