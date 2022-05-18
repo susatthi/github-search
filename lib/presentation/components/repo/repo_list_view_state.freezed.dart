@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RepoListViewState {
+  int get totalCount => throw _privateConstructorUsedError;
   List<RepoData> get items => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
@@ -31,7 +32,12 @@ abstract class $RepoListViewStateCopyWith<$Res> {
   factory $RepoListViewStateCopyWith(
           RepoListViewState value, $Res Function(RepoListViewState) then) =
       _$RepoListViewStateCopyWithImpl<$Res>;
-  $Res call({List<RepoData> items, bool hasNext, int page, String query});
+  $Res call(
+      {int totalCount,
+      List<RepoData> items,
+      bool hasNext,
+      int page,
+      String query});
 }
 
 /// @nodoc
@@ -45,12 +51,17 @@ class _$RepoListViewStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? totalCount = freezed,
     Object? items = freezed,
     Object? hasNext = freezed,
     Object? page = freezed,
     Object? query = freezed,
   }) {
     return _then(_value.copyWith(
+      totalCount: totalCount == freezed
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -78,7 +89,12 @@ abstract class _$$_RepoListViewStateCopyWith<$Res>
           $Res Function(_$_RepoListViewState) then) =
       __$$_RepoListViewStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<RepoData> items, bool hasNext, int page, String query});
+  $Res call(
+      {int totalCount,
+      List<RepoData> items,
+      bool hasNext,
+      int page,
+      String query});
 }
 
 /// @nodoc
@@ -94,12 +110,17 @@ class __$$_RepoListViewStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? totalCount = freezed,
     Object? items = freezed,
     Object? hasNext = freezed,
     Object? page = freezed,
     Object? query = freezed,
   }) {
     return _then(_$_RepoListViewState(
+      totalCount: totalCount == freezed
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
       items: items == freezed
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -124,12 +145,16 @@ class __$$_RepoListViewStateCopyWithImpl<$Res>
 
 class _$_RepoListViewState implements _RepoListViewState {
   const _$_RepoListViewState(
-      {final List<RepoData> items = const <RepoData>[],
+      {this.totalCount = 0,
+      final List<RepoData> items = const <RepoData>[],
       this.hasNext = false,
       this.page = 1,
       this.query = ''})
       : _items = items;
 
+  @override
+  @JsonKey()
+  final int totalCount;
   final List<RepoData> _items;
   @override
   @JsonKey()
@@ -150,7 +175,7 @@ class _$_RepoListViewState implements _RepoListViewState {
 
   @override
   String toString() {
-    return 'RepoListViewState(items: $items, hasNext: $hasNext, page: $page, query: $query)';
+    return 'RepoListViewState(totalCount: $totalCount, items: $items, hasNext: $hasNext, page: $page, query: $query)';
   }
 
   @override
@@ -158,6 +183,8 @@ class _$_RepoListViewState implements _RepoListViewState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RepoListViewState &&
+            const DeepCollectionEquality()
+                .equals(other.totalCount, totalCount) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
             const DeepCollectionEquality().equals(other.page, page) &&
@@ -167,6 +194,7 @@ class _$_RepoListViewState implements _RepoListViewState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(totalCount),
       const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(hasNext),
       const DeepCollectionEquality().hash(page),
@@ -181,11 +209,14 @@ class _$_RepoListViewState implements _RepoListViewState {
 
 abstract class _RepoListViewState implements RepoListViewState {
   const factory _RepoListViewState(
-      {final List<RepoData> items,
+      {final int totalCount,
+      final List<RepoData> items,
       final bool hasNext,
       final int page,
       final String query}) = _$_RepoListViewState;
 
+  @override
+  int get totalCount => throw _privateConstructorUsedError;
   @override
   List<RepoData> get items => throw _privateConstructorUsedError;
   @override

@@ -3,7 +3,7 @@
  * Generated file. Do not edit.
  *
  * Locales: 2
- * Strings: 54 (27.0 per locale)
+ * Strings: 56 (28.0 per locale)
  */
 
 import 'package:flutter/widgets.dart';
@@ -317,6 +317,7 @@ class _StringsEn {
 	String get starsCount => 'Stars count';
 	String get searchRepos => 'Search repositories';
 	String get sort => 'Sort';
+	String totalCountResult({required Object totalCount}) => '$totalCount repository results';
 	String get watchersCount => 'Watchers count';
 }
 
@@ -366,6 +367,7 @@ class _StringsJa implements _StringsEn {
 	@override String get starsCount => 'Star数';
 	@override String get searchRepos => 'リポジトリを検索';
 	@override String get sort => '並び替え';
+	@override String totalCountResult({required Object totalCount}) => '$totalCount 件';
 	@override String get watchersCount => 'Watcher数';
 }
 

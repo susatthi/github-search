@@ -27,5 +27,6 @@
   "starsCount": "Star数",
   "searchRepos": "リポジトリを検索",
   "sort": "並び替え",
+  "totalCountResult": "$totalCount 件",
   "watchersCount": "Watcher数"
 }
