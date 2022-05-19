@@ -13,6 +13,7 @@ part 'repo_list_view_state.freezed.dart';
 @freezed
 class RepoListViewState with _$RepoListViewState {
   const factory RepoListViewState({
+    @Default(0) int totalCount,
     @Default(<RepoData>[]) List<RepoData> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
@@ -21,6 +22,7 @@ class RepoListViewState with _$RepoListViewState {
 
   factory RepoListViewState.from(SearchReposResult result, String query) {
     return RepoListViewState(
+      totalCount: result.totalCount,
       items: result.items.map(RepoData.from).toList(),
       hasNext: result.items.length < result.totalCount,
       query: query,

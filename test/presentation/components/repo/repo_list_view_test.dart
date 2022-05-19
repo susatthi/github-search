@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/components/common/error_view.dart';
 import 'package:github_search/presentation/components/common/list_loader.dart';
 import 'package:github_search/presentation/components/repo/repo_list_view.dart';
@@ -14,6 +15,7 @@ import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../test_utils/hive.dart';
@@ -126,6 +128,21 @@ void main() {
       // RepoEmptyItemsViewを表示しているはず
       expect(find.byType(RepoEmptyItemsView), findsOneWidget);
     });
+    testWidgets('検索結果件数を表示するはず', (tester) async {
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          home: const _MockPage(),
+        ),
+      );
+      await tester.pump();
+
+      expect(
+        find.text(
+          i18n.totalCountResult(totalCount: createDisplay()(356299)),
+        ),
+        findsOneWidget,
+      );
+    });
     testWidgets('一番下までスクロールしたら次のページを取得するはず', (tester) async {
       await tester.pumpWidget(
         mockGitHubSearchApp(
@@ -134,15 +151,23 @@ void main() {
       );
       await tester.pump();
 
+      // 1ページ目の項目が表示されているはず
       expect(find.text('flutter/flutter'), findsOneWidget);
       expect(find.text('mahmudahsan/flutter'), findsNothing);
 
-      // 一番下までスクロールする
-      await _doScroll(
-        tester,
+      // VisibilityDetector が見えるまで下にスクロールする
+      await tester.dragUntilVisible(
+        find.byType(VisibilityDetector),
         find.byType(CustomScrollView),
-        const Offset(0, 10000),
+        const Offset(0, -1000),
       );
+      await tester.pumpAndSettle();
+
+      // VisibilityDetector 内部でタイマー起動しているのでその分待つ必要がある
+      await tester.pump(VisibilityDetectorController.instance.updateInterval);
+
+      // 2ページ目の項目が表示されているはず
+      expect(find.text('flutter/flutter'), findsNothing);
       expect(find.text('mahmudahsan/flutter'), findsOneWidget);
     });
 
@@ -184,28 +209,4 @@ void main() {
       ).called(1);
     });
   });
-}
-
-/// Scrolls the specified widget by the specified offset and waits sufficiently
-/// long for the [VisibilityDetector] callbacks to fire.
-///
-/// see: https://github.com/google/flutter.widgets/blob/master/packages/visibility_detector/test/widget_test.dart
-Future<void> _doScroll(
-  WidgetTester tester,
-  Finder finder,
-  Offset scrollOffset,
-) async {
-  // The scroll direction is the opposite of the direction to drag.  We also
-  // must drag by [kDragSlopDefault] first to start the drag.
-  final dragOffset = -Offset.fromDirection(
-    scrollOffset.direction,
-    scrollOffset.distance + kDragSlopDefault,
-  );
-  await tester.drag(finder, dragOffset);
-
-  // Wait for the drag to complete.
-  await tester.pumpAndSettle();
-
-  // Wait for callbacks to fire.
-  await tester.pump(VisibilityDetectorController.instance.updateInterval);
 }

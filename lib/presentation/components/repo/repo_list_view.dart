@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../entities/repo/repo_data.dart';
@@ -91,23 +92,53 @@ class _SliverRepoListView extends StatelessWidget {
       );
     }
 
+    // データの件数 + 検索結果表示 + 無限スクロール用のプログレス表示
+    final childCount = state.items.length + 1 + (state.hasNext ? 1 : 0);
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          if (index < state.items.length) {
-            return Column(
-              children: [
-                _RepoListTile(
-                  data: state.items[index],
-                ),
-                const Divider(),
-              ],
+          if (index == 0) {
+            return _TotalCountListTile(
+              totalCount: state.totalCount,
+            );
+          } else if (index < state.items.length + 1) {
+            return _RepoListTile(
+              data: state.items[index - 1],
             );
           }
           return const _LastIndicator();
         },
-        childCount: state.items.length + (state.hasNext ? 1 : 0),
+        childCount: childCount,
       ),
+    );
+  }
+}
+
+/// 検索結果件数ListTile
+class _TotalCountListTile extends StatelessWidget {
+  const _TotalCountListTile({
+    required this.totalCount,
+  });
+
+  /// 検索結果件数
+  final int totalCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Text(
+            i18n.totalCountResult(totalCount: createDisplay()(totalCount)),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ),
+        const Divider(),
+      ],
     );
   }
 }
@@ -124,55 +155,60 @@ class _RepoListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final description = data.description;
-    return ListTile(
-      leading: CachedCircleAvatar(
-        url: data.owner.avatarUrl,
-        size: _avatarSize,
-        loading: false,
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            data.fullName,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodyLarge,
+    return Column(
+      children: [
+        ListTile(
+          leading: CachedCircleAvatar(
+            url: data.owner.avatarUrl,
+            size: _avatarSize,
+            loading: false,
           ),
-          if (description != null)
-            Text(
-              description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-        ],
-      ),
-      subtitle: Row(
-        children: [
-          SizedBox(
-            width: 80,
-            child: _StargazersCountLabel(
-              text: data.stargazersCountShort,
-            ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                data.fullName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              if (description != null)
+                Text(
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+            ],
           ),
-          const SizedBox(width: 10),
-          _LanguageLabel(
-            color: data.languageColor,
-            language: data.language,
+          subtitle: Row(
+            children: [
+              SizedBox(
+                width: 80,
+                child: _StargazersCountLabel(
+                  text: data.stargazersCountShort,
+                ),
+              ),
+              const SizedBox(width: 10),
+              _LanguageLabel(
+                color: data.languageColor,
+                language: data.language,
+              ),
+            ],
           ),
-        ],
-      ),
-      onTap: () {
-        // リポジトリ詳細画面に遷移する
-        context.goNamed(
-          RepoViewPage.name,
-          params: RepoViewPage.params(
-            ownerName: data.owner.name,
-            repoName: data.name,
-          ),
-        );
-      },
+          onTap: () {
+            // リポジトリ詳細画面に遷移する
+            context.goNamed(
+              RepoViewPage.name,
+              params: RepoViewPage.params(
+                ownerName: data.owner.name,
+                repoName: data.name,
+              ),
+            );
+          },
+        ),
+        const Divider(),
+      ],
     );
   }
 }

@@ -27,5 +27,6 @@
   "starsCount": "Stars count",
   "searchRepos": "Search repositories",
   "sort": "Sort",
+  "totalCountResult": "$totalCount repository results",
   "watchersCount": "Watchers count"
 }
