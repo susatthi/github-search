@@ -26,8 +26,20 @@ void main() {
       expect(repoData.stargazersCount, 137773);
       expect(repoData.stargazersCountShort, '138k');
     });
+    test('watchersCountShort', () async {
+      expect(repoData.watchersCount, 137773);
+      expect(repoData.watchersCountShort, '138k');
+    });
     test('languageColor', () async {
       expect(repoData.languageColor.value, HexColor('#00B4AB').value);
+    });
+    test('forksCountShort', () async {
+      expect(repoData.forksCount, 21221);
+      expect(repoData.forksCountShort, '21k');
+    });
+    test('openIssuesCountShort', () async {
+      expect(repoData.openIssuesCount, 10623);
+      expect(repoData.openIssuesCountShort, '11k');
     });
   });
 }

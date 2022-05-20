@@ -4,8 +4,13 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../localizations/strings.g.dart';
+import '../../components/common/search_app_bar.dart';
 import '../../components/repo/repo_detail_view.dart';
+import '../../components/repo/repo_full_name_text.dart';
+
+/// 画面遷移時に渡すパラメータのキー
+const pageParamKeyOwnerName = 'owner_name';
+const pageParamKeyRepoName = 'repo_name';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
@@ -27,14 +32,16 @@ class RepoViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.repo),
+      body: CustomScrollView(
+        slivers: [
+          SearchAppBar(
+            title: const RepoFullNameText(),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            floating: true,
+          ),
+          const SliverRepoDetailView(),
+        ],
       ),
-      body: const RepoDetailView(),
     );
   }
 }
-
-/// 画面遷移時に渡すパラメータのキー
-const pageParamKeyOwnerName = 'owner_name';
-const pageParamKeyRepoName = 'repo_name';

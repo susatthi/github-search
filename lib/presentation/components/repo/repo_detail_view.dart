@@ -6,76 +6,126 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../entities/repo/repo_data.dart';
-import '../../../localizations/strings.g.dart';
 import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
+import '../common/icon_label.dart';
 import 'repo_detail_view_notifier.dart';
+import 'repo_language_label.dart';
 
-/// リポジトリ詳細View
-class RepoDetailView extends ConsumerWidget {
-  const RepoDetailView({super.key});
+/// Sliver版リポジトリ詳細View
+class SliverRepoDetailView extends ConsumerWidget {
+  const SliverRepoDetailView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoDetailViewStateProvider);
     return asyncValue.when(
-      data: (data) => _RepoDetailView(data: data),
-      error: (e, s) => ErrorView(
-        error: e,
-        stackTrace: s,
+      data: (data) => _SliverRepoDetailView(data: data),
+      error: (e, s) => SliverFillRemaining(
+        hasScrollBody: false,
+        child: ErrorView(
+          error: e,
+          stackTrace: s,
+        ),
       ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+      // 取得時間は短いと思うのでローディング表示はしない
+      loading: () => const SliverFillRemaining(
+        hasScrollBody: false,
+        child: SizedBox(),
       ),
     );
   }
 }
 
-class _RepoDetailView extends StatelessWidget {
-  const _RepoDetailView({
+class _SliverRepoDetailView extends StatelessWidget {
+  const _SliverRepoDetailView({
     required this.data,
   });
 
   final RepoData data;
 
+  /// 1行のパディング
+  static const _linePading = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+
+  /// アイコンラベルのサイズ
+  static const _iconLabelSize = 80.0;
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return SliverFillRemaining(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: CachedCircleAvatar(
-              url: data.owner.avatarUrl,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: CachedCircleAvatar(
+                size: 100,
+                url: data.owner.avatarUrl,
+              ),
             ),
           ),
-          ListTile(
-            title: Text(i18n.ownerName),
-            trailing: Text(data.owner.name),
+          Padding(
+            padding: _linePading,
+            child: Text(
+              data.fullName,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
-          ListTile(
-            title: Text(i18n.repoName),
-            trailing: Text(data.name),
+          Visibility(
+            visible: data.description?.isNotEmpty == true,
+            child: Padding(
+              padding: _linePading,
+              child: Text(
+                data.description ?? '',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
           ),
-          ListTile(
-            title: Text(i18n.projectLanguage),
-            trailing: Text(data.language ?? ''),
+          Visibility(
+            visible: data.language != null,
+            child: Padding(
+              padding: _linePading,
+              child: RepoLanguageLabel(
+                color: data.languageColor,
+                language: data.language,
+              ),
+            ),
           ),
-          ListTile(
-            title: Text(i18n.starsCount),
-            trailing: Text('${data.stargazersCount}'),
-          ),
-          ListTile(
-            title: Text(i18n.watchersCount),
-            trailing: Text('${data.watchersCount}'),
-          ),
-          ListTile(
-            title: Text(i18n.forksCount),
-            trailing: Text('${data.forksCount}'),
-          ),
-          ListTile(
-            title: Text(i18n.issuesCount),
-            trailing: Text('${data.openIssuesCount}'),
+          Padding(
+            padding: _linePading,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: _iconLabelSize,
+                  child: IconLabel(
+                    icon: Icons.star_outline,
+                    text: data.stargazersCountShort,
+                  ),
+                ),
+                SizedBox(
+                  width: _iconLabelSize,
+                  child: IconLabel(
+                    icon: Icons.visibility_outlined,
+                    text: data.watchersCountShort,
+                  ),
+                ),
+                SizedBox(
+                  width: _iconLabelSize,
+                  child: IconLabel(
+                    icon: Icons.fork_right_outlined,
+                    text: data.forksCountShort,
+                  ),
+                ),
+                SizedBox(
+                  width: _iconLabelSize,
+                  child: IconLabel(
+                    icon: Icons.bug_report_outlined,
+                    text: data.openIssuesCountShort,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

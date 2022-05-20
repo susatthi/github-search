@@ -3,7 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/presentation/components/repo/repo_detail_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
+import 'package:github_search/presentation/components/repo/repo_full_name_text.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/mocks.dart';
@@ -29,14 +31,11 @@ void main() {
       );
       await tester.pump();
 
-      // オーナー名
-      expect(find.text('flutter'), findsOneWidget);
+      // リポジトリのフルネーム
+      expect(find.byType(RepoFullNameText), findsOneWidget);
 
-      // リポジトリ名
-      expect(find.text('plugins'), findsOneWidget);
-
-      // プロジェクト言語
-      expect(find.text('Dart'), findsOneWidget);
+      // リポジトリ詳細View
+      expect(find.byType(SliverRepoDetailView), findsOneWidget);
     });
   });
 }

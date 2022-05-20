@@ -18,7 +18,9 @@ import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
 import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
+import '../common/icon_label.dart';
 import '../common/list_loader.dart';
+import 'repo_language_label.dart';
 import 'repo_list_view_notifier.dart';
 import 'repo_list_view_state.dart';
 
@@ -185,12 +187,12 @@ class _RepoListTile extends StatelessWidget {
             children: [
               SizedBox(
                 width: 80,
-                child: _StargazersCountLabel(
+                child: IconLabel(
+                  icon: Icons.star_outline,
                   text: data.stargazersCountShort,
                 ),
               ),
-              const SizedBox(width: 10),
-              _LanguageLabel(
+              RepoLanguageLabel(
                 color: data.languageColor,
                 language: data.language,
               ),
@@ -208,61 +210,6 @@ class _RepoListTile extends StatelessWidget {
           },
         ),
         const Divider(),
-      ],
-    );
-  }
-}
-
-/// スター数のアイコン＋ラベル
-class _StargazersCountLabel extends StatelessWidget {
-  const _StargazersCountLabel({
-    required this.text,
-  });
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          Icons.star_outline,
-          color: Theme.of(context).textTheme.caption!.color,
-          size: 20,
-        ),
-        const SizedBox(width: 4),
-        Text(text),
-        const Spacer(),
-      ],
-    );
-  }
-}
-
-/// プロジェクト言語のカラー＋ラベル
-class _LanguageLabel extends StatelessWidget {
-  const _LanguageLabel({
-    required this.color,
-    this.language,
-  });
-
-  final Color color;
-  final String? language;
-
-  @override
-  Widget build(BuildContext context) {
-    if (language == null) {
-      return const SizedBox();
-    }
-
-    return Row(
-      children: [
-        Icon(
-          Icons.circle,
-          color: color,
-          size: 20,
-        ),
-        const SizedBox(width: 4),
-        Text(language!),
       ],
     );
   }
