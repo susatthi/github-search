@@ -54,10 +54,13 @@ class RepoData {
   final int stargazersCount;
 
   /// 表示用のスター数（例：35432 => 35.4k）
-  String get stargazersCountShort => _stargazersCountDisplay(stargazersCount);
+  String get stargazersCountShort => _countDisplay(stargazersCount);
 
   /// ウォッチャー数
   final int watchersCount;
+
+  /// 表示用のウォッチャー数（例：35432 => 35.4k）
+  String get watchersCountShort => _countDisplay(watchersCount);
 
   /// プロジェクト言語
   final String? language;
@@ -73,12 +76,18 @@ class RepoData {
   /// フォーク数
   final int forksCount;
 
+  /// 表示用のフォーク数（例：35432 => 35.4k）
+  String get forksCountShort => _countDisplay(forksCount);
+
   /// Issue数
   final int openIssuesCount;
+
+  /// 表示用のIssue数（例：35432 => 35.4k）
+  String get openIssuesCountShort => _countDisplay(openIssuesCount);
 }
 
 /// 表示用のスター数の変換メソッド
-final _stargazersCountDisplay = createDisplay(
+final _countDisplay = createDisplay(
   length: 4,
 );
 
