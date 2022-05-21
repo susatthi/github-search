@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../entities/repo/repo_data.dart';
+import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
 import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
 import '../common/hyperlink_text.dart';
 import '../common/icon_label.dart';
+import '../common/preview_avatar_view.dart';
 import 'repo_detail_view_notifier.dart';
 import 'repo_language_label.dart';
 
@@ -61,11 +63,25 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Padding(
-              padding: const EdgeInsets.all(_verticalPadding),
-              child: CachedCircleAvatar(
-                size: 100,
-                url: data.owner.avatarUrl,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: InkWell(
+                onTap: () async {
+                  logger.i('Tapped avatar');
+                  await showDialog<void>(
+                    context: context,
+                    builder: (context) => PreviewAvatarView(
+                      url: data.owner.avatarUrl,
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(_verticalPadding),
+                  child: CachedCircleAvatar(
+                    size: 100,
+                    url: data.owner.avatarUrl,
+                  ),
+                ),
               ),
             ),
           ),

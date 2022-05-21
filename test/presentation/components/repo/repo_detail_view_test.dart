@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/entities/repo/repo_data.dart';
 import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
 import 'package:github_search/presentation/components/common/error_view.dart';
+import 'package:github_search/presentation/components/common/preview_avatar_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
 import 'package:mocktail/mocktail.dart';
@@ -217,6 +218,39 @@ void main() {
         find.byIcon(Icons.bug_report_outlined),
         (data) => data.issuesUrl!,
       );
+    });
+    testWidgets('アバター画像をタップしてプレビューが開くはず', (tester) async {
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          overrides: [
+            repoDetailViewStateProvider.overrideWithProvider(
+              repoDetailViewStateProviderFamily(
+                const RepoDetailViewParameter(
+                  ownerName: 'flutter',
+                  repoName: 'plugins',
+                ),
+              ),
+            ),
+          ],
+          home: const _MockPage(),
+        ),
+      );
+
+      await tester.pump();
+
+      // アバター画像をタップする
+      await tester.tap(find.byType(CachedCircleAvatar));
+      await tester.pump();
+
+      // プレビューViewが表示するはず
+      expect(find.byType(PreviewAvatarView), findsOneWidget);
+
+      // タップする
+      await tester.tap(find.byType(PreviewAvatarView));
+      await tester.pump();
+
+      // プレビューViewが閉じるはず
+      expect(find.byType(PreviewAvatarView), findsNothing);
     });
   });
 }
