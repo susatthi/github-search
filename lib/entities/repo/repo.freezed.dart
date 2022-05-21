@@ -210,7 +210,7 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Repo implements _Repo {
+class _$_Repo extends _Repo {
   const _$_Repo(
       {required this.name,
       @JsonKey(name: 'full_name') required this.fullName,
@@ -220,7 +220,8 @@ class _$_Repo implements _Repo {
       @JsonKey(name: 'watchers_count') required this.watchersCount,
       this.language,
       @JsonKey(name: 'forks_count') required this.forksCount,
-      @JsonKey(name: 'open_issues_count') required this.openIssuesCount});
+      @JsonKey(name: 'open_issues_count') required this.openIssuesCount})
+      : super._();
 
   factory _$_Repo.fromJson(Map<String, dynamic> json) => _$$_RepoFromJson(json);
 
@@ -299,7 +300,7 @@ class _$_Repo implements _Repo {
   }
 }
 
-abstract class _Repo implements Repo {
+abstract class _Repo extends Repo {
   const factory _Repo(
       {required final String name,
       @JsonKey(name: 'full_name')
@@ -315,6 +316,7 @@ abstract class _Repo implements Repo {
           required final int forksCount,
       @JsonKey(name: 'open_issues_count')
           required final int openIssuesCount}) = _$_Repo;
+  const _Repo._() : super._();
 
   factory _Repo.fromJson(Map<String, dynamic> json) = _$_Repo.fromJson;
 

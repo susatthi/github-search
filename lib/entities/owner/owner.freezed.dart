@@ -104,10 +104,11 @@ class __$$_OwnerCopyWithImpl<$Res> extends _$OwnerCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Owner implements _Owner {
+class _$_Owner extends _Owner {
   const _$_Owner(
       {@JsonKey(name: 'login') required this.login,
-      @JsonKey(name: 'avatar_url') required this.avatarUrl});
+      @JsonKey(name: 'avatar_url') required this.avatarUrl})
+      : super._();
 
   factory _$_Owner.fromJson(Map<String, dynamic> json) =>
       _$$_OwnerFromJson(json);
@@ -151,10 +152,11 @@ class _$_Owner implements _Owner {
   }
 }
 
-abstract class _Owner implements Owner {
+abstract class _Owner extends Owner {
   const factory _Owner(
       {@JsonKey(name: 'login') required final String login,
       @JsonKey(name: 'avatar_url') required final String avatarUrl}) = _$_Owner;
+  const _Owner._() : super._();
 
   factory _Owner.fromJson(Map<String, dynamic> json) = _$_Owner.fromJson;
 
