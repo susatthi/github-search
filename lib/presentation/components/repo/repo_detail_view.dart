@@ -194,24 +194,17 @@ class _IconLabel extends StatelessWidget {
   final String text;
 
   /// アイコンラベルの幅
-  static const _iconLabelWidth = 64.0;
+  static const _iconLabelWidth = 80.0;
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: InkWell(
+    return SizedBox(
+      width: _iconLabelWidth,
+      child: IconLabel(
+        icon: icon,
+        text: text,
+        padding: padding,
         onTap: url != null ? () => launchUrlInApp(url!) : null,
-        child: Padding(
-          padding: padding,
-          child: SizedBox(
-            width: _iconLabelWidth,
-            child: IconLabel(
-              icon: icon,
-              text: text,
-            ),
-          ),
-        ),
       ),
     );
   }
