@@ -180,42 +180,42 @@ void main() {
       await wrapTapHyperlinkTest(
         tester,
         find.text('flutter'),
-        (data) => data.owner.ownerUrl,
+        (data) => data.owner.ownerUrl!,
       );
     });
     testWidgets('リポジトリ名のリンクをタップしてブラウザで開くはず', (tester) async {
       await wrapTapHyperlinkTest(
         tester,
         find.text('plugins'),
-        (data) => data.repoUrl,
+        (data) => data.repoUrl!,
       );
     });
     testWidgets('スター数のアイコンボタンをタップしてブラウザで開くはず', (tester) async {
       await wrapTapHyperlinkTest(
         tester,
         find.byIcon(Icons.star_outline),
-        (data) => data.stargazersUrl,
+        (data) => data.stargazersUrl!,
       );
     });
     testWidgets('ウォッチャー数のアイコンボタンをタップしてブラウザで開くはず', (tester) async {
       await wrapTapHyperlinkTest(
         tester,
         find.byIcon(Icons.visibility_outlined),
-        (data) => data.watchersUrl,
+        (data) => data.watchersUrl!,
       );
     });
     testWidgets('フォーク数のアイコンボタンをタップしてブラウザで開くはず', (tester) async {
       await wrapTapHyperlinkTest(
         tester,
         find.byIcon(Icons.fork_right_outlined),
-        (data) => data.forksUrl,
+        (data) => data.forksUrl!,
       );
     });
     testWidgets('Issue数のアイコンボタンをタップしてブラウザで開くはず', (tester) async {
       await wrapTapHyperlinkTest(
         tester,
         find.byIcon(Icons.bug_report_outlined),
-        (data) => data.issuesUrl,
+        (data) => data.issuesUrl!,
       );
     });
   });

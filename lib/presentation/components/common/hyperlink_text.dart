@@ -9,17 +9,21 @@ class HyperlinkText extends StatelessWidget {
   const HyperlinkText({
     super.key,
     required this.text,
-    required this.onTap,
+    this.onTap,
   });
 
   /// 表示するテキスト
   final String text;
 
   /// テキストタップ時のイベント
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    if (onTap == null) {
+      return Text(text);
+    }
+
     // もともとの style に対してカラーだけ変える
     final effectiveTextStyle = DefaultTextStyle.of(context).style.merge(
           const TextStyle(

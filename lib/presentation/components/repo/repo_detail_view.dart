@@ -79,12 +79,16 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
               child: Row(
                 children: [
                   HyperlinkText(
-                    onTap: () => launchUrlInApp(data.owner.ownerUrl),
+                    onTap: data.owner.ownerUrl != null
+                        ? () => launchUrlInApp(data.owner.ownerUrl!)
+                        : null,
                     text: data.owner.name,
                   ),
                   const Text(' / '),
                   HyperlinkText(
-                    onTap: () => launchUrlInApp(data.repoUrl),
+                    onTap: data.repoUrl != null
+                        ? () => launchUrlInApp(data.repoUrl!)
+                        : null,
                     text: data.name,
                   ),
                 ],
@@ -179,7 +183,7 @@ class _IconLabel extends StatelessWidget {
   });
 
   final EdgeInsetsGeometry padding;
-  final String url;
+  final String? url;
   final IconData icon;
   final String text;
 
@@ -191,7 +195,7 @@ class _IconLabel extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: InkWell(
-        onTap: () => launchUrlInApp(url),
+        onTap: url != null ? () => launchUrlInApp(url!) : null,
         child: Padding(
           padding: padding,
           child: SizedBox(

@@ -96,19 +96,19 @@ class RepoData {
   String get openIssuesCountShort => _countDisplay(openIssuesCount);
 
   /// リポジトリURL
-  final String repoUrl;
+  final String? repoUrl;
 
   /// スター数URL
-  final String stargazersUrl;
+  final String? stargazersUrl;
 
   /// ウォッチャー数URL
-  final String watchersUrl;
+  final String? watchersUrl;
 
   /// フォーク数URL
-  final String forksUrl;
+  final String? forksUrl;
 
   /// Issue数URL
-  final String issuesUrl;
+  final String? issuesUrl;
 }
 
 /// 表示用のスター数の変換メソッド

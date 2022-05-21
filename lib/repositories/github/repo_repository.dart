@@ -64,6 +64,20 @@ class GitHubRepoRepository implements RepoRepository {
           ownerName: ownerName,
           repoName: repoName,
         ),
-        responseBuilder: Repo.fromJson,
+        responseBuilder: (data) {
+          final repo = Repo.fromJson(data);
+          final ownerUrl = '$githubSiteUrl/${repo.owner.login}';
+          final repoUrl = '$ownerUrl/${repo.name}';
+          return repo.copyWith(
+            owner: repo.owner.copyWith(
+              ownerUrl: ownerUrl,
+            ),
+            repoUrl: repoUrl,
+            stargazersUrl: '$repoUrl/stargazers',
+            watchersUrl: '$repoUrl/watchers',
+            forksUrl: '$repoUrl/network/members',
+            issuesUrl: '$repoUrl/issues',
+          );
+        },
       );
 }

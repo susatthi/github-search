@@ -27,5 +27,5 @@ class OwnerData {
   final String avatarUrl;
 
   /// オーナーURL
-  final String ownerUrl;
+  final String? ownerUrl;
 }

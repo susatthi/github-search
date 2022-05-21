@@ -50,5 +50,24 @@ void main() {
       // タップイベントが検知できているはず
       expect(isTapped, true);
     });
+    testWidgets('onTapがnullならアンカー表示しないはず', (tester) async {
+      const expectedText = 'リンク';
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          home: const Scaffold(
+            body: HyperlinkText(
+              text: expectedText,
+            ),
+          ),
+        ),
+      );
+
+      // テキストが表示されるはず
+      expect(find.text(expectedText), findsOneWidget);
+
+      // テキストのカラーが青色であるはず
+      final text = tester.widget(find.text(expectedText)) as Text;
+      expect(text.style?.color == Colors.blueAccent, false);
+    });
   });
 }

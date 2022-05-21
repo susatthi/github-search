@@ -22,23 +22,12 @@ class Repo with _$Repo {
     String? language,
     @JsonKey(name: 'forks_count') required int forksCount,
     @JsonKey(name: 'open_issues_count') required int openIssuesCount,
+    String? repoUrl,
+    String? stargazersUrl,
+    String? watchersUrl,
+    String? forksUrl,
+    String? issuesUrl,
   }) = _Repo;
-  const Repo._();
 
   factory Repo.fromJson(Map<String, dynamic> json) => _$RepoFromJson(json);
-
-  /// リポジトリURL
-  String get repoUrl => '${owner.ownerUrl}/$name';
-
-  /// スター数URL
-  String get stargazersUrl => '$repoUrl/stargazers';
-
-  /// ウォッチャー数URL
-  String get watchersUrl => '$repoUrl/watchers';
-
-  /// フォーク数URL
-  String get forksUrl => '$repoUrl/network/members';
-
-  /// Issue数URL
-  String get issuesUrl => '$repoUrl/issues';
 }
