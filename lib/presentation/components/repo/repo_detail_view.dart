@@ -70,10 +70,8 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: _horizontalPadding,
-              vertical: _verticalPadding,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: _horizontalPadding / 2),
             child: DefaultTextStyle.merge(
               style: Theme.of(context).textTheme.titleLarge,
               child: Row(
@@ -83,13 +81,21 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
                         ? () => launchUrlInApp(data.owner.ownerUrl!)
                         : null,
                     text: data.owner.name,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: _horizontalPadding / 2,
+                      vertical: _verticalPadding,
+                    ),
                   ),
-                  const Text(' / '),
+                  const Text('/'),
                   HyperlinkText(
                     onTap: data.repoUrl != null
                         ? () => launchUrlInApp(data.repoUrl!)
                         : null,
                     text: data.name,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: _horizontalPadding / 2,
+                      vertical: _verticalPadding,
+                    ),
                   ),
                 ],
               ),

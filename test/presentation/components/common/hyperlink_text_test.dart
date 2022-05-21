@@ -26,9 +26,8 @@ void main() {
       // テキストが表示されるはず
       expect(find.text(expectedText), findsOneWidget);
 
-      // テキストのカラーが青色であるはず
-      final text = tester.widget(find.text(expectedText)) as Text;
-      expect(text.style?.color, Colors.blueAccent);
+      // InkWellがいるはず
+      expect(find.byType(InkWell), findsOneWidget);
     });
     testWidgets('タップイベントが検知できるはず', (tester) async {
       var isTapped = false;
@@ -65,9 +64,8 @@ void main() {
       // テキストが表示されるはず
       expect(find.text(expectedText), findsOneWidget);
 
-      // テキストのカラーが青色であるはず
-      final text = tester.widget(find.text(expectedText)) as Text;
-      expect(text.style?.color == Colors.blueAccent, false);
+      // InkWellがいないはず
+      expect(find.byType(InkWell), findsNothing);
     });
   });
 }

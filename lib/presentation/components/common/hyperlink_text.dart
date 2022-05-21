@@ -9,34 +9,42 @@ class HyperlinkText extends StatelessWidget {
   const HyperlinkText({
     super.key,
     required this.text,
+    this.padding = EdgeInsets.zero,
     this.onTap,
   });
 
   /// 表示するテキスト
   final String text;
 
+  /// パディング
+  final EdgeInsetsGeometry padding;
+
   /// テキストタップ時のイベント
   final VoidCallback? onTap;
 
+  /// アンカー表示時のテキストカラー
+  static const anchorColor = Colors.blueAccent;
+
   @override
   Widget build(BuildContext context) {
+    final child = Padding(
+      padding: padding,
+      child: Text(text),
+    );
+
     if (onTap == null) {
-      return Text(text);
+      return child;
     }
 
-    // もともとの style に対してカラーだけ変える
-    final effectiveTextStyle = DefaultTextStyle.of(context).style.merge(
-          const TextStyle(
-            color: Colors.blueAccent,
-          ),
-        );
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: InkWell(
         onTap: onTap,
-        child: Text(
-          text,
-          style: effectiveTextStyle,
+        child: DefaultTextStyle.merge(
+          style: const TextStyle(
+            color: anchorColor,
+          ),
+          child: child,
         ),
       ),
     );
