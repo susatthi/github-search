@@ -25,8 +25,9 @@ class IconLabel extends StatelessWidget {
           size: 20,
         ),
         const SizedBox(width: 4),
-        Text(text),
-        const Spacer(),
+        Expanded(
+          child: Text(text),
+        ),
       ],
     );
   }

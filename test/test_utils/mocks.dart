@@ -13,6 +13,10 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mocktail/mocktail.dart';
+// ignore: depend_on_referenced_packages
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+// ignore: depend_on_referenced_packages
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'logger.dart';
 import 'utils.dart';
@@ -139,3 +143,8 @@ ProviderContainer mockProviderContainer({
 
 /// モック版のGoRouter
 class MockGoRouter extends Mock implements GoRouter {}
+
+/// モック版のUrlLauncherPlatform
+class MockUrlLauncherPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements UrlLauncherPlatform {}

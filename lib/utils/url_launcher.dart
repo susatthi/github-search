@@ -14,10 +14,12 @@ Future<void> launchUrlInApp(String urlString) async {
   try {
     final url = Uri.parse(urlString);
     try {
-      if (!await launchUrl(
+      if (await launchUrl(
         url,
         mode: LaunchMode.inAppWebView,
       )) {
+        logger.i('Launch in app web view: url = $url');
+      } else {
         logger.w('Can not launch in app web view: url = $url');
       }
     } on PlatformException catch (e, s) {
