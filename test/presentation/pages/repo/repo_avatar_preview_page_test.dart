@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
-import 'package:github_search/presentation/pages/common/avatar_preview_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/hive.dart';
@@ -22,7 +22,7 @@ void main() {
     await closeAppDataBox(tmpDir);
   });
 
-  group('AvatarPreviewPage', () {
+  group('RepoAvatarPreviewPage', () {
     testWidgets('表示してタップで閉じるはず', (tester) async {
       await tester.pumpWidget(mockGitHubSearchApp());
       await tester.pump();
@@ -43,14 +43,14 @@ void main() {
 
       // アバタープレビュー画面に遷移するはず
       await tester.pump();
-      expect(find.byType(AvatarPreviewPage), findsOneWidget);
+      expect(find.byType(RepoAvatarPreviewPage), findsOneWidget);
 
-      // タップする
-      await tester.tap(find.byType(AvatarPreviewPage));
+      // 適当にタップする
+      await tester.tap(find.byType(RepoAvatarPreviewPage));
       await tester.pump();
 
       // アバタープレビュー画面が閉じるはず
-      expect(find.byType(AvatarPreviewPage), findsNothing);
+      expect(find.byType(RepoAvatarPreviewPage), findsNothing);
     });
   });
 }

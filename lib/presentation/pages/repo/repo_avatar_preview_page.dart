@@ -5,17 +5,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../components/common/avatar_preview_view.dart';
-
-/// 画面遷移時に渡すパラメータのキー
-const pageParamKeyAvatarPreviewUrl = 'avatar_preview_url';
+import '../../components/repo/repo_avatar_preview_view.dart';
 
 /// アバターのプレビュー画面
-class AvatarPreviewPage extends StatelessWidget {
-  const AvatarPreviewPage({super.key});
+class RepoAvatarPreviewPage extends StatelessWidget {
+  const RepoAvatarPreviewPage({super.key});
 
   static const name = 'avatar-preview';
-  static const path = '/avatar-preview/:$pageParamKeyAvatarPreviewUrl';
+  static const path = 'avatar-preview';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class AvatarPreviewPage extends StatelessWidget {
         onTap: () {
           context.pop();
         },
-        child: const AvatarPreviewView(),
+        child: const RepoAvatarPreviewView(),
       ),
     );
   }

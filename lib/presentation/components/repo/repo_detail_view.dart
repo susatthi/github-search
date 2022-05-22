@@ -9,7 +9,8 @@ import 'package:go_router/go_router.dart';
 import '../../../entities/repo/repo_data.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
-import '../../pages/common/avatar_preview_page.dart';
+import '../../pages/repo/repo_avatar_preview_page.dart';
+import '../../pages/repo/repo_view_page.dart';
 import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
 import '../common/hyperlink_text.dart';
@@ -91,12 +92,13 @@ class _AvatarRow extends StatelessWidget {
           onTap: () async {
             logger.i('Tapped avatar: url = ${data.owner.avatarUrl}');
 
-            // アバタープレビュー画面をpush表示する
-            context.pushNamed(
-              AvatarPreviewPage.name,
-              params: {
-                pageParamKeyAvatarPreviewUrl: data.owner.avatarUrl,
-              },
+            // アバタープレビュー画面に遷移する
+            context.goNamed(
+              RepoAvatarPreviewPage.name,
+              params: RepoViewPage.params(
+                ownerName: data.owner.name,
+                repoName: data.name,
+              ),
             );
           },
           child: Padding(

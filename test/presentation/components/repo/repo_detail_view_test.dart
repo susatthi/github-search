@@ -9,7 +9,8 @@ import 'package:github_search/presentation/components/common/cached_circle_avata
 import 'package:github_search/presentation/components/common/error_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
-import 'package:github_search/presentation/pages/common/avatar_preview_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
@@ -245,26 +246,26 @@ void main() {
       await tester.pump();
 
       verifyNever(
-        () => mockGoRouter.pushNamed(
-          AvatarPreviewPage.name,
-          params: {
-            pageParamKeyAvatarPreviewUrl:
-                'https://avatars.githubusercontent.com/u/14101776?v=4',
-          },
+        () => mockGoRouter.goNamed(
+          RepoAvatarPreviewPage.name,
+          params: RepoViewPage.params(
+            ownerName: 'flutter',
+            repoName: 'plugins',
+          ),
         ),
       );
 
       // アバター画像をタップする
       await tester.tap(find.byType(CachedCircleAvatar));
 
-      // プレビュー画面にpush遷移するはず
+      // プレビュー画面に画面遷移するはず
       verify(
-        () => mockGoRouter.pushNamed(
-          AvatarPreviewPage.name,
-          params: {
-            pageParamKeyAvatarPreviewUrl:
-                'https://avatars.githubusercontent.com/u/14101776?v=4',
-          },
+        () => mockGoRouter.goNamed(
+          RepoAvatarPreviewPage.name,
+          params: RepoViewPage.params(
+            ownerName: 'flutter',
+            repoName: 'plugins',
+          ),
         ),
       ).called(1);
     });
