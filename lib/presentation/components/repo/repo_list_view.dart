@@ -162,10 +162,13 @@ class _RepoListTile extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: CachedCircleAvatar(
-            url: data.owner.avatarUrl,
-            size: _avatarSize,
-            loading: false,
+          leading: Hero(
+            tag: 'avatar-${data.fullName}',
+            child: CachedCircleAvatar(
+              url: data.owner.avatarUrl,
+              size: _avatarSize,
+              loading: false,
+            ),
           ),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

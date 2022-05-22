@@ -23,41 +23,44 @@ final routerProvider = Provider<GoRouter>(
       GoRoute(
         path: RepoIndexPage.path,
         name: RepoIndexPage.name,
-        builder: (context, state) => const RepoIndexPage(),
+        pageBuilder: (context, state) => DefaultTransitionPage(
+          state: state,
+          child: const RepoIndexPage(),
+        ),
         routes: [
           // リポジトリ検索画面
           GoRoute(
             path: RepoSearchPage.path,
             name: RepoSearchPage.name,
-            pageBuilder: (context, state) => CustomTransitionPage<void>(
-              key: state.pageKey,
+            pageBuilder: (context, state) => DefaultTransitionPage(
+              state: state,
               child: const RepoSearchPage(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(opacity: animation, child: child),
             ),
           ),
           // リポジトリ詳細画面
           GoRoute(
             path: RepoViewPage.path,
             name: RepoViewPage.name,
-            builder: (context, state) => ProviderScope(
-              overrides: [
-                repoDetailViewStateProvider.overrideWithProvider(
-                  repoDetailViewStateProviderFamily(
-                    RepoDetailViewParameter.from(state),
+            pageBuilder: (context, state) => DefaultTransitionPage(
+              state: state,
+              child: ProviderScope(
+                overrides: [
+                  repoDetailViewStateProvider.overrideWithProvider(
+                    repoDetailViewStateProviderFamily(
+                      RepoDetailViewParameter.from(state),
+                    ),
                   ),
-                ),
-              ],
-              child: const RepoViewPage(),
+                ],
+                child: const RepoViewPage(),
+              ),
             ),
             routes: [
               // アバタープレビュー画面
               GoRoute(
                 path: RepoAvatarPreviewPage.path,
                 name: RepoAvatarPreviewPage.name,
-                pageBuilder: (context, state) => CustomTransitionPage<void>(
-                  key: state.pageKey,
+                pageBuilder: (context, state) => DefaultTransitionPage(
+                  state: state,
                   opaque: false,
                   child: ProviderScope(
                     overrides: [
@@ -69,9 +72,6 @@ final routerProvider = Provider<GoRouter>(
                     ],
                     child: const RepoAvatarPreviewPage(),
                   ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(opacity: animation, child: child),
                 ),
               ),
             ],
@@ -93,3 +93,30 @@ final routerProvider = Provider<GoRouter>(
 /// 画面のpush/popのイベント検知に使用する。ダイアログは検知したく
 /// ないのでModalRouteではなくPageRouteにしている
 final pageRouteObserver = RouteObserver<PageRoute<void>>();
+
+/// デフォルトのTransitionPage
+class DefaultTransitionPage extends CustomTransitionPage<void> {
+  DefaultTransitionPage({
+    required GoRouterState state,
+    required super.child,
+    Widget Function(BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child)?
+        transitionsBuilder,
+    super.transitionDuration,
+    super.maintainState,
+    super.fullscreenDialog,
+    super.opaque,
+    super.barrierDismissible,
+    super.barrierColor,
+    super.barrierLabel,
+    LocalKey? key,
+    super.name,
+    super.arguments,
+    super.restorationId,
+  }) : super(
+          transitionsBuilder: transitionsBuilder ??
+              (context, animation, secondaryAnimation, child) =>
+                  FadeTransition(opacity: animation, child: child),
+          key: key ?? state.pageKey,
+        );
+}

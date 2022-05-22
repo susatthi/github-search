@@ -36,9 +36,12 @@ class _RepoAvatarPreviewView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PhotoView(
-      imageProvider: CachedNetworkImageProvider(data.owner.avatarUrl),
-      backgroundDecoration: const BoxDecoration(),
+    return Hero(
+      tag: 'avatar-${data.fullName}',
+      child: PhotoView(
+        imageProvider: CachedNetworkImageProvider(data.owner.avatarUrl),
+        backgroundDecoration: const BoxDecoration(),
+      ),
     );
   }
 }

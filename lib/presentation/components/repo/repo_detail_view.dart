@@ -104,9 +104,12 @@ class _AvatarRow extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.all(_verticalPadding),
-            child: CachedCircleAvatar(
-              size: 100,
-              url: data.owner.avatarUrl,
+            child: Hero(
+              tag: 'avatar-${data.fullName}',
+              child: CachedCircleAvatar(
+                size: 100,
+                url: data.owner.avatarUrl,
+              ),
             ),
           ),
         ),
