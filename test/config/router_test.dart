@@ -5,7 +5,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/pages/error/error_page.dart';
+import 'package:github_search/presentation/pages/common/error_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:go_router/go_router.dart';
 
