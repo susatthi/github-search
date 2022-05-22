@@ -36,12 +36,14 @@ class RepoDetailViewParameter extends Equatable {
   const RepoDetailViewParameter({
     required this.ownerName,
     required this.repoName,
+    this.extra,
   });
 
   factory RepoDetailViewParameter.from(GoRouterState state) =>
       RepoDetailViewParameter(
         ownerName: state.params[pageParamKeyOwnerName]!,
         repoName: state.params[pageParamKeyRepoName]!,
+        extra: state.extra as RepoData?,
       );
 
   /// オーナー名
@@ -50,8 +52,12 @@ class RepoDetailViewParameter extends Equatable {
   /// リポジトリ名
   final String repoName;
 
+  /// 一覧画面から渡されるリポジトリデータ
+  /// 詳細画面で再読込した場合などは null になる場合がある
+  final RepoData? extra;
+
   @override
-  List<Object?> get props => [ownerName, repoName];
+  List<Object?> get props => [ownerName, repoName, extra];
 }
 
 /// リポジトリ詳細ViewNotifier
@@ -60,7 +66,14 @@ class RepoDetailViewNotifier extends StateNotifier<AsyncValue<RepoData>> {
     this._repoRepository, {
     required this.parameter,
   }) : super(const AsyncValue.loading()) {
-    _get();
+    final value = parameter.extra;
+    if (value != null) {
+      // extra があればそのまま使う
+      state = AsyncValue.data(value);
+    } else {
+      // extra が無いので取得する
+      _get();
+    }
   }
 
   final RepoRepository _repoRepository;

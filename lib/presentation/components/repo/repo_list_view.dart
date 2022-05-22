@@ -206,6 +206,7 @@ class _RepoListTile extends StatelessWidget {
                 ownerName: data.owner.name,
                 repoName: data.name,
               ),
+              extra: data,
             );
           },
         ),
