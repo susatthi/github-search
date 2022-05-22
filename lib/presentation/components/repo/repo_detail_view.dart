@@ -123,7 +123,7 @@ class _FullnameRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding / 2),
       child: DefaultTextStyle.merge(
         style: Theme.of(context).textTheme.titleLarge,
-        child: Row(
+        child: Wrap(
           children: [
             HyperlinkText(
               onTap: data.owner.ownerUrl != null
@@ -135,7 +135,12 @@ class _FullnameRow extends StatelessWidget {
                 vertical: _verticalPadding,
               ),
             ),
-            const Text('/'),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: _verticalPadding,
+              ),
+              child: Text('/'),
+            ),
             HyperlinkText(
               onTap: data.repoUrl != null
                   ? () => launchUrlInApp(data.repoUrl!)
