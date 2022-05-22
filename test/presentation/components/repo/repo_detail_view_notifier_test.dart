@@ -6,11 +6,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
+import 'package:github_search/entities/owner/owner_data.dart';
+import 'package:github_search/entities/repo/repo_data.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../test_utils/mocks.dart';
+
+const _extra = RepoData(
+  name: '',
+  fullName: '',
+  owner: OwnerData(
+    name: '',
+    avatarUrl: '',
+    ownerUrl: '',
+  ),
+  description: '',
+  stargazersCount: 0,
+  watchersCount: 0,
+  language: '',
+  forksCount: 0,
+  openIssuesCount: 0,
+  repoUrl: '',
+  stargazersUrl: '',
+  watchersUrl: '',
+  forksUrl: '',
+  issuesUrl: '',
+);
 
 class _FirstPage extends StatelessWidget {
   const _FirstPage();
@@ -26,6 +49,7 @@ class _FirstPage extends StatelessWidget {
               ownerName: 'ownerName',
               repoName: 'repoName',
             ),
+            extra: _extra,
           );
         },
         child: const Text('go'),
@@ -93,6 +117,7 @@ void main() {
                           final parameter = RepoDetailViewParameter.from(state);
                           expect(parameter.ownerName, 'ownerName');
                           expect(parameter.repoName, 'repoName');
+                          expect(parameter.extra, _extra);
                           return const Scaffold();
                         },
                       ),
@@ -133,6 +158,31 @@ void main() {
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // データが取得できているはず
+      // ignore: INVALID_USE_OF_PROTECTED_MEMBER
+      expect(notifier.state is AsyncData, true);
+    });
+    test('extra がある場合はリポジトリエンティティを取得しないはず', () async {
+      final container = mockProviderContainer(
+        overrides: [
+          repoDetailViewStateProvider.overrideWithProvider(
+            repoDetailViewStateProviderFamily(
+              const RepoDetailViewParameter(
+                ownerName: 'flutter',
+                repoName: 'flutter',
+                extra: _extra,
+              ),
+            ),
+          ),
+        ],
+      );
+      final notifier = container
+          .listen(
+            repoDetailViewStateProvider.notifier,
+            (previous, next) {},
+          )
+          .read();
+
+      // extra があるので初期値はAsyncData
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
       expect(notifier.state is AsyncData, true);
     });

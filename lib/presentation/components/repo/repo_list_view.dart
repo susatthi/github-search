@@ -42,7 +42,7 @@ class SliverRepoListView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewStateProvider);
     return asyncValue?.when(
-          data: (state) => _SliverRepoListView(state: state),
+          data: (state) => SliverRepoListViewInternal(state: state),
           error: (e, s) => SliverFillRemaining(
             hasScrollBody: false,
             child: ErrorView(
@@ -69,8 +69,10 @@ class SliverRepoListView extends ConsumerWidget {
   }
 }
 
-class _SliverRepoListView extends StatelessWidget {
-  const _SliverRepoListView({
+@visibleForTesting
+class SliverRepoListViewInternal extends StatelessWidget {
+  const SliverRepoListViewInternal({
+    super.key,
     required this.state,
   });
 

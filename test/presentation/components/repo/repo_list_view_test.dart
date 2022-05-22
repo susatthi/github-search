@@ -183,6 +183,11 @@ void main() {
 
       await tester.pump();
 
+      final listView = tester.widget(find.byType(SliverRepoListViewInternal))
+          as SliverRepoListViewInternal;
+      final data = listView.state.items
+          .firstWhere((element) => element.fullName == 'flutter/flutter');
+
       verifyNever(
         () => mockGoRouter.goNamed(
           RepoViewPage.name,
@@ -190,6 +195,7 @@ void main() {
             ownerName: 'flutter',
             repoName: 'flutter',
           ),
+          extra: data,
         ),
       );
 
@@ -205,6 +211,7 @@ void main() {
             ownerName: 'flutter',
             repoName: 'flutter',
           ),
+          extra: data,
         ),
       ).called(1);
     });
