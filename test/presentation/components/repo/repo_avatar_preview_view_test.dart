@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/repo/repo_avatar_preview_view_notifier.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
 import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:photo_view/photo_view.dart';
@@ -16,11 +15,11 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoAvatarPreviewViewStateProvider.overrideWithProvider(
-              repoAvatarPreviewViewStateProviderFamily(
+            repoDetailViewStateProvider.overrideWithProvider(
+              repoDetailViewStateProviderFamily(
                 const RepoDetailViewParameter(
                   ownerName: 'flutter',
-                  repoName: 'flutter',
+                  repoName: 'plugins',
                 ),
               ),
             ),
@@ -29,8 +28,38 @@ void main() {
         ),
       );
 
+      // まだ PhotoView は表示していないはず
+      expect(find.byType(PhotoView), findsNothing);
+
       await tester.pump();
+
+      // PhotoView を表示しているはず
       expect(find.byType(PhotoView), findsOneWidget);
+    });
+    testWidgets('エラーが発生した場合は何も表示しないはず', (tester) async {
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          overrides: [
+            repoDetailViewStateProvider.overrideWithProvider(
+              repoDetailViewStateProviderFamily(
+                const RepoDetailViewParameter(
+                  ownerName: 'unknown',
+                  repoName: 'unknown',
+                ),
+              ),
+            ),
+          ],
+          home: const RepoAvatarPreviewPage(),
+        ),
+      );
+
+      // まだ PhotoView は表示していないはず
+      expect(find.byType(PhotoView), findsNothing);
+
+      await tester.pump();
+
+      // PhotoView を表示していないはず
+      expect(find.byType(PhotoView), findsNothing);
     });
   });
 }

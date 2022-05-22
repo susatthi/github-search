@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/components/repo/repo_avatar_preview_view_notifier.dart';
 import '../presentation/components/repo/repo_detail_view_notifier.dart';
 import '../presentation/pages/common/error_page.dart';
 import '../presentation/pages/repo/repo_avatar_preview_page.dart';
@@ -62,8 +61,8 @@ final routerProvider = Provider<GoRouter>(
                   opaque: false,
                   child: ProviderScope(
                     overrides: [
-                      repoAvatarPreviewViewStateProvider.overrideWithProvider(
-                        repoAvatarPreviewViewStateProviderFamily(
+                      repoDetailViewStateProvider.overrideWithProvider(
+                        repoDetailViewStateProviderFamily(
                           RepoDetailViewParameter.from(state),
                         ),
                       ),
