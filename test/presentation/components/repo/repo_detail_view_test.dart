@@ -245,6 +245,11 @@ void main() {
 
       await tester.pump();
 
+      final detailView =
+          tester.widget(find.byType(SliverRepoDetailViewInternal))
+              as SliverRepoDetailViewInternal;
+      final data = detailView.data;
+
       verifyNever(
         () => mockGoRouter.goNamed(
           RepoAvatarPreviewPage.name,
@@ -252,6 +257,7 @@ void main() {
             ownerName: 'flutter',
             repoName: 'plugins',
           ),
+          extra: data,
         ),
       );
 
@@ -266,6 +272,7 @@ void main() {
             ownerName: 'flutter',
             repoName: 'plugins',
           ),
+          extra: data,
         ),
       ).called(1);
     });

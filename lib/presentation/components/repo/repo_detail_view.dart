@@ -99,6 +99,7 @@ class _AvatarRow extends StatelessWidget {
                 ownerName: data.owner.name,
                 repoName: data.name,
               ),
+              extra: data,
             );
           },
           child: Padding(
