@@ -92,15 +92,101 @@ final routerProvider = Provider<GoRouter>(
 ///
 /// 画面のpush/popのイベント検知に使用する。ダイアログは検知したく
 /// ないのでModalRouteではなくPageRouteにしている
-final pageRouteObserver = RouteObserver<PageRoute<void>>();
+final pageRouteObserver = PageRouteObserver();
+
+/// RouteAware ではなくて PageRouteAware を扱える RouteObserver
+///
+/// RouteObserver とほぼ実装は同じ
+class PageRouteObserver extends NavigatorObserver {
+  final Map<PageRoute<void>, Set<PageRouteAware>> _listeners =
+      <PageRoute<void>, Set<PageRouteAware>>{};
+
+  @visibleForTesting
+  bool debugObservingRoute(PageRoute<void> route) {
+    late bool contained;
+    assert(
+      () {
+        contained = _listeners.containsKey(route);
+        return true;
+      }(),
+    );
+    return contained;
+  }
+
+  void subscribe(PageRouteAware routeAware, PageRoute<void> route) {
+    final subscribers = _listeners.putIfAbsent(route, () => <PageRouteAware>{});
+    if (subscribers.add(routeAware)) {
+      routeAware.didPush();
+    }
+  }
+
+  void unsubscribe(PageRouteAware routeAware) {
+    final routes = _listeners.keys.toList();
+    for (final route in routes) {
+      final subscribers = _listeners[route];
+      if (subscribers != null) {
+        subscribers.remove(routeAware);
+        if (subscribers.isEmpty) {
+          _listeners.remove(route);
+        }
+      }
+    }
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    if (route is PageRoute<void> && previousRoute is PageRoute<void>) {
+      final previousSubscribers = _listeners[previousRoute]?.toList();
+
+      if (previousSubscribers != null) {
+        for (final routeAware in previousSubscribers) {
+          routeAware.didPopNext(route);
+        }
+      }
+
+      final subscribers = _listeners[route]?.toList();
+
+      if (subscribers != null) {
+        for (final routeAware in subscribers) {
+          routeAware.didPop(previousRoute);
+        }
+      }
+    }
+  }
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    if (route is PageRoute<void> && previousRoute is PageRoute<void>) {
+      final previousSubscribers = _listeners[previousRoute];
+
+      if (previousSubscribers != null) {
+        for (final routeAware in previousSubscribers) {
+          routeAware.didPushNext(route);
+        }
+      }
+    }
+  }
+}
+
+/// RouteAware の I/F に遷移元/遷移先の Route を加えた I/F
+abstract class PageRouteAware {
+  void didPopNext(Route<dynamic> nextRoute) {}
+  void didPush() {}
+  void didPop(Route<dynamic> previousRoute) {}
+  void didPushNext(Route<dynamic> nextRoute) {}
+}
 
 /// デフォルトのTransitionPage
 class DefaultTransitionPage extends CustomTransitionPage<void> {
   DefaultTransitionPage({
     required GoRouterState state,
     required super.child,
-    Widget Function(BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation, Widget child)?
+    Widget Function(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+    )?
         transitionsBuilder,
     super.transitionDuration,
     super.maintainState,
@@ -110,13 +196,20 @@ class DefaultTransitionPage extends CustomTransitionPage<void> {
     super.barrierColor,
     super.barrierLabel,
     LocalKey? key,
-    super.name,
+    String? name,
     super.arguments,
     super.restorationId,
   }) : super(
-          transitionsBuilder: transitionsBuilder ??
-              (context, animation, secondaryAnimation, child) =>
-                  FadeTransition(opacity: animation, child: child),
+          transitionsBuilder: transitionsBuilder ?? _transitionsBuilder,
           key: key ?? state.pageKey,
+          name: name ?? state.name,
         );
+
+  static Widget _transitionsBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
+      FadeTransition(opacity: animation, child: child);
 }

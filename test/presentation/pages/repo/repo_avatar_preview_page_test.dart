@@ -4,8 +4,8 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
 import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
@@ -38,7 +38,7 @@ void main() {
       expect(find.byType(RepoViewPage), findsOneWidget);
 
       // アバター画像をタップする
-      await tester.tap(find.byType(CachedCircleAvatar).last);
+      await tester.tap(find.byKey(const Key('repo_detail_view#_AvatarRow')));
       await tester.pump();
 
       // アバタープレビュー画面に遷移するはず

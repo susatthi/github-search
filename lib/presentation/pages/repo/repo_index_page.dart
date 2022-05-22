@@ -10,6 +10,7 @@ import '../../components/common/search_app_bar.dart';
 import '../../components/repo/repo_list_view.dart';
 import '../../components/repo/repo_search_text_button.dart';
 import '../../components/repo/repo_sort_button.dart';
+import 'repo_search_page.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class RepoIndexPage extends StatefulWidget {
   RepoIndexPageState createState() => RepoIndexPageState();
 }
 
-class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
+class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   final _animatedBackgroundKey = GlobalKey<AnimatedAppBarBackgroundState>();
   final _scrollController = ScrollController();
 
@@ -74,16 +75,20 @@ class RepoIndexPageState extends State<RepoIndexPage> with RouteAware {
 
   /// この画面から新しい画面をpushしたときに呼ばれる
   @override
-  void didPushNext() {
-    logger.v('Call _AnimatedAppBarBackground.fill()');
-    _animatedBackgroundKey.currentState?.fill();
+  void didPushNext(Route<dynamic> nextRoute) {
+    // 遷移先がリポジトリ検索画面の時だけアニメーションする
+    if (nextRoute.settings.name == RepoSearchPage.name) {
+      _animatedBackgroundKey.currentState?.fill();
+    }
   }
 
   /// 上の画面がpopされてこの画面に戻ったときに呼ばれる
   @override
-  void didPopNext() {
-    logger.v('Call _AnimatedAppBarBackground.collapse()');
-    _animatedBackgroundKey.currentState?.collapse();
+  void didPopNext(Route<dynamic> nextRoute) {
+    // 遷移元がリポジトリ検索画面の時だけアニメーションする
+    if (nextRoute.settings.name == RepoSearchPage.name) {
+      _animatedBackgroundKey.currentState?.collapse();
+    }
   }
 }
 
@@ -124,6 +129,7 @@ class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
       return;
     }
 
+    logger.v('Start fill animation');
     final size = MediaQuery.of(context).size;
     setState(() {
       isFilled = true;
@@ -141,6 +147,8 @@ class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
     if (!isFilled) {
       return;
     }
+
+    logger.v('Start collapse animation');
     setState(() {
       isFilled = false;
       _duration = animated ? _animateDuration : Duration.zero;

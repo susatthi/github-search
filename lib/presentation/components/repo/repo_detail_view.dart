@@ -79,7 +79,7 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
 class _AvatarRow extends StatelessWidget {
   const _AvatarRow({
     required this.data,
-  });
+  }) : super(key: const Key('repo_detail_view#_AvatarRow'));
 
   final RepoData data;
 

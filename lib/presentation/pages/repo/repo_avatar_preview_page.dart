@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../utils/logger.dart';
 import '../../components/repo/repo_avatar_preview_view.dart';
 
 /// アバターのプレビュー画面
@@ -20,8 +21,9 @@ class RepoAvatarPreviewPage extends StatelessWidget {
       // 透過して遷移元画面が見えるようにする
       backgroundColor:
           Theme.of(context).scaffoldBackgroundColor.withOpacity(0.85),
-      body: GestureDetector(
+      body: InkWell(
         onTap: () {
+          logger.v('Called onTap');
           context.pop();
         },
         child: const RepoAvatarPreviewView(),

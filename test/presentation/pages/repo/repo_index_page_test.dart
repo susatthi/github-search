@@ -176,7 +176,7 @@ void main() {
     });
   });
   group('AnimatedAppBarBackground', () {
-    testWidgets('リポジトリ一覧画面からの画面遷移時にアニメーションするはず', (tester) async {
+    testWidgets('リポジトリ一覧画面から検索画面の画面遷移時にアニメーションするはず', (tester) async {
       await tester.pumpWidget(mockGitHubSearchApp());
       await tester.pumpAndSettle();
 
@@ -199,6 +199,37 @@ void main() {
       await tester.pumpAndSettle();
 
       // 一覧画面に戻ってきて折り畳んでいる状態のはず
+      expect(state.isFilled, false);
+    });
+    testWidgets('リポジトリ一覧画面から詳細画面の画面遷移時にアニメーションしないはず', (tester) async {
+      await tester.pumpWidget(mockGitHubSearchApp());
+      await tester.pumpAndSettle();
+
+      final state = tester.firstState(find.byType(AnimatedAppBarBackground))
+          as AnimatedAppBarBackgroundState;
+
+      // 最初は折り畳んでいる状態のはず
+      expect(state.isFilled, false);
+
+      // 検索ボタン押下で検索ページに遷移する
+      await tester.tap(find.text('flutter/flutter'));
+      await tester.pump();
+
+      // 詳細画面に遷移したはず
+      await tester.pump();
+      expect(find.byType(RepoViewPage), findsOneWidget);
+
+      // 検索画面に遷移した後でも畳んでいる状態のはず
+      expect(state.isFilled, false);
+
+      // 戻るボタン押下
+      await tester.tap(find.byType(BackButton));
+      await tester.pump();
+
+      // 一覧画面に戻ってきたはず
+      expect(find.byType(RepoViewPage), findsNothing);
+
+      // 一覧画面に戻ってきて折り畳んでいる状態のままのはず
       expect(state.isFilled, false);
     });
   });
