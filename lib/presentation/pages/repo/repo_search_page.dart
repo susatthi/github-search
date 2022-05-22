@@ -12,7 +12,7 @@ import '../../components/repo/repo_sort_button.dart';
 class RepoSearchPage extends StatelessWidget {
   const RepoSearchPage({super.key});
 
-  static const name = 'repo_search';
+  static const name = 'repo-search';
   static const path = 'search';
 
   @override

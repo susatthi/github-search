@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../presentation/components/common/avatar_preview_view.dart';
 import '../presentation/components/repo/repo_detail_view_notifier.dart';
+import '../presentation/pages/common/avatar_preview_page.dart';
 import '../presentation/pages/common/error_page.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
 import '../presentation/pages/repo/repo_search_page.dart';
@@ -52,6 +54,25 @@ final routerProvider = Provider<GoRouter>(
             ),
           ),
         ],
+      ),
+      // アバタープレビュー画面
+      GoRoute(
+        path: AvatarPreviewPage.path,
+        name: AvatarPreviewPage.name,
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          opaque: false,
+          child: ProviderScope(
+            overrides: [
+              avatarPreviewUrlProvider.overrideWithValue(
+                state.params[pageParamKeyAvatarPreviewUrl]!,
+              ),
+            ],
+            child: const AvatarPreviewPage(),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
       ),
     ],
     // エラー画面

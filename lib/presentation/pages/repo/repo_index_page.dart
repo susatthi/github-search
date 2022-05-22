@@ -15,7 +15,7 @@ import '../../components/repo/repo_sort_button.dart';
 class RepoIndexPage extends StatefulWidget {
   const RepoIndexPage({super.key});
 
-  static const name = 'repo_index';
+  static const name = 'repo-index';
   static const path = '/repo';
 
   @override

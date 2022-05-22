@@ -4,15 +4,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../entities/repo/repo_data.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
+import '../../pages/common/avatar_preview_page.dart';
 import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
 import '../common/hyperlink_text.dart';
 import '../common/icon_label.dart';
-import '../common/preview_avatar_view.dart';
 import 'repo_detail_view_notifier.dart';
 import 'repo_language_label.dart';
 
@@ -88,12 +89,14 @@ class _AvatarRow extends StatelessWidget {
         cursor: SystemMouseCursors.click,
         child: InkWell(
           onTap: () async {
-            logger.i('Tapped avatar');
-            await showDialog<void>(
-              context: context,
-              builder: (context) => PreviewAvatarView(
-                url: data.owner.avatarUrl,
-              ),
+            logger.i('Tapped avatar: url = ${data.owner.avatarUrl}');
+
+            // アバタープレビュー画面をpush表示する
+            context.pushNamed(
+              AvatarPreviewPage.name,
+              params: {
+                pageParamKeyAvatarPreviewUrl: data.owner.avatarUrl,
+              },
             );
           },
           child: Padding(

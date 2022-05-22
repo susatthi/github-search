@@ -7,9 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/entities/repo/repo_data.dart';
 import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
 import 'package:github_search/presentation/components/common/error_view.dart';
-import 'package:github_search/presentation/components/common/preview_avatar_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
+import 'package:github_search/presentation/pages/common/avatar_preview_page.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
@@ -34,9 +35,11 @@ class _MockPage extends StatelessWidget {
 
 void main() {
   late MockUrlLauncherPlatform mockUrlLauncherPlatform;
+  late MockGoRouter mockGoRouter;
   setUp(() {
     mockUrlLauncherPlatform = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
+    mockGoRouter = MockGoRouter();
   });
 
   /// ハイパーリンクをタップするテスト
@@ -232,25 +235,38 @@ void main() {
               ),
             ),
           ],
-          home: const _MockPage(),
+          home: InheritedGoRouter(
+            goRouter: mockGoRouter,
+            child: const _MockPage(),
+          ),
         ),
       );
 
       await tester.pump();
 
+      verifyNever(
+        () => mockGoRouter.pushNamed(
+          AvatarPreviewPage.name,
+          params: {
+            pageParamKeyAvatarPreviewUrl:
+                'https://avatars.githubusercontent.com/u/14101776?v=4',
+          },
+        ),
+      );
+
       // アバター画像をタップする
       await tester.tap(find.byType(CachedCircleAvatar));
-      await tester.pump();
 
-      // プレビューViewが表示するはず
-      expect(find.byType(PreviewAvatarView), findsOneWidget);
-
-      // タップする
-      await tester.tap(find.byType(PreviewAvatarView));
-      await tester.pump();
-
-      // プレビューViewが閉じるはず
-      expect(find.byType(PreviewAvatarView), findsNothing);
+      // プレビュー画面にpush遷移するはず
+      verify(
+        () => mockGoRouter.pushNamed(
+          AvatarPreviewPage.name,
+          params: {
+            pageParamKeyAvatarPreviewUrl:
+                'https://avatars.githubusercontent.com/u/14101776?v=4',
+          },
+        ),
+      ).called(1);
     });
   });
 }
