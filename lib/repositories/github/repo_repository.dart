@@ -51,7 +51,12 @@ class GitHubRepoRepository implements RepoRepository {
           perPage: perPage,
           page: page,
         ),
-        responseBuilder: SearchReposResult.fromJson,
+        responseBuilder: (data) {
+          final result = SearchReposResult.fromJson(data);
+          return result.copyWith(
+            items: result.items.map(repoBuilder).toList(),
+          );
+        },
       );
 
   @override
@@ -64,20 +69,21 @@ class GitHubRepoRepository implements RepoRepository {
           ownerName: ownerName,
           repoName: repoName,
         ),
-        responseBuilder: (data) {
-          final repo = Repo.fromJson(data);
-          final ownerUrl = '$githubSiteUrl/${repo.owner.login}';
-          final repoUrl = '$ownerUrl/${repo.name}';
-          return repo.copyWith(
-            owner: repo.owner.copyWith(
-              ownerUrl: ownerUrl,
-            ),
-            repoUrl: repoUrl,
-            stargazersUrl: '$repoUrl/stargazers',
-            watchersUrl: '$repoUrl/watchers',
-            forksUrl: '$repoUrl/network/members',
-            issuesUrl: '$repoUrl/issues',
-          );
-        },
+        responseBuilder: (data) => repoBuilder(Repo.fromJson(data)),
       );
+
+  static Repo repoBuilder(Repo repo) {
+    final ownerUrl = '$githubSiteUrl/${repo.owner.login}';
+    final repoUrl = '$ownerUrl/${repo.name}';
+    return repo.copyWith(
+      owner: repo.owner.copyWith(
+        ownerUrl: ownerUrl,
+      ),
+      repoUrl: repoUrl,
+      stargazersUrl: '$repoUrl/stargazers',
+      watchersUrl: '$repoUrl/watchers',
+      forksUrl: '$repoUrl/network/members',
+      issuesUrl: '$repoUrl/issues',
+    );
+  }
 }
