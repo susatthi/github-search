@@ -8,7 +8,7 @@ import 'package:github_search/entities/repo/repo_data.dart';
 import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
 import 'package:github_search/presentation/components/common/error_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view.dart';
-import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
+import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
@@ -52,9 +52,9 @@ void main() {
     await tester.pumpWidget(
       mockGitHubSearchApp(
         overrides: [
-          repoDetailViewStateProvider.overrideWithProvider(
-            repoDetailViewStateProviderFamily(
-              const RepoDetailViewParameter(
+          repoSelectedRepoProvider.overrideWithProvider(
+            repoSelectedRepoProviderFamily(
+              const RepoSelectedRepoParameter(
                 ownerName: 'flutter',
                 repoName: 'plugins',
               ),
@@ -108,9 +108,9 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
@@ -160,9 +160,9 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'unknown',
                   repoName: 'unknown',
                 ),
@@ -227,9 +227,9 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),

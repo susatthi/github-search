@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
+import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -15,9 +15,9 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
@@ -40,9 +40,9 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'unknown',
                   repoName: 'unknown',
                 ),

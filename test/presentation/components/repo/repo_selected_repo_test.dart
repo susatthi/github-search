@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
 import 'package:github_search/entities/owner/owner_data.dart';
 import 'package:github_search/entities/repo/repo_data.dart';
-import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
+import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -59,18 +59,18 @@ class _FirstPage extends StatelessWidget {
 }
 
 void main() {
-  const repoDetailViewParameter = RepoDetailViewParameter(
+  const repoDetailViewParameter = RepoSelectedRepoParameter(
     ownerName: 'flutter',
     repoName: 'flutter',
   );
 
-  group('repoDetailViewStateProvider', () {
+  group('repoSelectedRepoProvider', () {
     test('最初はStateErrorをthrowするはず', () async {
       final container = mockProviderContainer();
       // ignore: prefer_function_declarations_over_variables
       final func = () {
         try {
-          container.read(repoDetailViewStateProvider);
+          container.read(repoSelectedRepoProvider);
         } on ProviderException catch (e) {
           // ignore: only_throw_errors
           throw (e.exception as ProviderException).exception;
@@ -81,15 +81,15 @@ void main() {
     test('overridesすればStateErrorをthrowしないはず', () async {
       final container = mockProviderContainer(
         overrides: [
-          repoDetailViewStateProvider.overrideWithProvider(
-            repoDetailViewStateProviderFamily(repoDetailViewParameter),
+          repoSelectedRepoProvider.overrideWithProvider(
+            repoSelectedRepoProviderFamily(repoDetailViewParameter),
           ),
         ],
       );
       // ignore: prefer_function_declarations_over_variables
       final func = () {
         try {
-          container.read(repoDetailViewStateProvider);
+          container.read(repoSelectedRepoProvider);
         } on ProviderException catch (e) {
           // ignore: only_throw_errors
           throw (e.exception as ProviderException).exception;
@@ -98,7 +98,7 @@ void main() {
       expect(func, func);
     });
   });
-  group('RepoDetailViewParameter', () {
+  group('RepoSelectedRepoParameter', () {
     testWidgets('from()でインスタンスが生成できるはず', (tester) async {
       await tester.pumpWidget(
         mockGitHubSearchApp(
@@ -114,7 +114,8 @@ void main() {
                         name: 'repo_view',
                         path: ':$pageParamKeyOwnerName/:$pageParamKeyRepoName',
                         builder: (context, state) {
-                          final parameter = RepoDetailViewParameter.from(state);
+                          final parameter =
+                              RepoSelectedRepoParameter.from(state);
                           expect(parameter.ownerName, 'ownerName');
                           expect(parameter.repoName, 'repoName');
                           expect(parameter.extra, _extra);
@@ -135,18 +136,18 @@ void main() {
       await tester.pump();
     });
   });
-  group('RepoDetailViewNotifier', () {
+  group('RepoSelectedRepoNotifier', () {
     test('Notifierを生成するとリポジトリエンティティを取得するはず', () async {
       final container = mockProviderContainer(
         overrides: [
-          repoDetailViewStateProvider.overrideWithProvider(
-            repoDetailViewStateProviderFamily(repoDetailViewParameter),
+          repoSelectedRepoProvider.overrideWithProvider(
+            repoSelectedRepoProviderFamily(repoDetailViewParameter),
           ),
         ],
       );
       final notifier = container
           .listen(
-            repoDetailViewStateProvider.notifier,
+            repoSelectedRepoProvider.notifier,
             (previous, next) {},
           )
           .read();
@@ -164,9 +165,9 @@ void main() {
     test('extra がある場合はリポジトリエンティティを取得しないはず', () async {
       final container = mockProviderContainer(
         overrides: [
-          repoDetailViewStateProvider.overrideWithProvider(
-            repoDetailViewStateProviderFamily(
-              const RepoDetailViewParameter(
+          repoSelectedRepoProvider.overrideWithProvider(
+            repoSelectedRepoProviderFamily(
+              const RepoSelectedRepoParameter(
                 ownerName: 'flutter',
                 repoName: 'flutter',
                 extra: _extra,
@@ -177,7 +178,7 @@ void main() {
       );
       final notifier = container
           .listen(
-            repoDetailViewStateProvider.notifier,
+            repoSelectedRepoProvider.notifier,
             (previous, next) {},
           )
           .read();

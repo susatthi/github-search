@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../entities/repo/repo_data.dart';
-import 'repo_detail_view_notifier.dart';
+import 'repo_selected_repo.dart';
 
 /// アバター画像プレビューView
 class RepoAvatarPreviewView extends ConsumerWidget {
@@ -16,7 +16,7 @@ class RepoAvatarPreviewView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoDetailViewStateProvider);
+    final asyncValue = ref.watch(repoSelectedRepoProvider);
     return asyncValue.when(
       data: (data) => _RepoAvatarPreviewView(data: data),
       // ほぼ失敗しないしすぐに元に戻れるのでエラー表示はしない

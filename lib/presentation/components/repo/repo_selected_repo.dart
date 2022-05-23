@@ -11,36 +11,35 @@ import '../../../repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import '../../pages/repo/repo_view_page.dart';
 
-/// リポジトリ詳細View状態プロバイダー
-final repoDetailViewStateProvider = StateNotifierProvider.autoDispose<
-    RepoDetailViewNotifier, AsyncValue<RepoData>>(
+/// 選択中のリポジトリプロバイダー
+final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<
+    RepoSelectedRepoNotifier, AsyncValue<RepoData>>(
   (ref) => throw StateError('Provider was not initialized'),
 );
 
-/// リポジトリ詳細View状態プロバイダー（Family）
-final repoDetailViewStateProviderFamily = StateNotifierProvider.family
-    .autoDispose<RepoDetailViewNotifier, AsyncValue<RepoData>,
-        RepoDetailViewParameter>(
+/// 選択中のリポジトリプロバイダー（Family）
+final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
+    RepoSelectedRepoNotifier, AsyncValue<RepoData>, RepoSelectedRepoParameter>(
   (ref, parameter) {
     final repoRepository = ref.watch(repoRepositoryProvider);
-    logger.i('Create RepoDetailViewNotifier: parameter=$parameter');
-    return RepoDetailViewNotifier(
+    logger.i('Create RepoSelectedRepoNotifier: parameter=$parameter');
+    return RepoSelectedRepoNotifier(
       repoRepository,
       parameter: parameter,
     );
   },
 );
 
-/// リポジトリ詳細View用パラメータ
-class RepoDetailViewParameter extends Equatable {
-  const RepoDetailViewParameter({
+/// 選択中のリポジトリ用パラメータ
+class RepoSelectedRepoParameter extends Equatable {
+  const RepoSelectedRepoParameter({
     required this.ownerName,
     required this.repoName,
     this.extra,
   });
 
-  factory RepoDetailViewParameter.from(GoRouterState state) =>
-      RepoDetailViewParameter(
+  factory RepoSelectedRepoParameter.from(GoRouterState state) =>
+      RepoSelectedRepoParameter(
         ownerName: state.params[pageParamKeyOwnerName]!,
         repoName: state.params[pageParamKeyRepoName]!,
         extra: state.extra as RepoData?,
@@ -60,9 +59,9 @@ class RepoDetailViewParameter extends Equatable {
   List<Object?> get props => [ownerName, repoName, extra];
 }
 
-/// リポジトリ詳細ViewNotifier
-class RepoDetailViewNotifier extends StateNotifier<AsyncValue<RepoData>> {
-  RepoDetailViewNotifier(
+/// 選択中のリポジトリNotifier
+class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<RepoData>> {
+  RepoSelectedRepoNotifier(
     this._repoRepository, {
     required this.parameter,
   }) : super(const AsyncValue.loading()) {
@@ -79,7 +78,7 @@ class RepoDetailViewNotifier extends StateNotifier<AsyncValue<RepoData>> {
   final RepoRepository _repoRepository;
 
   /// パラメータ
-  final RepoDetailViewParameter parameter;
+  final RepoSelectedRepoParameter parameter;
 
   Future<void> _get() async {
     state = const AsyncValue.loading();

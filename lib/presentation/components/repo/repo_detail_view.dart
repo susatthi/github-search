@@ -15,8 +15,8 @@ import '../common/cached_circle_avatar.dart';
 import '../common/error_view.dart';
 import '../common/hyperlink_text.dart';
 import '../common/icon_label.dart';
-import 'repo_detail_view_notifier.dart';
 import 'repo_language_label.dart';
+import 'repo_selected_repo.dart';
 
 /// 1行の縦方向のパディング
 const _verticalPadding = 8.0;
@@ -30,7 +30,7 @@ class SliverRepoDetailView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoDetailViewStateProvider);
+    final asyncValue = ref.watch(repoSelectedRepoProvider);
     return asyncValue.when(
       data: (data) => SliverRepoDetailViewInternal(data: data),
       error: (e, s) => SliverFillRemaining(

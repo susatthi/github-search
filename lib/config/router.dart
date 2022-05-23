@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/components/repo/repo_detail_view_notifier.dart';
+import '../presentation/components/repo/repo_selected_repo.dart';
 import '../presentation/pages/common/error_page.dart';
 import '../presentation/pages/repo/repo_avatar_preview_page.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
@@ -45,9 +45,9 @@ final routerProvider = Provider<GoRouter>(
               state: state,
               child: ProviderScope(
                 overrides: [
-                  repoDetailViewStateProvider.overrideWithProvider(
-                    repoDetailViewStateProviderFamily(
-                      RepoDetailViewParameter.from(state),
+                  repoSelectedRepoProvider.overrideWithProvider(
+                    repoSelectedRepoProviderFamily(
+                      RepoSelectedRepoParameter.from(state),
                     ),
                   ),
                 ],
@@ -64,9 +64,9 @@ final routerProvider = Provider<GoRouter>(
                   opaque: false,
                   child: ProviderScope(
                     overrides: [
-                      repoDetailViewStateProvider.overrideWithProvider(
-                        repoDetailViewStateProviderFamily(
-                          RepoDetailViewParameter.from(state),
+                      repoSelectedRepoProvider.overrideWithProvider(
+                        repoSelectedRepoProviderFamily(
+                          RepoSelectedRepoParameter.from(state),
                         ),
                       ),
                     ],
