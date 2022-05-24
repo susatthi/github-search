@@ -104,7 +104,9 @@ void main() {
       // まだRepoPromptSearchViewは表示していないはず
       expect(find.byType(RepoPromptSearchView), findsNothing);
 
-      await tester.pump();
+      await tester.runAsync(() async {
+        await tester.pump();
+      });
 
       // RepoPromptSearchViewを表示しているはず
       expect(find.byType(RepoPromptSearchView), findsOneWidget);
