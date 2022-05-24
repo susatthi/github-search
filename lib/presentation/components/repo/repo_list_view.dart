@@ -2,8 +2,6 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -250,39 +248,47 @@ class _LastIndicator extends ConsumerWidget {
 
 /// 検索前に表示する検索を促すView
 @visibleForTesting
-class RepoPromptSearchView extends StatelessWidget {
+class RepoPromptSearchView extends StatefulWidget {
   const RepoPromptSearchView({super.key});
 
-  static final _lottieFilePaths = <String>[
-    Assets.lottie.githubDarkMode,
-    Assets.lottie.githubLogo,
-    Assets.lottie.octocat,
-    Assets.lottie.coolOctovat,
-    Assets.lottie.dashboardZippeo,
-  ];
+  @override
+  State<RepoPromptSearchView> createState() => _RepoPromptSearchViewState();
+}
 
-  /// Lottieファイルパスをランダムで返す
-  String get lottieFilePath =>
-      _lottieFilePaths[Random().nextInt(_lottieFilePaths.length)];
+class _RepoPromptSearchViewState extends State<RepoPromptSearchView> {
+  double _opacity = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 検索フィールドの×ボタン押下して検索文字列をクリアしてから検索画面に遷移するときに
+    // 本Viewが表示されてちらついているように見えるため、500ミリ秒遅延させる
+    Future<void>.delayed(const Duration(milliseconds: 500))
+        .then((value) => setState(() => _opacity = 1));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
-            lottieFilePath,
-            width: 200,
-          ),
-          const SizedBox(height: 24),
-          Text(
-            i18n.canSearchRepos,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 40),
-        ],
+      child: AnimatedOpacity(
+        opacity: _opacity,
+        duration: const Duration(milliseconds: 1000),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(
+              Assets.lottie.githubDarkMode,
+              width: 200,
+            ),
+            Text(
+              i18n.canSearchRepos,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
   }
