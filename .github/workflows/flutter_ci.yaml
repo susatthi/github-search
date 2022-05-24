@@ -73,9 +73,16 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      # 環境変数ファイル（env.dart）を作成
+      # 環境変数ファイル（env.dart）を作成（Windows以外）
       - name: Create env.dart
+        if: ${{ matrix.os != 'windows-latest' }}
         run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+
+      # 環境変数ファイル（env.dart）を作成（Windows）
+      - name: Create env.dart
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+        shell: bash
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -90,18 +97,19 @@ jobs:
       - name: Run Flutter Test
         run: flutter test --no-test-assets --machine > test-report.log
 
-      # テスト結果を GitHub Actions に表示する
+      # テスト結果を GitHub Actions に表示する（Ubuntuのみ）
       - name: Report Test
         uses: dorny/test-reporter@v1
-        if: always()
+        if: ${{ always() && matrix.os == 'ubuntu-latest' }}
         with:
           name: Flutter Test Report
           path: test-report.log
           reporter: flutter-json
 
-      # Codecov に結果を送信
+      # Codecov に結果を送信（Ubuntuのみ）
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           file: coverage/lcov.info
           fail_ci_if_error: true
