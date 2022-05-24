@@ -21,6 +21,7 @@ dependencies:
   flutter_markdown: ^0.6.10
   flutter_riverpod: ^1.0.4
   flutter_state_notifier: ^0.7.1
+  flutter_svg: ^1.1.0
   flutter_web_plugins:
     sdk: flutter
   freezed_annotation: ^2.0.3
@@ -60,6 +61,10 @@ dev_dependencies:
   mocktail: ^0.3.0
   path: ^1.8.1
   pedantic_mono: ^1.19.0+1
+
+dependency_overrides:
+  # flutter_gen_runner vs flutter_svg
+  xml: ^6.0.1
 
 flutter:
   assets:
