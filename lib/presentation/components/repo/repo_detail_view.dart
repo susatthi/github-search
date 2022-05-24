@@ -16,6 +16,7 @@ import '../common/error_view.dart';
 import '../common/hyperlink_text.dart';
 import '../common/icon_label.dart';
 import 'repo_language_label.dart';
+import 'repo_readme_markdown.dart';
 import 'repo_selected_repo.dart';
 
 /// 1行の縦方向のパディング
@@ -60,15 +61,16 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverFillRemaining(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return SliverList(
+      delegate: SliverChildListDelegate.fixed(
+        [
           _AvatarRow(data: data),
           _FullnameRow(data: data),
           _DescriptionRow(data: data),
           _LanguageRow(data: data),
           _CountRow(data: data),
+          const Divider(),
+          _ReadmeRow(data: data),
         ],
       ),
     );
@@ -271,6 +273,26 @@ class _CountRow extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// README
+class _ReadmeRow extends StatelessWidget {
+  const _ReadmeRow({
+    required this.data,
+  });
+
+  final RepoData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: _horizontalPadding,
+        vertical: _verticalPadding,
+      ),
+      child: RepoReadmeMarkdown(repo: data),
     );
   }
 }

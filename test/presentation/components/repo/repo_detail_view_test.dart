@@ -8,6 +8,7 @@ import 'package:github_search/entities/repo/repo_data.dart';
 import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
 import 'package:github_search/presentation/components/common/error_view.dart';
 import 'package:github_search/presentation/components/repo/repo_detail_view.dart';
+import 'package:github_search/presentation/components/repo/repo_readme_markdown.dart';
 import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
@@ -155,6 +156,9 @@ void main() {
 
       // Issue数
       expect(find.byIcon(Icons.bug_report_outlined), findsOneWidget);
+
+      // README
+      expect(find.byType(RepoReadmeMarkdown), findsOneWidget);
     });
     testWidgets('エラーが発生した場合はエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(

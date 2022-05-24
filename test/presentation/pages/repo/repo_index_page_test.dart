@@ -211,7 +211,7 @@ void main() {
       // 最初は折り畳んでいる状態のはず
       expect(state.isFilled, false);
 
-      // 検索ボタン押下で検索ページに遷移する
+      // ListTile押下で詳細画面に遷移する
       await tester.tap(find.text('flutter/flutter'));
       await tester.pump();
 

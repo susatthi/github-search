@@ -22,6 +22,7 @@ class RepoData {
     required this.language,
     required this.forksCount,
     required this.openIssuesCount,
+    required this.defaultBranch,
     required this.repoUrl,
     required this.stargazersUrl,
     required this.watchersUrl,
@@ -40,6 +41,7 @@ class RepoData {
       language: repo.language,
       forksCount: repo.forksCount,
       openIssuesCount: repo.openIssuesCount,
+      defaultBranch: repo.defaultBranch,
       repoUrl: repo.repoUrl,
       stargazersUrl: repo.stargazersUrl,
       watchersUrl: repo.watchersUrl,
@@ -94,6 +96,9 @@ class RepoData {
 
   /// 表示用のIssue数（例：35432 => 35.4k）
   String get openIssuesCountShort => _countDisplay(openIssuesCount);
+
+  /// デフォルトブランチ
+  final String defaultBranch;
 
   /// リポジトリURL
   final String? repoUrl;

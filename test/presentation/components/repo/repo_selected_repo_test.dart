@@ -28,6 +28,7 @@ const _extra = RepoData(
   language: '',
   forksCount: 0,
   openIssuesCount: 0,
+  defaultBranch: '',
   repoUrl: '',
   stargazersUrl: '',
   watchersUrl: '',

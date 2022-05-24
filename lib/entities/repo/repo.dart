@@ -22,6 +22,7 @@ class Repo with _$Repo {
     String? language,
     @JsonKey(name: 'forks_count') required int forksCount,
     @JsonKey(name: 'open_issues_count') required int openIssuesCount,
+    @JsonKey(name: 'default_branch') required String defaultBranch,
     String? repoUrl,
     String? stargazersUrl,
     String? watchersUrl,

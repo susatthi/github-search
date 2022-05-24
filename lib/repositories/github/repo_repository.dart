@@ -8,6 +8,7 @@ import '../../entities/repo/repo.dart';
 import '../../entities/search_repos_result/search_repos_result.dart';
 import '../repo_repository.dart';
 import 'api.dart';
+import 'exception.dart';
 import 'http_client.dart';
 
 /// GitHub の URL
@@ -85,5 +86,40 @@ class GitHubRepoRepository implements RepoRepository {
       forksUrl: '$repoUrl/network/members',
       issuesUrl: '$repoUrl/issues',
     );
+  }
+
+  @override
+  Future<String> getReadme({
+    required String ownerName,
+    required String repoName,
+    required String defaultBranch,
+  }) async {
+    // READMEファイル名のパターン（優先度順）
+    const fileNames = <String>[
+      'README.md',
+      'ReadMe.md',
+      'Readme.md',
+      'readme.md',
+    ];
+
+    for (final fileName in fileNames) {
+      final uri = Uri.parse(
+        'https://raw.githubusercontent.com/$ownerName/$repoName/$defaultBranch/$fileName',
+      );
+      try {
+        return await _client.getRaw(uri: uri);
+      } on GitHubException catch (e) {
+        // 404 の場合はファイル名を変えてリトライする
+        if (e.code == GitHubException.codeNotFound) {
+          continue;
+        }
+
+        // 404 以外のエラーは即時 rethrow する
+        rethrow;
+      }
+    }
+
+    // 最終的に取得できなかったら 404 を返す
+    throw GitHubException.notFound();
   }
 }

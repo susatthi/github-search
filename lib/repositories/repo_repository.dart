@@ -28,6 +28,13 @@ abstract class RepoRepository {
     required String ownerName,
     required String repoName,
   });
+
+  /// READMEコンテンツを取得する
+  Future<String> getReadme({
+    required String ownerName,
+    required String repoName,
+    required String defaultBranch,
+  });
 }
 
 /// リポジトリ検索用ソート
