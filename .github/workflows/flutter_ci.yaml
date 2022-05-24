@@ -81,7 +81,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report
+          name: Flutter Test Report (ubuntu-laetst)
           path: test-report.log
           reporter: flutter-json
 
@@ -141,7 +141,16 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets
+        run: flutter test --no-test-assets --machine > test-report.log
+
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Flutter Test Report (macos-laetst)
+          path: test-report.log
+          reporter: flutter-json
 
   # 最初に実行するテストジョブ（windows-latest）の定義
   flutter_test_windows:
@@ -191,7 +200,16 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets
+        run: flutter test --no-test-assets --machine > test-report.log
+
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Flutter Test Report (windows-laetst)
+          path: test-report.log
+          reporter: flutter-json
 
   # Android ビルドジョブの定義
   flutter_build_android:
