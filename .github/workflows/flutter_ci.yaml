@@ -561,7 +561,7 @@ jobs:
 
       # すべて成功したとき
       - name: Notify Succeed
-        if: ${{ !contains(needs.*.result, 'failure') }}
+        if: ${{ !cancelled() && !contains(needs.*.result, 'failure') }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESSED TEST AND BUILD!
