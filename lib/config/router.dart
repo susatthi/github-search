@@ -85,6 +85,9 @@ final routerProvider = Provider<GoRouter>(
     ),
     observers: [pageRouteObserver],
     debugLogDiagnostics: !kReleaseMode,
+
+    // URLの#を除去する
+    urlPathStrategy: UrlPathStrategy.path,
   ),
 );
 
