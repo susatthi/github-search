@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/common/icon_label.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('IconLabel', () {
     testWidgets('引数無しで意図して動作するはず', (tester) async {
       const expectedIcon = Icons.search;

@@ -11,6 +11,7 @@ import 'package:github_search/entities/repo/repo_data.dart';
 import 'package:github_search/presentation/components/repo/repo_readme_content.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/utils.dart';
 
@@ -22,6 +23,7 @@ void main() {
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),
     );
+    useEnvironmentLocale();
   });
 
   group('repoReadmeContentProvider', () {

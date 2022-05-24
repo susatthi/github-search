@@ -8,9 +8,11 @@ import 'package:github_search/presentation/components/repo/repo_full_name_text.d
 import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('RepoFullNameText', () {
     testWidgets('正しく表示出来るはず', (tester) async {
       await tester.pumpWidget(

@@ -8,9 +8,11 @@ import 'package:github_search/presentation/components/repo/repo_full_name_text.d
 import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('RepoViewPage', () {
     testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
       // リポジトリ詳細画面を表示したはず

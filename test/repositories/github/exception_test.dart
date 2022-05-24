@@ -5,7 +5,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/github/exception.dart';
 
+import '../../test_utils/locale.dart';
+
 void main() {
+  setUp(useEnvironmentLocale);
   group('GitHubException()', () {
     test('生成出来るはず', () {
       expect(const GitHubException(), isNotNull);

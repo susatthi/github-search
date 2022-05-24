@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/common/search_app_bar.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('SearchAppBar', () {
     testWidgets('デフォルトのAppBarの高さが意図した高さであるはず', (tester) async {
       await tester.pumpWidget(

@@ -7,9 +7,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/repo/repo_search_repos_query.dart';
 import 'package:github_search/presentation/components/repo/repo_search_text_field.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('RepoSearchTextField', () {
     testWidgets('検索を実行すると検索文字列を更新するはず', (tester) async {
       const expectedQuery = 'foooooo';

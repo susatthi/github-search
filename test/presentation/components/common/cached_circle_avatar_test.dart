@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/common/cached_circle_avatar.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 class MockDefaultCacheManager extends Mock implements DefaultCacheManager {}
@@ -16,6 +17,7 @@ void main() {
   const dummyUrl = 'https://keyber.jp/images/logo_white.png';
   late DefaultCacheManager mockCacheManager;
   setUp(() {
+    useEnvironmentLocale();
     mockCacheManager = MockDefaultCacheManager();
   });
 

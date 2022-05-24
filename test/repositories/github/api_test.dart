@@ -6,10 +6,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/github/api.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
+import '../../test_utils/locale.dart';
+
 void main() {
   late GitHubApi api;
   setUp(() {
     api = const GitHubApi();
+    useEnvironmentLocale();
   });
 
   group('GitHubApi.searchRepos()', () {

@@ -11,6 +11,7 @@ import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 
@@ -34,6 +35,7 @@ void main() {
   setUp(() {
     mockGoRouter = MockGoRouter();
     _query = null;
+    useEnvironmentLocale();
   });
 
   group('RepoSearchTextButton', () {

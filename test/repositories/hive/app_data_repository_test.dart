@@ -9,6 +9,7 @@ import 'package:github_search/repositories/hive/app_data_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../test_utils/hive.dart';
+import '../../test_utils/locale.dart';
 import '../../test_utils/mocks.dart';
 
 void main() {
@@ -17,6 +18,7 @@ void main() {
   setUp(() async {
     tmpDir = await openAppDataBox();
     repository = mockProviderContainer().read(hiveAppDataRepositoryProvider);
+    useEnvironmentLocale();
   });
 
   tearDown(() async {

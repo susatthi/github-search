@@ -8,6 +8,8 @@ import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/utils/extensions.dart';
 
+import '../test_utils/locale.dart';
+
 void main() {
   late List<int> listInt;
   late List<String> listString;
@@ -22,6 +24,7 @@ void main() {
       Owner(login: 'user4', avatarUrl: 'url4'),
       Owner(login: 'user2', avatarUrl: 'url5'),
     ];
+    useEnvironmentLocale();
   });
 
   group('IterableEx#firstWhereOrNull()', () {

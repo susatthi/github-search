@@ -11,6 +11,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+import '../test_utils/locale.dart';
 import '../test_utils/mocks.dart';
 
 /// PlatformException を throw する UrlLauncherPlatform
@@ -37,6 +38,7 @@ void main() {
   setUp(() {
     mockUrlLauncherPlatform = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
+    useEnvironmentLocale();
   });
 
   group('launchUrlInApp()', () {

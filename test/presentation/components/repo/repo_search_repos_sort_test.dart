@@ -10,6 +10,7 @@ import 'package:github_search/presentation/components/repo/repo_search_repos_sor
 import 'package:github_search/repositories/repo_repository.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
@@ -18,6 +19,7 @@ void main() {
   setUp(() async {
     tmpDir = await openAppDataBox();
     container = mockProviderContainer();
+    useEnvironmentLocale();
   });
 
   tearDown(() async {

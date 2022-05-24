@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/repo/repo_language_label.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('RepoLanguageLabel', () {
     testWidgets('正しく表示出来るはず', (tester) async {
       const expectedColor = Colors.red;

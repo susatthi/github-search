@@ -7,10 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/env.dart';
 import 'package:github_search/presentation/components/repo/repo_search_repos_query.dart';
 
+import '../../../test_utils/locale.dart';
+
 void main() {
   late ProviderContainer container;
   setUp(() async {
     container = ProviderContainer();
+    useEnvironmentLocale();
   });
 
   group('repoSearchReposInitQueryProvider', () {

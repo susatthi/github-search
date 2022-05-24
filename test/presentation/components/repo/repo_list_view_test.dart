@@ -19,6 +19,7 @@ import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 class _MockPage extends StatelessWidget {
@@ -43,6 +44,7 @@ void main() {
   setUp(() async {
     tmpDir = await openAppDataBox();
     mockGoRouter = MockGoRouter();
+    useEnvironmentLocale();
   });
   tearDown(() async {
     await closeAppDataBox(tmpDir);

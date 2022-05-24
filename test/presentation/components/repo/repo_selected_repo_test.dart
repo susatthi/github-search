@@ -12,6 +12,7 @@ import 'package:github_search/presentation/components/repo/repo_selected_repo.da
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 const _extra = RepoData(
@@ -65,6 +66,7 @@ void main() {
     repoName: 'flutter',
   );
 
+  setUp(useEnvironmentLocale);
   group('repoSelectedRepoProvider', () {
     test('最初はStateErrorをthrowするはず', () async {
       final container = mockProviderContainer();
