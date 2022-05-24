@@ -9,12 +9,14 @@ class OwnerData {
   const OwnerData({
     required this.name,
     required this.avatarUrl,
+    required this.ownerUrl,
   });
 
   factory OwnerData.from(Owner owner) {
     return OwnerData(
       name: owner.login,
       avatarUrl: owner.avatarUrl,
+      ownerUrl: owner.ownerUrl,
     );
   }
 
@@ -23,4 +25,7 @@ class OwnerData {
 
   /// アバターURL
   final String avatarUrl;
+
+  /// オーナーURL
+  final String? ownerUrl;
 }

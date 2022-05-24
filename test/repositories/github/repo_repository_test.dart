@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
@@ -31,6 +32,46 @@ void main() {
         repoName: 'flutter',
       );
       expect(repo, isNotNull);
+    });
+  });
+  group('GitHubRepoRepository.getReadme()', () {
+    test('取得できるはず', () async {
+      final content = await repository.getReadme(
+        ownerName: 'flutter',
+        repoName: 'flutter',
+        defaultBranch: 'master',
+      );
+      expect(content, isNotNull);
+    });
+    test('404で取得できないはず', () async {
+      String? content;
+      String? errorCode;
+      try {
+        content = await repository.getReadme(
+          ownerName: 'unknown',
+          repoName: 'unknown',
+          defaultBranch: 'unknown',
+        );
+      } on GitHubException catch (e) {
+        errorCode = e.code;
+      }
+      expect(content, isNull);
+      expect(errorCode, GitHubException.codeNotFound);
+    });
+    test('通信エラーで取得できないはず', () async {
+      String? content;
+      String? errorCode;
+      try {
+        content = await repository.getReadme(
+          ownerName: 'unknown',
+          repoName: 'unknown',
+          defaultBranch: 'socketException',
+        );
+      } on GitHubException catch (e) {
+        errorCode = e.code;
+      }
+      expect(content, isNull);
+      expect(errorCode, GitHubException.codeNoInternetConnection);
     });
   });
 }

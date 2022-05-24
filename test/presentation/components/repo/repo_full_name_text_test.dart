@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/repo/repo_detail_view_notifier.dart';
 import 'package:github_search/presentation/components/repo/repo_full_name_text.dart';
+import 'package:github_search/presentation/components/repo/repo_selected_repo.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../../test_utils/mocks.dart';
@@ -16,9 +16,9 @@ void main() {
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
@@ -45,9 +45,9 @@ void main() {
           overrides: [
             // 常にエラーを返すHTTPクライアントを使う
             httpClientProvider.overrideWithValue(mockHttpClientError),
-            repoDetailViewStateProvider.overrideWithProvider(
-              repoDetailViewStateProviderFamily(
-                const RepoDetailViewParameter(
+            repoSelectedRepoProvider.overrideWithProvider(
+              repoSelectedRepoProviderFamily(
+                const RepoSelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),

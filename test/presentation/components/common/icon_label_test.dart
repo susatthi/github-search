@@ -28,5 +28,26 @@ void main() {
       // テキストが表示されるはず
       expect(find.text(expectedText), findsOneWidget);
     });
+    testWidgets('タップイベントが検知できるはず', (tester) async {
+      var isTapped = false;
+      await tester.pumpWidget(
+        mockGitHubSearchApp(
+          home: Scaffold(
+            body: IconLabel(
+              icon: Icons.abc,
+              text: 'アイコン',
+              onTap: () => isTapped = true,
+            ),
+          ),
+        ),
+      );
+
+      // タップする
+      await tester.tap(find.byType(IconLabel));
+      await tester.pump();
+
+      // タップイベントが検知できているはず
+      expect(isTapped, true);
+    });
   });
 }

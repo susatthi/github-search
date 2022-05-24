@@ -94,4 +94,33 @@ class GitHubHttpClient {
       throw GitHubException.noInternetConnection();
     }
   }
+
+  /// GET Raw Request
+  Future<String> getRaw({
+    required Uri uri,
+  }) async {
+    try {
+      logger.i('request: uri=$uri');
+      final response = await _client.get(uri);
+      logger.i(
+        'response: statusCode=${response.statusCode}, '
+        'contentLength=${response.contentLength}',
+      );
+      switch (response.statusCode) {
+        case 200:
+          return response.body;
+        case 400:
+          throw GitHubException.badRequest();
+        case 404:
+          throw GitHubException.notFound();
+        case 503:
+          throw GitHubException.serviceUnavailable();
+        default:
+          throw GitHubException.unknown();
+      }
+    } on SocketException catch (e) {
+      logger.w(e);
+      throw GitHubException.noInternetConnection();
+    }
+  }
 }

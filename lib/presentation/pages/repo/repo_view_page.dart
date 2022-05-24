@@ -16,7 +16,7 @@ const pageParamKeyRepoName = 'repo_name';
 class RepoViewPage extends StatelessWidget {
   const RepoViewPage({super.key});
 
-  static const name = 'repo_view';
+  static const name = 'repo-view';
   static const path = ':$pageParamKeyOwnerName/:$pageParamKeyRepoName';
 
   /// 画面遷移用のパラメータを返す

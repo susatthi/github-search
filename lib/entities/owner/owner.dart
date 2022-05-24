@@ -13,6 +13,7 @@ class Owner with _$Owner {
   const factory Owner({
     @JsonKey(name: 'login') required String login,
     @JsonKey(name: 'avatar_url') required String avatarUrl,
+    String? ownerUrl,
   }) = _Owner;
 
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);

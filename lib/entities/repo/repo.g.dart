@@ -16,6 +16,12 @@ _$_Repo _$$_RepoFromJson(Map<String, dynamic> json) => _$_Repo(
       language: json['language'] as String?,
       forksCount: json['forks_count'] as int,
       openIssuesCount: json['open_issues_count'] as int,
+      defaultBranch: json['default_branch'] as String,
+      repoUrl: json['repoUrl'] as String?,
+      stargazersUrl: json['stargazersUrl'] as String?,
+      watchersUrl: json['watchersUrl'] as String?,
+      forksUrl: json['forksUrl'] as String?,
+      issuesUrl: json['issuesUrl'] as String?,
     );
 
 Map<String, dynamic> _$$_RepoToJson(_$_Repo instance) => <String, dynamic>{
@@ -28,4 +34,10 @@ Map<String, dynamic> _$$_RepoToJson(_$_Repo instance) => <String, dynamic>{
       'language': instance.language,
       'forks_count': instance.forksCount,
       'open_issues_count': instance.openIssuesCount,
+      'default_branch': instance.defaultBranch,
+      'repoUrl': instance.repoUrl,
+      'stargazersUrl': instance.stargazersUrl,
+      'watchersUrl': instance.watchersUrl,
+      'forksUrl': instance.forksUrl,
+      'issuesUrl': instance.issuesUrl,
     };

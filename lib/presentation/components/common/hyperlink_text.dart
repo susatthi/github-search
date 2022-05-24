@@ -4,38 +4,32 @@
 
 import 'package:flutter/material.dart';
 
-/// アイコン＋ラベル
-class IconLabel extends StatelessWidget {
-  const IconLabel({
+/// ハイパーリンク表示するテキスト
+class HyperlinkText extends StatelessWidget {
+  const HyperlinkText({
     super.key,
-    required this.icon,
     required this.text,
     this.padding = EdgeInsets.zero,
     this.onTap,
   });
 
-  final IconData icon;
+  /// 表示するテキスト
   final String text;
+
+  /// パディング
   final EdgeInsetsGeometry padding;
+
+  /// テキストタップ時のイベント
   final VoidCallback? onTap;
+
+  /// アンカー表示時のテキストカラー
+  static const anchorColor = Colors.blueAccent;
 
   @override
   Widget build(BuildContext context) {
     final child = Padding(
       padding: padding,
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Theme.of(context).textTheme.caption!.color,
-            size: 20,
-          ),
-          const SizedBox(width: 4),
-          Expanded(
-            child: Text(text),
-          ),
-        ],
-      ),
+      child: Text(text),
     );
 
     // タップイベントが無ければアンカー表示しない
@@ -47,7 +41,12 @@ class IconLabel extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: InkWell(
         onTap: onTap,
-        child: child,
+        child: DefaultTextStyle.merge(
+          style: const TextStyle(
+            color: anchorColor,
+          ),
+          child: child,
+        ),
       ),
     );
   }

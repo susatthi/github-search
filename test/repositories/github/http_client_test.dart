@@ -26,10 +26,10 @@ void main() {
     final httpClient = container.read(httpClientProvider);
     expect(httpClient, isNotNull);
   });
-  group('get()', () {
+  group('GitHubHttpClient.get()', () {
     test('200 OK', () async {
       final repo = await client.get<Repo>(
-        uri: Uri(path: '/repos/flutter/flutter'),
+        uri: Uri.parse('https://api.github.com/repos/flutter/flutter'),
         responseBuilder: Repo.fromJson,
       );
       expect(repo, isNotNull);
@@ -112,6 +112,91 @@ void main() {
         await client.get<Owner>(
           uri: Uri(path: 'socketException'),
           responseBuilder: Owner.fromJson,
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeNoInternetConnection);
+      }
+    });
+  });
+  group('GitHubHttpClient.getRaw()', () {
+    test('200 OK', () async {
+      final body = await client.getRaw(
+        uri: Uri.parse(
+          'https://raw.githubusercontent.com/flutter/flutter/master/README.md',
+        ),
+      );
+      expect(body, isNotNull);
+    });
+    test('400 BadRequest', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '400'),
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeBadRequest);
+      }
+    });
+    test('401 BadCredentials', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '401'),
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeUnknown);
+      }
+    });
+    test('403 MaximumNumberOfLoginAttemptsExceeded', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '403'),
+        );
+      } on GitHubException catch (e) {
+        expect(
+          e.code,
+          GitHubException.codeUnknown,
+        );
+      }
+    });
+    test('404 NotFound', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '404'),
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeNotFound);
+      }
+    });
+    test('422 ValidationFailed', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '422'),
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeUnknown);
+      }
+    });
+    test('503 ServiceUnavailable', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '503'),
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeServiceUnavailable);
+      }
+    });
+    test('Unknown', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: '555'),
+        );
+      } on GitHubException catch (e) {
+        expect(e.code, GitHubException.codeUnknown);
+      }
+    });
+    test('NoInternetConnection', () async {
+      try {
+        await client.getRaw(
+          uri: Uri(path: 'socketException'),
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeNoInternetConnection);

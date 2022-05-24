@@ -22,6 +22,12 @@ class RepoData {
     required this.language,
     required this.forksCount,
     required this.openIssuesCount,
+    required this.defaultBranch,
+    required this.repoUrl,
+    required this.stargazersUrl,
+    required this.watchersUrl,
+    required this.forksUrl,
+    required this.issuesUrl,
   });
 
   factory RepoData.from(Repo repo) {
@@ -35,6 +41,12 @@ class RepoData {
       language: repo.language,
       forksCount: repo.forksCount,
       openIssuesCount: repo.openIssuesCount,
+      defaultBranch: repo.defaultBranch,
+      repoUrl: repo.repoUrl,
+      stargazersUrl: repo.stargazersUrl,
+      watchersUrl: repo.watchersUrl,
+      forksUrl: repo.forksUrl,
+      issuesUrl: repo.issuesUrl,
     );
   }
 
@@ -84,6 +96,24 @@ class RepoData {
 
   /// 表示用のIssue数（例：35432 => 35.4k）
   String get openIssuesCountShort => _countDisplay(openIssuesCount);
+
+  /// デフォルトブランチ
+  final String defaultBranch;
+
+  /// リポジトリURL
+  final String? repoUrl;
+
+  /// スター数URL
+  final String? stargazersUrl;
+
+  /// ウォッチャー数URL
+  final String? watchersUrl;
+
+  /// フォーク数URL
+  final String? forksUrl;
+
+  /// Issue数URL
+  final String? issuesUrl;
 }
 
 /// 表示用のスター数の変換メソッド

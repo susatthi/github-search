@@ -34,6 +34,13 @@ mixin _$Repo {
   int get forksCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'open_issues_count')
   int get openIssuesCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'default_branch')
+  String get defaultBranch => throw _privateConstructorUsedError;
+  String? get repoUrl => throw _privateConstructorUsedError;
+  String? get stargazersUrl => throw _privateConstructorUsedError;
+  String? get watchersUrl => throw _privateConstructorUsedError;
+  String? get forksUrl => throw _privateConstructorUsedError;
+  String? get issuesUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +60,13 @@ abstract class $RepoCopyWith<$Res> {
       @JsonKey(name: 'watchers_count') int watchersCount,
       String? language,
       @JsonKey(name: 'forks_count') int forksCount,
-      @JsonKey(name: 'open_issues_count') int openIssuesCount});
+      @JsonKey(name: 'open_issues_count') int openIssuesCount,
+      @JsonKey(name: 'default_branch') String defaultBranch,
+      String? repoUrl,
+      String? stargazersUrl,
+      String? watchersUrl,
+      String? forksUrl,
+      String? issuesUrl});
 
   $OwnerCopyWith<$Res> get owner;
 }
@@ -77,6 +90,12 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
     Object? language = freezed,
     Object? forksCount = freezed,
     Object? openIssuesCount = freezed,
+    Object? defaultBranch = freezed,
+    Object? repoUrl = freezed,
+    Object? stargazersUrl = freezed,
+    Object? watchersUrl = freezed,
+    Object? forksUrl = freezed,
+    Object? issuesUrl = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -115,6 +134,30 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
               as int,
+      defaultBranch: defaultBranch == freezed
+          ? _value.defaultBranch
+          : defaultBranch // ignore: cast_nullable_to_non_nullable
+              as String,
+      repoUrl: repoUrl == freezed
+          ? _value.repoUrl
+          : repoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stargazersUrl: stargazersUrl == freezed
+          ? _value.stargazersUrl
+          : stargazersUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      watchersUrl: watchersUrl == freezed
+          ? _value.watchersUrl
+          : watchersUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      forksUrl: forksUrl == freezed
+          ? _value.forksUrl
+          : forksUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      issuesUrl: issuesUrl == freezed
+          ? _value.issuesUrl
+          : issuesUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -140,7 +183,13 @@ abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
       @JsonKey(name: 'watchers_count') int watchersCount,
       String? language,
       @JsonKey(name: 'forks_count') int forksCount,
-      @JsonKey(name: 'open_issues_count') int openIssuesCount});
+      @JsonKey(name: 'open_issues_count') int openIssuesCount,
+      @JsonKey(name: 'default_branch') String defaultBranch,
+      String? repoUrl,
+      String? stargazersUrl,
+      String? watchersUrl,
+      String? forksUrl,
+      String? issuesUrl});
 
   @override
   $OwnerCopyWith<$Res> get owner;
@@ -166,6 +215,12 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
     Object? language = freezed,
     Object? forksCount = freezed,
     Object? openIssuesCount = freezed,
+    Object? defaultBranch = freezed,
+    Object? repoUrl = freezed,
+    Object? stargazersUrl = freezed,
+    Object? watchersUrl = freezed,
+    Object? forksUrl = freezed,
+    Object? issuesUrl = freezed,
   }) {
     return _then(_$_Repo(
       name: name == freezed
@@ -204,6 +259,30 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
               as int,
+      defaultBranch: defaultBranch == freezed
+          ? _value.defaultBranch
+          : defaultBranch // ignore: cast_nullable_to_non_nullable
+              as String,
+      repoUrl: repoUrl == freezed
+          ? _value.repoUrl
+          : repoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      stargazersUrl: stargazersUrl == freezed
+          ? _value.stargazersUrl
+          : stargazersUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      watchersUrl: watchersUrl == freezed
+          ? _value.watchersUrl
+          : watchersUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      forksUrl: forksUrl == freezed
+          ? _value.forksUrl
+          : forksUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      issuesUrl: issuesUrl == freezed
+          ? _value.issuesUrl
+          : issuesUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -220,7 +299,13 @@ class _$_Repo implements _Repo {
       @JsonKey(name: 'watchers_count') required this.watchersCount,
       this.language,
       @JsonKey(name: 'forks_count') required this.forksCount,
-      @JsonKey(name: 'open_issues_count') required this.openIssuesCount});
+      @JsonKey(name: 'open_issues_count') required this.openIssuesCount,
+      @JsonKey(name: 'default_branch') required this.defaultBranch,
+      this.repoUrl,
+      this.stargazersUrl,
+      this.watchersUrl,
+      this.forksUrl,
+      this.issuesUrl});
 
   factory _$_Repo.fromJson(Map<String, dynamic> json) => _$$_RepoFromJson(json);
 
@@ -247,10 +332,23 @@ class _$_Repo implements _Repo {
   @override
   @JsonKey(name: 'open_issues_count')
   final int openIssuesCount;
+  @override
+  @JsonKey(name: 'default_branch')
+  final String defaultBranch;
+  @override
+  final String? repoUrl;
+  @override
+  final String? stargazersUrl;
+  @override
+  final String? watchersUrl;
+  @override
+  final String? forksUrl;
+  @override
+  final String? issuesUrl;
 
   @override
   String toString() {
-    return 'Repo(name: $name, fullName: $fullName, owner: $owner, description: $description, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount)';
+    return 'Repo(name: $name, fullName: $fullName, owner: $owner, description: $description, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount, defaultBranch: $defaultBranch, repoUrl: $repoUrl, stargazersUrl: $stargazersUrl, watchersUrl: $watchersUrl, forksUrl: $forksUrl, issuesUrl: $issuesUrl)';
   }
 
   @override
@@ -271,7 +369,16 @@ class _$_Repo implements _Repo {
             const DeepCollectionEquality()
                 .equals(other.forksCount, forksCount) &&
             const DeepCollectionEquality()
-                .equals(other.openIssuesCount, openIssuesCount));
+                .equals(other.openIssuesCount, openIssuesCount) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultBranch, defaultBranch) &&
+            const DeepCollectionEquality().equals(other.repoUrl, repoUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.stargazersUrl, stargazersUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.watchersUrl, watchersUrl) &&
+            const DeepCollectionEquality().equals(other.forksUrl, forksUrl) &&
+            const DeepCollectionEquality().equals(other.issuesUrl, issuesUrl));
   }
 
   @JsonKey(ignore: true)
@@ -286,7 +393,13 @@ class _$_Repo implements _Repo {
       const DeepCollectionEquality().hash(watchersCount),
       const DeepCollectionEquality().hash(language),
       const DeepCollectionEquality().hash(forksCount),
-      const DeepCollectionEquality().hash(openIssuesCount));
+      const DeepCollectionEquality().hash(openIssuesCount),
+      const DeepCollectionEquality().hash(defaultBranch),
+      const DeepCollectionEquality().hash(repoUrl),
+      const DeepCollectionEquality().hash(stargazersUrl),
+      const DeepCollectionEquality().hash(watchersUrl),
+      const DeepCollectionEquality().hash(forksUrl),
+      const DeepCollectionEquality().hash(issuesUrl));
 
   @JsonKey(ignore: true)
   @override
@@ -302,19 +415,20 @@ class _$_Repo implements _Repo {
 abstract class _Repo implements Repo {
   const factory _Repo(
       {required final String name,
-      @JsonKey(name: 'full_name')
-          required final String fullName,
+      @JsonKey(name: 'full_name') required final String fullName,
       required final Owner owner,
       required final String? description,
-      @JsonKey(name: 'stargazers_count')
-          required final int stargazersCount,
-      @JsonKey(name: 'watchers_count')
-          required final int watchersCount,
+      @JsonKey(name: 'stargazers_count') required final int stargazersCount,
+      @JsonKey(name: 'watchers_count') required final int watchersCount,
       final String? language,
-      @JsonKey(name: 'forks_count')
-          required final int forksCount,
-      @JsonKey(name: 'open_issues_count')
-          required final int openIssuesCount}) = _$_Repo;
+      @JsonKey(name: 'forks_count') required final int forksCount,
+      @JsonKey(name: 'open_issues_count') required final int openIssuesCount,
+      @JsonKey(name: 'default_branch') required final String defaultBranch,
+      final String? repoUrl,
+      final String? stargazersUrl,
+      final String? watchersUrl,
+      final String? forksUrl,
+      final String? issuesUrl}) = _$_Repo;
 
   factory _Repo.fromJson(Map<String, dynamic> json) = _$_Repo.fromJson;
 
@@ -341,6 +455,19 @@ abstract class _Repo implements Repo {
   @override
   @JsonKey(name: 'open_issues_count')
   int get openIssuesCount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'default_branch')
+  String get defaultBranch => throw _privateConstructorUsedError;
+  @override
+  String? get repoUrl => throw _privateConstructorUsedError;
+  @override
+  String? get stargazersUrl => throw _privateConstructorUsedError;
+  @override
+  String? get watchersUrl => throw _privateConstructorUsedError;
+  @override
+  String? get forksUrl => throw _privateConstructorUsedError;
+  @override
+  String? get issuesUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_RepoCopyWith<_$_Repo> get copyWith => throw _privateConstructorUsedError;
