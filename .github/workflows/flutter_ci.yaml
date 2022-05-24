@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -109,7 +109,7 @@ jobs:
     runs-on: macos-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -162,7 +162,7 @@ jobs:
     runs-on: windows-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -220,7 +220,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -269,7 +269,7 @@ jobs:
     runs-on: macos-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -332,7 +332,7 @@ jobs:
     runs-on: macos-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -397,7 +397,7 @@ jobs:
     runs-on: windows-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -449,7 +449,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
@@ -500,7 +500,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # タイムアウト時間（分）
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     # ジョブの手順
     steps:
