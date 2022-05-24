@@ -19,6 +19,7 @@ import 'repo_readme_content.dart';
 class RepoReadmeMarkdown extends ConsumerWidget {
   const RepoReadmeMarkdown({super.key, required this.repo});
 
+  /// 選択中のリポジトリデータ
   final RepoData repo;
 
   @override
@@ -39,6 +40,7 @@ class RepoReadmeMarkdownInternal extends StatelessWidget {
     required this.content,
   });
 
+  /// Markdown　文字列
   final String content;
 
   @override
@@ -67,11 +69,11 @@ class RepoReadmeMarkdownInternal extends StatelessWidget {
 }
 
 /// ローディングインジケーター
-class _LoadingIndicator extends ConsumerWidget {
+class _LoadingIndicator extends StatelessWidget {
   const _LoadingIndicator();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [

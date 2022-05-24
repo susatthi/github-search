@@ -12,11 +12,15 @@ class RepoLanguageLabel extends StatelessWidget {
     this.language,
   });
 
+  /// プロジェクト言語のカラー
   final Color color;
+
+  /// プロジェクト言語名
   final String? language;
 
   @override
   Widget build(BuildContext context) {
+    // プロジェクト言語名が null なら何も表示しない
     if (language == null) {
       return const SizedBox();
     }

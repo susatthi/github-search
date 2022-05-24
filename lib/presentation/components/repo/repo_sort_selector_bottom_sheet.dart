@@ -15,6 +15,7 @@ import 'repo_search_repos_sort.dart';
 class RepoSortSelectorBottomSheet extends ConsumerWidget {
   const RepoSortSelectorBottomSheet({super.key});
 
+  /// 選択項目のマップ
   Map<String, RepoSearchReposSort> get _items => {
         i18n.bestMatch: RepoSearchReposSort.bestMatch,
         i18n.starsCount: RepoSearchReposSort.stars,

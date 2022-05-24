@@ -38,6 +38,7 @@ class IconLabel extends StatelessWidget {
       ),
     );
 
+    // タップイベントが無ければアンカー表示しない
     if (onTap == null) {
       return child;
     }

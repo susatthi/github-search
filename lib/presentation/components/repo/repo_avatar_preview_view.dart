@@ -18,9 +18,9 @@ class RepoAvatarPreviewView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoSelectedRepoProvider);
     return asyncValue.when(
-      data: (data) => _RepoAvatarPreviewView(data: data),
+      data: (repo) => _RepoAvatarPreviewView(repo: repo),
       // ほぼ失敗しないしすぐに元に戻れるのでエラー表示はしない
-      error: (e, s) => const SizedBox(),
+      error: (_, __) => const SizedBox(),
       // 取得時間は短いと思うのでローディング表示はしない
       loading: () => const SizedBox(),
     );
@@ -29,17 +29,18 @@ class RepoAvatarPreviewView extends ConsumerWidget {
 
 class _RepoAvatarPreviewView extends ConsumerWidget {
   const _RepoAvatarPreviewView({
-    required this.data,
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Hero(
-      tag: 'avatar-${data.fullName}',
+      tag: 'avatar-${repo.fullName}',
       child: PhotoView(
-        imageProvider: CachedNetworkImageProvider(data.owner.avatarUrl),
+        imageProvider: CachedNetworkImageProvider(repo.owner.avatarUrl),
         backgroundDecoration: const BoxDecoration(),
       ),
     );

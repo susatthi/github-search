@@ -32,6 +32,7 @@ class HyperlinkText extends StatelessWidget {
       child: Text(text),
     );
 
+    // タップイベントが無ければアンカー表示しない
     if (onTap == null) {
       return child;
     }

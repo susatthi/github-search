@@ -107,7 +107,7 @@ class SliverRepoListViewInternal extends StatelessWidget {
             );
           } else if (index < state.items.length + 1) {
             return _RepoListTile(
-              data: state.items[index - 1],
+              repo: state.items[index - 1],
             );
           }
           return const _LastIndicator();
@@ -150,22 +150,22 @@ class _TotalCountListTile extends StatelessWidget {
 /// リポジトリListTile
 class _RepoListTile extends StatelessWidget {
   const _RepoListTile({
-    required this.data,
+    required this.repo,
   });
 
-  /// UI用リポジトリEntity
-  final RepoData data;
+  /// リポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
-    final description = data.description;
+    final description = repo.description;
     return Column(
       children: [
         ListTile(
           leading: Hero(
-            tag: 'avatar-${data.fullName}',
+            tag: 'avatar-${repo.fullName}',
             child: CachedCircleAvatar(
-              url: data.owner.avatarUrl,
+              url: repo.owner.avatarUrl,
               size: _avatarSize,
               loading: false,
             ),
@@ -174,7 +174,7 @@ class _RepoListTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data.fullName,
+                repo.fullName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -194,12 +194,12 @@ class _RepoListTile extends StatelessWidget {
                 width: 80,
                 child: IconLabel(
                   icon: Icons.star_outline,
-                  text: data.stargazersCountShort,
+                  text: repo.stargazersCountShort,
                 ),
               ),
               RepoLanguageLabel(
-                color: data.languageColor,
-                language: data.language,
+                color: repo.languageColor,
+                language: repo.language,
               ),
             ],
           ),
@@ -208,10 +208,10 @@ class _RepoListTile extends StatelessWidget {
             context.goNamed(
               RepoViewPage.name,
               params: RepoViewPage.params(
-                ownerName: data.owner.name,
-                repoName: data.name,
+                ownerName: repo.owner.name,
+                repoName: repo.name,
               ),
-              extra: data,
+              extra: repo,
             );
           },
         ),

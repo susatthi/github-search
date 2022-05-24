@@ -72,7 +72,7 @@ void main() {
     final repoDetailViewInternal =
         tester.widget(find.byType(SliverRepoDetailViewInternal))
             as SliverRepoDetailViewInternal;
-    final data = repoDetailViewInternal.data;
+    final data = repoDetailViewInternal.repo;
     final url = urlSelector(data);
 
     when(
@@ -252,7 +252,7 @@ void main() {
       final detailView =
           tester.widget(find.byType(SliverRepoDetailViewInternal))
               as SliverRepoDetailViewInternal;
-      final data = detailView.data;
+      final data = detailView.repo;
 
       verifyNever(
         () => mockGoRouter.goNamed(

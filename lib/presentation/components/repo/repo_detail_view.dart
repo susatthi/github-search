@@ -33,7 +33,7 @@ class SliverRepoDetailView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoSelectedRepoProvider);
     return asyncValue.when(
-      data: (data) => SliverRepoDetailViewInternal(data: data),
+      data: (repo) => SliverRepoDetailViewInternal(repo: repo),
       error: (e, s) => SliverFillRemaining(
         hasScrollBody: false,
         child: ErrorView(
@@ -54,23 +54,24 @@ class SliverRepoDetailView extends ConsumerWidget {
 class SliverRepoDetailViewInternal extends StatelessWidget {
   const SliverRepoDetailViewInternal({
     super.key,
-    required this.data,
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildListDelegate.fixed(
         [
-          _AvatarRow(data: data),
-          _FullnameRow(data: data),
-          _DescriptionRow(data: data),
-          _LanguageRow(data: data),
-          _CountRow(data: data),
+          _AvatarRow(repo: repo),
+          _FullnameRow(repo: repo),
+          _DescriptionRow(repo: repo),
+          _LanguageRow(repo: repo),
+          _IconLabelsRow(repo: repo),
           const Divider(),
-          _ReadmeRow(data: data),
+          _ReadmeRow(repo: repo),
         ],
       ),
     );
@@ -80,10 +81,11 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
 /// アバター画像
 class _AvatarRow extends StatelessWidget {
   const _AvatarRow({
-    required this.data,
+    required this.repo,
   }) : super(key: const Key('repo_detail_view#_AvatarRow'));
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
@@ -92,25 +94,25 @@ class _AvatarRow extends StatelessWidget {
         cursor: SystemMouseCursors.click,
         child: InkWell(
           onTap: () async {
-            logger.i('Tapped avatar: url = ${data.owner.avatarUrl}');
+            logger.i('Tapped avatar: url = ${repo.owner.avatarUrl}');
 
             // アバタープレビュー画面に遷移する
             context.goNamed(
               RepoAvatarPreviewPage.name,
               params: RepoViewPage.params(
-                ownerName: data.owner.name,
-                repoName: data.name,
+                ownerName: repo.owner.name,
+                repoName: repo.name,
               ),
-              extra: data,
+              extra: repo,
             );
           },
           child: Padding(
             padding: const EdgeInsets.all(_verticalPadding),
             child: Hero(
-              tag: 'avatar-${data.fullName}',
+              tag: 'avatar-${repo.fullName}',
               child: CachedCircleAvatar(
                 size: 100,
-                url: data.owner.avatarUrl,
+                url: repo.owner.avatarUrl,
               ),
             ),
           ),
@@ -123,10 +125,11 @@ class _AvatarRow extends StatelessWidget {
 /// リポジトリのフルネーム
 class _FullnameRow extends StatelessWidget {
   const _FullnameRow({
-    required this.data,
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
@@ -137,10 +140,10 @@ class _FullnameRow extends StatelessWidget {
         child: Wrap(
           children: [
             HyperlinkText(
-              onTap: data.owner.ownerUrl != null
-                  ? () => launchUrlInApp(data.owner.ownerUrl!)
+              onTap: repo.owner.ownerUrl != null
+                  ? () => launchUrlInApp(repo.owner.ownerUrl!)
                   : null,
-              text: data.owner.name,
+              text: repo.owner.name,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
@@ -153,10 +156,10 @@ class _FullnameRow extends StatelessWidget {
               child: Text('/'),
             ),
             HyperlinkText(
-              onTap: data.repoUrl != null
-                  ? () => launchUrlInApp(data.repoUrl!)
+              onTap: repo.repoUrl != null
+                  ? () => launchUrlInApp(repo.repoUrl!)
                   : null,
-              text: data.name,
+              text: repo.name,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
@@ -172,22 +175,23 @@ class _FullnameRow extends StatelessWidget {
 /// 説明
 class _DescriptionRow extends StatelessWidget {
   const _DescriptionRow({
-    required this.data,
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: data.description?.isNotEmpty == true,
+      visible: repo.description?.isNotEmpty == true,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: _horizontalPadding,
           vertical: _verticalPadding,
         ),
         child: Text(
-          data.description ?? '',
+          repo.description ?? '',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
@@ -198,36 +202,38 @@ class _DescriptionRow extends StatelessWidget {
 /// プロジェクト言語
 class _LanguageRow extends StatelessWidget {
   const _LanguageRow({
-    required this.data,
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: data.language != null,
+      visible: repo.language != null,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: _horizontalPadding,
           vertical: _verticalPadding,
         ),
         child: RepoLanguageLabel(
-          color: data.languageColor,
-          language: data.language,
+          color: repo.languageColor,
+          language: repo.language,
         ),
       ),
     );
   }
 }
 
-/// 各数値
-class _CountRow extends StatelessWidget {
-  const _CountRow({
-    required this.data,
+/// アイコンラベル一式
+class _IconLabelsRow extends StatelessWidget {
+  const _IconLabelsRow({
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
@@ -240,36 +246,36 @@ class _CountRow extends StatelessWidget {
               horizontal: _horizontalPadding / 2,
               vertical: _verticalPadding,
             ),
-            url: data.stargazersUrl,
+            url: repo.stargazersUrl,
             icon: Icons.star_outline,
-            text: data.stargazersCountShort,
+            text: repo.stargazersCountShort,
           ),
           _IconLabel(
             padding: const EdgeInsets.symmetric(
               horizontal: _horizontalPadding / 2,
               vertical: _verticalPadding,
             ),
-            url: data.watchersUrl,
+            url: repo.watchersUrl,
             icon: Icons.visibility_outlined,
-            text: data.watchersCountShort,
+            text: repo.watchersCountShort,
           ),
           _IconLabel(
             padding: const EdgeInsets.symmetric(
               horizontal: _horizontalPadding / 2,
               vertical: _verticalPadding,
             ),
-            url: data.forksUrl,
+            url: repo.forksUrl,
             icon: Icons.fork_right_outlined,
-            text: data.forksCountShort,
+            text: repo.forksCountShort,
           ),
           _IconLabel(
             padding: const EdgeInsets.symmetric(
               horizontal: _horizontalPadding / 2,
               vertical: _verticalPadding,
             ),
-            url: data.issuesUrl,
+            url: repo.issuesUrl,
             icon: Icons.bug_report_outlined,
-            text: data.openIssuesCountShort,
+            text: repo.openIssuesCountShort,
           ),
         ],
       ),
@@ -280,10 +286,11 @@ class _CountRow extends StatelessWidget {
 /// README
 class _ReadmeRow extends StatelessWidget {
   const _ReadmeRow({
-    required this.data,
+    required this.repo,
   });
 
-  final RepoData data;
+  /// 選択中のリポジトリデータ
+  final RepoData repo;
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +299,7 @@ class _ReadmeRow extends StatelessWidget {
         horizontal: _horizontalPadding,
         vertical: _verticalPadding,
       ),
-      child: RepoReadmeMarkdown(repo: data),
+      child: RepoReadmeMarkdown(repo: repo),
     );
   }
 }
