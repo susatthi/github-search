@@ -24,7 +24,7 @@ on:
 # 各ジョブはそれぞれまったく別々の環境で実行される
 jobs:
 
-  # 最初に実行するテストジョブ（ubuntu-latest）の定義
+  # テストジョブ（ubuntu-latest）の定義
   flutter_test_ubuntu:
 
     # ジョブの表示名
@@ -81,7 +81,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report
+          name: Flutter Test Report (ubuntu-laetst)
           path: test-report.log
           reporter: flutter-json
 
@@ -94,7 +94,7 @@ jobs:
           flags: unittests
           verbose: true
 
-  # 最初に実行するテストジョブ（macos-latest）の定義
+  # テストジョブ（macos-latest）の定義
   flutter_test_macos:
 
     # ジョブの表示名
@@ -141,9 +141,18 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets
+        run: flutter test --no-test-assets --machine > test-report.log
 
-  # 最初に実行するテストジョブ（windows-latest）の定義
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Flutter Test Report (macos-laetst)
+          path: test-report.log
+          reporter: flutter-json
+
+  # テストジョブ（windows-latest）の定義
   flutter_test_windows:
 
     # ジョブの表示名
@@ -191,17 +200,22 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets
+        run: flutter test --no-test-assets --machine > test-report.log
+
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Flutter Test Report (windows-laetst)
+          path: test-report.log
+          reporter: flutter-json
 
   # Android ビルドジョブの定義
   flutter_build_android:
 
     # ジョブの表示名
     name: Flutter Build for Android
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
@@ -247,10 +261,6 @@ jobs:
 
     # ジョブの表示名
     name: Flutter Build for iOS
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -310,10 +320,6 @@ jobs:
 
     # ジョブの表示名
     name: Flutter Build for macOS
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -376,10 +382,6 @@ jobs:
     # ジョブの表示名
     name: Flutter Build for Windows
 
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
-
     # ジョブを実行するOS
     runs-on: windows-latest
 
@@ -428,10 +430,6 @@ jobs:
     # ジョブの表示名
     name: Flutter Build for Web
 
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
-
     # ジョブを実行するOS
     runs-on: ubuntu-latest
 
@@ -478,10 +476,6 @@ jobs:
 
     # ジョブの表示名
     name: Flutter API doc
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
@@ -567,7 +561,7 @@ jobs:
 
       # すべて成功したとき
       - name: Notify Succeed
-        if: ${{ !contains(needs.*.result, 'failure') }}
+        if: ${{ !cancelled() && !contains(needs.*.result, 'failure') }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESSED TEST AND BUILD!
