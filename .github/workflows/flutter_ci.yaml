@@ -214,7 +214,7 @@ jobs:
 
     # テストジョブが成功したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
@@ -263,7 +263,7 @@ jobs:
 
     # テストジョブが成功したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -326,7 +326,7 @@ jobs:
 
     # テストジョブが成功したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -391,7 +391,7 @@ jobs:
 
     # テストジョブが成功したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: windows-latest
@@ -443,7 +443,7 @@ jobs:
 
     # テストジョブが成功したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
@@ -494,7 +494,7 @@ jobs:
 
     # テストジョブが成功したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
@@ -556,7 +556,9 @@ jobs:
 
     # すべてのジョブが終了したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
+      - flutter_test_macos
+      - flutter_test_windows
       - flutter_build_android
       - flutter_build_ios
       - flutter_build_web
@@ -584,12 +586,28 @@ jobs:
           SLACK_TITLE: SUCCESSED TEST AND BUILD!
           SLACK_COLOR: good
 
-      # テストに失敗したとき
-      - name: Notify Failure Test
-        if: ${{ needs.flutter_test.result == 'failure' }}
+      # ubuntu テストに失敗したとき
+      - name: Notify Failure Test for ubuntu-latest
+        if: ${{ needs.flutter_test_ubuntu.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_TITLE: FAILURE TEST ...
+          SLACK_TITLE: FAILURE TEST (ubuntu-latest) ...
+          SLACK_COLOR: danger
+
+      # macos テストに失敗したとき
+      - name: Notify Failure Test for macos-latest
+        if: ${{ needs.flutter_test_macos.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE TEST (macos-latest) ...
+          SLACK_COLOR: danger
+
+      # windows テストに失敗したとき
+      - name: Notify Failure Test for windows-latest
+        if: ${{ needs.flutter_test_windows.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE TEST (windows-latest) ...
           SLACK_COLOR: danger
 
       # Android ビルドに失敗したとき
