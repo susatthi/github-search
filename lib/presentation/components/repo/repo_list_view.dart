@@ -253,18 +253,6 @@ class _LastIndicator extends ConsumerWidget {
 class RepoPromptSearchView extends StatelessWidget {
   const RepoPromptSearchView({super.key});
 
-  static final _lottieFilePaths = <String>[
-    Assets.lottie.githubDarkMode,
-    Assets.lottie.githubLogo,
-    Assets.lottie.octocat,
-    Assets.lottie.coolOctovat,
-    Assets.lottie.dashboardZippeo,
-  ];
-
-  /// Lottieファイルパスをランダムで返す
-  String get lottieFilePath =>
-      _lottieFilePaths[Random().nextInt(_lottieFilePaths.length)];
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -273,10 +261,9 @@ class RepoPromptSearchView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
-            lottieFilePath,
+            Assets.lottie.githubDarkMode,
             width: 200,
           ),
-          const SizedBox(height: 24),
           Text(
             i18n.canSearchRepos,
             style: Theme.of(context).textTheme.bodyLarge,
