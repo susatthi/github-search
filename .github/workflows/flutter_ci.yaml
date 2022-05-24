@@ -24,7 +24,7 @@ on:
 # 各ジョブはそれぞれまったく別々の環境で実行される
 jobs:
 
-  # 最初に実行するテストジョブ（ubuntu-latest）の定義
+  # テストジョブ（ubuntu-latest）の定義
   flutter_test_ubuntu:
 
     # ジョブの表示名
@@ -94,7 +94,7 @@ jobs:
           flags: unittests
           verbose: true
 
-  # 最初に実行するテストジョブ（macos-latest）の定義
+  # テストジョブ（macos-latest）の定義
   flutter_test_macos:
 
     # ジョブの表示名
@@ -152,7 +152,7 @@ jobs:
           path: test-report.log
           reporter: flutter-json
 
-  # 最初に実行するテストジョブ（windows-latest）の定義
+  # テストジョブ（windows-latest）の定義
   flutter_test_windows:
 
     # ジョブの表示名
@@ -217,10 +217,6 @@ jobs:
     # ジョブの表示名
     name: Flutter Build for Android
 
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
-
     # ジョブを実行するOS
     runs-on: ubuntu-latest
 
@@ -265,10 +261,6 @@ jobs:
 
     # ジョブの表示名
     name: Flutter Build for iOS
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -328,10 +320,6 @@ jobs:
 
     # ジョブの表示名
     name: Flutter Build for macOS
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -394,10 +382,6 @@ jobs:
     # ジョブの表示名
     name: Flutter Build for Windows
 
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
-
     # ジョブを実行するOS
     runs-on: windows-latest
 
@@ -446,10 +430,6 @@ jobs:
     # ジョブの表示名
     name: Flutter Build for Web
 
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
-
     # ジョブを実行するOS
     runs-on: ubuntu-latest
 
@@ -496,10 +476,6 @@ jobs:
 
     # ジョブの表示名
     name: Flutter API doc
-
-    # テストジョブが成功したら実行する
-    needs:
-      - flutter_test_ubuntu
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
