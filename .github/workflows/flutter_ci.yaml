@@ -5,6 +5,7 @@
 # ワークフローの表示名
 name: Flutter CI
 
+# ワークフローの起動条件を定義する
 on:
 
   # プルリクエストが作成 or 更新された時
@@ -30,7 +31,15 @@ jobs:
     name: Flutter Test
 
     # ジョブを実行するOS
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    # ジョブを実行するOSのパターン
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
 
     # タイムアウト時間（分）
     timeout-minutes: 10
