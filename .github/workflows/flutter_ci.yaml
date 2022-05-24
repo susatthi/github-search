@@ -57,10 +57,6 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
-      # Flutter SDK のバージョン確認
-      - name: Check Flutter SDK version
-        run: flutter --version
-
       # flutter pub get を実行
       - name: Install Flutter dependencies
         run: flutter pub get
@@ -92,7 +88,6 @@ jobs:
       # Codecov に結果を送信
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
-        if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           file: coverage/lcov.info
           fail_ci_if_error: true
@@ -131,10 +126,6 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-
-      # Flutter SDK のバージョン確認
-      - name: Check Flutter SDK version
-        run: flutter --version
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
@@ -184,10 +175,6 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-
-      # Flutter SDK のバージョン確認
-      - name: Check Flutter SDK version
-        run: flutter --version
 
       # flutter pub get を実行
       - name: Install Flutter dependencies
