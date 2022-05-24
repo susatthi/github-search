@@ -24,22 +24,14 @@ on:
 # 各ジョブはそれぞれまったく別々の環境で実行される
 jobs:
 
-  # 最初に実行するテストジョブの定義
-  flutter_test:
+  # 最初に実行するテストジョブ（ubuntu-latest）の定義
+  flutter_test_ubuntu:
 
     # ジョブの表示名
-    name: Flutter Test
+    name: Flutter Test (ubuntu-latest)
 
     # ジョブを実行するOS
-    runs-on: ${{ matrix.os }}
-
-    # ジョブを実行するOSのパターン
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
+    runs-on: ubuntu-latest
 
     # タイムアウト時間（分）
     timeout-minutes: 10
@@ -73,16 +65,9 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      # 環境変数ファイル（env.dart）を作成（Windows以外）
+      # 環境変数ファイル（env.dart）を作成
       - name: Create env.dart
-        if: ${{ matrix.os != 'windows-latest' }}
         run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
-
-      # 環境変数ファイル（env.dart）を作成（Windows）
-      - name: Create env.dart
-        if: ${{ matrix.os == 'windows-latest' }}
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
-        shell: bash
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -94,19 +79,17 @@ jobs:
           flutter test --no-test-assets --coverage --machine > test-report.log
           sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' -o coverage/lcov.info
-      - name: Run Flutter Test
-        run: flutter test --no-test-assets --machine > test-report.log
 
-      # テスト結果を GitHub Actions に表示する（Ubuntuのみ）
+      # テスト結果を GitHub Actions に表示する
       - name: Report Test
         uses: dorny/test-reporter@v1
-        if: ${{ always() && matrix.os == 'ubuntu-latest' }}
+        if: always()
         with:
           name: Flutter Test Report
           path: test-report.log
           reporter: flutter-json
 
-      # Codecov に結果を送信（Ubuntuのみ）
+      # Codecov に結果を送信
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -115,6 +98,113 @@ jobs:
           fail_ci_if_error: true
           flags: unittests
           verbose: true
+
+  # 最初に実行するテストジョブ（macos-latest）の定義
+  flutter_test_macos:
+
+    # ジョブの表示名
+    name: Flutter Test (macos-latest)
+
+    # ジョブを実行するOS
+    runs-on: macos-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 10
+
+    # ジョブの手順
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # fvm のバージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # Flutter SDK のバージョン確認
+      - name: Check Flutter SDK version
+        run: flutter --version
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      # テストを実行
+      - name: Run Flutter Test
+        run: flutter test --no-test-assets
+
+  # 最初に実行するテストジョブ（windows-latest）の定義
+  flutter_test_windows:
+
+    # ジョブの表示名
+    name: Flutter Test (windows-latest)
+
+    # ジョブを実行するOS
+    runs-on: windows-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 10
+
+    # ジョブの手順
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # fvm のバージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # Flutter SDK のバージョン確認
+      - name: Check Flutter SDK version
+        run: flutter --version
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+        shell: bash
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      # テストを実行
+      - name: Run Flutter Test
+        run: flutter test --no-test-assets
 
   # Android ビルドジョブの定義
   flutter_build_android:
