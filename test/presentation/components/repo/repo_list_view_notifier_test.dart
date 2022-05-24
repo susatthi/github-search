@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/repo/repo_list_view_notifier.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
@@ -22,6 +23,7 @@ void main() {
           (previous, next) {},
         )
         .read();
+    useEnvironmentLocale();
   });
 
   tearDown(() async {

@@ -5,7 +5,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/utils/logger.dart';
 
+import '../test_utils/locale.dart';
+
 void main() {
+  setUp(useEnvironmentLocale);
   group('logger', () {
     test('【String】ログが出力されるはず', () async {
       //ignore: cascade_invocations

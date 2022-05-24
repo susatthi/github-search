@@ -7,9 +7,11 @@ import 'package:github_search/presentation/components/repo/repo_selected_repo.da
 import 'package:github_search/presentation/pages/repo/repo_avatar_preview_page.dart';
 import 'package:photo_view/photo_view.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('RepoAvatarPreviewView', () {
     testWidgets('PhotoViewが表示されるはず', (tester) async {
       await tester.pumpWidget(

@@ -7,9 +7,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/common/list_loader.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('ListLoader', () {
     testWidgets('引数無しで意図して動作するはず', (tester) async {
       await tester.pumpWidget(

@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/repositories/app_data_repository.dart';
 
 import '../test_utils/hive.dart';
+import '../test_utils/locale.dart';
 import '../test_utils/mocks.dart';
 
 void main() {
@@ -17,6 +18,7 @@ void main() {
   setUp(() async {
     tmpDir = await openAppDataBox();
     container = mockProviderContainer();
+    useEnvironmentLocale();
   });
 
   tearDown(() async {

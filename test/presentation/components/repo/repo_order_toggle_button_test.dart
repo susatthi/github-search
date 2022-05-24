@@ -11,6 +11,7 @@ import 'package:github_search/presentation/components/repo/repo_search_repos_que
 import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 
@@ -18,6 +19,7 @@ void main() {
   late Directory tmpDir;
   setUp(() async {
     tmpDir = await openAppDataBox();
+    useEnvironmentLocale();
   });
 
   tearDown(() async {

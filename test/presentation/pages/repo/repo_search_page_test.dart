@@ -12,12 +12,14 @@ import 'package:github_search/presentation/components/repo/repo_sort_selector_bo
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 
 import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
   late Directory tmpDir;
   setUp(() async {
     tmpDir = await openAppDataBox();
+    useEnvironmentLocale();
   });
 
   tearDown(() async {

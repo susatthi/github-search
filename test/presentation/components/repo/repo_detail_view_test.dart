@@ -17,6 +17,7 @@ import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 class _MockPage extends StatelessWidget {
@@ -42,6 +43,7 @@ void main() {
     mockUrlLauncherPlatform = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
     mockGoRouter = MockGoRouter();
+    useEnvironmentLocale();
   });
 
   /// ハイパーリンクをタップするテスト

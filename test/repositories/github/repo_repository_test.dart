@@ -7,12 +7,14 @@ import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/repositories/github/repo_repository.dart';
 import 'package:github_search/repositories/repo_repository.dart';
 
+import '../../test_utils/locale.dart';
 import '../../test_utils/mocks.dart';
 
 void main() {
   late GitHubRepoRepository repository;
   setUp(() {
     repository = mockProviderContainer().read(githubRepoRepositoryProvider);
+    useEnvironmentLocale();
   });
 
   group('GitHubRepoRepository.searchRepos()', () {

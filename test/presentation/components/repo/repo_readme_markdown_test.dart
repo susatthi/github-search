@@ -20,6 +20,7 @@ import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/utils.dart';
 import '../common/cached_circle_avatar_test.dart';
@@ -122,6 +123,7 @@ void main() {
     );
     mockUrlLauncherPlatform = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
+    useEnvironmentLocale();
   });
 
   group('RepoReadmeMarkdown', () {

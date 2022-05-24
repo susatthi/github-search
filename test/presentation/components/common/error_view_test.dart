@@ -7,9 +7,13 @@ import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/components/common/error_view.dart';
 import 'package:github_search/repositories/github/exception.dart';
 
+import '../../../test_utils/locale.dart';
+import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
+
   group('ErrorView', () {
     testWidgets('Exceptionを与えてエラーメッセージが表示されるはず', (tester) async {
       await _wrapTest(
@@ -58,5 +62,6 @@ Future<void> _wrapTest(
       ),
     ),
   );
+  testLogger.i(expectedMessage);
   expect(find.text(expectedMessage), findsOneWidget);
 }

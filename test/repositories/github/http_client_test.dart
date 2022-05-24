@@ -9,12 +9,14 @@ import 'package:github_search/entities/repo/repo.dart';
 import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 
+import '../../test_utils/locale.dart';
 import '../../test_utils/mocks.dart';
 
 void main() {
   late GitHubHttpClient client;
   setUp(() {
     client = mockProviderContainer().read(githubHttpClientProvider);
+    useEnvironmentLocale();
   });
   test('githubAccessTokenProvider', () async {
     final container = ProviderContainer();

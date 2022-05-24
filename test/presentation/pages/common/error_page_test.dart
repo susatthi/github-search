@@ -6,9 +6,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/common/error_page.dart';
 
+import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
 void main() {
+  setUp(useEnvironmentLocale);
   group('ErrorPage', () {
     testWidgets('errorがnullでも問題ないはず', (tester) async {
       await tester.pumpWidget(
