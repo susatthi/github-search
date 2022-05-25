@@ -78,7 +78,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report (ubuntu-laetst / en)
+          name: Flutter Test Report (ubuntu-latest / en)
           path: test-report.log
           reporter: flutter-json
 
@@ -94,7 +94,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report (ubuntu-laetst / ja)
+          name: Flutter Test Report (ubuntu-latest / ja)
           path: test-report.log
           reporter: flutter-json
 
@@ -161,7 +161,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report (macos-laetst)
+          name: Flutter Test Report (macos-latest)
           path: test-report.log
           reporter: flutter-json
 
@@ -220,7 +220,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report (windows-laetst)
+          name: Flutter Test Report (windows-latest)
           path: test-report.log
           reporter: flutter-json
 
