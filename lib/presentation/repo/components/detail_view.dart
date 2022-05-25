@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/repo/entities/repo.dart';
+import '../../../domain/entities/repo.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
 import '../../common/components/cached_circle_avatar.dart';
 import '../../common/components/error_view.dart';
 import '../../common/components/hyperlink_text.dart';
 import '../../common/components/icon_label.dart';
-import '../avatar_preview_page.dart';
-import '../view_page.dart';
+import '../pages/avatar_preview_page.dart';
+import '../pages/view_page.dart';
+import '../state/selected_repo.dart';
 import 'language_label.dart';
 import 'readme_markdown.dart';
-import 'selected_repo.dart';
 
 /// 1行の縦方向のパディング
 const _verticalPadding = 8.0;
@@ -94,14 +94,14 @@ class _AvatarRow extends StatelessWidget {
         cursor: SystemMouseCursors.click,
         child: InkWell(
           onTap: () async {
-            logger.i('Tapped avatar: url = ${repo.owner.avatarUrl}');
+            logger.i('Tapped avatar: url = ${repo.avatarUrl}');
 
             // アバタープレビュー画面に遷移する
             context.goNamed(
               RepoAvatarPreviewPage.name,
               params: RepoViewPage.params(
-                ownerName: repo.owner.name,
-                repoName: repo.name,
+                ownerName: repo.ownerName,
+                repoName: repo.repoName,
               ),
               extra: repo,
             );
@@ -112,7 +112,7 @@ class _AvatarRow extends StatelessWidget {
               tag: 'avatar-${repo.fullName}',
               child: CachedCircleAvatar(
                 size: 100,
-                url: repo.owner.avatarUrl,
+                url: repo.avatarUrl,
               ),
             ),
           ),
@@ -140,10 +140,10 @@ class _FullnameRow extends StatelessWidget {
         child: Wrap(
           children: [
             HyperlinkText(
-              onTap: repo.owner.ownerUrl != null
-                  ? () => launchUrlInApp(repo.owner.ownerUrl!)
+              onTap: repo.ownerUrl != null
+                  ? () => launchUrlInApp(repo.ownerUrl!)
                   : null,
-              text: repo.owner.name,
+              text: repo.ownerName,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
@@ -159,7 +159,7 @@ class _FullnameRow extends StatelessWidget {
               onTap: repo.repoUrl != null
                   ? () => launchUrlInApp(repo.repoUrl!)
                   : null,
-              text: repo.name,
+              text: repo.repoName,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,

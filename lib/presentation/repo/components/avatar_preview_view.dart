@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../domain/repo/entities/repo.dart';
-import 'selected_repo.dart';
+import '../../../domain/entities/repo.dart';
+import '../state/selected_repo.dart';
 
 /// アバター画像プレビューView
 class RepoAvatarPreviewView extends ConsumerWidget {
@@ -40,7 +40,7 @@ class _RepoAvatarPreviewView extends ConsumerWidget {
     return Hero(
       tag: 'avatar-${repo.fullName}',
       child: PhotoView(
-        imageProvider: CachedNetworkImageProvider(repo.owner.avatarUrl),
+        imageProvider: CachedNetworkImageProvider(repo.avatarUrl),
         backgroundDecoration: const BoxDecoration(),
       ),
     );

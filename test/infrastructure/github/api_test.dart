@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/repositories/repo_repository.dart';
+import 'package:github_search/domain/entities/repo_search_repos_order.dart';
+import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/api.dart';
 
 import '../../test_utils/locale.dart';

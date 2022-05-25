@@ -5,11 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/repo/repositories/repo_repository.dart';
+import '../../../domain/entities/repo_search_repos_order.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
-import 'list_view_notifier.dart';
-import 'search_repos_order.dart';
+import '../state/list_view_state.dart';
+import '../state/search_repos_order.dart';
 
 /// リポジトリ検索用オーダー値変更ボタン
 class RepoOrderToggleButton extends ConsumerWidget {

@@ -3,15 +3,25 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/repositories/repo_repository.dart';
+import 'package:github_search/domain/entities/repo_search_repos_order.dart';
+import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
+import 'package:github_search/domain/repositories/repo_repository.dart';
 import 'package:github_search/infrastructure/github/exception.dart';
+import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 
 import '../../test_utils/locale.dart';
 import '../../test_utils/mocks.dart';
+import '../../test_utils/utils.dart';
 
 void main() {
-  late GitHubRepoRepository repository;
+  final repo = GitHubRepoRepository.repoBuilder(
+    RepoJsonObject.fromJson(
+      TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
+    ),
+  );
+
+  late RepoRepository repository;
   setUp(() {
     repository = mockProviderContainer().read(githubRepoRepositoryProvider);
     useEnvironmentLocale();
@@ -39,9 +49,7 @@ void main() {
   group('GitHubRepoRepository.getReadme()', () {
     test('取得できるはず', () async {
       final content = await repository.getReadme(
-        ownerName: 'flutter',
-        repoName: 'flutter',
-        defaultBranch: 'master',
+        repo: repo,
       );
       expect(content, isNotNull);
     });
@@ -50,9 +58,11 @@ void main() {
       String? errorCode;
       try {
         content = await repository.getReadme(
-          ownerName: 'unknown',
-          repoName: 'unknown',
-          defaultBranch: 'unknown',
+          repo: repo.copyWith(
+            ownerName: 'unknown',
+            repoName: 'unknown',
+            defaultBranch: 'unknown',
+          ),
         );
       } on GitHubException catch (e) {
         errorCode = e.code;
@@ -65,9 +75,11 @@ void main() {
       String? errorCode;
       try {
         content = await repository.getReadme(
-          ownerName: 'unknown',
-          repoName: 'unknown',
-          defaultBranch: 'socketException',
+          repo: repo.copyWith(
+            ownerName: 'unknown',
+            repoName: 'unknown',
+            defaultBranch: 'socketException',
+          ),
         );
       } on GitHubException catch (e) {
         errorCode = e.code;

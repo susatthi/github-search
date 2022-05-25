@@ -5,11 +5,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../domain/app_data/repositories/app_data_repository.dart';
-import '../../domain/repo/repositories/repo_repository.dart';
+import '../../domain/entities/repo_search_repos_order.dart';
+import '../../domain/entities/repo_search_repos_sort.dart';
+import '../../domain/repositories/app_data_repository.dart';
+
+/// Hive の Box 名
+const hiveBoxNameAppData = 'appData';
 
 /// Hive版アプリデータRepositoryプロバイダー
-final hiveAppDataRepositoryProvider = Provider<HiveAppDataRepository>(
+final hiveAppDataRepositoryProvider = Provider<AppDataRepository>(
   (ref) {
     final box = Hive.box<dynamic>(hiveBoxNameAppData);
     return HiveAppDataRepository(
@@ -68,6 +72,3 @@ class HiveAppDataRepository implements AppDataRepository {
     return RepoSearchReposOrder.valueOf(name);
   }
 }
-
-/// Hive の Box 名
-const hiveBoxNameAppData = 'appData';

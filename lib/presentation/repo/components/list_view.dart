@@ -9,7 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../domain/repo/entities/repo.dart';
+import '../../../domain/entities/repo.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
@@ -17,10 +17,9 @@ import '../../common/components/cached_circle_avatar.dart';
 import '../../common/components/error_view.dart';
 import '../../common/components/icon_label.dart';
 import '../../common/components/list_loader.dart';
-import '../view_page.dart';
+import '../pages/view_page.dart';
+import '../state/list_view_state.dart';
 import 'language_label.dart';
-import 'list_view_notifier.dart';
-import 'list_view_state.dart';
 
 /// ListTileのleadingに表示するアバターのサイズ
 const _avatarSize = 40.0;
@@ -163,7 +162,7 @@ class _RepoListTile extends StatelessWidget {
           leading: Hero(
             tag: 'avatar-${repo.fullName}',
             child: CachedCircleAvatar(
-              url: repo.owner.avatarUrl,
+              url: repo.avatarUrl,
               size: _avatarSize,
               loading: false,
             ),
@@ -206,8 +205,8 @@ class _RepoListTile extends StatelessWidget {
             context.goNamed(
               RepoViewPage.name,
               params: RepoViewPage.params(
-                ownerName: repo.owner.name,
-                repoName: repo.name,
+                ownerName: repo.ownerName,
+                repoName: repo.repoName,
               ),
               extra: repo,
             );

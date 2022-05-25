@@ -8,8 +8,8 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-import '../../config/constants.dart';
 import '../../config/env.dart';
+import '../../config/env_define.dart';
 import '../../utils/logger.dart';
 import 'exception.dart';
 

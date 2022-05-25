@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/repo/avatar_preview_page.dart';
-import 'package:github_search/presentation/repo/components/selected_repo.dart';
+import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
+import 'package:github_search/presentation/repo/state/selected_repo.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../test_utils/locale.dart';
