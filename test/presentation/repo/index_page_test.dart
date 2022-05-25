@@ -13,9 +13,9 @@ import 'package:github_search/presentation/repo/components/search_text_button.da
 import 'package:github_search/presentation/repo/components/search_text_field.dart';
 import 'package:github_search/presentation/repo/components/sort_button.dart';
 import 'package:github_search/presentation/repo/components/sort_selector_bottom_sheet.dart';
-import 'package:github_search/presentation/repo/index_page.dart';
-import 'package:github_search/presentation/repo/search_page.dart';
-import 'package:github_search/presentation/repo/view_page.dart';
+import 'package:github_search/presentation/repo/pages/index_page.dart';
+import 'package:github_search/presentation/repo/pages/search_page.dart';
+import 'package:github_search/presentation/repo/pages/view_page.dart';
 
 import '../../test_utils/hive.dart';
 import '../../test_utils/locale.dart';

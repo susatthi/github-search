@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/entities/repo.dart';
 import '../../../domain/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
-import '../view_page.dart';
+import '../pages/view_page.dart';
 
 /// 選択中のリポジトリプロバイダー
 final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<

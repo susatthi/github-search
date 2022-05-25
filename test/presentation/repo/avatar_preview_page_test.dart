@@ -6,8 +6,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/repo/avatar_preview_page.dart';
-import 'package:github_search/presentation/repo/view_page.dart';
+import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
+import 'package:github_search/presentation/repo/pages/view_page.dart';
 
 import '../../test_utils/hive.dart';
 import '../../test_utils/locale.dart';

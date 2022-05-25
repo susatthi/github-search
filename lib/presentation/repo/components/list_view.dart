@@ -17,7 +17,7 @@ import '../../common/components/cached_circle_avatar.dart';
 import '../../common/components/error_view.dart';
 import '../../common/components/icon_label.dart';
 import '../../common/components/list_loader.dart';
-import '../view_page.dart';
+import '../pages/view_page.dart';
 import 'language_label.dart';
 import 'list_view_notifier.dart';
 import 'list_view_state.dart';

@@ -9,8 +9,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
-import 'package:github_search/presentation/common/error_page.dart';
-import 'package:github_search/presentation/repo/index_page.dart';
+import 'package:github_search/presentation/common/pages/error_page.dart';
+import 'package:github_search/presentation/repo/pages/index_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 

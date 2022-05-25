@@ -7,11 +7,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/presentation/common/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/common/components/error_view.dart';
-import 'package:github_search/presentation/repo/avatar_preview_page.dart';
 import 'package:github_search/presentation/repo/components/detail_view.dart';
 import 'package:github_search/presentation/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/repo/components/selected_repo.dart';
-import 'package:github_search/presentation/repo/view_page.dart';
+import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
+import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages

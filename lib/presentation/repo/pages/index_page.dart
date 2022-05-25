@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 import '../../../config/router.dart';
 import '../../../utils/logger.dart';
-import '../common/components/search_app_bar.dart';
-import 'components/list_view.dart';
-import 'components/search_text_button.dart';
-import 'components/sort_button.dart';
+import '../../common/components/search_app_bar.dart';
+import '../components/list_view.dart';
+import '../components/search_text_button.dart';
+import '../components/sort_button.dart';
 import 'search_page.dart';
 
 /// リポジトリ一覧画面

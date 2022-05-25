@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../common/components/search_app_bar.dart';
-import 'components/detail_view.dart';
-import 'components/full_name_text.dart';
+import '../../common/components/search_app_bar.dart';
+import '../components/detail_view.dart';
+import '../components/full_name_text.dart';
 
 /// 画面遷移時に渡すパラメータのキー
 const pageParamKeyOwnerName = 'owner_name';

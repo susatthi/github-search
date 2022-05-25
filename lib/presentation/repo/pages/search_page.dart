@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../common/components/search_app_bar.dart';
-import 'components/search_text_field.dart';
-import 'components/sort_button.dart';
+import '../../common/components/search_app_bar.dart';
+import '../components/search_text_field.dart';
+import '../components/sort_button.dart';
 
 /// リポジトリ検索画面
 class RepoSearchPage extends StatelessWidget {

@@ -4,7 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/common/error_page.dart';
+import 'package:github_search/presentation/common/pages/error_page.dart';
 
 import '../../test_utils/locale.dart';
 import '../../test_utils/mocks.dart';

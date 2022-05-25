@@ -12,7 +12,7 @@ import 'package:github_search/presentation/common/components/error_view.dart';
 import 'package:github_search/presentation/common/components/list_loader.dart';
 import 'package:github_search/presentation/repo/components/list_view.dart';
 import 'package:github_search/presentation/repo/components/search_repos_query.dart';
-import 'package:github_search/presentation/repo/view_page.dart';
+import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:number_display/number_display.dart';
