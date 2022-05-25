@@ -191,7 +191,7 @@ void main() {
       await wrapTapHyperlinkTest(
         tester,
         find.text('flutter'),
-        (data) => data.owner.ownerUrl!,
+        (data) => data.ownerUrl!,
       );
     });
     testWidgets('リポジトリ名のリンクをタップしてブラウザで開くはず', (tester) async {

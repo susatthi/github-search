@@ -4,6 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entities/repo.dart';
+import '../../domain/entities/search_repos_result.dart';
 import '../../domain/repositories/repo_repository.dart';
 import 'api.dart';
 import 'exception.dart';
@@ -37,14 +39,14 @@ class GitHubRepoRepository implements RepoRepository {
   final GitHubHttpClient _client;
 
   @override
-  Future<SearchReposResultJsonObject> searchRepos({
+  Future<SearchReposResult> searchRepos({
     required String query,
     required RepoSearchReposSort sort,
     required RepoSearchReposOrder order,
     int? perPage,
     int? page,
   }) async =>
-      _client.get<SearchReposResultJsonObject>(
+      _client.get<SearchReposResult>(
         uri: _api.searchRepos(
           query: query,
           sort: GitHubRepoSearchReposSort.valueOf(sort),
@@ -53,19 +55,20 @@ class GitHubRepoRepository implements RepoRepository {
           page: page,
         ),
         responseBuilder: (data) {
-          final result = SearchReposResultJsonObject.fromJson(data);
-          return result.copyWith(
-            items: result.items.map(repoBuilder).toList(),
+          final jsonObject = SearchReposResultJsonObject.fromJson(data);
+          return SearchReposResult(
+            totalCount: jsonObject.totalCount,
+            items: jsonObject.items.map(repoBuilder).toList(),
           );
         },
       );
 
   @override
-  Future<RepoJsonObject> getRepo({
+  Future<Repo> getRepo({
     required String ownerName,
     required String repoName,
   }) async =>
-      _client.get<RepoJsonObject>(
+      _client.get<Repo>(
         uri: _api.getRepo(
           ownerName: ownerName,
           repoName: repoName,
@@ -73,13 +76,22 @@ class GitHubRepoRepository implements RepoRepository {
         responseBuilder: (data) => repoBuilder(RepoJsonObject.fromJson(data)),
       );
 
-  static RepoJsonObject repoBuilder(RepoJsonObject repo) {
-    final ownerUrl = '$githubSiteUrl/${repo.owner.login}';
-    final repoUrl = '$ownerUrl/${repo.name}';
-    return repo.copyWith(
-      owner: repo.owner.copyWith(
-        ownerUrl: ownerUrl,
-      ),
+  static Repo repoBuilder(RepoJsonObject jsonObject) {
+    final ownerUrl = '$githubSiteUrl/${jsonObject.owner.login}';
+    final repoUrl = '$ownerUrl/${jsonObject.name}';
+    return Repo(
+      ownerName: jsonObject.owner.login,
+      avatarUrl: jsonObject.owner.avatarUrl,
+      ownerUrl: ownerUrl,
+      repoName: jsonObject.name,
+      fullName: jsonObject.fullName,
+      description: jsonObject.description,
+      stargazersCount: jsonObject.stargazersCount,
+      watchersCount: jsonObject.watchersCount,
+      language: jsonObject.language,
+      forksCount: jsonObject.forksCount,
+      openIssuesCount: jsonObject.openIssuesCount,
+      defaultBranch: jsonObject.defaultBranch,
       repoUrl: repoUrl,
       stargazersUrl: '$repoUrl/stargazers',
       watchersUrl: '$repoUrl/watchers',

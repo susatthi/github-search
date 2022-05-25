@@ -5,41 +5,37 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
+import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../test_utils/utils.dart';
 
 void main() {
-  late Repo repoData;
-  setUp(() {
-    final repoJsonObject =
-        TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!;
-    final repo = RepoJsonObject.fromJson(repoJsonObject);
-    repoData = Repo.from(repo);
-  });
+  final repo = GitHubRepoRepository.repoBuilder(
+    RepoJsonObject.fromJson(
+      TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
+    ),
+  );
 
-  group('RepoData', () {
-    test('from()でインスタンスを作成できるはず', () async {
-      expect(repoData, isNotNull);
-    });
+  group('RepoHelper', () {
     test('stargazersCountShort', () async {
-      expect(repoData.stargazersCount, 137773);
-      expect(repoData.stargazersCountShort, '138k');
+      expect(repo.stargazersCount, 137773);
+      expect(repo.stargazersCountShort, '138k');
     });
     test('watchersCountShort', () async {
-      expect(repoData.watchersCount, 137773);
-      expect(repoData.watchersCountShort, '138k');
+      expect(repo.watchersCount, 137773);
+      expect(repo.watchersCountShort, '138k');
     });
     test('languageColor', () async {
-      expect(repoData.languageColor.value, HexColor('#00B4AB').value);
+      expect(repo.languageColor.value, HexColor('#00B4AB').value);
     });
     test('forksCountShort', () async {
-      expect(repoData.forksCount, 21221);
-      expect(repoData.forksCountShort, '21k');
+      expect(repo.forksCount, 21221);
+      expect(repo.forksCountShort, '21k');
     });
     test('openIssuesCountShort', () async {
-      expect(repoData.openIssuesCount, 10623);
-      expect(repoData.openIssuesCountShort, '11k');
+      expect(repo.openIssuesCount, 10623);
+      expect(repo.openIssuesCountShort, '11k');
     });
   });
 }

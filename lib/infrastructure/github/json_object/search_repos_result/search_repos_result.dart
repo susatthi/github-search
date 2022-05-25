@@ -14,7 +14,6 @@ part 'search_repos_result.g.dart';
 class SearchReposResultJsonObject with _$SearchReposResultJsonObject {
   const factory SearchReposResultJsonObject({
     @JsonKey(name: 'total_count') required int totalCount,
-    @JsonKey(name: 'incomplete_results') required bool incompleteResults,
     required List<RepoJsonObject> items,
   }) = _SearchReposResultJsonObject;
 

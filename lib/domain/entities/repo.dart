@@ -3,79 +3,77 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:number_display/number_display.dart';
 
-import '../../../infrastructure/github/json_object/repo/repo.dart';
-import '../../../utils/extensions.dart';
-import 'owner.dart';
+import '../../utils/extensions.dart';
+
+part 'repo.freezed.dart';
 
 /// リポジトリEntity
-class Repo {
-  const Repo({
-    required this.name,
-    required this.fullName,
-    required this.owner,
-    required this.description,
-    required this.stargazersCount,
-    required this.watchersCount,
-    required this.language,
-    required this.forksCount,
-    required this.openIssuesCount,
-    required this.defaultBranch,
-    required this.repoUrl,
-    required this.stargazersUrl,
-    required this.watchersUrl,
-    required this.forksUrl,
-    required this.issuesUrl,
-  });
+@freezed
+class Repo with _$Repo {
+  const factory Repo({
+    /// オーナー名
+    required String ownerName,
 
-  factory Repo.from(RepoJsonObject repo) {
-    return Repo(
-      name: repo.name,
-      fullName: repo.fullName,
-      owner: Owner.from(repo.owner),
-      description: repo.description,
-      stargazersCount: repo.stargazersCount,
-      watchersCount: repo.watchersCount,
-      language: repo.language,
-      forksCount: repo.forksCount,
-      openIssuesCount: repo.openIssuesCount,
-      defaultBranch: repo.defaultBranch,
-      repoUrl: repo.repoUrl,
-      stargazersUrl: repo.stargazersUrl,
-      watchersUrl: repo.watchersUrl,
-      forksUrl: repo.forksUrl,
-      issuesUrl: repo.issuesUrl,
-    );
-  }
+    /// アバターURL
+    required String avatarUrl,
 
-  /// リポジトリ名
-  final String name;
+    /// オーナーURL
+    required String? ownerUrl,
 
-  /// リポジトリ名（フル）
-  final String fullName;
+    /// リポジトリ名
+    required String repoName,
 
-  /// オーナー
-  final Owner owner;
+    /// リポジトリ名（フル）
+    required String fullName,
 
-  /// 説明
-  final String? description;
+    /// 説明
+    String? description,
 
-  /// スター数
-  final int stargazersCount;
+    /// スター数
+    required int stargazersCount,
 
+    /// ウォッチャー数
+    required int watchersCount,
+
+    /// プロジェクト言語
+    String? language,
+
+    /// フォーク数
+    required int forksCount,
+
+    /// Issue数
+    required int openIssuesCount,
+
+    /// デフォルトブランチ
+    required String defaultBranch,
+
+    /// リポジトリURL
+    String? repoUrl,
+
+    /// スター数URL
+    String? stargazersUrl,
+
+    /// ウォッチャー数URL
+    String? watchersUrl,
+
+    /// フォーク数URL
+    String? forksUrl,
+
+    /// Issue数URL
+    String? issuesUrl,
+  }) = _Repo;
+}
+
+extension RepoHelper on Repo {
   /// 表示用のスター数（例：35432 => 35.4k）
   String get stargazersCountShort => _countDisplay(stargazersCount);
 
-  /// ウォッチャー数
-  final int watchersCount;
-
   /// 表示用のウォッチャー数（例：35432 => 35.4k）
   String get watchersCountShort => _countDisplay(watchersCount);
-
-  /// プロジェクト言語
-  final String? language;
 
   /// プロジェクト言語のカラー
   Color get languageColor {
@@ -85,35 +83,11 @@ class Repo {
     return HexColor(hex ?? '#999999');
   }
 
-  /// フォーク数
-  final int forksCount;
-
   /// 表示用のフォーク数（例：35432 => 35.4k）
   String get forksCountShort => _countDisplay(forksCount);
 
-  /// Issue数
-  final int openIssuesCount;
-
   /// 表示用のIssue数（例：35432 => 35.4k）
   String get openIssuesCountShort => _countDisplay(openIssuesCount);
-
-  /// デフォルトブランチ
-  final String defaultBranch;
-
-  /// リポジトリURL
-  final String? repoUrl;
-
-  /// スター数URL
-  final String? stargazersUrl;
-
-  /// ウォッチャー数URL
-  final String? watchersUrl;
-
-  /// フォーク数URL
-  final String? forksUrl;
-
-  /// Issue数URL
-  final String? issuesUrl;
 }
 
 /// 表示用のスター数の変換メソッド

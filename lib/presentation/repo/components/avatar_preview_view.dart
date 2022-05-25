@@ -40,7 +40,7 @@ class _RepoAvatarPreviewView extends ConsumerWidget {
     return Hero(
       tag: 'avatar-${repo.fullName}',
       child: PhotoView(
-        imageProvider: CachedNetworkImageProvider(repo.owner.avatarUrl),
+        imageProvider: CachedNetworkImageProvider(repo.avatarUrl),
         backgroundDecoration: const BoxDecoration(),
       ),
     );

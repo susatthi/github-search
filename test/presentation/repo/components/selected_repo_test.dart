@@ -6,35 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
-import 'package:github_search/domain/entities/owner.dart';
-import 'package:github_search/domain/entities/repo.dart';
+import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
+import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/utils.dart';
 
-const _extra = Repo(
-  name: '',
-  fullName: '',
-  owner: Owner(
-    name: '',
-    avatarUrl: '',
-    ownerUrl: '',
+final _extra = GitHubRepoRepository.repoBuilder(
+  RepoJsonObject.fromJson(
+    TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
   ),
-  description: '',
-  stargazersCount: 0,
-  watchersCount: 0,
-  language: '',
-  forksCount: 0,
-  openIssuesCount: 0,
-  defaultBranch: '',
-  repoUrl: '',
-  stargazersUrl: '',
-  watchersUrl: '',
-  forksUrl: '',
-  issuesUrl: '',
 );
 
 class _FirstPage extends StatelessWidget {
@@ -170,7 +155,7 @@ void main() {
         overrides: [
           repoSelectedRepoProvider.overrideWithProvider(
             repoSelectedRepoProviderFamily(
-              const RepoSelectedRepoParameter(
+              RepoSelectedRepoParameter(
                 ownerName: 'flutter',
                 repoName: 'flutter',
                 extra: _extra,

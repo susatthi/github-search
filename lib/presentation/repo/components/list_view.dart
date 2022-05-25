@@ -163,7 +163,7 @@ class _RepoListTile extends StatelessWidget {
           leading: Hero(
             tag: 'avatar-${repo.fullName}',
             child: CachedCircleAvatar(
-              url: repo.owner.avatarUrl,
+              url: repo.avatarUrl,
               size: _avatarSize,
               loading: false,
             ),
@@ -206,8 +206,8 @@ class _RepoListTile extends StatelessWidget {
             context.goNamed(
               RepoViewPage.name,
               params: RepoViewPage.params(
-                ownerName: repo.owner.name,
-                repoName: repo.name,
+                ownerName: repo.ownerName,
+                repoName: repo.repoName,
               ),
               extra: repo,
             );

@@ -14,6 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
+import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/components/readme_markdown.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mocktail/mocktail.dart';
@@ -116,7 +117,7 @@ void main() {
   late Repo repo;
   late MockUrlLauncherPlatform mockUrlLauncherPlatform;
   setUp(() {
-    repo = Repo.from(
+    repo = GitHubRepoRepository.repoBuilder(
       RepoJsonObject.fromJson(
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),
@@ -130,7 +131,7 @@ void main() {
     testWidgets('画像取得時にエラーが起きたときはSVGとして取得を試みるはず', (tester) async {
       // 参考サイト: https://github.com/dnfield/flutter_svg/blob/master/test/widget_svg_test.dart
 
-      final repo = Repo.from(
+      final repo = GitHubRepoRepository.repoBuilder(
         RepoJsonObject.fromJson(
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),
@@ -222,7 +223,7 @@ void main() {
         ),
       ).thenAnswer((_) async => true);
 
-      final repo = Repo.from(
+      final repo = GitHubRepoRepository.repoBuilder(
         RepoJsonObject.fromJson(
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),

@@ -4,9 +4,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../infrastructure/github/json_object/repo/repo.dart';
-import '../../infrastructure/github/json_object/search_repos_result/search_repos_result.dart';
 import '../../infrastructure/github/repo_repository.dart';
+import '../entities/repo.dart';
+import '../entities/search_repos_result.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) => ref.watch(githubRepoRepositoryProvider),
@@ -15,7 +15,7 @@ final repoRepositoryProvider = Provider<RepoRepository>(
 /// リポジトリRepository
 abstract class RepoRepository {
   /// リポジトリを検索する
-  Future<SearchReposResultJsonObject> searchRepos({
+  Future<SearchReposResult> searchRepos({
     required String query,
     required RepoSearchReposSort sort,
     required RepoSearchReposOrder order,
@@ -24,7 +24,7 @@ abstract class RepoRepository {
   });
 
   /// リポジトリを取得する
-  Future<RepoJsonObject> getRepo({
+  Future<Repo> getRepo({
     required String ownerName,
     required String repoName,
   });

@@ -23,8 +23,6 @@ SearchReposResultJsonObject _$SearchReposResultJsonObjectFromJson(
 mixin _$SearchReposResultJsonObject {
   @JsonKey(name: 'total_count')
   int get totalCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'incomplete_results')
-  bool get incompleteResults => throw _privateConstructorUsedError;
   List<RepoJsonObject> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +39,6 @@ abstract class $SearchReposResultJsonObjectCopyWith<$Res> {
       _$SearchReposResultJsonObjectCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'total_count') int totalCount,
-      @JsonKey(name: 'incomplete_results') bool incompleteResults,
       List<RepoJsonObject> items});
 }
 
@@ -57,7 +54,6 @@ class _$SearchReposResultJsonObjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totalCount = freezed,
-    Object? incompleteResults = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
@@ -65,10 +61,6 @@ class _$SearchReposResultJsonObjectCopyWithImpl<$Res>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      incompleteResults: incompleteResults == freezed
-          ? _value.incompleteResults
-          : incompleteResults // ignore: cast_nullable_to_non_nullable
-              as bool,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -87,7 +79,6 @@ abstract class _$$_SearchReposResultJsonObjectCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'total_count') int totalCount,
-      @JsonKey(name: 'incomplete_results') bool incompleteResults,
       List<RepoJsonObject> items});
 }
 
@@ -107,7 +98,6 @@ class __$$_SearchReposResultJsonObjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totalCount = freezed,
-    Object? incompleteResults = freezed,
     Object? items = freezed,
   }) {
     return _then(_$_SearchReposResultJsonObject(
@@ -115,10 +105,6 @@ class __$$_SearchReposResultJsonObjectCopyWithImpl<$Res>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      incompleteResults: incompleteResults == freezed
-          ? _value.incompleteResults
-          : incompleteResults // ignore: cast_nullable_to_non_nullable
-              as bool,
       items: items == freezed
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -132,7 +118,6 @@ class __$$_SearchReposResultJsonObjectCopyWithImpl<$Res>
 class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
   const _$_SearchReposResultJsonObject(
       {@JsonKey(name: 'total_count') required this.totalCount,
-      @JsonKey(name: 'incomplete_results') required this.incompleteResults,
       required final List<RepoJsonObject> items})
       : _items = items;
 
@@ -142,9 +127,6 @@ class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
   @override
   @JsonKey(name: 'total_count')
   final int totalCount;
-  @override
-  @JsonKey(name: 'incomplete_results')
-  final bool incompleteResults;
   final List<RepoJsonObject> _items;
   @override
   List<RepoJsonObject> get items {
@@ -154,7 +136,7 @@ class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
 
   @override
   String toString() {
-    return 'SearchReposResultJsonObject(totalCount: $totalCount, incompleteResults: $incompleteResults, items: $items)';
+    return 'SearchReposResultJsonObject(totalCount: $totalCount, items: $items)';
   }
 
   @override
@@ -164,8 +146,6 @@ class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
             other is _$_SearchReposResultJsonObject &&
             const DeepCollectionEquality()
                 .equals(other.totalCount, totalCount) &&
-            const DeepCollectionEquality()
-                .equals(other.incompleteResults, incompleteResults) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
@@ -174,7 +154,6 @@ class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(totalCount),
-      const DeepCollectionEquality().hash(incompleteResults),
       const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
@@ -192,10 +171,7 @@ class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
 abstract class _SearchReposResultJsonObject
     implements SearchReposResultJsonObject {
   const factory _SearchReposResultJsonObject(
-          {@JsonKey(name: 'total_count')
-              required final int totalCount,
-          @JsonKey(name: 'incomplete_results')
-              required final bool incompleteResults,
+          {@JsonKey(name: 'total_count') required final int totalCount,
           required final List<RepoJsonObject> items}) =
       _$_SearchReposResultJsonObject;
 
@@ -205,9 +181,6 @@ abstract class _SearchReposResultJsonObject
   @override
   @JsonKey(name: 'total_count')
   int get totalCount => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'incomplete_results')
-  bool get incompleteResults => throw _privateConstructorUsedError;
   @override
   List<RepoJsonObject> get items => throw _privateConstructorUsedError;
   @override

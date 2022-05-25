@@ -83,11 +83,10 @@ class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
   Future<void> _get() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final repo = await _repoRepository.getRepo(
+      return _repoRepository.getRepo(
         ownerName: parameter.ownerName,
         repoName: parameter.repoName,
       );
-      return Repo.from(repo);
     });
   }
 }

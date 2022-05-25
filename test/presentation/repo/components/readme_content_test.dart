@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
+import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/components/readme_content.dart';
 
 import '../../../test_utils/locale.dart';
@@ -18,7 +19,7 @@ import '../../../test_utils/utils.dart';
 void main() {
   late Repo repo;
   setUp(() {
-    repo = Repo.from(
+    repo = GitHubRepoRepository.repoBuilder(
       RepoJsonObject.fromJson(
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),

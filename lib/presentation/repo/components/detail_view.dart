@@ -94,14 +94,14 @@ class _AvatarRow extends StatelessWidget {
         cursor: SystemMouseCursors.click,
         child: InkWell(
           onTap: () async {
-            logger.i('Tapped avatar: url = ${repo.owner.avatarUrl}');
+            logger.i('Tapped avatar: url = ${repo.avatarUrl}');
 
             // アバタープレビュー画面に遷移する
             context.goNamed(
               RepoAvatarPreviewPage.name,
               params: RepoViewPage.params(
-                ownerName: repo.owner.name,
-                repoName: repo.name,
+                ownerName: repo.ownerName,
+                repoName: repo.repoName,
               ),
               extra: repo,
             );
@@ -112,7 +112,7 @@ class _AvatarRow extends StatelessWidget {
               tag: 'avatar-${repo.fullName}',
               child: CachedCircleAvatar(
                 size: 100,
-                url: repo.owner.avatarUrl,
+                url: repo.avatarUrl,
               ),
             ),
           ),
@@ -140,10 +140,10 @@ class _FullnameRow extends StatelessWidget {
         child: Wrap(
           children: [
             HyperlinkText(
-              onTap: repo.owner.ownerUrl != null
-                  ? () => launchUrlInApp(repo.owner.ownerUrl!)
+              onTap: repo.ownerUrl != null
+                  ? () => launchUrlInApp(repo.ownerUrl!)
                   : null,
-              text: repo.owner.name,
+              text: repo.ownerName,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
@@ -159,7 +159,7 @@ class _FullnameRow extends StatelessWidget {
               onTap: repo.repoUrl != null
                   ? () => launchUrlInApp(repo.repoUrl!)
                   : null,
-              text: repo.name,
+              text: repo.repoName,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
