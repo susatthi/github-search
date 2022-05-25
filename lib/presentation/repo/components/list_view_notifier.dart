@@ -4,6 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../domain/entities/repo_search_repos_order.dart';
+import '../../../domain/entities/repo_search_repos_sort.dart';
 import '../../../domain/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'list_view_state.dart';

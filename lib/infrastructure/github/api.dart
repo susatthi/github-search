@@ -2,7 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import '../../domain/repositories/repo_repository.dart';
+import '../../domain/entities/repo_search_repos_order.dart';
+import '../../domain/entities/repo_search_repos_sort.dart';
 
 /// GitHub API の定義
 /// 各APIはUriを返す

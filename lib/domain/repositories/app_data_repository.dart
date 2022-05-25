@@ -5,7 +5,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../infrastructure/hive/app_data_repository.dart';
-import '../repositories/repo_repository.dart';
+import '../entities/repo_search_repos_order.dart';
+import '../entities/repo_search_repos_sort.dart';
 
 /// アプリデータRepositoryプロバイダー
 final appDataRepositoryProvider = Provider<AppDataRepository>(

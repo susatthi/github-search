@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../infrastructure/github/repo_repository.dart';
 import '../entities/repo.dart';
+import '../entities/repo_search_repos_order.dart';
+import '../entities/repo_search_repos_sort.dart';
 import '../entities/search_repos_result.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
@@ -33,32 +35,4 @@ abstract class RepoRepository {
   Future<String> getReadme({
     required Repo repo,
   });
-}
-
-/// リポジトリ検索用ソート
-enum RepoSearchReposSort {
-  bestMatch,
-  stars,
-  forks,
-  helpWantedIssues;
-
-  /// 文字列からソートを返す
-  /// 見つからない場合は IterableElementError.noElement() を投げる
-  static RepoSearchReposSort valueOf(String name) {
-    return RepoSearchReposSort.values
-        .firstWhere((element) => element.name == name);
-  }
-}
-
-/// リポジトリ検索用オーダー
-enum RepoSearchReposOrder {
-  desc,
-  asc;
-
-  /// 文字列からオーダーを返す
-  /// 見つからない場合は IterableElementError.noElement() を投げる
-  static RepoSearchReposOrder valueOf(String name) {
-    return RepoSearchReposOrder.values
-        .firstWhere((element) => element.name == name);
-  }
 }

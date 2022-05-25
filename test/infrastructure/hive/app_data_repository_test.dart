@@ -5,7 +5,8 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo_repository.dart';
+import 'package:github_search/domain/entities/repo_search_repos_order.dart';
+import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
 import 'package:github_search/infrastructure/hive/app_data_repository.dart';
 
 import '../../test_utils/hive.dart';

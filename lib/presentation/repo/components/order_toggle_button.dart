@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/repositories/repo_repository.dart';
+import '../../../domain/entities/repo_search_repos_order.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
 import 'list_view_notifier.dart';
