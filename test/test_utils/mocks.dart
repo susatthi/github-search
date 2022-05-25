@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/app.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/presentation/repo/components/repo_search_repos_query.dart';
+import 'package:github_search/presentation/repo/components/search_repos_query.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
