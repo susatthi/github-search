@@ -15,6 +15,9 @@ class SearchReposResult with _$SearchReposResult {
     /// 検索結果トータル件数
     required int totalCount,
 
+    /// 検索文字列
+    required String query,
+
     /// リポジトリEntityのリスト
     required List<Repo> items,
   }) = _SearchReposResult;

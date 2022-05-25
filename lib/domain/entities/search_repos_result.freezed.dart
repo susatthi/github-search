@@ -19,6 +19,9 @@ mixin _$SearchReposResult {
   /// 検索結果トータル件数
   int get totalCount => throw _privateConstructorUsedError;
 
+  /// 検索文字列
+  String get query => throw _privateConstructorUsedError;
+
   /// リポジトリEntityのリスト
   List<Repo> get items => throw _privateConstructorUsedError;
 
@@ -32,7 +35,7 @@ abstract class $SearchReposResultCopyWith<$Res> {
   factory $SearchReposResultCopyWith(
           SearchReposResult value, $Res Function(SearchReposResult) then) =
       _$SearchReposResultCopyWithImpl<$Res>;
-  $Res call({int totalCount, List<Repo> items});
+  $Res call({int totalCount, String query, List<Repo> items});
 }
 
 /// @nodoc
@@ -47,6 +50,7 @@ class _$SearchReposResultCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totalCount = freezed,
+    Object? query = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +58,10 @@ class _$SearchReposResultCopyWithImpl<$Res>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
+      query: query == freezed
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -69,7 +77,7 @@ abstract class _$$_SearchReposResultCopyWith<$Res>
           $Res Function(_$_SearchReposResult) then) =
       __$$_SearchReposResultCopyWithImpl<$Res>;
   @override
-  $Res call({int totalCount, List<Repo> items});
+  $Res call({int totalCount, String query, List<Repo> items});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$_SearchReposResultCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totalCount = freezed,
+    Object? query = freezed,
     Object? items = freezed,
   }) {
     return _then(_$_SearchReposResult(
@@ -93,6 +102,10 @@ class __$$_SearchReposResultCopyWithImpl<$Res>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
+      query: query == freezed
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
       items: items == freezed
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -105,12 +118,18 @@ class __$$_SearchReposResultCopyWithImpl<$Res>
 
 class _$_SearchReposResult implements _SearchReposResult {
   const _$_SearchReposResult(
-      {required this.totalCount, required final List<Repo> items})
+      {required this.totalCount,
+      required this.query,
+      required final List<Repo> items})
       : _items = items;
 
   /// 検索結果トータル件数
   @override
   final int totalCount;
+
+  /// 検索文字列
+  @override
+  final String query;
 
   /// リポジトリEntityのリスト
   final List<Repo> _items;
@@ -124,7 +143,7 @@ class _$_SearchReposResult implements _SearchReposResult {
 
   @override
   String toString() {
-    return 'SearchReposResult(totalCount: $totalCount, items: $items)';
+    return 'SearchReposResult(totalCount: $totalCount, query: $query, items: $items)';
   }
 
   @override
@@ -134,6 +153,7 @@ class _$_SearchReposResult implements _SearchReposResult {
             other is _$_SearchReposResult &&
             const DeepCollectionEquality()
                 .equals(other.totalCount, totalCount) &&
+            const DeepCollectionEquality().equals(other.query, query) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
@@ -141,6 +161,7 @@ class _$_SearchReposResult implements _SearchReposResult {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(totalCount),
+      const DeepCollectionEquality().hash(query),
       const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
@@ -153,12 +174,17 @@ class _$_SearchReposResult implements _SearchReposResult {
 abstract class _SearchReposResult implements SearchReposResult {
   const factory _SearchReposResult(
       {required final int totalCount,
+      required final String query,
       required final List<Repo> items}) = _$_SearchReposResult;
 
   @override
 
   /// 検索結果トータル件数
   int get totalCount => throw _privateConstructorUsedError;
+  @override
+
+  /// 検索文字列
+  String get query => throw _privateConstructorUsedError;
   @override
 
   /// リポジトリEntityのリスト

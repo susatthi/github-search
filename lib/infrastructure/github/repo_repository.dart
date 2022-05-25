@@ -58,6 +58,7 @@ class GitHubRepoRepository implements RepoRepository {
           final jsonObject = SearchReposResultJsonObject.fromJson(data);
           return SearchReposResult(
             totalCount: jsonObject.totalCount,
+            query: query,
             items: jsonObject.items.map(repoBuilder).toList(),
           );
         },

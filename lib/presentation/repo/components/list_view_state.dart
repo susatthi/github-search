@@ -20,15 +20,12 @@ class RepoListViewState with _$RepoListViewState {
     @Default('') String query,
   }) = _RepoListViewState;
 
-  factory RepoListViewState.from(
-    SearchReposResult result,
-    String query,
-  ) {
+  factory RepoListViewState.from(SearchReposResult result) {
     return RepoListViewState(
       totalCount: result.totalCount,
       items: result.items,
       hasNext: result.items.length < result.totalCount,
-      query: query,
+      query: result.query,
     );
   }
 }
