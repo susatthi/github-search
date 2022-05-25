@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/repositories/repo_repository.dart';
+import 'package:github_search/domain/repositories/repo_repository.dart';
 
 import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';

@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/owner.dart';
+import 'package:github_search/domain/entities/owner.dart';
 import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 
 import '../../../test_utils/utils.dart';

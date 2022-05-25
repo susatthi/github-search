@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/repo.dart';
+import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/presentation/repo/components/readme_markdown.dart';

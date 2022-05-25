@@ -9,7 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../domain/repo/entities/repo.dart';
+import '../../../domain/entities/repo.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';

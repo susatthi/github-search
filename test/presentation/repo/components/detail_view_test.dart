@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/repo.dart';
+import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/presentation/common/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/common/components/error_view.dart';
 import 'package:github_search/presentation/repo/avatar_preview_page.dart';

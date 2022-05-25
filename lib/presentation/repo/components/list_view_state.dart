@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../domain/repo/entities/repo.dart';
+import '../../../domain/entities/repo.dart';
 import '../../../infrastructure/github/json_object/search_repos_result/search_repos_result.dart';
 
 part 'list_view_state.freezed.dart';

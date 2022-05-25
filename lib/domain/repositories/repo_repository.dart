@@ -4,9 +4,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../infrastructure/github/json_object/repo/repo.dart';
-import '../../../infrastructure/github/json_object/search_repos_result/search_repos_result.dart';
-import '../../../infrastructure/github/repo_repository.dart';
+import '../../infrastructure/github/json_object/repo/repo.dart';
+import '../../infrastructure/github/json_object/search_repos_result/search_repos_result.dart';
+import '../../infrastructure/github/repo_repository.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) => ref.watch(githubRepoRepositoryProvider),

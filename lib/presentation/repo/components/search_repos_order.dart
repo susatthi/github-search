@@ -4,8 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/app_data/repositories/app_data_repository.dart';
-import '../../../domain/repo/repositories/repo_repository.dart';
+import '../../../domain/repositories/app_data_repository.dart';
+import '../../../domain/repositories/repo_repository.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー
 final repoSearchReposOrderProvider =

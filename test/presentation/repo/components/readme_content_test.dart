@@ -6,7 +6,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/repo.dart';
+import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/presentation/repo/components/readme_content.dart';

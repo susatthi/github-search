@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:markdown/markdown.dart';
 
-import '../../../domain/repo/entities/repo.dart';
+import '../../../domain/entities/repo.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';

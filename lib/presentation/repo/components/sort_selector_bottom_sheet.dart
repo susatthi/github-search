@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/repo/repositories/repo_repository.dart';
+import '../../../domain/repositories/repo_repository.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
 import 'order_toggle_button.dart';
