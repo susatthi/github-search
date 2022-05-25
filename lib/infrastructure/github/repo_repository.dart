@@ -103,9 +103,7 @@ class GitHubRepoRepository implements RepoRepository {
 
   @override
   Future<String> getReadme({
-    required String ownerName,
-    required String repoName,
-    required String defaultBranch,
+    required Repo repo,
   }) async {
     // READMEファイル名のパターン（優先度順）
     const fileNames = <String>[
@@ -117,7 +115,7 @@ class GitHubRepoRepository implements RepoRepository {
 
     for (final fileName in fileNames) {
       final uri = Uri.parse(
-        'https://raw.githubusercontent.com/$ownerName/$repoName/$defaultBranch/$fileName',
+        'https://raw.githubusercontent.com/${repo.ownerName}/${repo.repoName}/${repo.defaultBranch}/$fileName',
       );
       try {
         return await _client.getRaw(uri: uri);

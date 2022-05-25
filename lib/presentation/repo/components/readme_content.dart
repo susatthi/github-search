@@ -35,16 +35,14 @@ class RepoReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
 
   final RepoRepository _repoRepository;
 
-  /// リポジトリ
+  /// リポジトリEntity
   final Repo repo;
 
   Future<void> _get() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return _repoRepository.getReadme(
-        ownerName: repo.ownerName,
-        repoName: repo.repoName,
-        defaultBranch: repo.defaultBranch,
+        repo: repo,
       );
     });
   }
