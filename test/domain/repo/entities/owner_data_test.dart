@@ -12,7 +12,7 @@ void main() {
   final ownerJsonObject = TestAssets.readJsonMap('github/owner.json')!;
   group('OwnerData', () {
     test('from()でインスタンスを作成できるはず', () async {
-      final owner = Owner.fromJson(ownerJsonObject);
+      final owner = OwnerJsonObject.fromJson(ownerJsonObject);
       final ownerData = OwnerData.from(owner);
       expect(ownerData, isNotNull);
     });

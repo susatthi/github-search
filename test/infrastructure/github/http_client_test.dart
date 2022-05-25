@@ -30,17 +30,17 @@ void main() {
   });
   group('GitHubHttpClient.get()', () {
     test('200 OK', () async {
-      final repo = await client.get<Repo>(
+      final repo = await client.get<RepoJsonObject>(
         uri: Uri.parse('https://api.github.com/repos/flutter/flutter'),
-        responseBuilder: Repo.fromJson,
+        responseBuilder: RepoJsonObject.fromJson,
       );
       expect(repo, isNotNull);
     });
     test('400 BadRequest', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '400'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeBadRequest);
@@ -48,9 +48,9 @@ void main() {
     });
     test('401 BadCredentials', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '401'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeBadCredentials);
@@ -58,9 +58,9 @@ void main() {
     });
     test('403 MaximumNumberOfLoginAttemptsExceeded', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '403'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(
@@ -71,9 +71,9 @@ void main() {
     });
     test('404 NotFound', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '404'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeNotFound);
@@ -81,9 +81,9 @@ void main() {
     });
     test('422 ValidationFailed', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '422'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeValidationFailed);
@@ -91,9 +91,9 @@ void main() {
     });
     test('503 ServiceUnavailable', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '503'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeServiceUnavailable);
@@ -101,9 +101,9 @@ void main() {
     });
     test('Unknown', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: '555'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeUnknown);
@@ -111,9 +111,9 @@ void main() {
     });
     test('NoInternetConnection', () async {
       try {
-        await client.get<Owner>(
+        await client.get<OwnerJsonObject>(
           uri: Uri(path: 'socketException'),
-          responseBuilder: Owner.fromJson,
+          responseBuilder: OwnerJsonObject.fromJson,
         );
       } on GitHubException catch (e) {
         expect(e.code, GitHubException.codeNoInternetConnection);

@@ -117,7 +117,7 @@ void main() {
   late MockUrlLauncherPlatform mockUrlLauncherPlatform;
   setUp(() {
     repo = RepoData.from(
-      Repo.fromJson(
+      RepoJsonObject.fromJson(
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),
     );
@@ -131,7 +131,7 @@ void main() {
       // 参考サイト: https://github.com/dnfield/flutter_svg/blob/master/test/widget_svg_test.dart
 
       final repo = RepoData.from(
-        Repo.fromJson(
+        RepoJsonObject.fromJson(
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),
       );
@@ -223,7 +223,7 @@ void main() {
       ).thenAnswer((_) async => true);
 
       final repo = RepoData.from(
-        Repo.fromJson(
+        RepoJsonObject.fromJson(
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),
       );

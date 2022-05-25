@@ -6,10 +6,11 @@ part of 'repo.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Repo _$$_RepoFromJson(Map<String, dynamic> json) => _$_Repo(
+_$_RepoJsonObject _$$_RepoJsonObjectFromJson(Map<String, dynamic> json) =>
+    _$_RepoJsonObject(
       name: json['name'] as String,
       fullName: json['full_name'] as String,
-      owner: Owner.fromJson(json['owner'] as Map<String, dynamic>),
+      owner: OwnerJsonObject.fromJson(json['owner'] as Map<String, dynamic>),
       description: json['description'] as String?,
       stargazersCount: json['stargazers_count'] as int,
       watchersCount: json['watchers_count'] as int,
@@ -24,7 +25,8 @@ _$_Repo _$$_RepoFromJson(Map<String, dynamic> json) => _$_Repo(
       issuesUrl: json['issuesUrl'] as String?,
     );
 
-Map<String, dynamic> _$$_RepoToJson(_$_Repo instance) => <String, dynamic>{
+Map<String, dynamic> _$$_RepoJsonObjectToJson(_$_RepoJsonObject instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'full_name': instance.fullName,
       'owner': instance.owner,

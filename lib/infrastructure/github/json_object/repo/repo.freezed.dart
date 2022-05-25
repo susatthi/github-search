@@ -14,16 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Repo _$RepoFromJson(Map<String, dynamic> json) {
-  return _Repo.fromJson(json);
+RepoJsonObject _$RepoJsonObjectFromJson(Map<String, dynamic> json) {
+  return _RepoJsonObject.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Repo {
+mixin _$RepoJsonObject {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'full_name')
   String get fullName => throw _privateConstructorUsedError;
-  Owner get owner => throw _privateConstructorUsedError;
+  OwnerJsonObject get owner => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'stargazers_count')
   int get stargazersCount => throw _privateConstructorUsedError;
@@ -44,17 +44,19 @@ mixin _$Repo {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RepoCopyWith<Repo> get copyWith => throw _privateConstructorUsedError;
+  $RepoJsonObjectCopyWith<RepoJsonObject> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RepoCopyWith<$Res> {
-  factory $RepoCopyWith(Repo value, $Res Function(Repo) then) =
-      _$RepoCopyWithImpl<$Res>;
+abstract class $RepoJsonObjectCopyWith<$Res> {
+  factory $RepoJsonObjectCopyWith(
+          RepoJsonObject value, $Res Function(RepoJsonObject) then) =
+      _$RepoJsonObjectCopyWithImpl<$Res>;
   $Res call(
       {String name,
       @JsonKey(name: 'full_name') String fullName,
-      Owner owner,
+      OwnerJsonObject owner,
       String? description,
       @JsonKey(name: 'stargazers_count') int stargazersCount,
       @JsonKey(name: 'watchers_count') int watchersCount,
@@ -68,16 +70,17 @@ abstract class $RepoCopyWith<$Res> {
       String? forksUrl,
       String? issuesUrl});
 
-  $OwnerCopyWith<$Res> get owner;
+  $OwnerJsonObjectCopyWith<$Res> get owner;
 }
 
 /// @nodoc
-class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
-  _$RepoCopyWithImpl(this._value, this._then);
+class _$RepoJsonObjectCopyWithImpl<$Res>
+    implements $RepoJsonObjectCopyWith<$Res> {
+  _$RepoJsonObjectCopyWithImpl(this._value, this._then);
 
-  final Repo _value;
+  final RepoJsonObject _value;
   // ignore: unused_field
-  final $Res Function(Repo) _then;
+  final $Res Function(RepoJsonObject) _then;
 
   @override
   $Res call({
@@ -109,7 +112,7 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
       owner: owner == freezed
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
-              as Owner,
+              as OwnerJsonObject,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -162,22 +165,24 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
   }
 
   @override
-  $OwnerCopyWith<$Res> get owner {
-    return $OwnerCopyWith<$Res>(_value.owner, (value) {
+  $OwnerJsonObjectCopyWith<$Res> get owner {
+    return $OwnerJsonObjectCopyWith<$Res>(_value.owner, (value) {
       return _then(_value.copyWith(owner: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
-  factory _$$_RepoCopyWith(_$_Repo value, $Res Function(_$_Repo) then) =
-      __$$_RepoCopyWithImpl<$Res>;
+abstract class _$$_RepoJsonObjectCopyWith<$Res>
+    implements $RepoJsonObjectCopyWith<$Res> {
+  factory _$$_RepoJsonObjectCopyWith(
+          _$_RepoJsonObject value, $Res Function(_$_RepoJsonObject) then) =
+      __$$_RepoJsonObjectCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
       @JsonKey(name: 'full_name') String fullName,
-      Owner owner,
+      OwnerJsonObject owner,
       String? description,
       @JsonKey(name: 'stargazers_count') int stargazersCount,
       @JsonKey(name: 'watchers_count') int watchersCount,
@@ -192,17 +197,19 @@ abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
       String? issuesUrl});
 
   @override
-  $OwnerCopyWith<$Res> get owner;
+  $OwnerJsonObjectCopyWith<$Res> get owner;
 }
 
 /// @nodoc
-class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
-    implements _$$_RepoCopyWith<$Res> {
-  __$$_RepoCopyWithImpl(_$_Repo _value, $Res Function(_$_Repo) _then)
-      : super(_value, (v) => _then(v as _$_Repo));
+class __$$_RepoJsonObjectCopyWithImpl<$Res>
+    extends _$RepoJsonObjectCopyWithImpl<$Res>
+    implements _$$_RepoJsonObjectCopyWith<$Res> {
+  __$$_RepoJsonObjectCopyWithImpl(
+      _$_RepoJsonObject _value, $Res Function(_$_RepoJsonObject) _then)
+      : super(_value, (v) => _then(v as _$_RepoJsonObject));
 
   @override
-  _$_Repo get _value => super._value as _$_Repo;
+  _$_RepoJsonObject get _value => super._value as _$_RepoJsonObject;
 
   @override
   $Res call({
@@ -222,7 +229,7 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
     Object? forksUrl = freezed,
     Object? issuesUrl = freezed,
   }) {
-    return _then(_$_Repo(
+    return _then(_$_RepoJsonObject(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -234,7 +241,7 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
       owner: owner == freezed
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
-              as Owner,
+              as OwnerJsonObject,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -289,8 +296,8 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Repo implements _Repo {
-  const _$_Repo(
+class _$_RepoJsonObject implements _RepoJsonObject {
+  const _$_RepoJsonObject(
       {required this.name,
       @JsonKey(name: 'full_name') required this.fullName,
       required this.owner,
@@ -307,7 +314,8 @@ class _$_Repo implements _Repo {
       this.forksUrl,
       this.issuesUrl});
 
-  factory _$_Repo.fromJson(Map<String, dynamic> json) => _$$_RepoFromJson(json);
+  factory _$_RepoJsonObject.fromJson(Map<String, dynamic> json) =>
+      _$$_RepoJsonObjectFromJson(json);
 
   @override
   final String name;
@@ -315,7 +323,7 @@ class _$_Repo implements _Repo {
   @JsonKey(name: 'full_name')
   final String fullName;
   @override
-  final Owner owner;
+  final OwnerJsonObject owner;
   @override
   final String? description;
   @override
@@ -348,14 +356,14 @@ class _$_Repo implements _Repo {
 
   @override
   String toString() {
-    return 'Repo(name: $name, fullName: $fullName, owner: $owner, description: $description, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount, defaultBranch: $defaultBranch, repoUrl: $repoUrl, stargazersUrl: $stargazersUrl, watchersUrl: $watchersUrl, forksUrl: $forksUrl, issuesUrl: $issuesUrl)';
+    return 'RepoJsonObject(name: $name, fullName: $fullName, owner: $owner, description: $description, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount, defaultBranch: $defaultBranch, repoUrl: $repoUrl, stargazersUrl: $stargazersUrl, watchersUrl: $watchersUrl, forksUrl: $forksUrl, issuesUrl: $issuesUrl)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Repo &&
+            other is _$_RepoJsonObject &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality().equals(other.owner, owner) &&
@@ -403,20 +411,20 @@ class _$_Repo implements _Repo {
 
   @JsonKey(ignore: true)
   @override
-  _$$_RepoCopyWith<_$_Repo> get copyWith =>
-      __$$_RepoCopyWithImpl<_$_Repo>(this, _$identity);
+  _$$_RepoJsonObjectCopyWith<_$_RepoJsonObject> get copyWith =>
+      __$$_RepoJsonObjectCopyWithImpl<_$_RepoJsonObject>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RepoToJson(this);
+    return _$$_RepoJsonObjectToJson(this);
   }
 }
 
-abstract class _Repo implements Repo {
-  const factory _Repo(
+abstract class _RepoJsonObject implements RepoJsonObject {
+  const factory _RepoJsonObject(
       {required final String name,
       @JsonKey(name: 'full_name') required final String fullName,
-      required final Owner owner,
+      required final OwnerJsonObject owner,
       required final String? description,
       @JsonKey(name: 'stargazers_count') required final int stargazersCount,
       @JsonKey(name: 'watchers_count') required final int watchersCount,
@@ -428,9 +436,10 @@ abstract class _Repo implements Repo {
       final String? stargazersUrl,
       final String? watchersUrl,
       final String? forksUrl,
-      final String? issuesUrl}) = _$_Repo;
+      final String? issuesUrl}) = _$_RepoJsonObject;
 
-  factory _Repo.fromJson(Map<String, dynamic> json) = _$_Repo.fromJson;
+  factory _RepoJsonObject.fromJson(Map<String, dynamic> json) =
+      _$_RepoJsonObject.fromJson;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -438,7 +447,7 @@ abstract class _Repo implements Repo {
   @JsonKey(name: 'full_name')
   String get fullName => throw _privateConstructorUsedError;
   @override
-  Owner get owner => throw _privateConstructorUsedError;
+  OwnerJsonObject get owner => throw _privateConstructorUsedError;
   @override
   String? get description => throw _privateConstructorUsedError;
   @override
@@ -470,5 +479,6 @@ abstract class _Repo implements Repo {
   String? get issuesUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_RepoCopyWith<_$_Repo> get copyWith => throw _privateConstructorUsedError;
+  _$$_RepoJsonObjectCopyWith<_$_RepoJsonObject> get copyWith =>
+      throw _privateConstructorUsedError;
 }

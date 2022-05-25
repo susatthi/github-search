@@ -37,14 +37,14 @@ class GitHubRepoRepository implements RepoRepository {
   final GitHubHttpClient _client;
 
   @override
-  Future<SearchReposResult> searchRepos({
+  Future<SearchReposResultJsonObject> searchRepos({
     required String query,
     required RepoSearchReposSort sort,
     required RepoSearchReposOrder order,
     int? perPage,
     int? page,
   }) async =>
-      _client.get<SearchReposResult>(
+      _client.get<SearchReposResultJsonObject>(
         uri: _api.searchRepos(
           query: query,
           sort: GitHubRepoSearchReposSort.valueOf(sort),
@@ -53,7 +53,7 @@ class GitHubRepoRepository implements RepoRepository {
           page: page,
         ),
         responseBuilder: (data) {
-          final result = SearchReposResult.fromJson(data);
+          final result = SearchReposResultJsonObject.fromJson(data);
           return result.copyWith(
             items: result.items.map(repoBuilder).toList(),
           );
@@ -61,19 +61,19 @@ class GitHubRepoRepository implements RepoRepository {
       );
 
   @override
-  Future<Repo> getRepo({
+  Future<RepoJsonObject> getRepo({
     required String ownerName,
     required String repoName,
   }) async =>
-      _client.get<Repo>(
+      _client.get<RepoJsonObject>(
         uri: _api.getRepo(
           ownerName: ownerName,
           repoName: repoName,
         ),
-        responseBuilder: (data) => repoBuilder(Repo.fromJson(data)),
+        responseBuilder: (data) => repoBuilder(RepoJsonObject.fromJson(data)),
       );
 
-  static Repo repoBuilder(Repo repo) {
+  static RepoJsonObject repoBuilder(RepoJsonObject repo) {
     final ownerUrl = '$githubSiteUrl/${repo.owner.login}';
     final repoUrl = '$ownerUrl/${repo.name}';
     return repo.copyWith(

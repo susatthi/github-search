@@ -9,13 +9,13 @@ import '../owner/owner.dart';
 part 'repo.freezed.dart';
 part 'repo.g.dart';
 
-/// リポジトリEntity
+/// リポジトリJsonObject
 @freezed
-class Repo with _$Repo {
-  const factory Repo({
+class RepoJsonObject with _$RepoJsonObject {
+  const factory RepoJsonObject({
     required String name,
     @JsonKey(name: 'full_name') required String fullName,
-    required Owner owner,
+    required OwnerJsonObject owner,
     required String? description,
     @JsonKey(name: 'stargazers_count') required int stargazersCount,
     @JsonKey(name: 'watchers_count') required int watchersCount,
@@ -28,7 +28,8 @@ class Repo with _$Repo {
     String? watchersUrl,
     String? forksUrl,
     String? issuesUrl,
-  }) = _Repo;
+  }) = _RepoJsonObject;
 
-  factory Repo.fromJson(Map<String, dynamic> json) => _$RepoFromJson(json);
+  factory RepoJsonObject.fromJson(Map<String, dynamic> json) =>
+      _$RepoJsonObjectFromJson(json);
 }

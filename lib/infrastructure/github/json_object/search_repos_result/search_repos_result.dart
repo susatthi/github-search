@@ -9,15 +9,15 @@ import '../repo/repo.dart';
 part 'search_repos_result.freezed.dart';
 part 'search_repos_result.g.dart';
 
-/// リポジトリ検索結果Entity
+/// リポジトリ検索結果JsonObject
 @freezed
-class SearchReposResult with _$SearchReposResult {
-  const factory SearchReposResult({
+class SearchReposResultJsonObject with _$SearchReposResultJsonObject {
+  const factory SearchReposResultJsonObject({
     @JsonKey(name: 'total_count') required int totalCount,
     @JsonKey(name: 'incomplete_results') required bool incompleteResults,
-    required List<Repo> items,
-  }) = _SearchReposResult;
+    required List<RepoJsonObject> items,
+  }) = _SearchReposResultJsonObject;
 
-  factory SearchReposResult.fromJson(Map<String, dynamic> json) =>
-      _$SearchReposResultFromJson(json);
+  factory SearchReposResultJsonObject.fromJson(Map<String, dynamic> json) =>
+      _$SearchReposResultJsonObjectFromJson(json);
 }

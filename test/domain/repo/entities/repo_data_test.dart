@@ -14,7 +14,7 @@ void main() {
   setUp(() {
     final repoJsonObject =
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!;
-    final repo = Repo.fromJson(repoJsonObject);
+    final repo = RepoJsonObject.fromJson(repoJsonObject);
     repoData = RepoData.from(repo);
   });
 

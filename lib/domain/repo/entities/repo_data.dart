@@ -30,7 +30,7 @@ class RepoData {
     required this.issuesUrl,
   });
 
-  factory RepoData.from(Repo repo) {
+  factory RepoData.from(RepoJsonObject repo) {
     return RepoData(
       name: repo.name,
       fullName: repo.fullName,

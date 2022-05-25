@@ -12,7 +12,7 @@ class OwnerData {
     required this.ownerUrl,
   });
 
-  factory OwnerData.from(Owner owner) {
+  factory OwnerData.from(OwnerJsonObject owner) {
     return OwnerData(
       name: owner.login,
       avatarUrl: owner.avatarUrl,

@@ -19,7 +19,7 @@ void main() {
   late RepoData repo;
   setUp(() {
     repo = RepoData.from(
-      Repo.fromJson(
+      RepoJsonObject.fromJson(
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),
     );
