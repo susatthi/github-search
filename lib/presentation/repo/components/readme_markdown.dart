@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:markdown/markdown.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
@@ -26,7 +26,7 @@ class RepoReadmeMarkdown extends ConsumerWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   /// CacheManager
   final CacheManager? cacheManager;

@@ -8,11 +8,11 @@ import 'package:number_display/number_display.dart';
 
 import '../../../infrastructure/github/json_object/repo/repo.dart';
 import '../../../utils/extensions.dart';
-import 'owner_data.dart';
+import 'owner.dart';
 
-/// UI用リポジトリEntity
-class RepoData {
-  const RepoData({
+/// リポジトリEntity
+class Repo {
+  const Repo({
     required this.name,
     required this.fullName,
     required this.owner,
@@ -30,11 +30,11 @@ class RepoData {
     required this.issuesUrl,
   });
 
-  factory RepoData.from(RepoJsonObject repo) {
-    return RepoData(
+  factory Repo.from(RepoJsonObject repo) {
+    return Repo(
       name: repo.name,
       fullName: repo.fullName,
-      owner: OwnerData.from(repo.owner),
+      owner: Owner.from(repo.owner),
       description: repo.description,
       stargazersCount: repo.stargazersCount,
       watchersCount: repo.watchersCount,
@@ -57,7 +57,7 @@ class RepoData {
   final String fullName;
 
   /// オーナー
-  final OwnerData owner;
+  final Owner owner;
 
   /// 説明
   final String? description;

@@ -3,19 +3,19 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/repo_data.dart';
+import 'package:github_search/domain/repo/entities/repo.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../test_utils/utils.dart';
 
 void main() {
-  late RepoData repoData;
+  late Repo repoData;
   setUp(() {
     final repoJsonObject =
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!;
     final repo = RepoJsonObject.fromJson(repoJsonObject);
-    repoData = RepoData.from(repo);
+    repoData = Repo.from(repo);
   });
 
   group('RepoData', () {

@@ -4,13 +4,13 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import '../../../domain/repo/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 
 /// リポジトリREADMEコンテンツプロバイダー（Family）
 final repoReadmeContentProviderFamily = StateNotifierProvider.family
-    .autoDispose<RepoReadmeContentNotifier, AsyncValue<String>, RepoData>(
+    .autoDispose<RepoReadmeContentNotifier, AsyncValue<String>, Repo>(
   (ref, repo) {
     final repoRepository = ref.watch(repoRepositoryProvider);
     logger.i(
@@ -36,7 +36,7 @@ class RepoReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
   final RepoRepository _repoRepository;
 
   /// リポジトリ
-  final RepoData repo;
+  final Repo repo;
 
   Future<void> _get() async {
     state = const AsyncValue.loading();

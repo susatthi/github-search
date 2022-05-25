@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
-import 'package:github_search/domain/repo/entities/owner_data.dart';
-import 'package:github_search/domain/repo/entities/repo_data.dart';
+import 'package:github_search/domain/repo/entities/owner.dart';
+import 'package:github_search/domain/repo/entities/repo.dart';
 import 'package:github_search/presentation/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/repo/view_page.dart';
 import 'package:go_router/go_router.dart';
@@ -15,10 +15,10 @@ import 'package:go_router/go_router.dart';
 import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
 
-const _extra = RepoData(
+const _extra = Repo(
   name: '',
   fullName: '',
-  owner: OwnerData(
+  owner: Owner(
     name: '',
     avatarUrl: '',
     ownerUrl: '',

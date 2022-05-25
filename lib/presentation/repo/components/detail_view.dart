@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
 import '../../common/components/cached_circle_avatar.dart';
@@ -58,7 +58,7 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _AvatarRow extends StatelessWidget {
   }) : super(key: const Key('repo_detail_view#_AvatarRow'));
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class _FullnameRow extends StatelessWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +179,7 @@ class _DescriptionRow extends StatelessWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +206,7 @@ class _LanguageRow extends StatelessWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +233,7 @@ class _IconLabelsRow extends StatelessWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +290,7 @@ class _ReadmeRow extends StatelessWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context) {

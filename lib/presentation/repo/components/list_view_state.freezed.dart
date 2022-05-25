@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RepoListViewState {
   int get totalCount => throw _privateConstructorUsedError;
-  List<RepoData> get items => throw _privateConstructorUsedError;
+  List<Repo> get items => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   String get query => throw _privateConstructorUsedError;
@@ -33,11 +33,7 @@ abstract class $RepoListViewStateCopyWith<$Res> {
           RepoListViewState value, $Res Function(RepoListViewState) then) =
       _$RepoListViewStateCopyWithImpl<$Res>;
   $Res call(
-      {int totalCount,
-      List<RepoData> items,
-      bool hasNext,
-      int page,
-      String query});
+      {int totalCount, List<Repo> items, bool hasNext, int page, String query});
 }
 
 /// @nodoc
@@ -65,7 +61,7 @@ class _$RepoListViewStateCopyWithImpl<$Res>
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<RepoData>,
+              as List<Repo>,
       hasNext: hasNext == freezed
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
@@ -90,11 +86,7 @@ abstract class _$$_RepoListViewStateCopyWith<$Res>
       __$$_RepoListViewStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int totalCount,
-      List<RepoData> items,
-      bool hasNext,
-      int page,
-      String query});
+      {int totalCount, List<Repo> items, bool hasNext, int page, String query});
 }
 
 /// @nodoc
@@ -124,7 +116,7 @@ class __$$_RepoListViewStateCopyWithImpl<$Res>
       items: items == freezed
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<RepoData>,
+              as List<Repo>,
       hasNext: hasNext == freezed
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
@@ -146,7 +138,7 @@ class __$$_RepoListViewStateCopyWithImpl<$Res>
 class _$_RepoListViewState implements _RepoListViewState {
   const _$_RepoListViewState(
       {this.totalCount = 0,
-      final List<RepoData> items = const <RepoData>[],
+      final List<Repo> items = const <Repo>[],
       this.hasNext = false,
       this.page = 1,
       this.query = ''})
@@ -155,10 +147,10 @@ class _$_RepoListViewState implements _RepoListViewState {
   @override
   @JsonKey()
   final int totalCount;
-  final List<RepoData> _items;
+  final List<Repo> _items;
   @override
   @JsonKey()
-  List<RepoData> get items {
+  List<Repo> get items {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
@@ -210,7 +202,7 @@ class _$_RepoListViewState implements _RepoListViewState {
 abstract class _RepoListViewState implements RepoListViewState {
   const factory _RepoListViewState(
       {final int totalCount,
-      final List<RepoData> items,
+      final List<Repo> items,
       final bool hasNext,
       final int page,
       final String query}) = _$_RepoListViewState;
@@ -218,7 +210,7 @@ abstract class _RepoListViewState implements RepoListViewState {
   @override
   int get totalCount => throw _privateConstructorUsedError;
   @override
-  List<RepoData> get items => throw _privateConstructorUsedError;
+  List<Repo> get items => throw _privateConstructorUsedError;
   @override
   bool get hasNext => throw _privateConstructorUsedError;
   @override

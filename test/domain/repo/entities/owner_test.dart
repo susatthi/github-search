@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/owner_data.dart';
+import 'package:github_search/domain/repo/entities/owner.dart';
 import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 
 import '../../../test_utils/utils.dart';
@@ -13,7 +13,7 @@ void main() {
   group('OwnerData', () {
     test('from()でインスタンスを作成できるはず', () async {
       final owner = OwnerJsonObject.fromJson(ownerJsonObject);
-      final ownerData = OwnerData.from(owner);
+      final ownerData = Owner.from(owner);
       expect(ownerData, isNotNull);
     });
   });

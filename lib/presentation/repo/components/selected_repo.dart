@@ -6,20 +6,20 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import '../../../domain/repo/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import '../view_page.dart';
 
 /// 選択中のリポジトリプロバイダー
 final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<
-    RepoSelectedRepoNotifier, AsyncValue<RepoData>>(
+    RepoSelectedRepoNotifier, AsyncValue<Repo>>(
   (ref) => throw StateError('Provider was not initialized'),
 );
 
 /// 選択中のリポジトリプロバイダー（Family）
 final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
-    RepoSelectedRepoNotifier, AsyncValue<RepoData>, RepoSelectedRepoParameter>(
+    RepoSelectedRepoNotifier, AsyncValue<Repo>, RepoSelectedRepoParameter>(
   (ref, parameter) {
     final repoRepository = ref.watch(repoRepositoryProvider);
     logger.i('Create RepoSelectedRepoNotifier: parameter=$parameter');
@@ -42,7 +42,7 @@ class RepoSelectedRepoParameter extends Equatable {
       RepoSelectedRepoParameter(
         ownerName: state.params[pageParamKeyOwnerName]!,
         repoName: state.params[pageParamKeyRepoName]!,
-        extra: state.extra as RepoData?,
+        extra: state.extra as Repo?,
       );
 
   /// オーナー名
@@ -53,14 +53,14 @@ class RepoSelectedRepoParameter extends Equatable {
 
   /// 一覧画面から渡されるリポジトリデータ
   /// 詳細画面で再読込した場合などは null になる場合がある
-  final RepoData? extra;
+  final Repo? extra;
 
   @override
   List<Object?> get props => [ownerName, repoName, extra];
 }
 
 /// 選択中のリポジトリNotifier
-class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<RepoData>> {
+class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
   RepoSelectedRepoNotifier(
     this._repoRepository, {
     required this.parameter,
@@ -87,7 +87,7 @@ class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<RepoData>> {
         ownerName: parameter.ownerName,
         repoName: parameter.repoName,
       );
-      return RepoData.from(repo);
+      return Repo.from(repo);
     });
   }
 }

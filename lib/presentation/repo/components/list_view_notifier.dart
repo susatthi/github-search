@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import '../../../domain/repo/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'list_view_state.dart';
@@ -104,7 +104,7 @@ class RepoListViewNotifier
         page: value.page + 1,
       );
 
-      final appendedItems = result.items.map(RepoData.from).toList();
+      final appendedItems = result.items.map(Repo.from).toList();
       logger.i(
         'Result: totalCount=${result.totalCount}, '
         'fetchItems=${result.items.length}, '

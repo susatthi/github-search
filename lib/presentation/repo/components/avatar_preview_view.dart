@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import 'selected_repo.dart';
 
 /// アバター画像プレビューView
@@ -33,7 +33,7 @@ class _RepoAvatarPreviewView extends ConsumerWidget {
   });
 
   /// 選択中のリポジトリデータ
-  final RepoData repo;
+  final Repo repo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

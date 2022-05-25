@@ -4,16 +4,16 @@
 
 import '../../../infrastructure/github/json_object/owner/owner.dart';
 
-/// UI用オーナーEntity
-class OwnerData {
-  const OwnerData({
+/// オーナーEntity
+class Owner {
+  const Owner({
     required this.name,
     required this.avatarUrl,
     required this.ownerUrl,
   });
 
-  factory OwnerData.from(OwnerJsonObject owner) {
-    return OwnerData(
+  factory Owner.from(OwnerJsonObject owner) {
+    return Owner(
       name: owner.login,
       avatarUrl: owner.avatarUrl,
       ownerUrl: owner.ownerUrl,

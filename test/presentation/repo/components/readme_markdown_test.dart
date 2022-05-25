@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/repo_data.dart';
+import 'package:github_search/domain/repo/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/presentation/repo/components/readme_markdown.dart';
@@ -113,10 +113,10 @@ const String svgStr = '''
 final Uint8List svgBytes = utf8.encode(svgStr) as Uint8List;
 
 void main() {
-  late RepoData repo;
+  late Repo repo;
   late MockUrlLauncherPlatform mockUrlLauncherPlatform;
   setUp(() {
-    repo = RepoData.from(
+    repo = Repo.from(
       RepoJsonObject.fromJson(
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),
@@ -130,7 +130,7 @@ void main() {
     testWidgets('画像取得時にエラーが起きたときはSVGとして取得を試みるはず', (tester) async {
       // 参考サイト: https://github.com/dnfield/flutter_svg/blob/master/test/widget_svg_test.dart
 
-      final repo = RepoData.from(
+      final repo = Repo.from(
         RepoJsonObject.fromJson(
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),
@@ -222,7 +222,7 @@ void main() {
         ),
       ).thenAnswer((_) async => true);
 
-      final repo = RepoData.from(
+      final repo = Repo.from(
         RepoJsonObject.fromJson(
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),

@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/entities/repo.dart';
 import '../../../infrastructure/github/json_object/search_repos_result/search_repos_result.dart';
 
 part 'list_view_state.freezed.dart';
@@ -14,7 +14,7 @@ part 'list_view_state.freezed.dart';
 class RepoListViewState with _$RepoListViewState {
   const factory RepoListViewState({
     @Default(0) int totalCount,
-    @Default(<RepoData>[]) List<RepoData> items,
+    @Default(<Repo>[]) List<Repo> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
     @Default('') String query,
@@ -26,7 +26,7 @@ class RepoListViewState with _$RepoListViewState {
   ) {
     return RepoListViewState(
       totalCount: result.totalCount,
-      items: result.items.map(RepoData.from).toList(),
+      items: result.items.map(Repo.from).toList(),
       hasNext: result.items.length < result.totalCount,
       query: query,
     );

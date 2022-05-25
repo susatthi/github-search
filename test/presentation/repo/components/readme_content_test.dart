@@ -6,7 +6,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repo/entities/repo_data.dart';
+import 'package:github_search/domain/repo/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/presentation/repo/components/readme_content.dart';
@@ -16,9 +16,9 @@ import '../../../test_utils/mocks.dart';
 import '../../../test_utils/utils.dart';
 
 void main() {
-  late RepoData repo;
+  late Repo repo;
   setUp(() {
-    repo = RepoData.from(
+    repo = Repo.from(
       RepoJsonObject.fromJson(
         TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
       ),
