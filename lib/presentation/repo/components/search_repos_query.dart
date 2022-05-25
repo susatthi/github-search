@@ -4,8 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../config/constants.dart';
 import '../../../config/env.dart';
+import '../../../config/env_define.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
 final repoSearchReposInitQueryProvider = Provider<String>(
