@@ -8,8 +8,8 @@ import 'package:github_search/presentation/repo/components/full_name_text.dart';
 import 'package:github_search/presentation/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 
-import '../../test_utils/locale.dart';
-import '../../test_utils/mocks.dart';
+import '../../../test_utils/locale.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   setUp(useEnvironmentLocale);

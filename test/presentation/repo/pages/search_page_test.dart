@@ -11,9 +11,9 @@ import 'package:github_search/presentation/repo/components/sort_button.dart';
 import 'package:github_search/presentation/repo/components/sort_selector_bottom_sheet.dart';
 import 'package:github_search/presentation/repo/pages/search_page.dart';
 
-import '../../test_utils/hive.dart';
-import '../../test_utils/locale.dart';
-import '../../test_utils/mocks.dart';
+import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   late Directory tmpDir;

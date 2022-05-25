@@ -7,7 +7,7 @@ import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../test_utils/utils.dart';
+import '../../test_utils/utils.dart';
 
 void main() {
   late Repo repoData;

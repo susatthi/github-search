@@ -9,9 +9,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 
-import '../../test_utils/hive.dart';
-import '../../test_utils/locale.dart';
-import '../../test_utils/mocks.dart';
+import '../../../test_utils/hive.dart';
+import '../../../test_utils/locale.dart';
+import '../../../test_utils/mocks.dart';
 
 void main() {
   late Directory tmpDir;
