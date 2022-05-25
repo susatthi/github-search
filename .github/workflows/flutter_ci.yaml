@@ -521,9 +521,7 @@ jobs:
       - name: Run Dartdoc
         run: |
           dart pub global activate dartdoc
-          dartdoc --version
-          pwd
-          dartdoc
+          dart doc .
 
       # API ドキュメントを artifacts にアップロード
       - name: Upload API doc to Artifacts
