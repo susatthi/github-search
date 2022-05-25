@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/repo/components/repo_order_toggle_button.dart';
 import 'package:github_search/presentation/repo/components/repo_search_text_button.dart';
@@ -15,7 +16,6 @@ import 'package:github_search/presentation/repo/components/repo_sort_selector_bo
 import 'package:github_search/presentation/repo/repo_index_page.dart';
 import 'package:github_search/presentation/repo/repo_search_page.dart';
 import 'package:github_search/presentation/repo/repo_view_page.dart';
-import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../test_utils/hive.dart';
 import '../../test_utils/locale.dart';

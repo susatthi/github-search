@@ -4,8 +4,8 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../entities/repo/repo_data.dart';
-import '../../../entities/search_repos_result/search_repos_result.dart';
+import '../../../domain/repo/entities/repo_data.dart';
+import '../../../infrastructure/github/json_object/search_repos_result/search_repos_result.dart';
 
 part 'repo_list_view_state.freezed.dart';
 

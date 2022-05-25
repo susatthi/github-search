@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../entities/repo/repo_data.dart';
+import '../../../domain/repo/entities/repo_data.dart';
 import 'repo_selected_repo.dart';
 
 /// アバター画像プレビューView

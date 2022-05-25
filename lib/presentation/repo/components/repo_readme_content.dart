@@ -4,8 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../entities/repo/repo_data.dart';
-import '../../../repositories/repo_repository.dart';
+import '../../../domain/repo/entities/repo_data.dart';
+import '../../../domain/repo/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 
 /// リポジトリREADMEコンテンツプロバイダー（Family）

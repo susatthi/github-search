@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/entities/owner/owner.dart';
+import 'package:github_search/infrastructure/github/exception.dart';
+import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../test_utils/locale.dart';

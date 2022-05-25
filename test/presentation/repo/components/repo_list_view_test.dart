@@ -6,13 +6,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/common/components/error_view.dart';
 import 'package:github_search/presentation/common/components/list_loader.dart';
 import 'package:github_search/presentation/repo/components/repo_list_view.dart';
 import 'package:github_search/presentation/repo/components/repo_search_repos_query.dart';
 import 'package:github_search/presentation/repo/repo_view_page.dart';
-import 'package:github_search/repositories/github/http_client.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:number_display/number_display.dart';

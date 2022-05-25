@@ -6,10 +6,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/repo/components/repo_order_toggle_button.dart';
 import 'package:github_search/presentation/repo/components/repo_sort_selector_bottom_sheet.dart';
-import 'package:github_search/repositories/github/http_client.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../../../test_utils/hive.dart';

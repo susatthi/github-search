@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/presentation/repo/components/repo_full_name_text.dart';
 import 'package:github_search/presentation/repo/components/repo_selected_repo.dart';
-import 'package:github_search/repositories/github/http_client.dart';
 
 import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
