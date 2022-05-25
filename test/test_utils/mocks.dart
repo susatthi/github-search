@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/github_search_app.dart';
+import 'package:github_search/config/app.dart';
 import 'package:github_search/presentation/components/repo/repo_search_repos_query.dart';
 import 'package:github_search/repositories/github/http_client.dart';
 import 'package:go_router/go_router.dart';

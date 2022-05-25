@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'config/github_search_app.dart';
+import 'config/app.dart';
 import 'localizations/strings.g.dart';
 import 'repositories/hive/app_data_repository.dart';
 
