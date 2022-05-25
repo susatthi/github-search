@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/repo/components/list_view_notifier.dart';
+import 'package:github_search/presentation/repo/components/list_view_state.dart';
 
 import '../../../test_utils/hive.dart';
 import '../../../test_utils/locale.dart';

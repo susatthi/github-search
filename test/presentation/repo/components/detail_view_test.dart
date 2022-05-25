@@ -9,9 +9,9 @@ import 'package:github_search/presentation/common/components/cached_circle_avata
 import 'package:github_search/presentation/common/components/error_view.dart';
 import 'package:github_search/presentation/repo/components/detail_view.dart';
 import 'package:github_search/presentation/repo/components/readme_markdown.dart';
-import 'package:github_search/presentation/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
+import 'package:github_search/presentation/repo/state/selected_repo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages

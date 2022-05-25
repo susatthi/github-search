@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/presentation/repo/components/full_name_text.dart';
-import 'package:github_search/presentation/repo/components/selected_repo.dart';
+import 'package:github_search/presentation/repo/state/selected_repo.dart';
 
 import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';

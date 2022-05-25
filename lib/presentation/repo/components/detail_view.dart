@@ -15,9 +15,9 @@ import '../../common/components/hyperlink_text.dart';
 import '../../common/components/icon_label.dart';
 import '../pages/avatar_preview_page.dart';
 import '../pages/view_page.dart';
+import '../state/selected_repo.dart';
 import 'language_label.dart';
 import 'readme_markdown.dart';
-import 'selected_repo.dart';
 
 /// 1行の縦方向のパディング
 const _verticalPadding = 8.0;

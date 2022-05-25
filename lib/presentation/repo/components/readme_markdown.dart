@@ -15,7 +15,7 @@ import '../../../domain/entities/repo.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
-import 'readme_content.dart';
+import '../state/readme_content.dart';
 
 /// リポジトリREADMEのMarkdown表示
 class RepoReadmeMarkdown extends ConsumerWidget {

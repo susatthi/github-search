@@ -18,9 +18,8 @@ import '../../common/components/error_view.dart';
 import '../../common/components/icon_label.dart';
 import '../../common/components/list_loader.dart';
 import '../pages/view_page.dart';
+import '../state/list_view_state.dart';
 import 'language_label.dart';
-import 'list_view_notifier.dart';
-import 'list_view_state.dart';
 
 /// ListTileのleadingに表示するアバターのサイズ
 const _avatarSize = 40.0;

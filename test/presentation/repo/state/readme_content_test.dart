@@ -10,7 +10,7 @@ import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
-import 'package:github_search/presentation/repo/components/readme_content.dart';
+import 'package:github_search/presentation/repo/state/readme_content.dart';
 
 import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';

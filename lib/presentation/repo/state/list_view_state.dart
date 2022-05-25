@@ -3,15 +3,40 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../domain/entities/repo.dart';
 import '../../../domain/entities/repo_search_repos_order.dart';
 import '../../../domain/entities/repo_search_repos_sort.dart';
+import '../../../domain/entities/search_repos_result.dart';
 import '../../../domain/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
-import 'list_view_state.dart';
 import 'search_repos_order.dart';
 import 'search_repos_query.dart';
 import 'search_repos_sort.dart';
+
+part 'list_view_state.freezed.dart';
+
+/// リポジトリ一覧View状態
+@freezed
+class RepoListViewState with _$RepoListViewState {
+  const factory RepoListViewState({
+    @Default(0) int totalCount,
+    @Default(<Repo>[]) List<Repo> items,
+    @Default(false) bool hasNext,
+    @Default(1) int page,
+    @Default('') String query,
+  }) = _RepoListViewState;
+
+  factory RepoListViewState.from(SearchReposResult result) {
+    return RepoListViewState(
+      totalCount: result.totalCount,
+      items: result.items,
+      hasNext: result.items.length < result.totalCount,
+      query: result.query,
+    );
+  }
+}
 
 /// リポジトリ一覧View状態プロバイダー
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
