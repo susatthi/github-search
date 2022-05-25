@@ -8,12 +8,12 @@ targets:
       freezed:
         generate_for:
           include:
-            - lib/entities/**/*.dart
+            - lib/infrastructure/**/json_object/**/*.dart
             - lib/presentation/**/*state.dart
       json_serializable:
         generate_for:
           include:
-            - lib/entities/**/*.dart
+            - lib/infrastructure/**/json_object/**/*.dart
             - lib/presentation/**/*state.dart
       fast_i18n:
         options:

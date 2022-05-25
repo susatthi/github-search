@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/entities/owner/owner.dart';
+import 'package:github_search/infrastructure/github/exception.dart';
+import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/repositories/github/exception.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../test_utils/locale.dart';
@@ -13,16 +13,16 @@ import '../test_utils/locale.dart';
 void main() {
   late List<int> listInt;
   late List<String> listString;
-  late List<Owner> owners;
+  late List<OwnerJsonObject> owners;
   setUp(() {
     listInt = [1, 2, 3, 4, 5, 4, 3, 7, 6, 3];
     listString = ['apple', 'banana', 'orange', '', 'banana', 'pine'];
     owners = const [
-      Owner(login: 'user1', avatarUrl: 'url1'),
-      Owner(login: 'user2', avatarUrl: 'url2'),
-      Owner(login: 'user3', avatarUrl: 'url3'),
-      Owner(login: 'user4', avatarUrl: 'url4'),
-      Owner(login: 'user2', avatarUrl: 'url5'),
+      OwnerJsonObject(login: 'user1', avatarUrl: 'url1'),
+      OwnerJsonObject(login: 'user2', avatarUrl: 'url2'),
+      OwnerJsonObject(login: 'user3', avatarUrl: 'url3'),
+      OwnerJsonObject(login: 'user4', avatarUrl: 'url4'),
+      OwnerJsonObject(login: 'user2', avatarUrl: 'url5'),
     ];
     useEnvironmentLocale();
   });

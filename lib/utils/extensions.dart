@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import '../infrastructure/github/exception.dart';
 import '../localizations/strings.g.dart';
-import '../repositories/github/exception.dart';
 
 extension IterableEx<E> on Iterable<E> {
   /// for Null Safety [firstWhere]

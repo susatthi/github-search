@@ -5,7 +5,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:github_search/repositories/hive/app_data_repository.dart';
+import 'package:github_search/infrastructure/hive/app_data_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart' as path;
 
