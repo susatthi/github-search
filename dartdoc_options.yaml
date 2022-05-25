@@ -13,6 +13,6 @@ dartdoc:
 
   # 除外するファイルのパス
   nodoc:
-    - 'lib/assets/*.dart'
     - 'lib/config/env.dart'
+    - 'lib/utils/assets/*.dart'
     - 'lib/*.dart'

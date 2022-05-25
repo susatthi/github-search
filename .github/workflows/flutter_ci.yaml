@@ -520,7 +520,7 @@ jobs:
       # dartdoc を実行
       - name: Run Dartdoc
         run: |
-          dart pub global activate dartdoc 5.0.1
+          dart pub global activate dartdoc
           dartdoc
 
       # API ドキュメントを artifacts にアップロード
