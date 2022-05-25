@@ -4,14 +4,13 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../infrastructure/github/repo_repository.dart';
 import '../entities/repo.dart';
 import '../entities/repo_search_repos_order.dart';
 import '../entities/repo_search_repos_sort.dart';
 import '../entities/search_repos_result.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
-  (ref) => ref.watch(githubRepoRepositoryProvider),
+  (ref) => throw UnimplementedError(),
 );
 
 /// リポジトリRepository

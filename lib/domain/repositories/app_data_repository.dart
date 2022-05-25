@@ -4,13 +4,12 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../infrastructure/hive/app_data_repository.dart';
 import '../entities/repo_search_repos_order.dart';
 import '../entities/repo_search_repos_sort.dart';
 
 /// アプリデータRepositoryプロバイダー
 final appDataRepositoryProvider = Provider<AppDataRepository>(
-  (ref) => ref.watch(hiveAppDataRepositoryProvider),
+  (ref) => throw UnimplementedError(),
 );
 
 /// アプリデータRepository
@@ -21,16 +20,16 @@ abstract class AppDataRepository {
     AppDataKey.repoSearchReposOrder: RepoSearchReposOrder.desc,
   };
 
-  /// リポジトリ検索用ソートを設定する
+  /// リポジトリ検索用ソート値を設定する
   void setSearchReposSort(RepoSearchReposSort sort);
 
-  /// リポジトリ検索用ソートを返す
+  /// リポジトリ検索用ソート値を返す
   RepoSearchReposSort getSearchReposSort();
 
-  /// リポジトリ検索用オーダーを設定する
+  /// リポジトリ検索用オーダー値を設定する
   void setSearchReposOrder(RepoSearchReposOrder order);
 
-  /// リポジトリ検索用オーダーを設定する
+  /// リポジトリ検索用オーダー値を返す
   RepoSearchReposOrder getSearchReposOrder();
 }
 

@@ -7,7 +7,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:github_search/config/app.dart';
+import 'package:github_search/domain/repositories/app_data_repository.dart';
+import 'package:github_search/domain/repositories/repo_repository.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
+import 'package:github_search/infrastructure/github/repo_repository.dart';
+import 'package:github_search/infrastructure/hive/app_data_repository.dart';
 import 'package:github_search/presentation/repo/components/search_repos_query.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
@@ -152,6 +156,10 @@ Widget mockGitHubSearchApp({
 }) {
   return ProviderScope(
     overrides: [
+      // リポジトリの実装をDI
+      appDataRepositoryProvider
+          .overrideWithProvider(hiveAppDataRepositoryProvider),
+      repoRepositoryProvider.overrideWithProvider(githubRepoRepositoryProvider),
       // GitHubアクセストークンをダミー文字列にする
       githubAccessTokenProvider.overrideWithValue('dummy'),
       // モック版のHTTPクライアントを使う
@@ -172,6 +180,10 @@ ProviderContainer mockProviderContainer({
 }) {
   return ProviderContainer(
     overrides: [
+      // リポジトリの実装をDI
+      appDataRepositoryProvider
+          .overrideWithProvider(hiveAppDataRepositoryProvider),
+      repoRepositoryProvider.overrideWithProvider(githubRepoRepositoryProvider),
       // GitHubアクセストークンをダミー文字列にする
       githubAccessTokenProvider.overrideWithValue('dummy'),
       // モック版のHTTPクライアントを使う

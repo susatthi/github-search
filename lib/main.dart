@@ -7,6 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'config/app.dart';
+import 'domain/repositories/app_data_repository.dart';
+import 'domain/repositories/repo_repository.dart';
+import 'infrastructure/github/repo_repository.dart';
 import 'infrastructure/hive/app_data_repository.dart';
 import 'localizations/strings.g.dart';
 
@@ -21,8 +24,14 @@ Future<void> main() async {
   await Hive.openBox<dynamic>(hiveBoxNameAppData);
 
   runApp(
-    const ProviderScope(
-      child: GitHubSearchApp(),
+    ProviderScope(
+      overrides: [
+        appDataRepositoryProvider
+            .overrideWithProvider(hiveAppDataRepositoryProvider),
+        repoRepositoryProvider
+            .overrideWithProvider(githubRepoRepositoryProvider),
+      ],
+      child: const GitHubSearchApp(),
     ),
   );
 }

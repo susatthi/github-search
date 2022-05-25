@@ -5,6 +5,9 @@
 import '../../domain/entities/repo_search_repos_order.dart';
 import '../../domain/entities/repo_search_repos_sort.dart';
 
+/// GitHub の URL
+const githubSiteUrl = 'https://github.com';
+
 /// GitHub API の定義
 /// 各APIはUriを返す
 class GitHubApi {

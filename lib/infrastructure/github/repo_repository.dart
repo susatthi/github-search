@@ -15,11 +15,8 @@ import 'http_client.dart';
 import 'json_object/repo/repo.dart';
 import 'json_object/search_repos_result/search_repos_result.dart';
 
-/// GitHub の URL
-const githubSiteUrl = 'https://github.com';
-
 /// GitHubAPI版リポジトリRepositoryプロバイダー
-final githubRepoRepositoryProvider = Provider<GitHubRepoRepository>(
+final githubRepoRepositoryProvider = Provider<RepoRepository>(
   (ref) {
     final githubHttpClient = ref.watch(githubHttpClientProvider);
     return GitHubRepoRepository(

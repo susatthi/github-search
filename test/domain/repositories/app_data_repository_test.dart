@@ -26,6 +26,15 @@ void main() {
   });
 
   group('appDataRepositoryProvider', () {
+    test('DIする前はUnimplementedErrorがthrowされるはず', () async {
+      Object? exception;
+      try {
+        ProviderContainer().read(appDataRepositoryProvider);
+      } on ProviderException catch (e) {
+        exception = e.exception;
+      }
+      expect(exception is UnimplementedError, true);
+    });
     test('appDataRepositoryProviderからHiveAppDataRepositoryが取得できるはず', () async {
       final appDataRepository = container.read(appDataRepositoryProvider);
       expect(appDataRepository.runtimeType.toString(), 'HiveAppDataRepository');
