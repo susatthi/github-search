@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../pages/search_page.dart';
-import 'search_repos_query.dart';
+import '../state/search_repos_query.dart';
 import 'search_text_field.dart';
 
 /// リポジトリ検索用テキストボタン
