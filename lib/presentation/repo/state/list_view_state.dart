@@ -17,27 +17,6 @@ import 'search_repos_sort.dart';
 
 part 'list_view_state.freezed.dart';
 
-/// リポジトリ一覧View状態
-@freezed
-class RepoListViewState with _$RepoListViewState {
-  const factory RepoListViewState({
-    @Default(0) int totalCount,
-    @Default(<Repo>[]) List<Repo> items,
-    @Default(false) bool hasNext,
-    @Default(1) int page,
-    @Default('') String query,
-  }) = _RepoListViewState;
-
-  factory RepoListViewState.from(SearchReposResult result) {
-    return RepoListViewState(
-      totalCount: result.totalCount,
-      items: result.items,
-      hasNext: result.items.length < result.totalCount,
-      query: result.query,
-    );
-  }
-}
-
 /// リポジトリ一覧View状態プロバイダー
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewNotifier, AsyncValue<RepoListViewState>?>(
@@ -58,6 +37,27 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     );
   },
 );
+
+/// リポジトリ一覧View状態
+@freezed
+class RepoListViewState with _$RepoListViewState {
+  const factory RepoListViewState({
+    @Default(0) int totalCount,
+    @Default(<Repo>[]) List<Repo> items,
+    @Default(false) bool hasNext,
+    @Default(1) int page,
+    @Default('') String query,
+  }) = _RepoListViewState;
+
+  factory RepoListViewState.from(SearchReposResult result) {
+    return RepoListViewState(
+      totalCount: result.totalCount,
+      items: result.items,
+      hasNext: result.items.length < result.totalCount,
+      query: result.query,
+    );
+  }
+}
 
 /// リポジトリ一覧ViewNotifier
 class RepoListViewNotifier
