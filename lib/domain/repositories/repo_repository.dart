@@ -5,9 +5,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../entities/repo.dart';
-import '../entities/repo_search_repos_order.dart';
-import '../entities/repo_search_repos_sort.dart';
+import '../entities/search_repos_order.dart';
 import '../entities/search_repos_result.dart';
+import '../entities/search_repos_sort.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) => throw UnimplementedError(),
@@ -18,8 +18,8 @@ abstract class RepoRepository {
   /// リポジトリを検索する
   Future<SearchReposResult> searchRepos({
     required String query,
-    required RepoSearchReposSort sort,
-    required RepoSearchReposOrder order,
+    required SearchReposSort sort,
+    required SearchReposOrder order,
     int? perPage,
     int? page,
   });

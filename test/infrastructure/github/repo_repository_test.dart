@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo_search_repos_order.dart';
-import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
+import 'package:github_search/domain/entities/search_repos_order.dart';
+import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/domain/repositories/repo_repository.dart';
 import 'package:github_search/infrastructure/github/exception.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
@@ -31,8 +31,8 @@ void main() {
     test('検索できるはず', () async {
       final result = await repository.searchRepos(
         query: 'flutter',
-        sort: RepoSearchReposSort.bestMatch,
-        order: RepoSearchReposOrder.desc,
+        sort: SearchReposSort.bestMatch,
+        order: SearchReposOrder.desc,
       );
       expect(result, isNotNull);
     });

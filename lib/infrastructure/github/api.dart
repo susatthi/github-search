@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import '../../domain/entities/repo_search_repos_order.dart';
-import '../../domain/entities/repo_search_repos_sort.dart';
+import '../../domain/entities/search_repos_order.dart';
+import '../../domain/entities/search_repos_sort.dart';
 
 /// GitHub の URL
 const githubSiteUrl = 'https://github.com';
@@ -33,8 +33,8 @@ class GitHubApi {
   /// https://docs.github.com/ja/rest/reference/search#search-repositories
   Uri searchRepos({
     required String query,
-    GitHubRepoSearchReposSort? sort,
-    GitHubRepoSearchReposOrder? order,
+    GitHubSearchReposSort? sort,
+    GitHubSearchReposOrder? order,
     int? perPage,
     int? page,
   }) {
@@ -69,48 +69,48 @@ class GitHubApi {
 }
 
 /// GitHub リポジトリ検索用ソート
-enum GitHubRepoSearchReposSort {
+enum GitHubSearchReposSort {
   stars('stars'),
   forks('forks'),
   helpWantedIssues('help-wanted-issues');
 
-  const GitHubRepoSearchReposSort(this.jsonName);
+  const GitHubSearchReposSort(this.jsonName);
 
   final String jsonName;
 
-  /// RepoSearchReposSort => GitHubRepoSearchReposSort?
-  static GitHubRepoSearchReposSort? valueOf(RepoSearchReposSort sort) {
+  /// SearchReposSort => GitHubSearchReposSort?
+  static GitHubSearchReposSort? valueOf(SearchReposSort sort) {
     switch (sort) {
-      case RepoSearchReposSort.bestMatch:
+      case SearchReposSort.bestMatch:
         return null;
-      case RepoSearchReposSort.stars:
-        return GitHubRepoSearchReposSort.stars;
-      case RepoSearchReposSort.forks:
-        return GitHubRepoSearchReposSort.forks;
-      case RepoSearchReposSort.helpWantedIssues:
-        return GitHubRepoSearchReposSort.helpWantedIssues;
+      case SearchReposSort.stars:
+        return GitHubSearchReposSort.stars;
+      case SearchReposSort.forks:
+        return GitHubSearchReposSort.forks;
+      case SearchReposSort.helpWantedIssues:
+        return GitHubSearchReposSort.helpWantedIssues;
     }
   }
 }
 
 /// GitHub リポジトリ検索用オーダー
-enum GitHubRepoSearchReposOrder {
+enum GitHubSearchReposOrder {
   desc('desc'),
   asc('asc');
 
-  const GitHubRepoSearchReposOrder(this.jsonName);
+  const GitHubSearchReposOrder(this.jsonName);
 
   final String jsonName;
 
-  /// RepoSearchReposOrder => GitHubRepoSearchReposOrder
-  static GitHubRepoSearchReposOrder valueOf(
-    RepoSearchReposOrder order,
+  /// SearchReposOrder => GitHubSearchReposOrder
+  static GitHubSearchReposOrder valueOf(
+    SearchReposOrder order,
   ) {
     switch (order) {
-      case RepoSearchReposOrder.desc:
-        return GitHubRepoSearchReposOrder.desc;
-      case RepoSearchReposOrder.asc:
-        return GitHubRepoSearchReposOrder.asc;
+      case SearchReposOrder.desc:
+        return GitHubSearchReposOrder.desc;
+      case SearchReposOrder.asc:
+        return GitHubSearchReposOrder.asc;
     }
   }
 }

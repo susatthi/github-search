@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo_search_repos_order.dart';
-import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
+import 'package:github_search/domain/entities/search_repos_order.dart';
+import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/api.dart';
 
 import '../../test_utils/locale.dart';
@@ -20,8 +20,8 @@ void main() {
     test('クエリパラメータが正しいはず1', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GitHubRepoSearchReposSort.stars,
-        order: GitHubRepoSearchReposOrder.desc,
+        sort: GitHubSearchReposSort.stars,
+        order: GitHubSearchReposOrder.desc,
         perPage: 10,
         page: 2,
       );
@@ -30,8 +30,8 @@ void main() {
     test('クエリパラメータが正しいはず2', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GitHubRepoSearchReposSort.forks,
-        order: GitHubRepoSearchReposOrder.asc,
+        sort: GitHubSearchReposSort.forks,
+        order: GitHubSearchReposOrder.asc,
         perPage: 20,
         page: 3,
       );
@@ -40,8 +40,8 @@ void main() {
     test('クエリパラメータが正しいはず3', () {
       final uri = api.searchRepos(
         query: 'query',
-        sort: GitHubRepoSearchReposSort.helpWantedIssues,
-        order: GitHubRepoSearchReposOrder.asc,
+        sort: GitHubSearchReposSort.helpWantedIssues,
+        order: GitHubSearchReposOrder.asc,
         perPage: 20,
         page: 3,
       );
@@ -130,83 +130,83 @@ void main() {
       );
     });
   });
-  group('GitHubRepoSearchReposSort', () {
+  group('GitHubSearchReposSort', () {
     test('toString()', () {
       expect(
-        GitHubRepoSearchReposSort.stars.toString(),
-        'GitHubRepoSearchReposSort.stars',
+        GitHubSearchReposSort.stars.toString(),
+        'GitHubSearchReposSort.stars',
       );
       expect(
-        GitHubRepoSearchReposSort.forks.toString(),
-        'GitHubRepoSearchReposSort.forks',
+        GitHubSearchReposSort.forks.toString(),
+        'GitHubSearchReposSort.forks',
       );
       expect(
-        GitHubRepoSearchReposSort.helpWantedIssues.toString(),
-        'GitHubRepoSearchReposSort.helpWantedIssues',
+        GitHubSearchReposSort.helpWantedIssues.toString(),
+        'GitHubSearchReposSort.helpWantedIssues',
       );
     });
     test('jsonName', () {
-      expect(GitHubRepoSearchReposSort.stars.jsonName, 'stars');
-      expect(GitHubRepoSearchReposSort.forks.jsonName, 'forks');
+      expect(GitHubSearchReposSort.stars.jsonName, 'stars');
+      expect(GitHubSearchReposSort.forks.jsonName, 'forks');
       expect(
-        GitHubRepoSearchReposSort.helpWantedIssues.jsonName,
+        GitHubSearchReposSort.helpWantedIssues.jsonName,
         'help-wanted-issues',
       );
     });
     test('valueOf()', () {
       expect(
-        GitHubRepoSearchReposSort.valueOf(
-          RepoSearchReposSort.bestMatch,
+        GitHubSearchReposSort.valueOf(
+          SearchReposSort.bestMatch,
         ),
         null,
       );
       expect(
-        GitHubRepoSearchReposSort.valueOf(
-          RepoSearchReposSort.stars,
+        GitHubSearchReposSort.valueOf(
+          SearchReposSort.stars,
         ),
-        GitHubRepoSearchReposSort.stars,
+        GitHubSearchReposSort.stars,
       );
       expect(
-        GitHubRepoSearchReposSort.valueOf(
-          RepoSearchReposSort.forks,
+        GitHubSearchReposSort.valueOf(
+          SearchReposSort.forks,
         ),
-        GitHubRepoSearchReposSort.forks,
+        GitHubSearchReposSort.forks,
       );
       expect(
-        GitHubRepoSearchReposSort.valueOf(
-          RepoSearchReposSort.helpWantedIssues,
+        GitHubSearchReposSort.valueOf(
+          SearchReposSort.helpWantedIssues,
         ),
-        GitHubRepoSearchReposSort.helpWantedIssues,
+        GitHubSearchReposSort.helpWantedIssues,
       );
     });
   });
-  group('GitHubRepoSearchReposOrder', () {
+  group('GitHubSearchReposOrder', () {
     test('toString()', () {
       expect(
-        GitHubRepoSearchReposOrder.desc.toString(),
-        'GitHubRepoSearchReposOrder.desc',
+        GitHubSearchReposOrder.desc.toString(),
+        'GitHubSearchReposOrder.desc',
       );
       expect(
-        GitHubRepoSearchReposOrder.asc.toString(),
-        'GitHubRepoSearchReposOrder.asc',
+        GitHubSearchReposOrder.asc.toString(),
+        'GitHubSearchReposOrder.asc',
       );
     });
     test('jsonName', () {
-      expect(GitHubRepoSearchReposOrder.asc.jsonName, 'asc');
-      expect(GitHubRepoSearchReposOrder.desc.jsonName, 'desc');
+      expect(GitHubSearchReposOrder.asc.jsonName, 'asc');
+      expect(GitHubSearchReposOrder.desc.jsonName, 'desc');
     });
     test('valueOf()', () {
       expect(
-        GitHubRepoSearchReposOrder.valueOf(
-          RepoSearchReposOrder.desc,
+        GitHubSearchReposOrder.valueOf(
+          SearchReposOrder.desc,
         ),
-        GitHubRepoSearchReposOrder.desc,
+        GitHubSearchReposOrder.desc,
       );
       expect(
-        GitHubRepoSearchReposOrder.valueOf(
-          RepoSearchReposOrder.asc,
+        GitHubSearchReposOrder.valueOf(
+          SearchReposOrder.asc,
         ),
-        GitHubRepoSearchReposOrder.asc,
+        GitHubSearchReposOrder.asc,
       );
     });
   });

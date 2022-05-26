@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/presentation/repo/components/language_label.dart';
 
 import '../../../test_utils/locale.dart';
@@ -13,13 +14,11 @@ void main() {
   setUp(useEnvironmentLocale);
   group('RepoLanguageLabel', () {
     testWidgets('正しく表示出来るはず', (tester) async {
-      const expectedColor = Colors.red;
-      const expectedLanguage = 'Dart';
+      const expectedLanguage = RepoLanguage('Dart');
 
       await tester.pumpWidget(
         mockGitHubSearchApp(
           home: const RepoLanguageLabel(
-            color: expectedColor,
             language: expectedLanguage,
           ),
         ),
@@ -30,16 +29,18 @@ void main() {
 
       // アイコンの色が指定した色になっているはず
       final icon = tester.widget(find.byIcon(Icons.circle)) as Icon;
-      expect(icon.color, expectedColor);
+      expect(icon.color, expectedLanguage.color);
 
       // プロジェクト言語が表示されるはず
-      expect(find.text(expectedLanguage), findsOneWidget);
+      expect(find.text(expectedLanguage.language!), findsOneWidget);
     });
     testWidgets('プロジェクト言語がnullの場合は何も表示しないはず', (tester) async {
+      const expectedLanguage = RepoLanguage();
+
       await tester.pumpWidget(
         mockGitHubSearchApp(
           home: const RepoLanguageLabel(
-            color: Colors.red,
+            language: expectedLanguage,
           ),
         ),
       );

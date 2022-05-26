@@ -5,8 +5,8 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo_search_repos_order.dart';
-import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
+import 'package:github_search/domain/entities/search_repos_order.dart';
+import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/domain/repositories/app_data_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data_repository.dart';
 
@@ -32,68 +32,68 @@ void main() {
       // 初期値はベストマッチのはず
       expect(
         repository.getSearchReposSort(),
-        RepoSearchReposSort.bestMatch,
+        SearchReposSort.bestMatch,
       );
 
       // スター数に変更する
-      repository.setSearchReposSort(RepoSearchReposSort.stars);
+      repository.setSearchReposSort(SearchReposSort.stars);
 
       // スター数になるはず
       expect(
         repository.getSearchReposSort(),
-        RepoSearchReposSort.stars,
+        SearchReposSort.stars,
       );
 
       // フォーク数に変更する
-      repository.setSearchReposSort(RepoSearchReposSort.forks);
+      repository.setSearchReposSort(SearchReposSort.forks);
 
       // フォーク数になるはず
       expect(
         repository.getSearchReposSort(),
-        RepoSearchReposSort.forks,
+        SearchReposSort.forks,
       );
 
       // ヘルプ数に変更する
-      repository.setSearchReposSort(RepoSearchReposSort.helpWantedIssues);
+      repository.setSearchReposSort(SearchReposSort.helpWantedIssues);
 
       // ヘルプ数になるはず
       expect(
         repository.getSearchReposSort(),
-        RepoSearchReposSort.helpWantedIssues,
+        SearchReposSort.helpWantedIssues,
       );
 
       // ベストマッチに変更する
-      repository.setSearchReposSort(RepoSearchReposSort.bestMatch);
+      repository.setSearchReposSort(SearchReposSort.bestMatch);
 
       // ベストマッチになるはず
       expect(
         repository.getSearchReposSort(),
-        RepoSearchReposSort.bestMatch,
+        SearchReposSort.bestMatch,
       );
     });
     test('setSearchReposOrder() / getSearchReposOrder()', () async {
       // 初期値は降順のはず
       expect(
         repository.getSearchReposOrder(),
-        RepoSearchReposOrder.desc,
+        SearchReposOrder.desc,
       );
 
       // 昇順に変更する
-      repository.setSearchReposOrder(RepoSearchReposOrder.asc);
+      repository.setSearchReposOrder(SearchReposOrder.asc);
 
       // 昇順になるはず
       expect(
         repository.getSearchReposOrder(),
-        RepoSearchReposOrder.asc,
+        SearchReposOrder.asc,
       );
 
       // 降順に変更する
-      repository.setSearchReposOrder(RepoSearchReposOrder.desc);
+      repository.setSearchReposOrder(SearchReposOrder.desc);
 
       // 降順になるはず
       expect(
         repository.getSearchReposOrder(),
-        RepoSearchReposOrder.desc,
+        SearchReposOrder.desc,
       );
     });
   });

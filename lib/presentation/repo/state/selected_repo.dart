@@ -22,7 +22,7 @@ final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
     RepoSelectedRepoNotifier, AsyncValue<Repo>, RepoSelectedRepoParameter>(
   (ref, parameter) {
     final repoRepository = ref.watch(repoRepositoryProvider);
-    logger.i('Create RepoSelectedRepoNotifier: parameter=$parameter');
+    logger.i('Create RepoSelectedRepoNotifier: parameter = $parameter');
     return RepoSelectedRepoNotifier(
       repoRepository,
       parameter: parameter,

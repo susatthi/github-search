@@ -41,7 +41,7 @@ mixin _$Repo {
   int get watchersCount => throw _privateConstructorUsedError;
 
   /// プロジェクト言語
-  String? get language => throw _privateConstructorUsedError;
+  RepoLanguage get language => throw _privateConstructorUsedError;
 
   /// フォーク数
   int get forksCount => throw _privateConstructorUsedError;
@@ -84,7 +84,7 @@ abstract class $RepoCopyWith<$Res> {
       String? description,
       int stargazersCount,
       int watchersCount,
-      String? language,
+      RepoLanguage language,
       int forksCount,
       int openIssuesCount,
       String defaultBranch,
@@ -159,7 +159,7 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as RepoLanguage,
       forksCount: forksCount == freezed
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
@@ -210,7 +210,7 @@ abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
       String? description,
       int stargazersCount,
       int watchersCount,
-      String? language,
+      RepoLanguage language,
       int forksCount,
       int openIssuesCount,
       String defaultBranch,
@@ -286,7 +286,7 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as RepoLanguage,
       forksCount: forksCount == freezed
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
@@ -335,7 +335,7 @@ class _$_Repo implements _Repo {
       this.description,
       required this.stargazersCount,
       required this.watchersCount,
-      this.language,
+      required this.language,
       required this.forksCount,
       required this.openIssuesCount,
       required this.defaultBranch,
@@ -379,7 +379,7 @@ class _$_Repo implements _Repo {
 
   /// プロジェクト言語
   @override
-  final String? language;
+  final RepoLanguage language;
 
   /// フォーク数
   @override
@@ -487,7 +487,7 @@ abstract class _Repo implements Repo {
       final String? description,
       required final int stargazersCount,
       required final int watchersCount,
-      final String? language,
+      required final RepoLanguage language,
       required final int forksCount,
       required final int openIssuesCount,
       required final String defaultBranch,
@@ -532,7 +532,7 @@ abstract class _Repo implements Repo {
   @override
 
   /// プロジェクト言語
-  String? get language => throw _privateConstructorUsedError;
+  RepoLanguage get language => throw _privateConstructorUsedError;
   @override
 
   /// フォーク数

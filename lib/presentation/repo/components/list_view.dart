@@ -191,11 +191,10 @@ class _RepoListTile extends StatelessWidget {
                 width: 80,
                 child: IconLabel(
                   icon: Icons.star_outline,
-                  text: repo.stargazersCountShort,
+                  text: repo.stargazersCount.display,
                 ),
               ),
               RepoLanguageLabel(
-                color: repo.languageColor,
                 language: repo.language,
               ),
             ],
@@ -236,7 +235,7 @@ class _LastIndicator extends ConsumerWidget {
       ),
       onVisibilityChanged: (info) async {
         if (info.visibleFraction > 0.1) {
-          logger.i('Appeared progress: info=$info');
+          logger.i('Appeared progress: info = $info');
           // 表示されたので次のページを取得する
           await ref.read(repoListViewStateProvider.notifier).fetchNextPage();
         }

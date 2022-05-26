@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/repo_search_repos_order.dart';
+import '../../../domain/entities/search_repos_order.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
 import '../state/list_view_state.dart';
@@ -43,12 +43,12 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final order = ref.watch(repoSearchReposOrderProvider);
-    logger.v('enabled=$enabled, order=${order.name}');
+    logger.v('enabled = $enabled, order = ${order.name}');
     return IconButton(
       onPressed: enabled
           ? () {
               final newOrder = order.toggle;
-              logger.i('Chanced $newOrder');
+              logger.i('Toggled: newOrder = $newOrder');
               ref.read(repoSearchReposOrderProvider.notifier).order = newOrder;
             }
           : null,
@@ -63,23 +63,23 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
   }
 }
 
-extension _RepoParamSearchReposOrderHelper on RepoSearchReposOrder {
+extension _SearchReposOrderHelper on SearchReposOrder {
   /// トグルしたオーダー値を返す
-  RepoSearchReposOrder get toggle {
+  SearchReposOrder get toggle {
     switch (this) {
-      case RepoSearchReposOrder.desc:
-        return RepoSearchReposOrder.asc;
-      case RepoSearchReposOrder.asc:
-        return RepoSearchReposOrder.desc;
+      case SearchReposOrder.desc:
+        return SearchReposOrder.asc;
+      case SearchReposOrder.asc:
+        return SearchReposOrder.desc;
     }
   }
 
   /// アイコンデータを返す
   IconData get icon {
     switch (this) {
-      case RepoSearchReposOrder.desc:
+      case SearchReposOrder.desc:
         return Icons.arrow_downward;
-      case RepoSearchReposOrder.asc:
+      case SearchReposOrder.asc:
         return Icons.arrow_upward;
     }
   }
@@ -87,9 +87,9 @@ extension _RepoParamSearchReposOrderHelper on RepoSearchReposOrder {
   /// 表示名を返す
   String get label {
     switch (this) {
-      case RepoSearchReposOrder.desc:
+      case SearchReposOrder.desc:
         return i18n.desc;
-      case RepoSearchReposOrder.asc:
+      case SearchReposOrder.asc:
         return i18n.asc;
     }
   }

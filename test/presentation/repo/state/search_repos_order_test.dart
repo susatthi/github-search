@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo_search_repos_order.dart';
+import 'package:github_search/domain/entities/search_repos_order.dart';
 import 'package:github_search/presentation/repo/state/search_repos_order.dart';
 
 import '../../../test_utils/hive.dart';
@@ -29,28 +29,28 @@ void main() {
   group('repoSearchReposOrderProvider', () {
     test('初期値は降順のはず', () async {
       final order = container.read(repoSearchReposOrderProvider);
-      expect(order, RepoSearchReposOrder.desc);
+      expect(order, SearchReposOrder.desc);
     });
   });
   group('RepoSearchReposOrderNotifier', () {
     test('オーダー値を変更できるはず', () async {
       // 昇順に変更する
       final notifier = container.read(repoSearchReposOrderProvider.notifier)
-        ..order = RepoSearchReposOrder.asc;
+        ..order = SearchReposOrder.asc;
 
       // 昇順のはず
       expect(
         container.read(repoSearchReposOrderProvider),
-        RepoSearchReposOrder.asc,
+        SearchReposOrder.asc,
       );
 
       // 降順に変更する
-      notifier.order = RepoSearchReposOrder.desc;
+      notifier.order = SearchReposOrder.desc;
 
       // 降順のはず
       expect(
         container.read(repoSearchReposOrderProvider),
-        RepoSearchReposOrder.desc,
+        SearchReposOrder.desc,
       );
     });
   });

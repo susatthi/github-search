@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/repo.dart';
-import '../../../domain/entities/repo_search_repos_order.dart';
-import '../../../domain/entities/repo_search_repos_sort.dart';
+import '../../../domain/entities/search_repos_order.dart';
 import '../../../domain/entities/search_repos_result.dart';
+import '../../../domain/entities/search_repos_sort.dart';
 import '../../../domain/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'search_repos_order.dart';
@@ -26,8 +26,8 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
     logger.i(
-      'Create RepoListViewNotifier: query=$query, '
-      'sort=${sort.name}, order=${order.name}',
+      'Create RepoListViewNotifier: query = $query, '
+      'sort = ${sort.name}, order = ${order.name}',
     );
     return RepoListViewNotifier(
       repoRepository,
@@ -77,10 +77,10 @@ class RepoListViewNotifier
   final String query;
 
   /// 検索ソート
-  final RepoSearchReposSort sort;
+  final SearchReposSort sort;
 
   /// 検索オーダー
-  final RepoSearchReposOrder order;
+  final SearchReposOrder order;
 
   /// 1ページに取得するレポジトリの数
   static const perPage = 30;
@@ -101,8 +101,8 @@ class RepoListViewNotifier
         perPage: perPage,
       );
       logger.i(
-        'result: totalCount=${result.totalCount}, '
-        'items=${result.items.length}, ',
+        'Search repos result: totalCount = ${result.totalCount}, '
+        'fetchItems = ${result.items.length}',
       );
       return RepoListViewState.from(result);
     });
@@ -132,9 +132,9 @@ class RepoListViewNotifier
 
       final appendedItems = result.items;
       logger.i(
-        'Result: totalCount=${result.totalCount}, '
-        'fetchItems=${result.items.length}, '
-        'totalItems=${value.items.length + appendedItems.length}, ',
+        'Search repos result: totalCount = ${result.totalCount}, '
+        'fetchItems = ${result.items.length}, '
+        'totalItems = ${value.items.length + appendedItems.length}',
       );
       return value.copyWith(
         items: value.items + appendedItems,

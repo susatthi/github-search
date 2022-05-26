@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo_search_repos_sort.dart';
+import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/presentation/repo/state/search_repos_sort.dart';
 
 import '../../../test_utils/hive.dart';
@@ -29,46 +29,46 @@ void main() {
   group('repoSearchReposSortProvider', () {
     test('初期値はベストマッチのはず', () async {
       final sort = container.read(repoSearchReposSortProvider);
-      expect(sort, RepoSearchReposSort.bestMatch);
+      expect(sort, SearchReposSort.bestMatch);
     });
   });
   group('RepoSearchReposSortNotifier', () {
     test('ソート値を変更できるはず', () async {
       // スター数に変更する
       final notifier = container.read(repoSearchReposSortProvider.notifier)
-        ..sort = RepoSearchReposSort.stars;
+        ..sort = SearchReposSort.stars;
 
       // スター数のはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoSearchReposSort.stars,
+        SearchReposSort.stars,
       );
 
       // フォーク数に変更する
-      notifier.sort = RepoSearchReposSort.forks;
+      notifier.sort = SearchReposSort.forks;
 
       // フォーク数のはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoSearchReposSort.forks,
+        SearchReposSort.forks,
       );
 
       // ヘルプ数に変更する
-      notifier.sort = RepoSearchReposSort.helpWantedIssues;
+      notifier.sort = SearchReposSort.helpWantedIssues;
 
       // ヘルプ数のはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoSearchReposSort.helpWantedIssues,
+        SearchReposSort.helpWantedIssues,
       );
 
       // ベストマッチに変更する
-      notifier.sort = RepoSearchReposSort.bestMatch;
+      notifier.sort = SearchReposSort.bestMatch;
 
       // ベストマッチのはず
       expect(
         container.read(repoSearchReposSortProvider),
-        RepoSearchReposSort.bestMatch,
+        SearchReposSort.bestMatch,
       );
     });
   });

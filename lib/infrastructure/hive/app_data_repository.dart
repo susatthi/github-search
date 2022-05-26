@@ -5,8 +5,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../domain/entities/repo_search_repos_order.dart';
-import '../../domain/entities/repo_search_repos_sort.dart';
+import '../../domain/entities/search_repos_order.dart';
+import '../../domain/entities/search_repos_sort.dart';
 import '../../domain/repositories/app_data_repository.dart';
 
 /// Hive の Box 名
@@ -39,36 +39,36 @@ class HiveAppDataRepository implements AppDataRepository {
           .value as T?;
 
   @override
-  void setSearchReposSort(RepoSearchReposSort sort) {
-    _box.put(AppDataKey.repoSearchReposSort.name, sort.name);
+  void setSearchReposSort(SearchReposSort sort) {
+    _box.put(AppDataKey.searchReposSort.name, sort.name);
   }
 
   @override
-  RepoSearchReposSort getSearchReposSort() {
-    final defaultValue = _getDefaultValue<RepoSearchReposSort>(
-      AppDataKey.repoSearchReposSort,
+  SearchReposSort getSearchReposSort() {
+    final defaultValue = _getDefaultValue<SearchReposSort>(
+      AppDataKey.searchReposSort,
     );
     final name = _box.get(
-      AppDataKey.repoSearchReposSort.name,
+      AppDataKey.searchReposSort.name,
       defaultValue: defaultValue?.name,
     ) as String;
-    return RepoSearchReposSort.valueOf(name);
+    return SearchReposSort.valueOf(name);
   }
 
   @override
-  void setSearchReposOrder(RepoSearchReposOrder order) {
-    _box.put(AppDataKey.repoSearchReposOrder.name, order.name);
+  void setSearchReposOrder(SearchReposOrder order) {
+    _box.put(AppDataKey.searchReposOrder.name, order.name);
   }
 
   @override
-  RepoSearchReposOrder getSearchReposOrder() {
-    final defaultValue = _getDefaultValue<RepoSearchReposOrder>(
-      AppDataKey.repoSearchReposOrder,
+  SearchReposOrder getSearchReposOrder() {
+    final defaultValue = _getDefaultValue<SearchReposOrder>(
+      AppDataKey.searchReposOrder,
     );
     final name = _box.get(
-      AppDataKey.repoSearchReposOrder.name,
+      AppDataKey.searchReposOrder.name,
       defaultValue: defaultValue?.name,
     ) as String;
-    return RepoSearchReposOrder.valueOf(name);
+    return SearchReposOrder.valueOf(name);
   }
 }

@@ -5,9 +5,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/repo.dart';
-import '../../domain/entities/repo_search_repos_order.dart';
-import '../../domain/entities/repo_search_repos_sort.dart';
+import '../../domain/entities/search_repos_order.dart';
 import '../../domain/entities/search_repos_result.dart';
+import '../../domain/entities/search_repos_sort.dart';
 import '../../domain/repositories/repo_repository.dart';
 import 'api.dart';
 import 'exception.dart';
@@ -40,16 +40,16 @@ class GitHubRepoRepository implements RepoRepository {
   @override
   Future<SearchReposResult> searchRepos({
     required String query,
-    required RepoSearchReposSort sort,
-    required RepoSearchReposOrder order,
+    required SearchReposSort sort,
+    required SearchReposOrder order,
     int? perPage,
     int? page,
   }) async =>
       _client.get<SearchReposResult>(
         uri: _api.searchRepos(
           query: query,
-          sort: GitHubRepoSearchReposSort.valueOf(sort),
-          order: GitHubRepoSearchReposOrder.valueOf(order),
+          sort: GitHubSearchReposSort.valueOf(sort),
+          order: GitHubSearchReposOrder.valueOf(order),
           perPage: perPage,
           page: page,
         ),
@@ -88,7 +88,7 @@ class GitHubRepoRepository implements RepoRepository {
       description: jsonObject.description,
       stargazersCount: jsonObject.stargazersCount,
       watchersCount: jsonObject.watchersCount,
-      language: jsonObject.language,
+      language: RepoLanguage(jsonObject.language),
       forksCount: jsonObject.forksCount,
       openIssuesCount: jsonObject.openIssuesCount,
       defaultBranch: jsonObject.defaultBranch,

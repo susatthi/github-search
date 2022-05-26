@@ -211,14 +211,13 @@ class _LanguageRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: repo.language != null,
+      visible: repo.language.language != null,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: _horizontalPadding,
           vertical: _verticalPadding,
         ),
         child: RepoLanguageLabel(
-          color: repo.languageColor,
           language: repo.language,
         ),
       ),
@@ -248,7 +247,7 @@ class _IconLabelsRow extends StatelessWidget {
             ),
             url: repo.stargazersUrl,
             icon: Icons.star_outline,
-            text: repo.stargazersCountShort,
+            text: repo.stargazersCount.display,
           ),
           _IconLabel(
             padding: const EdgeInsets.symmetric(
@@ -257,7 +256,7 @@ class _IconLabelsRow extends StatelessWidget {
             ),
             url: repo.watchersUrl,
             icon: Icons.visibility_outlined,
-            text: repo.watchersCountShort,
+            text: repo.watchersCount.display,
           ),
           _IconLabel(
             padding: const EdgeInsets.symmetric(
@@ -266,7 +265,7 @@ class _IconLabelsRow extends StatelessWidget {
             ),
             url: repo.forksUrl,
             icon: Icons.fork_right_outlined,
-            text: repo.forksCountShort,
+            text: repo.forksCount.display,
           ),
           _IconLabel(
             padding: const EdgeInsets.symmetric(
@@ -275,7 +274,7 @@ class _IconLabelsRow extends StatelessWidget {
             ),
             url: repo.issuesUrl,
             icon: Icons.bug_report_outlined,
-            text: repo.openIssuesCountShort,
+            text: repo.openIssuesCount.display,
           ),
         ],
       ),
