@@ -88,7 +88,7 @@ class GitHubRepoRepository implements RepoRepository {
       description: jsonObject.description,
       stargazersCount: jsonObject.stargazersCount,
       watchersCount: jsonObject.watchersCount,
-      language: jsonObject.language,
+      language: RepoLanguage(jsonObject.language),
       forksCount: jsonObject.forksCount,
       openIssuesCount: jsonObject.openIssuesCount,
       defaultBranch: jsonObject.defaultBranch,

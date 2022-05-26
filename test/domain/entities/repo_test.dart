@@ -17,6 +17,14 @@ void main() {
     ),
   );
 
+  group('RepoLanguage', () {
+    test('language', () async {
+      expect(repo.language.language, 'Dart');
+    });
+    test('color', () async {
+      expect(repo.language.color.value, HexColor('#00B4AB').value);
+    });
+  });
   group('RepoHelper', () {
     test('stargazersCountShort', () async {
       expect(repo.stargazersCount, 137773);
@@ -25,9 +33,6 @@ void main() {
     test('watchersCountShort', () async {
       expect(repo.watchersCount, 137773);
       expect(repo.watchersCountShort, '138k');
-    });
-    test('languageColor', () async {
-      expect(repo.languageColor.value, HexColor('#00B4AB').value);
     });
     test('forksCountShort', () async {
       expect(repo.forksCount, 21221);

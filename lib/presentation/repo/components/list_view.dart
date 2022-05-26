@@ -195,7 +195,6 @@ class _RepoListTile extends StatelessWidget {
                 ),
               ),
               RepoLanguageLabel(
-                color: repo.languageColor,
                 language: repo.language,
               ),
             ],

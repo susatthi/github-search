@@ -4,24 +4,22 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/repo.dart';
+
 /// プロジェクト言語のカラー＋ラベル
 class RepoLanguageLabel extends StatelessWidget {
   const RepoLanguageLabel({
     super.key,
-    required this.color,
-    this.language,
+    required this.language,
   });
 
-  /// プロジェクト言語のカラー
-  final Color color;
-
-  /// プロジェクト言語名
-  final String? language;
+  /// プロジェクト言語
+  final RepoLanguage language;
 
   @override
   Widget build(BuildContext context) {
     // プロジェクト言語名が null なら何も表示しない
-    if (language == null) {
+    if (language.language == null) {
       return const SizedBox();
     }
 
@@ -29,11 +27,11 @@ class RepoLanguageLabel extends StatelessWidget {
       children: [
         Icon(
           Icons.circle,
-          color: color,
+          color: language.color,
           size: 20,
         ),
         const SizedBox(width: 4),
-        Text(language!),
+        Text(language.language!),
       ],
     );
   }
