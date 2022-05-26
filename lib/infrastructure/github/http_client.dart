@@ -64,11 +64,11 @@ class GitHubHttpClient {
     required T Function(Map<String, dynamic> data) responseBuilder,
   }) async {
     try {
-      logger.i('request: uri=$uri');
+      logger.i('Get request: uri = $uri');
       final response = await _client.get(uri, headers: _headers);
       logger.i(
-        'response: statusCode=${response.statusCode}, '
-        'contentLength=${response.contentLength}',
+        'Get response: code = ${response.statusCode}, '
+        'length = ${response.contentLength}',
       );
       switch (response.statusCode) {
         case 200:
@@ -100,11 +100,11 @@ class GitHubHttpClient {
     required Uri uri,
   }) async {
     try {
-      logger.i('request: uri=$uri');
+      logger.i('Get raw request: uri = $uri');
       final response = await _client.get(uri);
       logger.i(
-        'response: statusCode=${response.statusCode}, '
-        'contentLength=${response.contentLength}',
+        'Get raw response: code = ${response.statusCode}, '
+        'length = ${response.contentLength}',
       );
       switch (response.statusCode) {
         case 200:

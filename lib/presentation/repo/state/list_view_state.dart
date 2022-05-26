@@ -26,8 +26,8 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
     logger.i(
-      'Create RepoListViewNotifier: query=$query, '
-      'sort=${sort.name}, order=${order.name}',
+      'Create RepoListViewNotifier: query = $query, '
+      'sort = ${sort.name}, order = ${order.name}',
     );
     return RepoListViewNotifier(
       repoRepository,
@@ -101,8 +101,8 @@ class RepoListViewNotifier
         perPage: perPage,
       );
       logger.i(
-        'result: totalCount=${result.totalCount}, '
-        'items=${result.items.length}, ',
+        'Search repos result: totalCount = ${result.totalCount}, '
+        'fetchItems = ${result.items.length}',
       );
       return RepoListViewState.from(result);
     });
@@ -132,9 +132,9 @@ class RepoListViewNotifier
 
       final appendedItems = result.items;
       logger.i(
-        'Result: totalCount=${result.totalCount}, '
-        'fetchItems=${result.items.length}, '
-        'totalItems=${value.items.length + appendedItems.length}, ',
+        'Search repos result: totalCount = ${result.totalCount}, '
+        'fetchItems = ${result.items.length}, '
+        'totalItems = ${value.items.length + appendedItems.length}',
       );
       return value.copyWith(
         items: value.items + appendedItems,
