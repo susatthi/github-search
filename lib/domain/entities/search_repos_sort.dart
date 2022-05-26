@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 /// リポジトリ検索用ソート
-enum RepoSearchReposSort {
+enum SearchReposSort {
   bestMatch,
   stars,
   forks,
@@ -11,8 +11,7 @@ enum RepoSearchReposSort {
 
   /// 文字列からソートを返す
   /// 見つからない場合は IterableElementError.noElement() を投げる
-  static RepoSearchReposSort valueOf(String name) {
-    return RepoSearchReposSort.values
-        .firstWhere((element) => element.name == name);
+  static SearchReposSort valueOf(String name) {
+    return SearchReposSort.values.firstWhere((element) => element.name == name);
   }
 }

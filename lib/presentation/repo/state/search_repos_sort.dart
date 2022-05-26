@@ -4,12 +4,12 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/repo_search_repos_sort.dart';
+import '../../../domain/entities/search_repos_sort.dart';
 import '../../../domain/repositories/app_data_repository.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
 final repoSearchReposSortProvider =
-    StateNotifierProvider<RepoSearchReposSortNotifier, RepoSearchReposSort>(
+    StateNotifierProvider<RepoSearchReposSortNotifier, SearchReposSort>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
     return RepoSearchReposSortNotifier(
@@ -19,7 +19,7 @@ final repoSearchReposSortProvider =
 );
 
 /// リポジトリ検索用ソート値Notifier
-class RepoSearchReposSortNotifier extends StateNotifier<RepoSearchReposSort> {
+class RepoSearchReposSortNotifier extends StateNotifier<SearchReposSort> {
   RepoSearchReposSortNotifier(
     this._appDataRepository,
   ) : super(_appDataRepository.getSearchReposSort());
@@ -28,7 +28,7 @@ class RepoSearchReposSortNotifier extends StateNotifier<RepoSearchReposSort> {
 
   /// ソート値を更新する
   // ignore: avoid_setters_without_getters
-  set sort(RepoSearchReposSort sort) {
+  set sort(SearchReposSort sort) {
     _appDataRepository.setSearchReposSort(sort);
     state = _appDataRepository.getSearchReposSort();
   }

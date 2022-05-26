@@ -4,12 +4,12 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/repo_search_repos_order.dart';
+import '../../../domain/entities/search_repos_order.dart';
 import '../../../domain/repositories/app_data_repository.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー
 final repoSearchReposOrderProvider =
-    StateNotifierProvider<RepoSearchReposOrderNotifier, RepoSearchReposOrder>(
+    StateNotifierProvider<RepoSearchReposOrderNotifier, SearchReposOrder>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
     return RepoSearchReposOrderNotifier(
@@ -19,7 +19,7 @@ final repoSearchReposOrderProvider =
 );
 
 /// リポジトリ検索用オーダー値Notifier
-class RepoSearchReposOrderNotifier extends StateNotifier<RepoSearchReposOrder> {
+class RepoSearchReposOrderNotifier extends StateNotifier<SearchReposOrder> {
   RepoSearchReposOrderNotifier(
     this._appDataRepository,
   ) : super(_appDataRepository.getSearchReposOrder());
@@ -28,7 +28,7 @@ class RepoSearchReposOrderNotifier extends StateNotifier<RepoSearchReposOrder> {
 
   /// オーダー値を更新する
   // ignore: avoid_setters_without_getters
-  set order(RepoSearchReposOrder order) {
+  set order(SearchReposOrder order) {
     _appDataRepository.setSearchReposOrder(order);
     state = _appDataRepository.getSearchReposOrder();
   }

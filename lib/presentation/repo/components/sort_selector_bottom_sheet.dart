@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/repo_search_repos_sort.dart';
+import '../../../domain/entities/search_repos_sort.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
 import '../state/search_repos_sort.dart';
@@ -16,11 +16,11 @@ class RepoSortSelectorBottomSheet extends ConsumerWidget {
   const RepoSortSelectorBottomSheet({super.key});
 
   /// 選択項目のマップ
-  Map<String, RepoSearchReposSort> get _items => {
-        i18n.bestMatch: RepoSearchReposSort.bestMatch,
-        i18n.starsCount: RepoSearchReposSort.stars,
-        i18n.forksCount: RepoSearchReposSort.forks,
-        i18n.helpWantedIssuesCount: RepoSearchReposSort.helpWantedIssues,
+  Map<String, SearchReposSort> get _items => {
+        i18n.bestMatch: SearchReposSort.bestMatch,
+        i18n.starsCount: SearchReposSort.stars,
+        i18n.forksCount: SearchReposSort.forks,
+        i18n.helpWantedIssuesCount: SearchReposSort.helpWantedIssues,
       };
 
   @override

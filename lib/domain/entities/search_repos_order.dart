@@ -3,14 +3,14 @@
 // found in the LICENSE file.
 
 /// リポジトリ検索用オーダー
-enum RepoSearchReposOrder {
+enum SearchReposOrder {
   desc,
   asc;
 
   /// 文字列からオーダーを返す
   /// 見つからない場合は IterableElementError.noElement() を投げる
-  static RepoSearchReposOrder valueOf(String name) {
-    return RepoSearchReposOrder.values
+  static SearchReposOrder valueOf(String name) {
+    return SearchReposOrder.values
         .firstWhere((element) => element.name == name);
   }
 }

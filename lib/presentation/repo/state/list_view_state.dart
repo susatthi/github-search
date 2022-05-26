@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/repo.dart';
-import '../../../domain/entities/repo_search_repos_order.dart';
-import '../../../domain/entities/repo_search_repos_sort.dart';
+import '../../../domain/entities/search_repos_order.dart';
 import '../../../domain/entities/search_repos_result.dart';
+import '../../../domain/entities/search_repos_sort.dart';
 import '../../../domain/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
 import 'search_repos_order.dart';
@@ -77,10 +77,10 @@ class RepoListViewNotifier
   final String query;
 
   /// 検索ソート
-  final RepoSearchReposSort sort;
+  final SearchReposSort sort;
 
   /// 検索オーダー
-  final RepoSearchReposOrder order;
+  final SearchReposOrder order;
 
   /// 1ページに取得するレポジトリの数
   static const perPage = 30;
