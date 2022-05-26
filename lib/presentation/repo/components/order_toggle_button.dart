@@ -63,7 +63,7 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
   }
 }
 
-extension _RepoParamSearchReposOrderHelper on SearchReposOrder {
+extension _SearchReposOrderHelper on SearchReposOrder {
   /// トグルしたオーダー値を返す
   SearchReposOrder get toggle {
     switch (this) {
