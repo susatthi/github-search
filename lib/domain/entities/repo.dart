@@ -35,19 +35,19 @@ class Repo with _$Repo {
     String? description,
 
     /// スター数
-    required int stargazersCount,
+    required RepoCount stargazersCount,
 
     /// ウォッチャー数
-    required int watchersCount,
+    required RepoCount watchersCount,
 
     /// プロジェクト言語
     required RepoLanguage language,
 
     /// フォーク数
-    required int forksCount,
+    required RepoCount forksCount,
 
     /// Issue数
-    required int openIssuesCount,
+    required RepoCount openIssuesCount,
 
     /// デフォルトブランチ
     required String defaultBranch,
@@ -69,24 +69,13 @@ class Repo with _$Repo {
   }) = _Repo;
 }
 
-extension RepoHelper on Repo {
+/// カウントValueObject
+typedef RepoCount = int;
+
+extension RepoCountHelper on RepoCount {
   /// 表示用のスター数（例：35432 => 35.4k）
-  String get stargazersCountShort => _countDisplay(stargazersCount);
-
-  /// 表示用のウォッチャー数（例：35432 => 35.4k）
-  String get watchersCountShort => _countDisplay(watchersCount);
-
-  /// 表示用のフォーク数（例：35432 => 35.4k）
-  String get forksCountShort => _countDisplay(forksCount);
-
-  /// 表示用のIssue数（例：35432 => 35.4k）
-  String get openIssuesCountShort => _countDisplay(openIssuesCount);
+  String get display => createDisplay(length: 4)(this);
 }
-
-/// 表示用のスター数の変換メソッド
-final _countDisplay = createDisplay(
-  length: 4,
-);
 
 /// プロジェクト言語ValueObject
 class RepoLanguage extends Equatable {

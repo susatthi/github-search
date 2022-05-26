@@ -17,30 +17,26 @@ void main() {
     ),
   );
 
-  group('RepoLanguage', () {
-    test('language', () async {
+  group('ValueObject', () {
+    test('RepoLanguage', () async {
       expect(repo.language.language, 'Dart');
-    });
-    test('color', () async {
       expect(repo.language.color.value, HexColor('#00B4AB').value);
     });
-  });
-  group('RepoHelper', () {
-    test('stargazersCountShort', () async {
+    test('StargazersCount', () async {
       expect(repo.stargazersCount, 137773);
-      expect(repo.stargazersCountShort, '138k');
+      expect(repo.stargazersCount.display, '138k');
     });
-    test('watchersCountShort', () async {
+    test('watchersCount', () async {
       expect(repo.watchersCount, 137773);
-      expect(repo.watchersCountShort, '138k');
+      expect(repo.watchersCount.display, '138k');
     });
-    test('forksCountShort', () async {
+    test('forksCount', () async {
       expect(repo.forksCount, 21221);
-      expect(repo.forksCountShort, '21k');
+      expect(repo.forksCount.display, '21k');
     });
-    test('openIssuesCountShort', () async {
+    test('openIssuesCount', () async {
       expect(repo.openIssuesCount, 10623);
-      expect(repo.openIssuesCountShort, '11k');
+      expect(repo.openIssuesCount.display, '11k');
     });
   });
 }

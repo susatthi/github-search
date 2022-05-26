@@ -191,7 +191,7 @@ class _RepoListTile extends StatelessWidget {
                 width: 80,
                 child: IconLabel(
                   icon: Icons.star_outline,
-                  text: repo.stargazersCountShort,
+                  text: repo.stargazersCount.display,
                 ),
               ),
               RepoLanguageLabel(
