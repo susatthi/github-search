@@ -211,7 +211,7 @@ class _LanguageRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: repo.language.language != null,
+      visible: repo.language.value != null,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: _horizontalPadding,

@@ -18,9 +18,16 @@ void main() {
   );
 
   group('ValueObject', () {
-    test('RepoLanguage', () async {
-      expect(repo.language.language, 'Dart');
+    test('RepoLanguage(value != null)', () async {
+      expect(repo.language.value, 'Dart');
+      expect(repo.language.display, 'Dart');
       expect(repo.language.color.value, HexColor('#00B4AB').value);
+    });
+    test('RepoLanguage(value = null)', () async {
+      const language = RepoLanguage();
+      expect(language.value, isNull);
+      expect(language.display, '');
+      expect(language.color.value, HexColor('#999999').value);
     });
     test('StargazersCount', () async {
       expect(repo.stargazersCount, 137773);
