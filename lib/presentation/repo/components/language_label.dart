@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/repo.dart';
+import '../../../domain/entities/values/repo_language.dart';
 
 /// プロジェクト言語のカラー＋ラベル
 class RepoLanguageLabel extends StatelessWidget {

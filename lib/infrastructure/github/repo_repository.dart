@@ -8,6 +8,8 @@ import '../../domain/entities/repo.dart';
 import '../../domain/entities/search_repos_order.dart';
 import '../../domain/entities/search_repos_result.dart';
 import '../../domain/entities/search_repos_sort.dart';
+import '../../domain/entities/values/repo_count.dart';
+import '../../domain/entities/values/repo_language.dart';
 import '../../domain/repositories/repo_repository.dart';
 import 'api.dart';
 import 'exception.dart';
@@ -86,11 +88,11 @@ class GitHubRepoRepository implements RepoRepository {
       repoName: jsonObject.name,
       fullName: jsonObject.fullName,
       description: jsonObject.description,
-      stargazersCount: jsonObject.stargazersCount,
-      watchersCount: jsonObject.watchersCount,
+      stargazersCount: RepoCount(jsonObject.stargazersCount),
+      watchersCount: RepoCount(jsonObject.watchersCount),
       language: RepoLanguage(jsonObject.language),
-      forksCount: jsonObject.forksCount,
-      openIssuesCount: jsonObject.openIssuesCount,
+      forksCount: RepoCount(jsonObject.forksCount),
+      openIssuesCount: RepoCount(jsonObject.openIssuesCount),
       defaultBranch: jsonObject.defaultBranch,
       repoUrl: repoUrl,
       stargazersUrl: '$repoUrl/stargazers',

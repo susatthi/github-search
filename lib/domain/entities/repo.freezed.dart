@@ -35,19 +35,19 @@ mixin _$Repo {
   String? get description => throw _privateConstructorUsedError;
 
   /// スター数
-  int get stargazersCount => throw _privateConstructorUsedError;
+  RepoCount get stargazersCount => throw _privateConstructorUsedError;
 
   /// ウォッチャー数
-  int get watchersCount => throw _privateConstructorUsedError;
+  RepoCount get watchersCount => throw _privateConstructorUsedError;
 
   /// プロジェクト言語
   RepoLanguage get language => throw _privateConstructorUsedError;
 
   /// フォーク数
-  int get forksCount => throw _privateConstructorUsedError;
+  RepoCount get forksCount => throw _privateConstructorUsedError;
 
   /// Issue数
-  int get openIssuesCount => throw _privateConstructorUsedError;
+  RepoCount get openIssuesCount => throw _privateConstructorUsedError;
 
   /// デフォルトブランチ
   String get defaultBranch => throw _privateConstructorUsedError;
@@ -82,17 +82,23 @@ abstract class $RepoCopyWith<$Res> {
       String repoName,
       String fullName,
       String? description,
-      int stargazersCount,
-      int watchersCount,
+      RepoCount stargazersCount,
+      RepoCount watchersCount,
       RepoLanguage language,
-      int forksCount,
-      int openIssuesCount,
+      RepoCount forksCount,
+      RepoCount openIssuesCount,
       String defaultBranch,
       String? repoUrl,
       String? stargazersUrl,
       String? watchersUrl,
       String? forksUrl,
       String? issuesUrl});
+
+  $RepoCountCopyWith<$Res> get stargazersCount;
+  $RepoCountCopyWith<$Res> get watchersCount;
+  $RepoLanguageCopyWith<$Res> get language;
+  $RepoCountCopyWith<$Res> get forksCount;
+  $RepoCountCopyWith<$Res> get openIssuesCount;
 }
 
 /// @nodoc
@@ -151,11 +157,11 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
       stargazersCount: stargazersCount == freezed
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       watchersCount: watchersCount == freezed
           ? _value.watchersCount
           : watchersCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -163,11 +169,11 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
       forksCount: forksCount == freezed
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       openIssuesCount: openIssuesCount == freezed
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       defaultBranch: defaultBranch == freezed
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
@@ -194,6 +200,41 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
               as String?,
     ));
   }
+
+  @override
+  $RepoCountCopyWith<$Res> get stargazersCount {
+    return $RepoCountCopyWith<$Res>(_value.stargazersCount, (value) {
+      return _then(_value.copyWith(stargazersCount: value));
+    });
+  }
+
+  @override
+  $RepoCountCopyWith<$Res> get watchersCount {
+    return $RepoCountCopyWith<$Res>(_value.watchersCount, (value) {
+      return _then(_value.copyWith(watchersCount: value));
+    });
+  }
+
+  @override
+  $RepoLanguageCopyWith<$Res> get language {
+    return $RepoLanguageCopyWith<$Res>(_value.language, (value) {
+      return _then(_value.copyWith(language: value));
+    });
+  }
+
+  @override
+  $RepoCountCopyWith<$Res> get forksCount {
+    return $RepoCountCopyWith<$Res>(_value.forksCount, (value) {
+      return _then(_value.copyWith(forksCount: value));
+    });
+  }
+
+  @override
+  $RepoCountCopyWith<$Res> get openIssuesCount {
+    return $RepoCountCopyWith<$Res>(_value.openIssuesCount, (value) {
+      return _then(_value.copyWith(openIssuesCount: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -208,17 +249,28 @@ abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
       String repoName,
       String fullName,
       String? description,
-      int stargazersCount,
-      int watchersCount,
+      RepoCount stargazersCount,
+      RepoCount watchersCount,
       RepoLanguage language,
-      int forksCount,
-      int openIssuesCount,
+      RepoCount forksCount,
+      RepoCount openIssuesCount,
       String defaultBranch,
       String? repoUrl,
       String? stargazersUrl,
       String? watchersUrl,
       String? forksUrl,
       String? issuesUrl});
+
+  @override
+  $RepoCountCopyWith<$Res> get stargazersCount;
+  @override
+  $RepoCountCopyWith<$Res> get watchersCount;
+  @override
+  $RepoLanguageCopyWith<$Res> get language;
+  @override
+  $RepoCountCopyWith<$Res> get forksCount;
+  @override
+  $RepoCountCopyWith<$Res> get openIssuesCount;
 }
 
 /// @nodoc
@@ -278,11 +330,11 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
       stargazersCount: stargazersCount == freezed
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       watchersCount: watchersCount == freezed
           ? _value.watchersCount
           : watchersCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -290,11 +342,11 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
       forksCount: forksCount == freezed
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       openIssuesCount: openIssuesCount == freezed
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as RepoCount,
       defaultBranch: defaultBranch == freezed
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
@@ -371,11 +423,11 @@ class _$_Repo implements _Repo {
 
   /// スター数
   @override
-  final int stargazersCount;
+  final RepoCount stargazersCount;
 
   /// ウォッチャー数
   @override
-  final int watchersCount;
+  final RepoCount watchersCount;
 
   /// プロジェクト言語
   @override
@@ -383,11 +435,11 @@ class _$_Repo implements _Repo {
 
   /// フォーク数
   @override
-  final int forksCount;
+  final RepoCount forksCount;
 
   /// Issue数
   @override
-  final int openIssuesCount;
+  final RepoCount openIssuesCount;
 
   /// デフォルトブランチ
   @override
@@ -485,11 +537,11 @@ abstract class _Repo implements Repo {
       required final String repoName,
       required final String fullName,
       final String? description,
-      required final int stargazersCount,
-      required final int watchersCount,
+      required final RepoCount stargazersCount,
+      required final RepoCount watchersCount,
       required final RepoLanguage language,
-      required final int forksCount,
-      required final int openIssuesCount,
+      required final RepoCount forksCount,
+      required final RepoCount openIssuesCount,
       required final String defaultBranch,
       final String? repoUrl,
       final String? stargazersUrl,
@@ -524,11 +576,11 @@ abstract class _Repo implements Repo {
   @override
 
   /// スター数
-  int get stargazersCount => throw _privateConstructorUsedError;
+  RepoCount get stargazersCount => throw _privateConstructorUsedError;
   @override
 
   /// ウォッチャー数
-  int get watchersCount => throw _privateConstructorUsedError;
+  RepoCount get watchersCount => throw _privateConstructorUsedError;
   @override
 
   /// プロジェクト言語
@@ -536,11 +588,11 @@ abstract class _Repo implements Repo {
   @override
 
   /// フォーク数
-  int get forksCount => throw _privateConstructorUsedError;
+  RepoCount get forksCount => throw _privateConstructorUsedError;
   @override
 
   /// Issue数
-  int get openIssuesCount => throw _privateConstructorUsedError;
+  RepoCount get openIssuesCount => throw _privateConstructorUsedError;
   @override
 
   /// デフォルトブランチ

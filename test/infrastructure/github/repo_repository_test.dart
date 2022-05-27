@@ -5,10 +5,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/search_repos_order.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
+import 'package:github_search/domain/entities/values/repo_count.dart';
+import 'package:github_search/domain/entities/values/repo_language.dart';
 import 'package:github_search/domain/repositories/repo_repository.dart';
 import 'package:github_search/infrastructure/github/exception.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import '../../test_utils/locale.dart';
 import '../../test_utils/mocks.dart';
@@ -27,8 +30,8 @@ void main() {
     useEnvironmentLocale();
   });
 
-  group('GitHubRepoRepository.searchRepos()', () {
-    test('検索できるはず', () async {
+  group('GitHubRepoRepository', () {
+    test('searchRepos() 検索できるはず', () async {
       final result = await repository.searchRepos(
         query: 'flutter',
         sort: SearchReposSort.bestMatch,
@@ -36,24 +39,33 @@ void main() {
       );
       expect(result, isNotNull);
     });
-  });
-  group('GitHubRepoRepository.getRepo()', () {
-    test('取得できるはず', () async {
+    test('getRepo() 取得できるはず', () async {
       final repo = await repository.getRepo(
         ownerName: 'flutter',
         repoName: 'flutter',
       );
       expect(repo, isNotNull);
     });
-  });
-  group('GitHubRepoRepository.getReadme()', () {
-    test('取得できるはず', () async {
+    test('repoBuilder() 正しく変換できるはず', () async {
+      expect(repo.language.value, 'Dart');
+      expect(repo.language.display, 'Dart');
+      expect(repo.language.color.value, HexColor('#00B4AB').value);
+      expect(repo.stargazersCount.value, 137773);
+      expect(repo.stargazersCount.display, '138k');
+      expect(repo.watchersCount.value, 137773);
+      expect(repo.watchersCount.display, '138k');
+      expect(repo.forksCount.value, 21221);
+      expect(repo.forksCount.display, '21k');
+      expect(repo.openIssuesCount.value, 10623);
+      expect(repo.openIssuesCount.display, '11k');
+    });
+    test('getReadme() 取得できるはず', () async {
       final content = await repository.getReadme(
         repo: repo,
       );
       expect(content, isNotNull);
     });
-    test('404で取得できないはず', () async {
+    test('getReadme() 不明なパラメータだと404で取得できないはず', () async {
       String? content;
       String? errorCode;
       try {
@@ -70,7 +82,7 @@ void main() {
       expect(content, isNull);
       expect(errorCode, GitHubException.codeNotFound);
     });
-    test('通信エラーで取得できないはず', () async {
+    test('getReadme() 通信エラーだと取得できないはず', () async {
       String? content;
       String? errorCode;
       try {
