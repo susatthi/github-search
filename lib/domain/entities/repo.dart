@@ -79,17 +79,20 @@ extension RepoCountHelper on RepoCount {
 
 /// プロジェクト言語ValueObject
 class RepoLanguage extends Equatable {
-  const RepoLanguage([this.language]);
+  const RepoLanguage([this.value]);
 
-  final String? language;
+  final String? value;
 
   @override
-  List<Object?> get props => [language];
+  List<Object?> get props => [value];
+
+  /// 表示用のプロジェクト言語
+  String get display => value ?? '';
 
   /// プロジェクト言語のカラー
   Color get color {
     final hex = _languageHexes.entries
-        .firstWhereOrNull((element) => element.key == language)
+        .firstWhereOrNull((element) => element.key == value)
         ?.value;
     return HexColor(hex ?? '#999999');
   }

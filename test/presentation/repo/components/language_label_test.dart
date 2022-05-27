@@ -32,7 +32,7 @@ void main() {
       expect(icon.color, expectedLanguage.color);
 
       // プロジェクト言語が表示されるはず
-      expect(find.text(expectedLanguage.language!), findsOneWidget);
+      expect(find.text(expectedLanguage.display), findsOneWidget);
     });
     testWidgets('プロジェクト言語がnullの場合は何も表示しないはず', (tester) async {
       const expectedLanguage = RepoLanguage();

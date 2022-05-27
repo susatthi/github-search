@@ -19,7 +19,7 @@ class RepoLanguageLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // プロジェクト言語名が null なら何も表示しない
-    if (language.language == null) {
+    if (language.value == null) {
       return const SizedBox();
     }
 
@@ -31,7 +31,7 @@ class RepoLanguageLabel extends StatelessWidget {
           size: 20,
         ),
         const SizedBox(width: 4),
-        Text(language.language!),
+        Text(language.display),
       ],
     );
   }
