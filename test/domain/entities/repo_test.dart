@@ -4,6 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/repo.dart';
+import 'package:github_search/domain/entities/values/repo_language.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:hexcolor/hexcolor.dart';

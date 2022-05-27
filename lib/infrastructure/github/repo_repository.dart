@@ -8,6 +8,7 @@ import '../../domain/entities/repo.dart';
 import '../../domain/entities/search_repos_order.dart';
 import '../../domain/entities/search_repos_result.dart';
 import '../../domain/entities/search_repos_sort.dart';
+import '../../domain/entities/values/repo_language.dart';
 import '../../domain/repositories/repo_repository.dart';
 import 'api.dart';
 import 'exception.dart';
