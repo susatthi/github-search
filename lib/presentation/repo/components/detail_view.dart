@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/repo.dart';
+import '../../../domain/entities/values/repo_count.dart';
 import '../../../utils/logger.dart';
 import '../../../utils/url_launcher.dart';
 import '../../common/components/cached_circle_avatar.dart';

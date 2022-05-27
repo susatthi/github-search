@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:number_display/number_display.dart';
 
+import 'values/repo_count.dart';
 import 'values/repo_language.dart';
 
 part 'repo.freezed.dart';
@@ -64,12 +64,4 @@ class Repo with _$Repo {
     /// Issue数URL
     String? issuesUrl,
   }) = _Repo;
-}
-
-/// カウントValueObject
-typedef RepoCount = int;
-
-extension RepoCountHelper on RepoCount {
-  /// 表示用のスター数（例：35432 => 35.4k）
-  String get display => createDisplay(length: 4)(this);
 }
