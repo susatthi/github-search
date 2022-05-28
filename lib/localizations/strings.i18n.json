@@ -7,7 +7,9 @@
   "error": "Error",
   "errorOccurred": "An error has occurred",
   "forksCount": "Forks count",
-  "gitHubExceptionMessage": {
+  "helpWantedIssuesCount": "Help wanted @:issuesCount",
+  "issuesCount": "Issues count",
+  "networkExceptionMessage": {
     "badRequest": "Illegal request sent (400)",
     "badCredentials": "Illegal request sent (401)",
     "maximumNumberOfLoginAttemptsExceeded": "Please wait a while and try again (403)",
@@ -17,8 +19,6 @@
     "unknown": "An unknown error has occurred (-1)",
     "noInternetConnection": "Please try again in a good communication environment (-2)"
   },
-  "helpWantedIssuesCount": "Help wanted @:issuesCount",
-  "issuesCount": "Issues count",
   "notFoundRepos": "We couldn't find any repositories",
   "ownerName": "Owner name",
   "projectLanguage": "Project language",

@@ -3,9 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/infrastructure/github/exception.dart';
 import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
-import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../test_utils/locale.dart';
@@ -117,71 +115,6 @@ void main() {
       expect(
         owners.lastWhereOrNull((element) => element.login == 'foo')?.avatarUrl,
         null,
-      );
-    });
-  });
-  group('ObjectEx#toErrorMessage()', () {
-    test('GitHubException.badRequestを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.badRequest().toErrorMessage(),
-        i18n.gitHubExceptionMessage.badRequest,
-      );
-    });
-    test('GitHubException.badCredentialsを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.badCredentials().toErrorMessage(),
-        i18n.gitHubExceptionMessage.badCredentials,
-      );
-    });
-    test(
-        'GitHubException.maximumNumberOfLoginAttemptsExceededを与えてエラーメッセージが返るはず',
-        () {
-      expect(
-        GitHubException.maximumNumberOfLoginAttemptsExceeded().toErrorMessage(),
-        i18n.gitHubExceptionMessage.maximumNumberOfLoginAttemptsExceeded,
-      );
-    });
-    test('GitHubException.notFoundを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.notFound().toErrorMessage(),
-        i18n.gitHubExceptionMessage.notFound,
-      );
-    });
-    test('GitHubException.validationFailedを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.validationFailed().toErrorMessage(),
-        i18n.gitHubExceptionMessage.validationFailed,
-      );
-    });
-    test('GitHubException.serviceUnavailableを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.serviceUnavailable().toErrorMessage(),
-        i18n.gitHubExceptionMessage.serviceUnavailable,
-      );
-    });
-    test('GitHubException.unknownを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.unknown().toErrorMessage(),
-        i18n.gitHubExceptionMessage.unknown,
-      );
-    });
-    test('GitHubException.noInternetConnectionを与えてエラーメッセージが返るはず', () {
-      expect(
-        GitHubException.noInternetConnection().toErrorMessage(),
-        i18n.gitHubExceptionMessage.noInternetConnection,
-      );
-    });
-    test('Exceptionを与えてエラーメッセージが返るはず', () {
-      expect(
-        Exception('dummy').toErrorMessage(),
-        'Exception: dummy',
-      );
-    });
-    test('Stringを与えてそのまま返るはず', () {
-      const expectMessage = 'some message';
-      expect(
-        expectMessage.toErrorMessage(),
-        expectMessage,
       );
     });
   });

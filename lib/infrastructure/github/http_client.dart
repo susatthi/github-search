@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 
 import '../../config/env.dart';
 import '../../config/env_define.dart';
+import '../../domain/exceptions.dart';
 import '../../utils/logger.dart';
-import 'exception.dart';
 
 /// GitHubアクセストークンプロバイダー
 final githubAccessTokenProvider = Provider<String>(
@@ -75,23 +75,23 @@ class GitHubHttpClient {
           final data = json.decode(response.body) as Map<String, dynamic>;
           return responseBuilder(data);
         case 400:
-          throw GitHubException.badRequest();
+          throw NetworkException.badRequest();
         case 401:
-          throw GitHubException.badCredentials();
+          throw NetworkException.badCredentials();
         case 403:
-          throw GitHubException.maximumNumberOfLoginAttemptsExceeded();
+          throw NetworkException.maximumNumberOfLoginAttemptsExceeded();
         case 404:
-          throw GitHubException.notFound();
+          throw NetworkException.notFound();
         case 422:
-          throw GitHubException.validationFailed();
+          throw NetworkException.validationFailed();
         case 503:
-          throw GitHubException.serviceUnavailable();
+          throw NetworkException.serviceUnavailable();
         default:
-          throw GitHubException.unknown();
+          throw NetworkException.unknown();
       }
     } on SocketException catch (e) {
       logger.w(e);
-      throw GitHubException.noInternetConnection();
+      throw NetworkException.noInternetConnection();
     }
   }
 
@@ -110,17 +110,17 @@ class GitHubHttpClient {
         case 200:
           return response.body;
         case 400:
-          throw GitHubException.badRequest();
+          throw NetworkException.badRequest();
         case 404:
-          throw GitHubException.notFound();
+          throw NetworkException.notFound();
         case 503:
-          throw GitHubException.serviceUnavailable();
+          throw NetworkException.serviceUnavailable();
         default:
-          throw GitHubException.unknown();
+          throw NetworkException.unknown();
       }
     } on SocketException catch (e) {
       logger.w(e);
-      throw GitHubException.noInternetConnection();
+      throw NetworkException.noInternetConnection();
     }
   }
 }

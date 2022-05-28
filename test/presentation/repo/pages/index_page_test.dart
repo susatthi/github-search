@@ -58,7 +58,7 @@ void main() {
 
       // エラー画面が表示されるはず
       expect(
-        find.text(i18n.gitHubExceptionMessage.noInternetConnection),
+        find.text(i18n.networkExceptionMessage.noInternetConnection),
         findsOneWidget,
       );
     });
