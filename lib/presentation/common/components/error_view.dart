@@ -5,8 +5,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../domain/exceptions.dart';
+import '../../../localizations/strings.g.dart';
 import '../../../utils/assets/assets.gen.dart';
-import '../../../utils/extensions.dart';
 import '../../../utils/logger.dart';
 
 /// エラーView
@@ -36,12 +37,41 @@ class ErrorView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            error.toErrorMessage(),
+            error.errorMessage,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(height: 40),
         ],
       ),
     );
+  }
+}
+
+extension ObjectHelper on Object {
+  /// エラーメッセージを返す
+  String get errorMessage {
+    if (this is NetworkException) {
+      final error = this as NetworkException;
+      switch (error.code) {
+        case NetworkException.codeBadRequest:
+          return i18n.networkExceptionMessage.badRequest;
+        case NetworkException.codeBadCredentials:
+          return i18n.networkExceptionMessage.badCredentials;
+        case NetworkException.codeMaximumNumberOfLoginAttemptsExceeded:
+          return i18n
+              .networkExceptionMessage.maximumNumberOfLoginAttemptsExceeded;
+        case NetworkException.codeNotFound:
+          return i18n.networkExceptionMessage.notFound;
+        case NetworkException.codeValidationFailed:
+          return i18n.networkExceptionMessage.validationFailed;
+        case NetworkException.codeServiceUnavailable:
+          return i18n.networkExceptionMessage.serviceUnavailable;
+        case NetworkException.codeUnknown:
+          return i18n.networkExceptionMessage.unknown;
+        case NetworkException.codeNoInternetConnection:
+          return i18n.networkExceptionMessage.noInternetConnection;
+      }
+    }
+    return toString();
   }
 }

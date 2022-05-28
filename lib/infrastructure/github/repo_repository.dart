@@ -10,9 +10,9 @@ import '../../domain/entities/search_repos_result.dart';
 import '../../domain/entities/search_repos_sort.dart';
 import '../../domain/entities/values/repo_count.dart';
 import '../../domain/entities/values/repo_language.dart';
+import '../../domain/exceptions.dart';
 import '../../domain/repositories/repo_repository.dart';
 import 'api.dart';
-import 'exception.dart';
 import 'http_client.dart';
 import 'json_object/repo/repo.dart';
 import 'json_object/search_repos_result/search_repos_result.dart';
@@ -120,9 +120,9 @@ class GitHubRepoRepository implements RepoRepository {
       );
       try {
         return await _client.getRaw(uri: uri);
-      } on GitHubException catch (e) {
+      } on NetworkException catch (e) {
         // 404 の場合はファイル名を変えてリトライする
-        if (e.code == GitHubException.codeNotFound) {
+        if (e.code == NetworkException.codeNotFound) {
           continue;
         }
 
@@ -132,6 +132,6 @@ class GitHubRepoRepository implements RepoRepository {
     }
 
     // 最終的に取得できなかったら 404 を返す
-    throw GitHubException.notFound();
+    throw NetworkException.notFound();
   }
 }

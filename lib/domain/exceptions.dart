@@ -2,65 +2,98 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart';
+/// 基底ドメイン例外
+///
+/// ドメイン層が定義する例外の基底クラス
+abstract class DomainException implements Exception {
+  const DomainException(this.message);
 
-/// GitHub API の例外
-class GitHubException implements Exception {
-  const GitHubException([
-    this.message,
+  final Object message;
+}
+
+/// ドメイン層で発生する入力値検査例外
+class ValidatorException extends DomainException {
+  const ValidatorException([
+    super.message = 'validator exception',
+    this.errorMessages = const [],
+  ]);
+
+  /// ユーザーに表示するエラーメッセージのリスト
+  final List<String> errorMessages;
+
+  @override
+  String toString() {
+    return '''
+ValidatorException: $message
+
+Error messages:
+$errorMessages
+''';
+  }
+
+  /// エラーメッセージを返す
+  String get errorMessage => errorMessages.join('\n');
+}
+
+/// インフラストラクチャ層で発生するネットワーク関連の例外
+///
+/// リポジトリ実装がこの例外を投げたら、プレゼンテーション層
+/// で受け取って適切に表示すること。
+class NetworkException extends DomainException {
+  const NetworkException._([
+    super.message = 'network exception',
     String? code,
-    // ignore: unnecessary_this
-  ]) : this.code = code ?? codeUnknown;
+  ]) : code = code ?? codeUnknown;
 
   /// 1. 無効なJSONを送信すると、`400 Bad Request` レスポンスが返されます。
   /// 2. 間違ったタイプの JSON 値を送信すると、`400 Bad Request` レスポンスが返されます。
-  factory GitHubException.badRequest() => const GitHubException(
+  factory NetworkException.badRequest() => const NetworkException._(
         'Illegal request sent. (400)',
         codeBadRequest,
       );
 
   /// 無効な認証情報で認証すると、`401 Unauthorized` が返されます。
-  factory GitHubException.badCredentials() => const GitHubException(
+  factory NetworkException.badCredentials() => const NetworkException._(
         'Illegal request sent. (401)',
         codeBadCredentials,
       );
 
   /// API は、無効な認証情報を含むリクエストを短期間に複数回検出すると、`403 Forbidden` で、
   /// そのユーザに対するすべての認証試行（有効な認証情報を含む）を一時的に拒否します。
-  factory GitHubException.maximumNumberOfLoginAttemptsExceeded() =>
-      const GitHubException(
+  factory NetworkException.maximumNumberOfLoginAttemptsExceeded() =>
+      const NetworkException._(
         'Please wait a while and try again. (403)',
         codeMaximumNumberOfLoginAttemptsExceeded,
       );
 
   /// `404 Not Found`
-  factory GitHubException.notFound() => const GitHubException(
+  factory NetworkException.notFound() => const NetworkException._(
         'No data found. (404)',
         codeNotFound,
       );
 
   /// 無効なフィールドを送信すると、`422 Unprocessable Entity` レスポンスが返されます。
-  factory GitHubException.validationFailed() => const GitHubException(
+  factory NetworkException.validationFailed() => const NetworkException._(
         'Illegal request sent. (422)',
         codeValidationFailed,
       );
 
   /// `503 Service Unavailable` サービス停止中
-  factory GitHubException.serviceUnavailable() => const GitHubException(
+  factory NetworkException.serviceUnavailable() => const NetworkException._(
         'Please wait a while and try again.  (503)',
         codeServiceUnavailable,
       );
 
-  /// 不明なエラー
-  factory GitHubException.unknown() => const GitHubException(
-        'An unknown error has occurred. (-1)',
-        codeUnknown,
-      );
-
   /// インターネット接続不可
-  factory GitHubException.noInternetConnection() => const GitHubException(
+  factory NetworkException.noInternetConnection() => const NetworkException._(
         'Please try again in a good communication environment. (-2)',
         codeNoInternetConnection,
+      );
+
+  /// 不明なエラー
+  factory NetworkException.unknown() => const NetworkException._(
+        'An unknown error has occurred. (-1)',
+        codeUnknown,
       );
 
   // エラーコードの定義
@@ -71,35 +104,12 @@ class GitHubException implements Exception {
   static const codeNotFound = 'not-found';
   static const codeValidationFailed = 'validation-failed';
   static const codeServiceUnavailable = 'service-unavailable';
-  static const codeUnknown = 'unknown';
   static const codeNoInternetConnection = 'no-internet-connection';
-
-  /// メッセージ
-  final dynamic message;
+  static const codeUnknown = 'unknown';
 
   /// エラーコード
   final String code;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other is! GitHubException) {
-      return false;
-    }
-    return other.hashCode == hashCode;
-  }
-
-  @override
-  int get hashCode => hashValues(code, message);
-
-  @override
-  String toString() {
-    final Object? message = this.message;
-    if (message == null) {
-      return 'GitHubException[$code]';
-    }
-    return 'GitHubException[$code]: $message';
-  }
+  String toString() => 'NetworkException[$code]: $message';
 }

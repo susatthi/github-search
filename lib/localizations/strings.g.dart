@@ -306,9 +306,9 @@ class _StringsEn {
 	String get error => 'Error';
 	String get errorOccurred => 'An error has occurred';
 	String get forksCount => 'Forks count';
-	late final _StringsGitHubExceptionMessageEn gitHubExceptionMessage = _StringsGitHubExceptionMessageEn._(_root);
 	String get helpWantedIssuesCount => 'Help wanted ${_root.issuesCount}';
 	String get issuesCount => 'Issues count';
+	late final _StringsNetworkExceptionMessageEn networkExceptionMessage = _StringsNetworkExceptionMessageEn._(_root);
 	String get notFoundRepos => 'We couldn\'t find any repositories';
 	String get ownerName => 'Owner name';
 	String get projectLanguage => 'Project language';
@@ -321,9 +321,9 @@ class _StringsEn {
 	String get watchersCount => 'Watchers count';
 }
 
-// Path: gitHubExceptionMessage
-class _StringsGitHubExceptionMessageEn {
-	_StringsGitHubExceptionMessageEn._(this._root);
+// Path: networkExceptionMessage
+class _StringsNetworkExceptionMessageEn {
+	_StringsNetworkExceptionMessageEn._(this._root);
 
 	final _StringsEn _root; // ignore: unused_field
 
@@ -356,9 +356,9 @@ class _StringsJa implements _StringsEn {
 	@override String get error => 'エラー';
 	@override String get errorOccurred => 'エラーが発生しました';
 	@override String get forksCount => 'Fork数';
-	@override late final _StringsGitHubExceptionMessageJa gitHubExceptionMessage = _StringsGitHubExceptionMessageJa._(_root);
 	@override String get helpWantedIssuesCount => '助けを求めている${_root.issuesCount}';
 	@override String get issuesCount => 'Issue数';
+	@override late final _StringsNetworkExceptionMessageJa networkExceptionMessage = _StringsNetworkExceptionMessageJa._(_root);
 	@override String get notFoundRepos => 'リポジトリが見つかりませんでした';
 	@override String get ownerName => 'オーナー名';
 	@override String get projectLanguage => 'プロジェクト言語';
@@ -371,9 +371,9 @@ class _StringsJa implements _StringsEn {
 	@override String get watchersCount => 'Watcher数';
 }
 
-// Path: gitHubExceptionMessage
-class _StringsGitHubExceptionMessageJa implements _StringsGitHubExceptionMessageEn {
-	_StringsGitHubExceptionMessageJa._(this._root);
+// Path: networkExceptionMessage
+class _StringsNetworkExceptionMessageJa implements _StringsNetworkExceptionMessageEn {
+	_StringsNetworkExceptionMessageJa._(this._root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 

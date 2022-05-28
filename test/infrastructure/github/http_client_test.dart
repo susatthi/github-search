@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/infrastructure/github/exception.dart';
+import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
@@ -42,8 +42,8 @@ void main() {
           uri: Uri(path: '400'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeBadRequest);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeBadRequest);
       }
     });
     test('401 BadCredentials', () async {
@@ -52,8 +52,8 @@ void main() {
           uri: Uri(path: '401'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeBadCredentials);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeBadCredentials);
       }
     });
     test('403 MaximumNumberOfLoginAttemptsExceeded', () async {
@@ -62,10 +62,10 @@ void main() {
           uri: Uri(path: '403'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
+      } on NetworkException catch (e) {
         expect(
           e.code,
-          GitHubException.codeMaximumNumberOfLoginAttemptsExceeded,
+          NetworkException.codeMaximumNumberOfLoginAttemptsExceeded,
         );
       }
     });
@@ -75,8 +75,8 @@ void main() {
           uri: Uri(path: '404'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeNotFound);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeNotFound);
       }
     });
     test('422 ValidationFailed', () async {
@@ -85,8 +85,8 @@ void main() {
           uri: Uri(path: '422'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeValidationFailed);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeValidationFailed);
       }
     });
     test('503 ServiceUnavailable', () async {
@@ -95,8 +95,8 @@ void main() {
           uri: Uri(path: '503'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeServiceUnavailable);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeServiceUnavailable);
       }
     });
     test('Unknown', () async {
@@ -105,8 +105,8 @@ void main() {
           uri: Uri(path: '555'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeUnknown);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeUnknown);
       }
     });
     test('NoInternetConnection', () async {
@@ -115,8 +115,8 @@ void main() {
           uri: Uri(path: 'socketException'),
           responseBuilder: OwnerJsonObject.fromJson,
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeNoInternetConnection);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeNoInternetConnection);
       }
     });
   });
@@ -134,8 +134,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '400'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeBadRequest);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeBadRequest);
       }
     });
     test('401 BadCredentials', () async {
@@ -143,8 +143,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '401'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeUnknown);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeUnknown);
       }
     });
     test('403 MaximumNumberOfLoginAttemptsExceeded', () async {
@@ -152,10 +152,10 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '403'),
         );
-      } on GitHubException catch (e) {
+      } on NetworkException catch (e) {
         expect(
           e.code,
-          GitHubException.codeUnknown,
+          NetworkException.codeUnknown,
         );
       }
     });
@@ -164,8 +164,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '404'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeNotFound);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeNotFound);
       }
     });
     test('422 ValidationFailed', () async {
@@ -173,8 +173,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '422'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeUnknown);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeUnknown);
       }
     });
     test('503 ServiceUnavailable', () async {
@@ -182,8 +182,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '503'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeServiceUnavailable);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeServiceUnavailable);
       }
     });
     test('Unknown', () async {
@@ -191,8 +191,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: '555'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeUnknown);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeUnknown);
       }
     });
     test('NoInternetConnection', () async {
@@ -200,8 +200,8 @@ void main() {
         await client.getRaw(
           uri: Uri(path: 'socketException'),
         );
-      } on GitHubException catch (e) {
-        expect(e.code, GitHubException.codeNoInternetConnection);
+      } on NetworkException catch (e) {
+        expect(e.code, NetworkException.codeNoInternetConnection);
       }
     });
   });

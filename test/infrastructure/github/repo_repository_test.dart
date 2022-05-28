@@ -7,8 +7,8 @@ import 'package:github_search/domain/entities/search_repos_order.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/domain/entities/values/repo_count.dart';
 import 'package:github_search/domain/entities/values/repo_language.dart';
+import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/domain/repositories/repo_repository.dart';
-import 'package:github_search/infrastructure/github/exception.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -76,11 +76,11 @@ void main() {
             defaultBranch: 'unknown',
           ),
         );
-      } on GitHubException catch (e) {
+      } on NetworkException catch (e) {
         errorCode = e.code;
       }
       expect(content, isNull);
-      expect(errorCode, GitHubException.codeNotFound);
+      expect(errorCode, NetworkException.codeNotFound);
     });
     test('getReadme() 通信エラーだと取得できないはず', () async {
       String? content;
@@ -93,11 +93,11 @@ void main() {
             defaultBranch: 'socketException',
           ),
         );
-      } on GitHubException catch (e) {
+      } on NetworkException catch (e) {
         errorCode = e.code;
       }
       expect(content, isNull);
-      expect(errorCode, GitHubException.codeNoInternetConnection);
+      expect(errorCode, NetworkException.codeNoInternetConnection);
     });
   });
 }
