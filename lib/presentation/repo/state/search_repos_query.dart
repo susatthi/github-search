@@ -17,23 +17,6 @@ final repoSearchReposInitQueryProvider = Provider<String>(
 );
 
 /// リポジトリ検索文字列プロバイダー
-final repoSearchReposQueryProvider =
-    StateNotifierProvider<RepoSearchReposQueryNotifier, String>(
-  (ref) {
-    final query = ref.watch(repoSearchReposInitQueryProvider);
-    return RepoSearchReposQueryNotifier(query);
-  },
+final repoSearchReposQueryProvider = StateProvider<String>(
+  (ref) => ref.watch(repoSearchReposInitQueryProvider),
 );
-
-/// リポジトリ検索文字列Notifier
-class RepoSearchReposQueryNotifier extends StateNotifier<String> {
-  RepoSearchReposQueryNotifier(
-    super.query,
-  );
-
-  /// 検索文字列を更新する
-  // ignore: avoid_setters_without_getters
-  set query(String query) {
-    state = query;
-  }
-}

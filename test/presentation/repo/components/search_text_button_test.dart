@@ -3,38 +3,21 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/repo/components/search_text_button.dart';
+import 'package:github_search/presentation/repo/components/search_text_field.dart';
 import 'package:github_search/presentation/repo/pages/search_page.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../test_utils/locale.dart';
-import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
-
-String? _query;
-
-class _MockRepoSearchReposQueryNotifier extends RepoSearchReposQueryNotifier {
-  _MockRepoSearchReposQueryNotifier(
-    String query,
-  ) : super(query) {
-    _query = query;
-  }
-
-  @override
-  set query(String query) {
-    _query = query;
-  }
-}
 
 void main() {
   late MockGoRouter mockGoRouter;
   setUp(() {
     mockGoRouter = MockGoRouter();
-    _query = null;
     useEnvironmentLocale();
   });
 
@@ -71,24 +54,11 @@ void main() {
     });
     testWidgets('削除ボタンをタップすると検索文字列をクリアしてリポジトリ検索画面に遷移するはず', (tester) async {
       const initQuery = 'foooooo';
-
-      expect(_query, isNull);
-
       await tester.pumpWidget(
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を設定する
             repoSearchReposInitQueryProvider.overrideWithValue(initQuery),
-            // Mock版に差し替える
-            repoSearchReposQueryProvider.overrideWithProvider(
-              StateNotifierProvider<RepoSearchReposQueryNotifier, String>(
-                (ref) {
-                  final query = ref.watch(repoSearchReposInitQueryProvider);
-                  testLogger.i(query);
-                  return _MockRepoSearchReposQueryNotifier(query);
-                },
-              ),
-            )
           ],
           home: InheritedGoRouter(
             goRouter: mockGoRouter,
@@ -100,14 +70,18 @@ void main() {
       );
 
       verifyNever(() => mockGoRouter.goNamed(RepoSearchPage.name));
-      expect(_query, initQuery);
+
+      // 検索文字列が初期値になっているはず
+      final state = tester.state(find.byType(RepoSearchTextField))
+          as RepoSearchTextFieldState;
+      expect(state.controller.text, initQuery);
 
       // 削除ボタンをタップする
       expect(find.byIcon(Icons.close), findsOneWidget);
       await tester.tap(find.byIcon(Icons.close));
 
       // 検索文字列をクリアするはず
-      expect(_query, '');
+      expect(state.controller.text, '');
 
       // リポジトリ検索画面に遷移するはず
       verify(() => mockGoRouter.goNamed(RepoSearchPage.name)).called(1);

@@ -120,7 +120,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         logger.i('Called onSubmitted(): text = $text');
-        ref.read(repoSearchReposQueryProvider.notifier).query = text;
+        ref.read(repoSearchReposQueryProvider.notifier).state = text;
         Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする

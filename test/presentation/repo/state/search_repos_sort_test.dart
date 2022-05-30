@@ -32,11 +32,12 @@ void main() {
       expect(sort, SearchReposSort.bestMatch);
     });
   });
-  group('RepoSearchReposSortNotifier', () {
+  group('repoSearchReposSortUpdaterProvider', () {
     test('ソート値を変更できるはず', () async {
+      final updater = container.read(repoSearchReposSortUpdaterProvider);
+
       // スター数に変更する
-      final notifier = container.read(repoSearchReposSortProvider.notifier)
-        ..sort = SearchReposSort.stars;
+      updater(SearchReposSort.stars);
 
       // スター数のはず
       expect(
@@ -45,7 +46,7 @@ void main() {
       );
 
       // フォーク数に変更する
-      notifier.sort = SearchReposSort.forks;
+      updater(SearchReposSort.forks);
 
       // フォーク数のはず
       expect(
@@ -54,7 +55,7 @@ void main() {
       );
 
       // ヘルプ数に変更する
-      notifier.sort = SearchReposSort.helpWantedIssues;
+      updater(SearchReposSort.helpWantedIssues);
 
       // ヘルプ数のはず
       expect(
@@ -63,7 +64,7 @@ void main() {
       );
 
       // ベストマッチに変更する
-      notifier.sort = SearchReposSort.bestMatch;
+      updater(SearchReposSort.bestMatch);
 
       // ベストマッチのはず
       expect(

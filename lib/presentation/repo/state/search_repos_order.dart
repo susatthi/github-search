@@ -8,28 +8,21 @@ import '../../../domain/entities/search_repos_order.dart';
 import '../../../domain/repositories/app_data_repository.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー
-final repoSearchReposOrderProvider =
-    StateNotifierProvider<RepoSearchReposOrderNotifier, SearchReposOrder>(
+final repoSearchReposOrderProvider = StateProvider<SearchReposOrder>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
-    return RepoSearchReposOrderNotifier(
-      appDataRepository,
-    );
+    return appDataRepository.getSearchReposOrder();
   },
 );
 
-/// リポジトリ検索用オーダー値Notifier
-class RepoSearchReposOrderNotifier extends StateNotifier<SearchReposOrder> {
-  RepoSearchReposOrderNotifier(
-    this._appDataRepository,
-  ) : super(_appDataRepository.getSearchReposOrder());
-
-  final AppDataRepository _appDataRepository;
-
-  /// オーダー値を更新する
-  // ignore: avoid_setters_without_getters
-  set order(SearchReposOrder order) {
-    _appDataRepository.setSearchReposOrder(order);
-    state = _appDataRepository.getSearchReposOrder();
-  }
-}
+/// リポジトリ検索用オーダー値更新メソッドプロバイダー
+final repoSearchReposOrderUpdaterProvider = Provider(
+  (ref) {
+    final notifier = ref.read(repoSearchReposOrderProvider.notifier);
+    final appDataRepository = ref.watch(appDataRepositoryProvider);
+    return (SearchReposOrder order) {
+      appDataRepository.setSearchReposOrder(order);
+      notifier.state = appDataRepository.getSearchReposOrder();
+    };
+  },
+);

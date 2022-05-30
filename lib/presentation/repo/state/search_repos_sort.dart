@@ -8,28 +8,21 @@ import '../../../domain/entities/search_repos_sort.dart';
 import '../../../domain/repositories/app_data_repository.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
-final repoSearchReposSortProvider =
-    StateNotifierProvider<RepoSearchReposSortNotifier, SearchReposSort>(
+final repoSearchReposSortProvider = StateProvider<SearchReposSort>(
   (ref) {
     final appDataRepository = ref.watch(appDataRepositoryProvider);
-    return RepoSearchReposSortNotifier(
-      appDataRepository,
-    );
+    return appDataRepository.getSearchReposSort();
   },
 );
 
-/// リポジトリ検索用ソート値Notifier
-class RepoSearchReposSortNotifier extends StateNotifier<SearchReposSort> {
-  RepoSearchReposSortNotifier(
-    this._appDataRepository,
-  ) : super(_appDataRepository.getSearchReposSort());
-
-  final AppDataRepository _appDataRepository;
-
-  /// ソート値を更新する
-  // ignore: avoid_setters_without_getters
-  set sort(SearchReposSort sort) {
-    _appDataRepository.setSearchReposSort(sort);
-    state = _appDataRepository.getSearchReposSort();
-  }
-}
+/// リポジトリ検索用ソート値更新メソッドプロバイダー
+final repoSearchReposSortUpdaterProvider = Provider(
+  (ref) {
+    final notifier = ref.read(repoSearchReposSortProvider.notifier);
+    final appDataRepository = ref.watch(appDataRepositoryProvider);
+    return (SearchReposSort sort) {
+      appDataRepository.setSearchReposSort(sort);
+      notifier.state = appDataRepository.getSearchReposSort();
+    };
+  },
+);

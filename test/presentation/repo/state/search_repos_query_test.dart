@@ -22,10 +22,10 @@ void main() {
       expect(query, Env.defaultSearchValue);
     });
   });
-  group('RepoSearchReposQueryNotifier', () {
+  group('repoSearchReposQueryProvider', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      container.read(repoSearchReposQueryProvider.notifier).query = 'dummy';
+      container.read(repoSearchReposQueryProvider.notifier).state = 'dummy';
       final query = container.read(repoSearchReposQueryProvider);
       expect(query, 'dummy');
     });
