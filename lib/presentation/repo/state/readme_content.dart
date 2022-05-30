@@ -12,13 +12,12 @@ import '../../../utils/logger.dart';
 final repoReadmeContentProviderFamily = StateNotifierProvider.family
     .autoDispose<RepoReadmeContentNotifier, AsyncValue<String>, Repo>(
   (ref, repo) {
-    final repoRepository = ref.watch(repoRepositoryProvider);
     logger.i(
       'Create RepoReadmeContentNotifier: fullName = ${repo.fullName}, '
       'defaultBranch = ${repo.defaultBranch}',
     );
     return RepoReadmeContentNotifier(
-      repoRepository,
+      ref.read,
       repo: repo,
     );
   },
@@ -27,9 +26,10 @@ final repoReadmeContentProviderFamily = StateNotifierProvider.family
 /// リポジトリREADMEコンテンツNotifier
 class RepoReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
   RepoReadmeContentNotifier(
-    this._repoRepository, {
+    Reader read, {
     required this.repo,
-  }) : super(const AsyncValue.loading()) {
+  })  : _repoRepository = read(repoRepositoryProvider),
+        super(const AsyncValue.loading()) {
     _get();
   }
 

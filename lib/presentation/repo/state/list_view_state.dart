@@ -21,7 +21,6 @@ part 'list_view_state.freezed.dart';
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewNotifier, AsyncValue<RepoListViewState>?>(
   (ref) {
-    final repoRepository = ref.watch(repoRepositoryProvider);
     final query = ref.watch(repoSearchReposQueryProvider);
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
@@ -30,7 +29,7 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
       'sort = ${sort.name}, order = ${order.name}',
     );
     return RepoListViewNotifier(
-      repoRepository,
+      ref.read,
       query: query,
       sort: sort,
       order: order,
@@ -63,11 +62,12 @@ class RepoListViewState with _$RepoListViewState {
 class RepoListViewNotifier
     extends StateNotifier<AsyncValue<RepoListViewState>?> {
   RepoListViewNotifier(
-    this._repoRepository, {
+    Reader read, {
     required this.query,
     required this.sort,
     required this.order,
-  }) : super(null) {
+  })  : _repoRepository = read(repoRepositoryProvider),
+        super(null) {
     _search();
   }
 

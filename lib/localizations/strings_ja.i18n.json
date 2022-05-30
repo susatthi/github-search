@@ -3,6 +3,7 @@
   "asc": "昇順",
   "bestMatch": "ベストマッチ",
   "canSearchRepos": "リポジトリを検索できます",
+  "cantLaunchUrl": "$url を開くことができませんでした",
   "desc": "降順",
   "error": "エラー",
   "errorOccurred": "エラーが発生しました",

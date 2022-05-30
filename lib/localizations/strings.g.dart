@@ -3,7 +3,7 @@
  * Generated file. Do not edit.
  *
  * Locales: 2
- * Strings: 56 (28.0 per locale)
+ * Strings: 58 (29.0 per locale)
  */
 
 import 'package:flutter/widgets.dart';
@@ -302,6 +302,7 @@ class _StringsEn {
 	String get asc => 'Asc';
 	String get bestMatch => 'Best match';
 	String get canSearchRepos => 'You can search repositories';
+	String cantLaunchUrl({required Object url}) => 'Can\'t launch $url';
 	String get desc => 'Desc';
 	String get error => 'Error';
 	String get errorOccurred => 'An error has occurred';
@@ -352,6 +353,7 @@ class _StringsJa implements _StringsEn {
 	@override String get asc => '昇順';
 	@override String get bestMatch => 'ベストマッチ';
 	@override String get canSearchRepos => 'リポジトリを検索できます';
+	@override String cantLaunchUrl({required Object url}) => '$url を開くことができませんでした';
 	@override String get desc => '降順';
 	@override String get error => 'エラー';
 	@override String get errorOccurred => 'エラーが発生しました';

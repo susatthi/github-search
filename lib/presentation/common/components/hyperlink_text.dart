@@ -3,44 +3,47 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../state/launch_url_state.dart';
 
 /// ハイパーリンク表示するテキスト
-class HyperlinkText extends StatelessWidget {
+class HyperlinkText extends ConsumerWidget {
   const HyperlinkText({
     super.key,
     required this.text,
+    this.url,
     this.padding = EdgeInsets.zero,
-    this.onTap,
   });
 
   /// 表示するテキスト
   final String text;
 
+  /// URL
+  final String? url;
+
   /// パディング
   final EdgeInsetsGeometry padding;
-
-  /// テキストタップ時のイベント
-  final VoidCallback? onTap;
 
   /// アンカー表示時のテキストカラー
   static const anchorColor = Colors.blueAccent;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final child = Padding(
       padding: padding,
       child: Text(text),
     );
 
-    // タップイベントが無ければアンカー表示しない
-    if (onTap == null) {
+    // URLが無ければアンカー表示しない
+    if (url == null) {
       return child;
     }
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: InkWell(
-        onTap: onTap,
+        onTap: () => ref.read(launcher)(url!),
         child: DefaultTextStyle.merge(
           style: const TextStyle(
             color: anchorColor,
