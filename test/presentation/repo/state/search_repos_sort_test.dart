@@ -32,9 +32,9 @@ void main() {
       expect(sort, SearchReposSort.bestMatch);
     });
   });
-  group('repoSearchReposSortUpdaterProvider', () {
+  group('repoSearchReposSortUpdater', () {
     test('ソート値を変更できるはず', () async {
-      final updater = container.read(repoSearchReposSortUpdaterProvider);
+      final updater = container.read(repoSearchReposSortUpdater);
 
       // スター数に変更する
       updater(SearchReposSort.stars);

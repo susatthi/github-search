@@ -76,7 +76,7 @@ class RepoReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(launcherProvider)(href);
+          await ref.read(launcher)(href);
         }
       },
       extensionSet: ExtensionSet(

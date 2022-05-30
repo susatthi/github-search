@@ -49,7 +49,7 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
           ? () {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
-              ref.read(repoSearchReposOrderUpdaterProvider)(newOrder);
+              ref.read(repoSearchReposOrderUpdater)(newOrder);
             }
           : null,
       icon: Icon(

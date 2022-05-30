@@ -50,7 +50,7 @@ final launchModeProvider = Provider(
 /// URL起動メソッドプロバイダー
 ///
 /// UI側でこのメソッドを使ってURL起動をする
-final launcherProvider = Provider(
+final launcher = Provider(
   (ref) {
     final notifier = ref.read(launchUrlStateProvider.notifier);
     final mode = ref.read(launchModeProvider);

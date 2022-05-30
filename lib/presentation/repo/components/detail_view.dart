@@ -327,7 +327,7 @@ class _IconLabel extends ConsumerWidget {
         icon: icon,
         text: text,
         padding: padding,
-        onTap: url != null ? () => ref.read(launcherProvider)(url!) : null,
+        onTap: url != null ? () => ref.read(launcher)(url!) : null,
       ),
     );
   }

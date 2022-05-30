@@ -32,9 +32,9 @@ void main() {
       expect(order, SearchReposOrder.desc);
     });
   });
-  group('repoSearchReposOrderUpdaterProvider', () {
+  group('repoSearchReposOrderUpdater', () {
     test('オーダー値を変更できるはず', () async {
-      final updater = container.read(repoSearchReposOrderUpdaterProvider);
+      final updater = container.read(repoSearchReposOrderUpdater);
 
       // 昇順に変更する
       updater(SearchReposOrder.asc);

@@ -60,7 +60,7 @@ void main() {
     useEnvironmentLocale();
   });
 
-  group('launcherProvider', () {
+  group('launcher', () {
     test('正常なURLならアプリ内ブラウザが開くはず', () async {
       const urlString = 'https://github.com';
 
@@ -76,7 +76,7 @@ void main() {
         ),
       ).thenAnswer((_) async => true);
 
-      await container.read(launcherProvider)(urlString);
+      await container.read(launcher)(urlString);
 
       verify(
         () => mockUrlLauncherPlatform.launch(
@@ -105,7 +105,7 @@ void main() {
         ),
       ).thenAnswer((_) async => false);
 
-      await container.read(launcherProvider)(urlString);
+      await container.read(launcher)(urlString);
 
       verify(
         () => mockUrlLauncherPlatform.launch(
@@ -122,7 +122,7 @@ void main() {
     test('不正なURLなら開かないはず（FormatException）', () async {
       const urlString = 'https://AFEDC:BA98:7654:3210:FEDC:BA98:7654:3210/';
 
-      await container.read(launcherProvider)(urlString);
+      await container.read(launcher)(urlString);
 
       verifyNever(
         () => mockUrlLauncherPlatform.launch(
@@ -140,7 +140,7 @@ void main() {
     test('http or https 以外のスキームのURLなら開かないはず（ArgumentError）', () async {
       const urlString = 'mailto:hoge@sample.com';
 
-      await container.read(launcherProvider)(urlString);
+      await container.read(launcher)(urlString);
 
       verifyNever(
         () => mockUrlLauncherPlatform.launch(
@@ -157,7 +157,7 @@ void main() {
     test('空文字なら開かないはず（ArgumentError）', () async {
       const urlString = '';
 
-      await container.read(launcherProvider)(urlString);
+      await container.read(launcher)(urlString);
 
       verifyNever(
         () => mockUrlLauncherPlatform.launch(
@@ -177,7 +177,7 @@ void main() {
 
       const urlString = 'https://github.com';
 
-      await container.read(launcherProvider)(urlString);
+      await container.read(launcher)(urlString);
 
       verifyNever(
         () => mockUrlLauncherPlatform.launch(
@@ -219,7 +219,7 @@ void main() {
       );
 
       // ignore: unawaited_futures
-      container.read(launcherProvider)(urlString);
+      container.read(launcher)(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
@@ -262,7 +262,7 @@ void main() {
       );
 
       // ignore: unawaited_futures
-      container.read(launcherProvider)(urlString);
+      container.read(launcher)(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);

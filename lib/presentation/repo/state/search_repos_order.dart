@@ -16,7 +16,7 @@ final repoSearchReposOrderProvider = StateProvider<SearchReposOrder>(
 );
 
 /// リポジトリ検索用オーダー値更新メソッドプロバイダー
-final repoSearchReposOrderUpdaterProvider = Provider(
+final repoSearchReposOrderUpdater = Provider(
   (ref) {
     final notifier = ref.read(repoSearchReposOrderProvider.notifier);
     final appDataRepository = ref.read(appDataRepositoryProvider);
