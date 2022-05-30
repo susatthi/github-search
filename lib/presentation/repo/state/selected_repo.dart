@@ -21,10 +21,9 @@ final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<
 final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
     RepoSelectedRepoNotifier, AsyncValue<Repo>, RepoSelectedRepoParameter>(
   (ref, parameter) {
-    final repoRepository = ref.watch(repoRepositoryProvider);
     logger.i('Create RepoSelectedRepoNotifier: parameter = $parameter');
     return RepoSelectedRepoNotifier(
-      repoRepository,
+      ref.read,
       parameter: parameter,
     );
   },
@@ -62,9 +61,10 @@ class RepoSelectedRepoParameter extends Equatable {
 /// 選択中のリポジトリNotifier
 class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
   RepoSelectedRepoNotifier(
-    this._repoRepository, {
+    Reader read, {
     required this.parameter,
-  }) : super(const AsyncValue.loading()) {
+  })  : _repoRepository = read(repoRepositoryProvider),
+        super(const AsyncValue.loading()) {
     final value = parameter.extra;
     if (value != null) {
       // extra があればそのまま使う

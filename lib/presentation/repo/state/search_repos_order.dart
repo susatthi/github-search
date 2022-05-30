@@ -10,7 +10,7 @@ import '../../../domain/repositories/app_data_repository.dart';
 /// リポジトリ検索用オーダー値プロバイダー
 final repoSearchReposOrderProvider = StateProvider<SearchReposOrder>(
   (ref) {
-    final appDataRepository = ref.watch(appDataRepositoryProvider);
+    final appDataRepository = ref.read(appDataRepositoryProvider);
     return appDataRepository.getSearchReposOrder();
   },
 );
@@ -19,7 +19,7 @@ final repoSearchReposOrderProvider = StateProvider<SearchReposOrder>(
 final repoSearchReposOrderUpdaterProvider = Provider(
   (ref) {
     final notifier = ref.read(repoSearchReposOrderProvider.notifier);
-    final appDataRepository = ref.watch(appDataRepositoryProvider);
+    final appDataRepository = ref.read(appDataRepositoryProvider);
     return (SearchReposOrder order) {
       appDataRepository.setSearchReposOrder(order);
       notifier.state = appDataRepository.getSearchReposOrder();

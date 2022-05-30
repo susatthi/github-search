@@ -18,5 +18,5 @@ final repoSearchReposInitQueryProvider = Provider<String>(
 
 /// リポジトリ検索文字列プロバイダー
 final repoSearchReposQueryProvider = StateProvider<String>(
-  (ref) => ref.watch(repoSearchReposInitQueryProvider),
+  (ref) => ref.read(repoSearchReposInitQueryProvider),
 );
