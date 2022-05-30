@@ -3,6 +3,7 @@
   "asc": "Asc",
   "bestMatch": "Best match",
   "canSearchRepos": "You can search repositories",
+  "cantLaunchUrl": "Can't launch $url",
   "desc": "Desc",
   "error": "Error",
   "errorOccurred": "An error has occurred",

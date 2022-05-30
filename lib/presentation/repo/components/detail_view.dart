@@ -9,11 +9,11 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/entities/repo.dart';
 import '../../../domain/entities/values/repo_count.dart';
 import '../../../utils/logger.dart';
-import '../../../utils/url_launcher.dart';
 import '../../common/components/cached_circle_avatar.dart';
 import '../../common/components/error_view.dart';
 import '../../common/components/hyperlink_text.dart';
 import '../../common/components/icon_label.dart';
+import '../../common/state/launch_url_state.dart';
 import '../pages/avatar_preview_page.dart';
 import '../pages/view_page.dart';
 import '../state/selected_repo.dart';
@@ -141,10 +141,8 @@ class _FullnameRow extends StatelessWidget {
         child: Wrap(
           children: [
             HyperlinkText(
-              onTap: repo.ownerUrl != null
-                  ? () => launchUrlInApp(repo.ownerUrl!)
-                  : null,
               text: repo.ownerName,
+              url: repo.ownerUrl,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
@@ -157,10 +155,8 @@ class _FullnameRow extends StatelessWidget {
               child: Text('/'),
             ),
             HyperlinkText(
-              onTap: repo.repoUrl != null
-                  ? () => launchUrlInApp(repo.repoUrl!)
-                  : null,
               text: repo.repoName,
+              url: repo.repoUrl,
               padding: const EdgeInsets.symmetric(
                 horizontal: _horizontalPadding / 2,
                 vertical: _verticalPadding,
@@ -306,8 +302,8 @@ class _ReadmeRow extends StatelessWidget {
 
 /// アイコン＋ラベル
 ///
-/// タップするとURLをアプリ内ブラウザで開く
-class _IconLabel extends StatelessWidget {
+/// タップするとURLを開く
+class _IconLabel extends ConsumerWidget {
   const _IconLabel({
     required this.padding,
     required this.url,
@@ -324,14 +320,14 @@ class _IconLabel extends StatelessWidget {
   static const _iconLabelWidth = 80.0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: _iconLabelWidth,
       child: IconLabel(
         icon: icon,
         text: text,
         padding: padding,
-        onTap: url != null ? () => launchUrlInApp(url!) : null,
+        onTap: url != null ? () => ref.read(launcherProvider)(url!) : null,
       ),
     );
   }

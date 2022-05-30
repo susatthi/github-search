@@ -14,7 +14,7 @@ import 'package:markdown/markdown.dart';
 import '../../../domain/entities/repo.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
-import '../../../utils/url_launcher.dart';
+import '../../common/state/launch_url_state.dart';
 import '../state/readme_content.dart';
 
 /// リポジトリREADMEのMarkdown表示
@@ -55,7 +55,7 @@ class RepoReadmeMarkdown extends ConsumerWidget {
 }
 
 @visibleForTesting
-class RepoReadmeMarkdownInternal extends StatelessWidget {
+class RepoReadmeMarkdownInternal extends ConsumerWidget {
   const RepoReadmeMarkdownInternal({
     super.key,
     required this.content,
@@ -69,14 +69,14 @@ class RepoReadmeMarkdownInternal extends StatelessWidget {
   final CacheManager cacheManager;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MarkdownBody(
       data: content,
       selectable: true,
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await launchUrlInApp(href);
+          await ref.read(launcherProvider)(href);
         }
       },
       extensionSet: ExtensionSet(
