@@ -79,7 +79,7 @@ class SliverRepoListViewInternal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 検索文字列が空の場合は検索を促す
-    if (state.query.isEmpty) {
+    if (state.queryString.isEmpty) {
       return const SliverFillRemaining(
         hasScrollBody: false,
         child: RepoPromptSearchView(),

@@ -41,7 +41,7 @@ class GitHubRepoRepository implements RepoRepository {
 
   @override
   Future<SearchReposResult> searchRepos({
-    required String query,
+    required String queryString,
     required SearchReposSort sort,
     required SearchReposOrder order,
     int? perPage,
@@ -49,7 +49,7 @@ class GitHubRepoRepository implements RepoRepository {
   }) async =>
       _client.get<SearchReposResult>(
         uri: _api.searchRepos(
-          query: query,
+          queryString: queryString,
           sort: GitHubSearchReposSort.valueOf(sort),
           order: GitHubSearchReposOrder.valueOf(order),
           perPage: perPage,
@@ -59,7 +59,7 @@ class GitHubRepoRepository implements RepoRepository {
           final jsonObject = SearchReposResultJsonObject.fromJson(data);
           return SearchReposResult(
             totalCount: jsonObject.totalCount,
-            query: query,
+            queryString: queryString,
             items: jsonObject.items.map(repoBuilder).toList(),
           );
         },

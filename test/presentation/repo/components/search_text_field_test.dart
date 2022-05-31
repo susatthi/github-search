@@ -20,7 +20,8 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryProvider.overrideWithValue(expectedQuery),
+            repoSearchReposInitQueryStringProvider
+                .overrideWithValue(expectedQuery),
           ],
           home: Scaffold(
             body: RepoSearchTextField(
@@ -49,7 +50,8 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryProvider.overrideWithValue(expectedQuery),
+            repoSearchReposInitQueryStringProvider
+                .overrideWithValue(expectedQuery),
           ],
           home: Scaffold(
             body: Column(
@@ -86,7 +88,8 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryProvider.overrideWithValue('some query'),
+            repoSearchReposInitQueryStringProvider
+                .overrideWithValue('some query'),
           ],
           home: Scaffold(
             body: RepoSearchTextField(
@@ -133,7 +136,8 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryProvider.overrideWithValue('some query'),
+            repoSearchReposInitQueryStringProvider
+                .overrideWithValue('some query'),
           ],
           home: Scaffold(
             body: RepoSearchTextField(

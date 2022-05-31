@@ -58,7 +58,7 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryProvider.overrideWithValue(initQuery),
+            repoSearchReposInitQueryStringProvider.overrideWithValue(initQuery),
           ],
           home: InheritedGoRouter(
             goRouter: mockGoRouter,

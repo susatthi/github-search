@@ -21,16 +21,16 @@ part 'list_view_state.freezed.dart';
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewNotifier, AsyncValue<RepoListViewState>?>(
   (ref) {
-    final query = ref.watch(repoSearchReposQueryProvider);
+    final queryString = ref.watch(repoSearchReposQueryStringProvider);
     final sort = ref.watch(repoSearchReposSortProvider);
     final order = ref.watch(repoSearchReposOrderProvider);
     logger.i(
-      'Create RepoListViewNotifier: query = $query, '
+      'Create RepoListViewNotifier: queryString = $queryString, '
       'sort = ${sort.name}, order = ${order.name}',
     );
     return RepoListViewNotifier(
       ref.read,
-      query: query,
+      queryString: queryString,
       sort: sort,
       order: order,
     );
@@ -45,7 +45,7 @@ class RepoListViewState with _$RepoListViewState {
     @Default(<Repo>[]) List<Repo> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
-    @Default('') String query,
+    @Default('') String queryString,
   }) = _RepoListViewState;
 
   factory RepoListViewState.from(SearchReposResult result) {
@@ -53,7 +53,7 @@ class RepoListViewState with _$RepoListViewState {
       totalCount: result.totalCount,
       items: result.items,
       hasNext: result.items.length < result.totalCount,
-      query: result.query,
+      queryString: result.queryString,
     );
   }
 }
@@ -63,7 +63,7 @@ class RepoListViewNotifier
     extends StateNotifier<AsyncValue<RepoListViewState>?> {
   RepoListViewNotifier(
     Reader read, {
-    required this.query,
+    required this.queryString,
     required this.sort,
     required this.order,
   })  : _repoRepository = read(repoRepositoryProvider),
@@ -74,7 +74,7 @@ class RepoListViewNotifier
   final RepoRepository _repoRepository;
 
   /// 検索文字列
-  final String query;
+  final String queryString;
 
   /// 検索ソート
   final SearchReposSort sort;
@@ -87,15 +87,15 @@ class RepoListViewNotifier
 
   Future<void> _search() async {
     state = await AsyncValue.guard(() async {
-      final trimQuery = query.trim();
-      if (trimQuery.isEmpty) {
+      final trimQueryString = queryString.trim();
+      if (trimQueryString.isEmpty) {
         return const RepoListViewState();
       }
 
       state = const AsyncValue.loading();
 
       final result = await _repoRepository.searchRepos(
-        query: trimQuery,
+        queryString: trimQueryString,
         sort: sort,
         order: order,
         perPage: perPage,
@@ -123,7 +123,7 @@ class RepoListViewNotifier
     // 次のページを取得する
     state = await AsyncValue.guard(() async {
       final result = await _repoRepository.searchRepos(
-        query: query,
+        queryString: queryString,
         sort: sort,
         order: order,
         perPage: perPage,

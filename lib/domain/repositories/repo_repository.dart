@@ -17,7 +17,7 @@ final repoRepositoryProvider = Provider<RepoRepository>(
 abstract class RepoRepository {
   /// リポジトリを検索する
   Future<SearchReposResult> searchRepos({
-    required String query,
+    required String queryString,
     required SearchReposSort sort,
     required SearchReposOrder order,
     int? perPage,

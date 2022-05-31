@@ -165,7 +165,7 @@ Widget mockGitHubSearchApp({
       // モック版のHTTPクライアントを使う
       httpClientProvider.overrideWithValue(mockHttpClient),
       // リポジトリ検索文字列の初期値を設定する
-      repoSearchReposInitQueryProvider.overrideWithValue('flutter'),
+      repoSearchReposInitQueryStringProvider.overrideWithValue('flutter'),
       ...?overrides,
     ],
     child: GitHubSearchApp(
@@ -189,7 +189,7 @@ ProviderContainer mockProviderContainer({
       // モック版のHTTPクライアントを使う
       httpClientProvider.overrideWithValue(mockHttpClient),
       // リポジトリ検索文字列の初期値を設定する
-      repoSearchReposInitQueryProvider.overrideWithValue('flutter'),
+      repoSearchReposInitQueryStringProvider.overrideWithValue('flutter'),
       ...?overrides,
     ],
   );

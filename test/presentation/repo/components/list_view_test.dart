@@ -90,7 +90,7 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を空文字にする
-            repoSearchReposInitQueryProvider.overrideWithValue(''),
+            repoSearchReposInitQueryStringProvider.overrideWithValue(''),
           ],
           home: const _MockPage(),
         ),
@@ -118,7 +118,7 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索結果0件になる検索文字列にする
-            repoSearchReposInitQueryProvider.overrideWithValue('empty'),
+            repoSearchReposInitQueryStringProvider.overrideWithValue('empty'),
           ],
           home: const _MockPage(),
         ),

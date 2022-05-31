@@ -8,7 +8,7 @@ import '../../../config/env.dart';
 import '../../../config/env_define.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
-final repoSearchReposInitQueryProvider = Provider<String>(
+final repoSearchReposInitQueryStringProvider = Provider<String>(
   (ref) => const String.fromEnvironment(
     dartDefineKeyDefaultSearchValue,
     //ignore: avoid_redundant_argument_values
@@ -17,6 +17,6 @@ final repoSearchReposInitQueryProvider = Provider<String>(
 );
 
 /// リポジトリ検索文字列プロバイダー
-final repoSearchReposQueryProvider = StateProvider<String>(
-  (ref) => ref.read(repoSearchReposInitQueryProvider),
+final repoSearchReposQueryStringProvider = StateProvider<String>(
+  (ref) => ref.read(repoSearchReposInitQueryStringProvider),
 );

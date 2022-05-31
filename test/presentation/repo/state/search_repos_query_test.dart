@@ -16,17 +16,18 @@ void main() {
     useEnvironmentLocale();
   });
 
-  group('repoSearchReposInitQueryProvider', () {
+  group('repoSearchReposInitQueryStringProvider', () {
     test('初期値は環境変数の値と一致するはず', () async {
-      final query = container.read(repoSearchReposInitQueryProvider);
+      final query = container.read(repoSearchReposInitQueryStringProvider);
       expect(query, Env.defaultSearchValue);
     });
   });
-  group('repoSearchReposQueryProvider', () {
+  group('repoSearchReposQueryStringProvider', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      container.read(repoSearchReposQueryProvider.notifier).state = 'dummy';
-      final query = container.read(repoSearchReposQueryProvider);
+      container.read(repoSearchReposQueryStringProvider.notifier).state =
+          'dummy';
+      final query = container.read(repoSearchReposQueryStringProvider);
       expect(query, 'dummy');
     });
   });

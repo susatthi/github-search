@@ -49,7 +49,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   void initState() {
     super.initState();
     controller = widget.controller ?? TextEditingController();
-    controller.text = ref.read(repoSearchReposQueryProvider);
+    controller.text = ref.read(repoSearchReposQueryStringProvider);
   }
 
   @override
@@ -63,7 +63,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   @override
   Widget build(BuildContext context) {
     // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
-    ref.listen(repoSearchReposQueryProvider, (previous, next) {
+    ref.listen(repoSearchReposQueryStringProvider, (previous, next) {
       logger.v(
         'Update query: current = ${controller.text}, '
         'next = ${next.toString()}',
@@ -120,7 +120,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         logger.i('Called onSubmitted(): text = $text');
-        ref.read(repoSearchReposQueryProvider.notifier).state = text;
+        ref.read(repoSearchReposQueryStringProvider.notifier).state = text;
         Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする

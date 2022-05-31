@@ -33,7 +33,7 @@ void main() {
   group('GitHubRepoRepository', () {
     test('searchRepos() 検索できるはず', () async {
       final result = await repository.searchRepos(
-        query: 'flutter',
+        queryString: 'flutter',
         sort: SearchReposSort.bestMatch,
         order: SearchReposOrder.desc,
       );

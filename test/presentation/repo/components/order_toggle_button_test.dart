@@ -127,7 +127,7 @@ void main() {
         mockGitHubSearchApp(
           overrides: [
             // 検索文字列を空文字にする
-            repoSearchReposInitQueryProvider.overrideWithValue(''),
+            repoSearchReposInitQueryStringProvider.overrideWithValue(''),
           ],
           home: const Scaffold(
             body: RepoOrderToggleButton(),
