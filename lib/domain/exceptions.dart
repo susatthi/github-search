@@ -13,26 +13,32 @@ abstract class DomainException implements Exception {
 
 /// ドメイン層で発生する入力値検査例外
 class ValidatorException extends DomainException {
-  const ValidatorException([
+  const ValidatorException._([
     super.message = 'validator exception',
-    this.errorMessages = const [],
-  ]);
+    String? code,
+    this.target,
+  ]) : code = code ?? codeUnknown;
 
-  /// ユーザーに表示するエラーメッセージのリスト
-  final List<String> errorMessages;
+  /// 引数が不正
+  factory ValidatorException.invalidArgument([String? target]) =>
+      ValidatorException._(
+        'Invalid argument',
+        codeInvalidArgument,
+        target,
+      );
+
+  // エラーコードの定義
+  static const codeInvalidArgument = 'invalid-argument';
+  static const codeUnknown = 'unknown';
+
+  /// エラーコード
+  final String code;
+
+  /// 対象
+  final String? target;
 
   @override
-  String toString() {
-    return '''
-ValidatorException: $message
-
-Error messages:
-$errorMessages
-''';
-  }
-
-  /// エラーメッセージを返す
-  String get errorMessage => errorMessages.join('\n');
+  String toString() => 'ValidatorException: $message';
 }
 
 /// インフラストラクチャ層で発生するネットワーク関連の例外

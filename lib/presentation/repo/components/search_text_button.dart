@@ -50,7 +50,7 @@ class RepoSearchTextButton extends ConsumerWidget {
           },
           onTappedDelete: () {
             // 検索文字列をクリアしてリポジトリ検索画面に遷移する
-            ref.read(repoSearchReposQueryStringProvider.notifier).state = '';
+            ref.read(repoSearchReposQueryStringUpdater)('');
             context.goNamed(RepoSearchPage.name);
           },
         ),
