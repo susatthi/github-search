@@ -6,7 +6,7 @@ part of 'query_history.dart';
 // IsarCollectionGenerator
 // **************************************************************************
 
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, unused_local_variable
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers
 
 extension GetQueryHistoryCollectionCollection on Isar {
   IsarCollection<QueryHistoryCollection> get queryHistoryCollections =>
@@ -16,7 +16,7 @@ extension GetQueryHistoryCollectionCollection on Isar {
 const QueryHistoryCollectionSchema = CollectionSchema(
   name: 'QueryHistoryCollection',
   schema:
-      '{"name":"QueryHistoryCollection","idName":"id","properties":[{"name":"queryString","type":"String"},{"name":"searchedAt","type":"Long"}],"indexes":[{"name":"searchedAt","unique":false,"properties":[{"name":"searchedAt","type":"Value","caseSensitive":false}]}],"links":[]}',
+      '{"name":"QueryHistoryCollection","idName":"id","properties":[{"name":"queryString","type":"String"},{"name":"searchedAt","type":"Long"}],"indexes":[{"name":"searchedAt","unique":false,"replace":false,"properties":[{"name":"searchedAt","type":"Value","caseSensitive":false}]}],"links":[]}',
   idName: 'id',
   propertyIds: {'queryString': 0, 'searchedAt': 1},
   listProperties: {},
@@ -38,7 +38,7 @@ const QueryHistoryCollectionSchema = CollectionSchema(
   serializeWeb: _queryHistoryCollectionSerializeWeb,
   deserializeWeb: _queryHistoryCollectionDeserializeWeb,
   deserializePropWeb: _queryHistoryCollectionDeserializePropWeb,
-  version: 3,
+  version: 4,
 );
 
 int? _queryHistoryCollectionGetId(QueryHistoryCollection object) {
@@ -60,7 +60,7 @@ List<IsarLinkBase> _queryHistoryCollectionGetLinks(
 
 void _queryHistoryCollectionSerializeNative(
     IsarCollection<QueryHistoryCollection> collection,
-    IsarRawObject rawObj,
+    IsarCObject cObj,
     QueryHistoryCollection object,
     int staticSize,
     List<int> offsets,
@@ -73,9 +73,9 @@ void _queryHistoryCollectionSerializeNative(
   final _searchedAt = value1;
   final size = staticSize + dynamicSize;
 
-  rawObj.buffer = alloc(size);
-  rawObj.buffer_length = size;
-  final buffer = IsarNative.bufAsBytes(rawObj.buffer, size);
+  cObj.buffer = alloc(size);
+  cObj.buffer_length = size;
+  final buffer = IsarNative.bufAsBytes(cObj.buffer, size);
   final writer = IsarBinaryWriter(buffer, staticSize);
   writer.writeBytes(offsets[0], _queryString);
   writer.writeDateTime(offsets[1], _searchedAt);
