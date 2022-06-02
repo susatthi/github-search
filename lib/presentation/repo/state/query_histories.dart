@@ -46,6 +46,7 @@ class QueryHistoriesNotifier
 
   /// 検索履歴を削除する
   Future<void> delete(QueryHistory query) async {
+    state = const AsyncValue.loading();
     await _read(queryHistoryRepositoryProvider).delete(query);
     await _load();
   }
