@@ -39,31 +39,45 @@ class SliverRepoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewStateProvider);
-    return asyncValue?.when(
-          data: (state) => SliverRepoListViewInternal(state: state),
-          error: (e, s) => SliverFillRemaining(
-            hasScrollBody: false,
-            child: ErrorView(
-              error: e,
-              stackTrace: s,
+    if (asyncValue == null) {
+      return const SliverFillRemaining();
+    }
+
+    if (asyncValue.isRefreshing) {
+      // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
+      // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
+      if (controller?.hasClients == true) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => controller!.jumpTo(0),
+        );
+      }
+    }
+
+    return asyncValue.when(
+      data: (state) {
+        if (asyncValue.isRefreshing) {
+          // リフレッシュ状態（前回のデータが残っている状態）でもローディング表示する
+          return const SliverFillRemaining(
+            child: ListLoader(
+              avatarSize: _avatarSize,
             ),
-          ),
-          loading: () {
-            // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
-            // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
-            if (controller?.hasClients == true) {
-              WidgetsBinding.instance.addPostFrameCallback(
-                (_) => controller!.jumpTo(0),
-              );
-            }
-            return const SliverFillRemaining(
-              child: ListLoader(
-                avatarSize: _avatarSize,
-              ),
-            );
-          },
-        ) ??
-        const SliverFillRemaining();
+          );
+        }
+        return SliverRepoListViewInternal(state: state);
+      },
+      error: (e, s) => SliverFillRemaining(
+        hasScrollBody: false,
+        child: ErrorView(
+          error: e,
+          stackTrace: s,
+        ),
+      ),
+      loading: () => const SliverFillRemaining(
+        child: ListLoader(
+          avatarSize: _avatarSize,
+        ),
+      ),
+    );
   }
 }
 
