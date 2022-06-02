@@ -133,8 +133,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       ),
       // 入力文字が変更されたら状態を更新する
       onChanged: (text) {
-        ref.read(repoSearchReposEnteringQueryStringProvider.notifier).state =
-            text;
+        ref.read(repoSearchReposEnteringQueryStringUpdater)(text);
       },
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {

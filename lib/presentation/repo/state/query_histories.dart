@@ -33,11 +33,15 @@ class QueryHistoriesNotifier
   final String queryString;
 
   Future<void> _load() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+    final queries = await AsyncValue.guard(() async {
       return _read(queryHistoryRepositoryProvider)
           .findByQueryString(queryString);
     });
+    if (mounted) {
+      // 検索文字列を高速で入力されると、検索履歴を検索中に本Notifierが破棄されること
+      // があるので、破棄されていないかをチェックする必要がある
+      state = queries;
+    }
   }
 
   /// 検索履歴を削除する

@@ -8,6 +8,7 @@ import '../../../config/env.dart';
 import '../../../config/env_define.dart';
 import '../../../domain/entities/query_history_input.dart';
 import '../../../domain/repositories/query_history_repository.dart';
+import '../../../utils/logger.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
 final repoSearchReposInitQueryStringProvider = Provider<String>(
@@ -36,4 +37,19 @@ final repoSearchReposQueryStringUpdater = Provider(
 /// 入力中のリポジトリ検索文字列プロバイダー
 final repoSearchReposEnteringQueryStringProvider = StateProvider<String>(
   (ref) => ref.read(repoSearchReposQueryStringProvider),
+);
+
+/// 入力中のリポジトリ検索文字列更新メソッドプロバイダー
+final repoSearchReposEnteringQueryStringUpdater = Provider(
+  (ref) => (String queryString) async {
+    // もし現在の文字列と同じ場合は更新しない
+    final current = ref.read(repoSearchReposEnteringQueryStringProvider);
+    if (current != queryString) {
+      logger.v(
+        'Update repoSearchReposEnteringQueryString: queryString = $queryString',
+      );
+      ref.read(repoSearchReposEnteringQueryStringProvider.notifier).state =
+          queryString;
+    }
+  },
 );
