@@ -19,7 +19,7 @@ part 'list_view_state.freezed.dart';
 
 /// リポジトリ一覧View状態プロバイダー
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
-    RepoListViewNotifier, AsyncValue<RepoListViewState>?>(
+    RepoListViewNotifier, AsyncValue<RepoListViewState>>(
   (ref) {
     final queryString = ref.watch(repoSearchReposQueryStringProvider);
     final sort = ref.watch(repoSearchReposSortProvider);
@@ -60,14 +60,14 @@ class RepoListViewState with _$RepoListViewState {
 
 /// リポジトリ一覧ViewNotifier
 class RepoListViewNotifier
-    extends StateNotifier<AsyncValue<RepoListViewState>?> {
+    extends StateNotifier<AsyncValue<RepoListViewState>> {
   RepoListViewNotifier(
     Reader read, {
     required this.queryString,
     required this.sort,
     required this.order,
   })  : _repoRepository = read(repoRepositoryProvider),
-        super(null) {
+        super(const AsyncValue.loading()) {
     _search();
   }
 
@@ -92,8 +92,6 @@ class RepoListViewNotifier
         return const RepoListViewState();
       }
 
-      state = const AsyncValue.loading();
-
       final result = await _repoRepository.searchRepos(
         queryString: trimQueryString,
         sort: sort,
@@ -110,7 +108,7 @@ class RepoListViewNotifier
 
   /// 次のページを取得する
   Future<void> fetchNextPage() async {
-    final value = state?.value;
+    final value = state.value;
     if (value == null) {
       return;
     }

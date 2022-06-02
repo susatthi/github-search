@@ -2,8 +2,6 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
@@ -18,9 +16,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 class _MockPage extends StatelessWidget {
   const _MockPage();
@@ -39,21 +36,14 @@ class _MockPage extends StatelessWidget {
 }
 
 void main() {
-  late Directory tmpDir;
-  late MockGoRouter mockGoRouter;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-    mockGoRouter = MockGoRouter();
-    useEnvironmentLocale();
-  });
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('SliverRepoListView', () {
     testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const _MockPage(),
         ),
       );
@@ -68,7 +58,7 @@ void main() {
     });
     testWidgets('エラーが発生した場合はエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 常にエラーを発生させる
             httpClientProvider.overrideWithValue(mockHttpClientError),
@@ -87,7 +77,7 @@ void main() {
     });
     testWidgets('検索文字列が空の場合は検索を促す画面を表示するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
             repoSearchReposInitQueryStringProvider.overrideWithValue(''),
@@ -96,12 +86,9 @@ void main() {
         ),
       );
 
-      // 初期状態はasyncValueがnullで中身が空のはず
+      // 初期状態はloadingを表示しているはず
       expect(find.byType(SliverFillRemaining), findsOneWidget);
-      final remaining = tester
-          .widgetList(find.byType(SliverFillRemaining))
-          .first as SliverFillRemaining;
-      expect(remaining.child, isNull);
+      expect(find.byType(ListLoader), findsOneWidget);
 
       // まだRepoPromptSearchViewは表示していないはず
       expect(find.byType(RepoPromptSearchView), findsNothing);
@@ -115,7 +102,7 @@ void main() {
     });
     testWidgets('検索結果が0件の場合はリポジトリが見つからなかった旨を表示するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索結果0件になる検索文字列にする
             repoSearchReposInitQueryStringProvider.overrideWithValue('empty'),
@@ -134,7 +121,7 @@ void main() {
     });
     testWidgets('検索結果件数を表示するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const _MockPage(),
         ),
       );
@@ -149,7 +136,7 @@ void main() {
     });
     testWidgets('一番下までスクロールしたら次のページを取得するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const _MockPage(),
         ),
       );
@@ -177,9 +164,9 @@ void main() {
 
     testWidgets('ListTileをタップしたらリポジトリ詳細画面に遷移するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: InheritedGoRouter(
-            goRouter: mockGoRouter,
+            goRouter: agent.mockGoRouter,
             child: const _MockPage(),
           ),
         ),
@@ -193,7 +180,7 @@ void main() {
           .firstWhere((element) => element.fullName == 'flutter/flutter');
 
       verifyNever(
-        () => mockGoRouter.goNamed(
+        () => agent.mockGoRouter.goNamed(
           RepoViewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',
@@ -209,7 +196,7 @@ void main() {
 
       // リポジトリ詳細画面に遷移するはず
       verify(
-        () => mockGoRouter.goNamed(
+        () => agent.mockGoRouter.goNamed(
           RepoViewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',

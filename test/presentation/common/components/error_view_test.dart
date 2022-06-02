@@ -7,17 +7,19 @@ import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/common/components/error_view.dart';
 
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/logger.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('ErrorView', () {
     testWidgets('Exceptionを与えてエラーメッセージが表示されるはず', (tester) async {
       await _wrapTest(
         tester,
+        agent,
         error: Exception('dummy'),
         expectedMessage: 'Exception: dummy',
       );
@@ -25,6 +27,7 @@ void main() {
     testWidgets('StackTraceを引数に与えることが出来るはず', (tester) async {
       await _wrapTest(
         tester,
+        agent,
         error: Exception('dummy'),
         stackTrace: StackTrace.current,
         expectedMessage: 'Exception: dummy',
@@ -33,6 +36,7 @@ void main() {
     testWidgets('NetworkExceptionを与えてエラーメッセージが表示されるはず', (tester) async {
       await _wrapTest(
         tester,
+        agent,
         error: NetworkException.badRequest(),
         expectedMessage: i18n.networkExceptionMessage.badRequest,
       );
@@ -41,6 +45,7 @@ void main() {
       const message = 'some message';
       await _wrapTest(
         tester,
+        agent,
         error: message,
         expectedMessage: message,
       );
@@ -114,13 +119,14 @@ void main() {
 }
 
 Future<void> _wrapTest(
-  WidgetTester tester, {
+  WidgetTester tester,
+  TestAgent agent, {
   required Object error,
   StackTrace? stackTrace,
   required String expectedMessage,
 }) async {
   await tester.pumpWidget(
-    mockGitHubSearchApp(
+    agent.mockApp(
       home: ErrorView(
         error: error,
         stackTrace: stackTrace,

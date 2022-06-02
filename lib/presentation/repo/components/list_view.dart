@@ -39,10 +39,6 @@ class SliverRepoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewStateProvider);
-    if (asyncValue == null) {
-      return const SliverFillRemaining();
-    }
-
     if (asyncValue.isRefreshing) {
       // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
       // ローディングを表示したときに強制的にスクロール位置をトップに戻す。

@@ -7,17 +7,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/repo/components/search_text_field.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('RepoSearchTextField', () {
     testWidgets('検索を実行すると検索文字列を更新するはず', (tester) async {
       const expectedQuery = 'foooooo';
       final controller = TextEditingController();
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を設定する
             repoSearchReposInitQueryStringProvider
@@ -35,8 +37,10 @@ void main() {
       expect(controller.text, expectedQuery);
 
       // 検索文字列を入力してキーボードのDone押下
-      await tester.enterText(find.byType(TextField), 'kboy');
-      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.runAsync(() async {
+        await tester.enterText(find.byType(TextField), 'kboy');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+      });
 
       // 検索文字列が変わっているはず
       expect(controller.text, 'kboy');
@@ -47,7 +51,7 @@ void main() {
       final controller2 = TextEditingController();
       final key1 = GlobalKey();
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を設定する
             repoSearchReposInitQueryStringProvider
@@ -74,8 +78,10 @@ void main() {
       expect(controller2.text, expectedQuery);
 
       // 1番目のTextFieldに検索文字列を入力してキーボードのDone押下
-      await tester.enterText(find.byKey(key1), 'kboy');
-      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.runAsync(() async {
+        await tester.enterText(find.byKey(key1), 'kboy');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+      });
 
       // 両方とも検索文字列が変わっているはず
       expect(controller1.text, 'kboy');
@@ -85,7 +91,7 @@ void main() {
       var tappedDeleteButton = false;
       final controller = TextEditingController();
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を設定する
             repoSearchReposInitQueryStringProvider
@@ -133,7 +139,7 @@ void main() {
       var tappedDeleteButton = false;
       final controller = TextEditingController();
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を設定する
             repoSearchReposInitQueryStringProvider
@@ -173,7 +179,7 @@ void main() {
     testWidgets('prefixIconを設定できるはず', (tester) async {
       const expectedIcon = Icons.search;
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: RepoSearchTextField(
               prefixIcon: Icon(expectedIcon),

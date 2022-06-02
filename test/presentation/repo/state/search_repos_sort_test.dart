@@ -2,46 +2,33 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/presentation/repo/state/search_repos_sort.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late Directory tmpDir;
-  late ProviderContainer container;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-    container = mockProviderContainer();
-    useEnvironmentLocale();
-  });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('repoSearchReposSortProvider', () {
     test('初期値はベストマッチのはず', () async {
-      final sort = container.read(repoSearchReposSortProvider);
+      final sort = agent.mockContainer().read(repoSearchReposSortProvider);
       expect(sort, SearchReposSort.bestMatch);
     });
   });
   group('repoSearchReposSortUpdater', () {
     test('ソート値を変更できるはず', () async {
-      final updater = container.read(repoSearchReposSortUpdater);
+      final updater = agent.mockContainer().read(repoSearchReposSortUpdater);
 
       // スター数に変更する
       updater(SearchReposSort.stars);
 
       // スター数のはず
       expect(
-        container.read(repoSearchReposSortProvider),
+        agent.mockContainer().read(repoSearchReposSortProvider),
         SearchReposSort.stars,
       );
 
@@ -50,7 +37,7 @@ void main() {
 
       // フォーク数のはず
       expect(
-        container.read(repoSearchReposSortProvider),
+        agent.mockContainer().read(repoSearchReposSortProvider),
         SearchReposSort.forks,
       );
 
@@ -59,7 +46,7 @@ void main() {
 
       // ヘルプ数のはず
       expect(
-        container.read(repoSearchReposSortProvider),
+        agent.mockContainer().read(repoSearchReposSortProvider),
         SearchReposSort.helpWantedIssues,
       );
 
@@ -68,7 +55,7 @@ void main() {
 
       // ベストマッチのはず
       expect(
-        container.read(repoSearchReposSortProvider),
+        agent.mockContainer().read(repoSearchReposSortProvider),
         SearchReposSort.bestMatch,
       );
     });

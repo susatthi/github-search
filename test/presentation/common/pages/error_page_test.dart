@@ -6,15 +6,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/common/pages/error_page.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('ErrorPage', () {
     testWidgets('errorがnullでも問題ないはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const ErrorPage(),
         ),
       );
@@ -23,7 +25,7 @@ void main() {
     testWidgets('errorがある場合でも問題ないはず', (tester) async {
       final error = Exception('dummy');
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: ErrorPage(
             error: error,
           ),

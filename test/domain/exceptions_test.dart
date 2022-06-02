@@ -5,36 +5,25 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/exceptions.dart';
 
-import '../test_utils/locale.dart';
+import '../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('ValidatorException', () {
-    test('引数無しで正しく動作するはず', () {
-      const e = ValidatorException();
-      expect(e.toString(), isNotNull);
-      expect(e.errorMessages.length, 0);
-      expect(e.errorMessage, '');
+    test('invalidArgumentが生成出来るはず', () {
+      final e = ValidatorException.invalidArgument();
+      expect(e.code, 'invalid-argument');
+      expect(e.message, 'Invalid argument');
+      expect(e.target, isNull);
     });
-    test('メッセージのみでも正しく動作するはず', () {
-      const expectedMessage = 'dummy message';
-      const e = ValidatorException(expectedMessage);
-      expect(e.toString().contains(expectedMessage), true);
-      expect(e.errorMessages.length, 0);
-      expect(e.errorMessage, '');
-    });
-    test('メッセージとエラーメッセージでも正しく動作するはず', () {
-      const expectedMessage = 'dummy message';
-      const expetedErrorMessages = [
-        'error message 1',
-        'error message 2',
-      ];
-      const e = ValidatorException(expectedMessage, expetedErrorMessages);
-      expect(e.toString().contains(expectedMessage), true);
-      expect(e.toString().contains(expetedErrorMessages[0]), true);
-      expect(e.toString().contains(expetedErrorMessages[1]), true);
-      expect(e.errorMessages.isNotEmpty, true);
-      expect(e.errorMessage, expetedErrorMessages.join('\n'));
+    test('invalidArgument（targetあり）が生成出来るはず', () {
+      final e = ValidatorException.invalidArgument('someTarget');
+      expect(e.code, 'invalid-argument');
+      expect(e.message, 'Invalid argument');
+      expect(e.target, 'someTarget');
     });
   });
   group('NetworkException', () {

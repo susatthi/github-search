@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/app_data_repository.dart';
+import 'package:github_search/domain/repositories/query_history_repository.dart';
 
 import '../../test_utils/test_agent.dart';
 
@@ -13,17 +13,21 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('appDataRepositoryProvider', () {
+  group('queryHistoryRepositoryProvider', () {
     test('DIする前はUnimplementedErrorがthrowされるはず', () async {
       expect(
-        () => ProviderContainer().read(appDataRepositoryProvider),
+        () => ProviderContainer().read(queryHistoryRepositoryProvider),
         throwsUnimplementedError,
       );
     });
-    test('appDataRepositoryProviderからHiveAppDataRepositoryが取得できるはず', () async {
-      final appDataRepository =
-          agent.mockContainer().read(appDataRepositoryProvider);
-      expect(appDataRepository.runtimeType.toString(), 'HiveAppDataRepository');
+    test('queryHistoryRepositoryProviderからIsarQueryHistoryRepositoryが取得できるはず',
+        () async {
+      final queryHistoryRepository =
+          agent.mockContainer().read(queryHistoryRepositoryProvider);
+      expect(
+        queryHistoryRepository.runtimeType.toString(),
+        'IsarQueryHistoryRepository',
+      );
     });
   });
 }

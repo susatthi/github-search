@@ -7,15 +7,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/common/components/list_loader.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('ListLoader', () {
     testWidgets('引数無しで意図して動作するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: ListLoader(),
           ),
@@ -42,7 +44,7 @@ void main() {
     testWidgets('avatarSizeが正しく反映されるはず', (tester) async {
       const avatarSize = 40.0;
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: ListLoader(
               avatarSize: avatarSize,
@@ -59,7 +61,7 @@ void main() {
     testWidgets('keyからWidgetが取得出来るはず', (tester) async {
       final key = GlobalKey();
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: Scaffold(
             body: ListLoader(
               key: key,
@@ -74,7 +76,7 @@ void main() {
     testWidgets('keyからWidgetが取得出来るはず', (tester) async {
       final key = GlobalKey();
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: LoaderBone(
             key: key,
           ),

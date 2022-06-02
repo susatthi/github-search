@@ -7,27 +7,29 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/env.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 
-import '../../../test_utils/locale.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late ProviderContainer container;
-  setUp(() async {
-    container = ProviderContainer();
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('repoSearchReposInitQueryStringProvider', () {
     test('初期値は環境変数の値と一致するはず', () async {
-      final query = container.read(repoSearchReposInitQueryStringProvider);
+      final query =
+          ProviderContainer().read(repoSearchReposInitQueryStringProvider);
       expect(query, Env.defaultSearchValue);
     });
   });
   group('repoSearchReposQueryStringProvider', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      container.read(repoSearchReposQueryStringProvider.notifier).state =
-          'dummy';
-      final query = container.read(repoSearchReposQueryStringProvider);
+      agent
+          .mockContainer()
+          .read(repoSearchReposQueryStringProvider.notifier)
+          .state = 'dummy';
+      final query =
+          agent.mockContainer().read(repoSearchReposQueryStringProvider);
       expect(query, 'dummy');
     });
   });

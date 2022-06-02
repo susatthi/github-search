@@ -2,8 +2,6 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
@@ -12,10 +10,10 @@ import 'package:github_search/presentation/repo/components/order_toggle_button.d
 import 'package:github_search/presentation/repo/components/sort_selector_bottom_sheet.dart';
 import 'package:github_search/utils/extensions.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/logger.dart';
+
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 class _MockPage extends StatelessWidget {
   const _MockPage();
@@ -33,20 +31,14 @@ class _MockPage extends StatelessWidget {
 }
 
 void main() {
-  late Directory tmpDir;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-    useEnvironmentLocale();
-  });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('RepoSortSelectorBottomSheet', () {
     testWidgets('各選択肢を選択してソートが変更されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const _MockPage(),
         ),
       );
@@ -113,7 +105,7 @@ void main() {
     });
     testWidgets('オーダーボタン押下で昇順降順を切り替えられるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const _MockPage(),
         ),
       );
@@ -149,7 +141,7 @@ void main() {
     });
     testWidgets('エラーが発生したらオーダーボタンは押せないはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 常にエラーを返すHTTPクライアントを使う
             httpClientProvider.overrideWithValue(mockHttpClientError),

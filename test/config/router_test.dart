@@ -4,8 +4,6 @@
 
 // ignore_for_file: cascade_invocations
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
@@ -14,8 +12,7 @@ import 'package:github_search/presentation/repo/pages/index_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../test_utils/hive.dart';
-import '../test_utils/mocks.dart';
+import '../test_utils/test_agent.dart';
 
 class _MockPageRoute extends Mock implements PageRoute<dynamic> {}
 
@@ -51,18 +48,13 @@ class _MockRouteAware extends Mock implements PageRouteAware {
 class _EmptyPageRouteAware extends PageRouteAware {}
 
 void main() {
-  late Directory tmpDir;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-  });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('routerProvider', () {
     testWidgets('存在しないパスに遷移するとエラー画面を表示するはず', (tester) async {
-      await tester.pumpWidget(mockGitHubSearchApp());
+      await tester.pumpWidget(agent.mockApp());
       await tester.pumpAndSettle();
 
       expect(find.byType(RepoIndexPage), findsOneWidget);

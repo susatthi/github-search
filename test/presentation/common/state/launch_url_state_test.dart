@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/common/state/launch_url_state.dart';
 import 'package:mocktail/mocktail.dart';
@@ -13,8 +12,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/logger.dart';
+import '../../../test_utils/test_agent.dart';
 
 /// PlatformException を throw する UrlLauncherPlatform
 class ErrorkUrlLauncherPlatform extends Mock
@@ -35,37 +34,17 @@ class ErrorkUrlLauncherPlatform extends Mock
   }
 }
 
-typedef LaunchMethod = Future<bool> Function(
-  String url, {
-  required bool useSafariVC,
-  required bool useWebView,
-  required bool enableJavaScript,
-  required bool enableDomStorage,
-  required bool universalLinksOnly,
-  required Map<String, String> headers,
-  String? webOnlyWindowName,
-});
-
 void main() {
-  late MockUrlLauncherPlatform mockUrlLauncherPlatform;
-  late ProviderContainer container;
-  setUp(() {
-    mockUrlLauncherPlatform = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
-    container = ProviderContainer(
-      overrides: [
-        launchModeProvider.overrideWithValue(LaunchMode.inAppWebView),
-      ],
-    );
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('launcher', () {
     test('正常なURLならアプリ内ブラウザが開くはず', () async {
       const urlString = 'https://github.com';
 
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -76,10 +55,10 @@ void main() {
         ),
       ).thenAnswer((_) async => true);
 
-      await container.read(launcher)(urlString);
+      await agent.mockContainer().read(launcher)(urlString);
 
       verify(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -94,7 +73,7 @@ void main() {
       const urlString = 'https://999.168.0.1/';
 
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -105,10 +84,10 @@ void main() {
         ),
       ).thenAnswer((_) async => false);
 
-      await container.read(launcher)(urlString);
+      await agent.mockContainer().read(launcher)(urlString);
 
       verify(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -122,10 +101,10 @@ void main() {
     test('不正なURLなら開かないはず（FormatException）', () async {
       const urlString = 'https://AFEDC:BA98:7654:3210:FEDC:BA98:7654:3210/';
 
-      await container.read(launcher)(urlString);
+      await agent.mockContainer().read(launcher)(urlString);
 
       verifyNever(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -140,10 +119,10 @@ void main() {
     test('http or https 以外のスキームのURLなら開かないはず（ArgumentError）', () async {
       const urlString = 'mailto:hoge@sample.com';
 
-      await container.read(launcher)(urlString);
+      await agent.mockContainer().read(launcher)(urlString);
 
       verifyNever(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -157,10 +136,10 @@ void main() {
     test('空文字なら開かないはず（ArgumentError）', () async {
       const urlString = '';
 
-      await container.read(launcher)(urlString);
+      await agent.mockContainer().read(launcher)(urlString);
 
       verifyNever(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -172,15 +151,15 @@ void main() {
       );
     });
     test('PlatformExceptionがthrowされたら開かないはず', () async {
-      final errorUrlLauncherPlatform = ErrorkUrlLauncherPlatform();
-      UrlLauncherPlatform.instance = errorUrlLauncherPlatform;
-
       const urlString = 'https://github.com';
 
-      await container.read(launcher)(urlString);
+      final evacuation = UrlLauncherPlatform.instance;
+      UrlLauncherPlatform.instance = ErrorkUrlLauncherPlatform();
+      await agent.mockContainer().read(launcher)(urlString);
+      UrlLauncherPlatform.instance = evacuation;
 
       verifyNever(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -198,7 +177,7 @@ void main() {
       LaunchUrlStatus? stateStatus;
 
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -209,24 +188,24 @@ void main() {
         ),
       ).thenAnswer((_) async => true);
 
-      container.listen<LaunchUrlState>(
+      agent.mockContainer().listen<LaunchUrlState>(
         launchUrlStateProvider,
         (previous, next) {
+          testLogger.i(next, null, StackTrace.current);
           stateUrlString = next.urlString;
           stateMode = next.mode;
           stateStatus = next.status;
         },
       );
 
-      // ignore: unawaited_futures
-      container.read(launcher)(urlString);
+      final future = agent.mockContainer().read(launcher)(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
       expect(stateStatus, LaunchUrlStatus.wating);
 
-      await Future<void>.delayed(const Duration(milliseconds: 500));
+      await Future.wait([future]);
 
       // URL起動に成功したはず
       expect(stateUrlString, urlString);
@@ -241,7 +220,7 @@ void main() {
       LaunchUrlStatus? stateStatus;
 
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -252,7 +231,7 @@ void main() {
         ),
       ).thenAnswer((_) async => false);
 
-      container.listen<LaunchUrlState>(
+      agent.mockContainer().listen<LaunchUrlState>(
         launchUrlStateProvider,
         (previous, next) {
           stateUrlString = next.urlString;
@@ -261,15 +240,14 @@ void main() {
         },
       );
 
-      // ignore: unawaited_futures
-      container.read(launcher)(urlString);
+      final future = agent.mockContainer().read(launcher)(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
       expect(stateStatus, LaunchUrlStatus.wating);
 
-      await Future<void>.delayed(const Duration(milliseconds: 500));
+      await Future.wait([future]);
 
       // URL起動に失敗したはず
       expect(stateUrlString, urlString);

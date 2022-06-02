@@ -2,33 +2,26 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/repo/state/list_view_state.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late Directory tmpDir;
+  final agent = TestAgent();
   late RepoListViewNotifier notifier;
   setUp(() async {
-    tmpDir = await openAppDataBox();
-    notifier = mockProviderContainer()
+    await agent.setUp();
+    notifier = agent
+        .mockContainer()
         .listen(
           repoListViewStateProvider.notifier,
           (previous, next) {},
         )
         .read();
-    useEnvironmentLocale();
   });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  tearDown(agent.tearDown);
 
   group('RepoListViewNotifier', () {
     test('Notifierを生成するとリポジトリ検索結果エンティティを取得するはず', () async {
@@ -49,7 +42,7 @@ void main() {
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      var state = notifier.state?.value;
+      var state = notifier.state.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, RepoListViewNotifier.perPage);
@@ -59,7 +52,7 @@ void main() {
       await notifier.fetchNextPage();
 
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      state = notifier.state?.value;
+      state = notifier.state.value;
       expect(state!.page, 2);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);
       expect(state.queryString, 'flutter');
@@ -81,7 +74,7 @@ void main() {
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      final state = notifier.state?.value;
+      final state = notifier.state.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, RepoListViewNotifier.perPage);
@@ -98,7 +91,7 @@ void main() {
 
       // 3ページを取得した結果4ページ目は無いはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      var state = notifier.state?.value;
+      var state = notifier.state.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);
@@ -108,7 +101,7 @@ void main() {
 
       // 4ページを取得しないはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      state = notifier.state?.value;
+      state = notifier.state.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
       expect(state.items.length, RepoListViewNotifier.perPage * 2);

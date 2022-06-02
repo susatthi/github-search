@@ -8,18 +8,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/common/components/cached_circle_avatar.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 class MockDefaultCacheManager extends Mock implements DefaultCacheManager {}
 
 void main() {
   const dummyUrl = 'https://keyber.jp/images/logo_white.png';
-  late DefaultCacheManager mockCacheManager;
-  setUp(() {
-    useEnvironmentLocale();
-    mockCacheManager = MockDefaultCacheManager();
-  });
+  final mockCacheManager = MockDefaultCacheManager();
+
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('CachedCircleAvatar', () {
     testWidgets('ダミー画像が表示されるはず', (tester) async {
@@ -30,7 +29,7 @@ void main() {
     });
     testWidgets('エラーが表示されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: CachedCircleAvatar(
             cacheManager: mockCacheManager,
             url: dummyUrl,
@@ -42,7 +41,7 @@ void main() {
     });
     testWidgets('loading=trueでローディングが表示されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: CachedCircleAvatar(
             cacheManager: mockCacheManager,
             url: dummyUrl,
@@ -60,7 +59,7 @@ void main() {
     });
     testWidgets('loading=falseでローディングが表示されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: CachedCircleAvatar(
             cacheManager: mockCacheManager,
             url: dummyUrl,

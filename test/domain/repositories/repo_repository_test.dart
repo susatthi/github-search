@@ -6,26 +6,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo_repository.dart';
 
-import '../../test_utils/mocks.dart';
+import '../../test_utils/test_agent.dart';
 
 void main() {
-  late ProviderContainer container;
-  setUp(() async {
-    container = mockProviderContainer();
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('repoRepositoryProvider', () {
     test('DIする前はUnimplementedErrorがthrowされるはず', () async {
-      Object? exception;
-      try {
-        ProviderContainer().read(repoRepositoryProvider);
-      } on ProviderException catch (e) {
-        exception = e.exception;
-      }
-      expect(exception is UnimplementedError, true);
+      expect(
+        () => ProviderContainer().read(repoRepositoryProvider),
+        throwsUnimplementedError,
+      );
     });
     test('repoRepositoryProviderからGitHubRepoRepositoryが取得できるはず', () async {
-      final repoRepository = container.read(repoRepositoryProvider);
+      final repoRepository = agent.mockContainer().read(repoRepositoryProvider);
       expect(repoRepository.runtimeType.toString(), 'GitHubRepoRepository');
     });
   });

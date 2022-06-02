@@ -6,30 +6,30 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/state/readme_content.dart';
 
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 import '../../../test_utils/utils.dart';
 
 void main() {
-  late Repo repo;
-  setUp(() {
-    repo = GitHubRepoRepository.repoBuilder(
-      RepoJsonObject.fromJson(
-        TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
-      ),
-    );
-    useEnvironmentLocale();
-  });
+  final repo = GitHubRepoRepository.repoBuilder(
+    RepoJsonObject.fromJson(
+      TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
+    ),
+  );
+
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('repoReadmeContentProvider', () {
     test('正常にREADMEコンテンツが取得できるはず', () async {
-      final notifier = mockProviderContainer()
+      final notifier = agent
+          .mockContainer()
           .listen(
             repoReadmeContentProviderFamily(repo).notifier,
             (previous, next) {},
@@ -47,12 +47,13 @@ void main() {
       expect(notifier.state.value, isNotNull);
     });
     test('通信エラー時はAsyncErrorのはず', () async {
-      final notifier = mockProviderContainer(
-        overrides: [
-          // 常にエラーを返すHTTPクライアントを使う
-          httpClientProvider.overrideWithValue(mockHttpClientError),
-        ],
-      )
+      final notifier = agent
+          .mockContainer(
+            overrides: [
+              // 常にエラーを返すHTTPクライアントを使う
+              httpClientProvider.overrideWithValue(mockHttpClientError),
+            ],
+          )
           .listen(
             repoReadmeContentProviderFamily(repo).notifier,
             (previous, next) {},

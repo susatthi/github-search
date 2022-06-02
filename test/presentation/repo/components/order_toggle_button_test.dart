@@ -2,34 +2,26 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/presentation/repo/components/order_toggle_button.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/logger.dart';
+
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late Directory tmpDir;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-    useEnvironmentLocale();
-  });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('RepoOrderToggleButton', () {
     testWidgets('オーダーボタン押下で昇順降順を切り替えられるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: RepoOrderToggleButton(),
           ),
@@ -63,7 +55,7 @@ void main() {
     });
     testWidgets('ローディング中は無効化になるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: RepoOrderToggleButton(),
           ),
@@ -98,7 +90,7 @@ void main() {
     });
     testWidgets('エラー時は無効化になるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 常にエラーを返すHTTPクライアントを使う
             httpClientProvider.overrideWithValue(mockHttpClientError),
@@ -124,7 +116,7 @@ void main() {
     });
     testWidgets('初期化中は無効化になるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
             repoSearchReposInitQueryStringProvider.overrideWithValue(''),

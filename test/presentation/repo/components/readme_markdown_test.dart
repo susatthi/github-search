@@ -11,18 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/entities/repo.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/components/readme_markdown.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mocktail/mocktail.dart';
-// ignore: depend_on_referenced_packages
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 import '../../../test_utils/utils.dart';
 import '../../common/components/cached_circle_avatar_test.dart';
 
@@ -114,18 +111,15 @@ const String svgStr = '''
 final Uint8List svgBytes = utf8.encode(svgStr) as Uint8List;
 
 void main() {
-  late Repo repo;
-  late MockUrlLauncherPlatform mockUrlLauncherPlatform;
-  setUp(() {
-    repo = GitHubRepoRepository.repoBuilder(
-      RepoJsonObject.fromJson(
-        TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
-      ),
-    );
-    mockUrlLauncherPlatform = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
-    useEnvironmentLocale();
-  });
+  final repo = GitHubRepoRepository.repoBuilder(
+    RepoJsonObject.fromJson(
+      TestAssets.readJsonMap('github/get_repo_flutter_flutter.json')!,
+    ),
+  );
+
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('RepoReadmeMarkdown', () {
     testWidgets('画像取得時にエラーが起きたときはSVGとして取得を試みるはず', (tester) async {
@@ -147,7 +141,7 @@ void main() {
       await HttpOverrides.runZoned(
         () async {
           await tester.pumpWidget(
-            mockGitHubSearchApp(
+            agent.mockApp(
               home: SingleChildScrollView(
                 child: RepoReadmeMarkdown(
                   repo: repo,
@@ -169,7 +163,7 @@ void main() {
     });
     testWidgets('必要なWidgetが表示されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: SingleChildScrollView(
             child: RepoReadmeMarkdown(repo: repo),
           ),
@@ -188,7 +182,7 @@ void main() {
     });
     testWidgets('通信エラー時は何も表示しないはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 常にエラーを返すHTTPクライアントを使う
             httpClientProvider.overrideWithValue(mockHttpClientError),
@@ -212,7 +206,7 @@ void main() {
     testWidgets('リンクをタップしてブラウザを開けるはず', (tester) async {
       const urlString = 'https://keyber.jp/';
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -229,7 +223,7 @@ void main() {
         ),
       );
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: SingleChildScrollView(
             child: RepoReadmeMarkdown(repo: repo),
           ),
@@ -243,7 +237,7 @@ void main() {
       await tester.pump();
 
       verify(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,

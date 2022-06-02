@@ -7,14 +7,13 @@ import 'package:github_search/domain/entities/search_repos_order.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/api.dart';
 
-import '../../test_utils/locale.dart';
+import '../../test_utils/test_agent.dart';
 
 void main() {
-  late GitHubApi api;
-  setUp(() {
-    api = const GitHubApi();
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  const api = GitHubApi();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('GitHubApi.searchRepos()', () {
     test('クエリパラメータが正しいはず1', () {

@@ -6,13 +6,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 import 'package:github_search/utils/extensions.dart';
 
-import '../test_utils/locale.dart';
+import '../test_utils/test_agent.dart';
 
 void main() {
+  final agent = TestAgent();
   late List<int> listInt;
   late List<String> listString;
   late List<OwnerJsonObject> owners;
-  setUp(() {
+  setUp(() async {
+    await agent.setUp();
     listInt = [1, 2, 3, 4, 5, 4, 3, 7, 6, 3];
     listString = ['apple', 'banana', 'orange', '', 'banana', 'pine'];
     owners = const [
@@ -22,8 +24,8 @@ void main() {
       OwnerJsonObject(login: 'user4', avatarUrl: 'url4'),
       OwnerJsonObject(login: 'user2', avatarUrl: 'url5'),
     ];
-    useEnvironmentLocale();
   });
+  tearDown(agent.tearDown);
 
   group('IterableEx#firstWhereOrNull()', () {
     test('List<int>型 検索がヒットして値を返すはず', () {
