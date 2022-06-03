@@ -4,6 +4,9 @@
 
 import 'dart:io';
 
+import 'package:github_search/domain/entities/query_history.dart';
+import 'package:github_search/domain/entities/query_history_input.dart';
+import 'package:github_search/domain/repositories/query_history_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -147,3 +150,21 @@ class MockGoRouter extends Mock implements GoRouter {}
 class MockUrlLauncherPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements UrlLauncherPlatform {}
+
+/// 常にエラーを返すモック版のQueryHistoryRepository
+class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
+  @override
+  Future<void> add(QueryHistoryInput input) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> delete(QueryHistory query) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<QueryHistory>> findByQueryString(String queryString) {
+    throw UnimplementedError();
+  }
+}

@@ -77,6 +77,33 @@ void main() {
         // 一覧画面に戻ってきて検索結果が変わっているはず
         expect(find.text('flutter/flutter'), findsNothing);
         expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
+
+        // 本当は下記のテストをやりたいが解決出来ないExceptionが発生するためコメントアウト
+
+        // // もう一度検索ボタン押下で検索ページに遷移する
+        // await tester.tap(find.byType(RepoSearchTextButton));
+        // await tester.pumpAndSettle();
+
+        // // 検索画面に遷移したはず
+        // expect(find.byType(RepoSearchPage), findsOneWidget);
+
+        // // 検索文字列をクリアする
+        // await tester.tap(find.byIcon(Icons.close).first);
+        // await tester.pump();
+
+        // // 検索履歴が表示されるまで待つ
+        // await Future<void>.delayed(const Duration(milliseconds: 500));
+
+        // // 検索履歴が表示されているはず
+        // expect(find.byType(ListTile), findsOneWidget);
+
+        // // 検索履歴をタップする
+        // await tester.tap(find.byType(ListTile));
+        // await tester.pumpAndSettle();
+
+        // // 一覧画面に戻ってくるはず
+        // expect(find.text('flutter/flutter'), findsNothing);
+        // expect(find.text('RN24Nishioka/ARmemo'), findsOneWidget);
       });
     });
     testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {

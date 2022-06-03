@@ -34,6 +34,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
   @override
   Future<void> add(QueryHistoryInput input) async {
+    logger.v('queryString = ${input.queryString}');
     try {
       input.validate();
     } on ValidatorException catch (e) {
@@ -44,7 +45,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
     return _isar.writeTxn(
       (isar) => isar.queryHistoryCollections.put(
         QueryHistoryCollection()
-          ..queryString = input.queryString
+          ..queryString = input.queryString.trim()
           ..searchedAt = DateTime.now(),
       ),
     );
@@ -52,6 +53,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
   @override
   Future<void> delete(QueryHistory query) async {
+    logger.v('queryString = ${query.queryString}');
     return _isar.writeTxn(
       (isar) => _isar.queryHistoryCollections
           .filter()
@@ -62,6 +64,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
   @override
   Future<List<QueryHistory>> findByQueryString(String queryString) async {
+    logger.v('queryString = $queryString');
     final collections = await _isar.queryHistoryCollections
         .filter()
         .queryStringStartsWith(queryString, caseSensitive: false)

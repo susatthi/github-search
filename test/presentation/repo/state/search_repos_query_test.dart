@@ -21,15 +21,26 @@ void main() {
       expect(query, Env.defaultSearchValue);
     });
   });
-  group('repoSearchReposQueryStringProvider', () {
+  group('repoSearchReposQueryStringUpdater', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      agent
+      await agent
           .mockContainer()
-          .read(repoSearchReposQueryStringProvider.notifier)
-          .state = 'dummy';
+          .read(repoSearchReposQueryStringUpdater)('dummy');
       final query =
           agent.mockContainer().read(repoSearchReposQueryStringProvider);
+      expect(query, 'dummy');
+    });
+  });
+  group('repoSearchReposEnteringQueryStringUpdater', () {
+    test('入力中の検索文字列を変更できるはず', () async {
+      // 入力中の検索文字列を変更する
+      await agent
+          .mockContainer()
+          .read(repoSearchReposEnteringQueryStringUpdater)('dummy');
+      final query = agent
+          .mockContainer()
+          .read(repoSearchReposEnteringQueryStringProvider);
       expect(query, 'dummy');
     });
   });

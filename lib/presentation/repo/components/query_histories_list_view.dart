@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/entities/query_history.dart';
+import '../../../utils/logger.dart';
 import '../state/query_histories.dart';
 import '../state/search_repos_query.dart';
 
@@ -38,6 +39,7 @@ class SliverRepoQueryHistoriesListViewInternal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.v('queryHistories.length = ${queryHistories.length}');
     if (queryHistories.isEmpty) {
       return const SliverFillRemaining();
     }

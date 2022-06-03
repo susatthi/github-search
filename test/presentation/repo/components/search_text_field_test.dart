@@ -36,6 +36,10 @@ void main() {
       // 最初は入力中の検索文字列を表示するはず
       expect(controller.text, expectedQuery);
 
+      // 最初は全選択状態のはず
+      expect(controller.selection.baseOffset, 0);
+      expect(controller.selection.extentOffset, expectedQuery.length);
+
       // 検索文字列を入力してキーボードのDone押下
       await tester.runAsync(() async {
         await tester.enterText(find.byType(TextField), 'kboy');

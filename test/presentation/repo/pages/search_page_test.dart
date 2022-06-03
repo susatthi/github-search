@@ -4,6 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
+import 'package:github_search/presentation/repo/components/query_histories_list_view.dart';
 import 'package:github_search/presentation/repo/components/search_text_field.dart';
 import 'package:github_search/presentation/repo/components/sort_button.dart';
 import 'package:github_search/presentation/repo/components/sort_selector_bottom_sheet.dart';
@@ -28,6 +29,7 @@ void main() {
 
       expect(find.byType(RepoSearchTextField), findsOneWidget);
       expect(find.byType(RepoSortButton), findsOneWidget);
+      expect(find.byType(SliverRepoQueryHistoriesListView), findsOneWidget);
 
       // RepoSearchTextに自動でフォーカスが当たるはず
       final state = tester.firstState(find.byType(RepoSearchTextField))
