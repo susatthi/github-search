@@ -11,6 +11,7 @@ import 'package:github_search/domain/repositories/query_history_repository.dart'
 import 'package:github_search/presentation/repo/state/query_histories.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 
+import '../../../test_utils/logger.dart';
 import '../../../test_utils/test_agent.dart';
 
 void main() {
@@ -73,6 +74,39 @@ void main() {
       // 検索履歴が削除されているはず
       expect(notifier.state is AsyncData, true);
       expect(notifier.state.value!.length, 0);
+    });
+    test('Notifierを連続で生成してDisposeされても問題ないはず', () async {
+      QueryHistoriesNotifier? currentNotifier;
+      final container = agent.mockContainer(
+        overrides: [
+          // 検索文字列の初期値は空文字にしておく
+          repoSearchReposInitQueryStringProvider.overrideWithValue(''),
+        ],
+      )..listen<QueryHistoriesNotifier>(
+          queryHistoriesProvider.notifier,
+          (previous, next) {
+            testLogger.i(next);
+            currentNotifier = next;
+          },
+        );
+
+      expect(currentNotifier, isNull);
+
+      // fを入力
+      await container.read(repoSearchReposEnteringQueryStringUpdater)('f');
+
+      // Notifierが更新されるまで待つ
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+
+      expect(currentNotifier?.queryString, 'f');
+
+      // flを入力
+      await container.read(repoSearchReposEnteringQueryStringUpdater)('fl');
+
+      // Notifierが更新されるまで待つ
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+
+      expect(currentNotifier?.queryString, 'fl');
     });
   });
 }

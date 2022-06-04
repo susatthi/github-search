@@ -18,9 +18,9 @@ final queryHistoriesProvider = StateNotifierProvider.autoDispose<
       queryString: ref.watch(repoSearchReposEnteringQueryStringProvider),
     );
     ref.onDispose(() {
-      logger.v('Disposed notifier: hashCode = ${notifier.hashCode}');
+      logger.v('Disposed notifier: $notifier');
     });
-    logger.v('Created notifier: hashCode = ${notifier.hashCode}');
+    logger.v('Created notifier: $notifier');
     return notifier;
   },
 );
@@ -52,11 +52,13 @@ class QueryHistoriesNotifier
       if (asyncValue is AsyncData) {
         logger.v('Updated state: queries.length = ${asyncValue.value!.length}');
       } else if (asyncValue is AsyncError) {
-        logger.v('Updated state: asyncError');
+        logger.v(
+          'Updated state: asyncError = ${asyncValue.asError?.error.toString()}',
+        );
       }
     } else {
       logger.v(
-        'Updated state: asyncError = ${asyncValue.asError?.error.toString()}',
+        'Unmounted state: asyncValue = $asyncValue',
       );
     }
   }
@@ -67,4 +69,7 @@ class QueryHistoriesNotifier
     await _read(queryHistoryRepositoryProvider).delete(query);
     await _load();
   }
+
+  @override
+  String toString() => '{queryString: $queryString, hashCode: $hashCode}';
 }
