@@ -38,4 +38,21 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
+
+  # Isar の iOS リリースビルドが失敗する件への暫定対応
+  # Error (Xcode): Invalid value (Producer: 'LLVM14.0.0-rust-1.60.0-stable' Reader: 'LLVM APPLE_1_1300.0.29.30_0') for architecture arm64
+  # Isar の iOS 向け動的ライブラリ（libisar.a）のリンクが arm64 で失敗する。
+  # StackOverflowでは2.4.0にダウングレードすればよいと書かれているが、根本的には Bitcodeをオフにすればよいらしい。
+  # https://stackoverflow.com/a/72186524
+  # リポジトリ見に行ったらOFFになってたがまだ未リリースのようで、次のリリースでは修正されるはず。
+  # https://github.com/isar/isar/blob/main/packages/isar_flutter_libs/ios/isar_flutter_libs.podspec#L19
+  # 暫定的にPodfileのBicodeをオフにしておき、Isarライブラリがアップデートされたら元に戻す
+  # https://stackoverflow.com/a/32685434
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+    end
+  end
+
 end
+
