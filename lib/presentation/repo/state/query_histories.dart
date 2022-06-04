@@ -55,7 +55,9 @@ class QueryHistoriesNotifier
         logger.v('Updated state: asyncError');
       }
     } else {
-      logger.i('Already unmounted: hashCode = $hashCode');
+      logger.v(
+        'Updated state: asyncError = ${asyncValue.asError?.error.toString()}',
+      );
     }
   }
 

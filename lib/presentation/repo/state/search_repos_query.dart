@@ -31,7 +31,6 @@ final repoSearchReposQueryStringUpdater = Provider(
     await ref.read(queryHistoryRepositoryProvider).add(
           QueryHistoryInput(queryString: queryString),
         );
-    logger.i('Added query history: queryString = $queryString');
   },
 );
 

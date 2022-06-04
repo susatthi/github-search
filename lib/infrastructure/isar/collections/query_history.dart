@@ -16,4 +16,8 @@ class QueryHistoryCollection {
   /// 検索日時
   @Index()
   late DateTime searchedAt;
+
+  @override
+  String toString() =>
+      '{id: $id, queryString: $queryString, searchedAt: $searchedAt}';
 }

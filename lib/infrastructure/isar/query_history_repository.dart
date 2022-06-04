@@ -34,7 +34,6 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
   @override
   Future<void> add(QueryHistoryInput input) async {
-    logger.v('queryString = ${input.queryString}');
     try {
       input.validate();
     } on ValidatorException catch (e) {
@@ -43,28 +42,36 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
     }
 
     return _isar.writeTxn(
-      (isar) => isar.queryHistoryCollections.put(
-        QueryHistoryCollection()
-          ..queryString = input.queryString.trim()
-          ..searchedAt = DateTime.now(),
-      ),
+      (isar) async {
+        final id = await isar.queryHistoryCollections.put(
+          QueryHistoryCollection()
+            ..queryString = input.queryString.trim()
+            ..searchedAt = DateTime.now(),
+        );
+        final added = await isar.queryHistoryCollections.get(id);
+        logger.v('Added query history: $added');
+      },
     );
   }
 
   @override
   Future<void> delete(QueryHistory query) async {
-    logger.v('queryString = ${query.queryString}');
     return _isar.writeTxn(
-      (isar) => _isar.queryHistoryCollections
-          .filter()
-          .queryStringEqualTo(query.queryString)
-          .deleteAll(),
+      (isar) async {
+        final count = await _isar.queryHistoryCollections
+            .filter()
+            .queryStringEqualTo(query.queryString)
+            .deleteAll();
+        logger.v(
+          'Deleted query history: queryString = ${query.queryString}, '
+          'count = $count',
+        );
+      },
     );
   }
 
   @override
   Future<List<QueryHistory>> findByQueryString(String queryString) async {
-    logger.v('queryString = $queryString');
     final collections = await _isar.queryHistoryCollections
         .filter()
         .queryStringStartsWith(queryString, caseSensitive: false)
@@ -72,12 +79,19 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
         .distinctByQueryString()
         .limit(20)
         .findAll();
-    return collections
+
+    final queries = collections
         .map(
           (collection) => QueryHistory(
             queryString: collection.queryString,
           ),
         )
         .toList();
+
+    logger.v(
+      'Find query histories: queryString = $queryString, '
+      'count = ${queries.length}',
+    );
+    return queries;
   }
 }
