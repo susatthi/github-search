@@ -29,3 +29,25 @@ extension IterableEx<E> on Iterable<E> {
     return null;
   }
 }
+
+extension ListEx<E> on List<E> {
+  /// RageErrorが起きないように自動で0<length内におさめる
+  List<E> sublistSafety(int start, [int? end]) {
+    if (isEmpty) {
+      return this;
+    }
+    final effectiveStart = start < 0
+        ? 0
+        : start > length
+            ? length
+            : start;
+    final effectiveEnd = end != null
+        ? end < 0
+            ? 0
+            : end > length
+                ? length
+                : end
+        : null;
+    return sublist(effectiveStart, effectiveEnd);
+  }
+}

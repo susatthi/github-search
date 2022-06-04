@@ -5,8 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'config/app.dart';
 import 'domain/repositories/app_data_repository.dart';
@@ -14,9 +12,9 @@ import 'domain/repositories/query_history_repository.dart';
 import 'domain/repositories/repo_repository.dart';
 import 'infrastructure/github/repo_repository.dart';
 import 'infrastructure/hive/app_data_repository.dart';
-import 'infrastructure/isar/collections/query_history.dart';
-import 'infrastructure/isar/query_history_repository.dart';
+import 'infrastructure/objectbox/query_history_repository.dart';
 import 'localizations/strings.g.dart';
+import 'objectbox.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,27 +26,21 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox<dynamic>(hiveBoxNameAppData);
 
-  // isar の初期化
-  final dir = await getApplicationSupportDirectory();
-  final isar = await Isar.open(
-    directory: dir.path,
-    schemas: [
-      QueryHistoryCollectionSchema,
-    ],
-  );
+  // objectbox の初期化
+  final store = await openStore();
 
   runApp(
     ProviderScope(
       overrides: [
         // DataSources
-        isarProvider.overrideWithValue(isar),
+        storeProvider.overrideWithValue(store),
         // Repositories
         appDataRepositoryProvider
             .overrideWithProvider(hiveAppDataRepositoryProvider),
         repoRepositoryProvider
             .overrideWithProvider(githubRepoRepositoryProvider),
         queryHistoryRepositoryProvider
-            .overrideWithProvider(isarQueryHistoryRepositoryProvider),
+            .overrideWithProvider(objectboxQueryHistoryRepositoryProvider),
       ],
       child: const GitHubSearchApp(),
     ),

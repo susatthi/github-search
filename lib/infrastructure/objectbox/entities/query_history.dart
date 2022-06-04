@@ -2,18 +2,21 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:isar/isar.dart';
+import 'package:objectbox/objectbox.dart';
 
-part 'query_history.g.dart';
+@Entity()
+class QueryHistoryEntity {
+  QueryHistoryEntity({
+    required this.queryString,
+    required this.searchedAt,
+  });
 
-@Collection()
-class QueryHistoryCollection {
-  int id = Isar.autoIncrement;
+  int id = 0;
 
   /// 検索文字列
   late String queryString;
 
   /// 検索日時
-  @Index()
+  @Property(type: PropertyType.date)
   late DateTime searchedAt;
 }

@@ -52,7 +52,9 @@ class QueryHistoriesNotifier
       if (asyncValue is AsyncData) {
         logger.v('Updated state: queries.length = ${asyncValue.value!.length}');
       } else if (asyncValue is AsyncError) {
-        logger.v('Updated state: asyncError');
+        logger.v(
+          'Updated state: asyncError = ${asyncValue.asError?.error.toString()}',
+        );
       }
     } else {
       logger.i('Already unmounted: hashCode = $hashCode');

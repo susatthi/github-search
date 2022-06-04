@@ -18,7 +18,7 @@ import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data_repository.dart';
 import 'package:github_search/infrastructure/isar/collections/query_history.dart';
-import 'package:github_search/infrastructure/isar/query_history_repository.dart';
+import 'package:github_search/infrastructure/objectbox/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 import 'package:hive_flutter/hive_flutter.dart';
