@@ -3,8 +3,10 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - isar_flutter_libs (1.0.0):
+  - ObjectBox (1.7.0)
+  - objectbox_flutter_libs (0.0.1):
     - FlutterMacOS
+    - ObjectBox (= 1.7.0)
   - path_provider_macos (0.0.1):
     - FlutterMacOS
   - sqflite (0.0.2):
@@ -15,7 +17,7 @@ PODS:
 
 DEPENDENCIES:
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - isar_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/isar_flutter_libs/macos`)
+  - objectbox_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/objectbox_flutter_libs/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
@@ -23,12 +25,13 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FMDB
+    - ObjectBox
 
 EXTERNAL SOURCES:
   FlutterMacOS:
     :path: Flutter/ephemeral
-  isar_flutter_libs:
-    :path: Flutter/ephemeral/.symlinks/plugins/isar_flutter_libs/macos
+  objectbox_flutter_libs:
+    :path: Flutter/ephemeral/.symlinks/plugins/objectbox_flutter_libs/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
   sqflite:
@@ -39,7 +42,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  isar_flutter_libs: 1948109973b6c2e46d6196b1537688a36a6edeac
+  ObjectBox: 6410cda891ee71682ea1b0330a9544c52b2ba988
+  objectbox_flutter_libs: 52f3cbcb18604df4e4dd08fb513b9edf3f91b1af
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
   url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
