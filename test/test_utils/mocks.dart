@@ -11,6 +11,9 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:path/path.dart' as path;
+// ignore: depend_on_referenced_packages
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 // ignore: depend_on_referenced_packages
@@ -166,5 +169,62 @@ class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
   @override
   Future<List<QueryHistory>> findByQueryString(String queryString) {
     throw UnimplementedError();
+  }
+}
+
+/// モック版のPathProviderPlatform
+class MockPathProviderPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements PathProviderPlatform {
+  final rootDir = Directory(
+    path.join(
+      Directory.current.path,
+      '.dart_tool',
+      'test',
+      'tmp',
+      'path_provider',
+    ),
+  );
+
+  @override
+  Future<String> getTemporaryPath() async {
+    return Directory(path.join(rootDir.path, 'temporary')).path;
+  }
+
+  @override
+  Future<String> getApplicationSupportPath() async {
+    return Directory(path.join(rootDir.path, 'application_support')).path;
+  }
+
+  @override
+  Future<String> getLibraryPath() async {
+    return Directory(path.join(rootDir.path, 'library')).path;
+  }
+
+  @override
+  Future<String> getApplicationDocumentsPath() async {
+    return Directory(path.join(rootDir.path, 'application_documents')).path;
+  }
+
+  @override
+  Future<String> getExternalStoragePath() async {
+    return Directory(path.join(rootDir.path, 'external_storage')).path;
+  }
+
+  @override
+  Future<List<String>> getExternalCachePaths() async {
+    return [Directory(path.join(rootDir.path, 'external_cache')).path];
+  }
+
+  @override
+  Future<List<String>?> getExternalStoragePaths({
+    StorageDirectory? type,
+  }) async {
+    return [Directory(path.join(rootDir.path, 'external_storage')).path];
+  }
+
+  @override
+  Future<String> getDownloadsPath() async {
+    return Directory(path.join(rootDir.path, 'downloads')).path;
   }
 }

@@ -7,7 +7,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/app.dart';
@@ -26,6 +25,8 @@ import 'package:isar/isar.dart';
 // ignore: unused_import
 import 'package:isar/src/version.dart';
 import 'package:path/path.dart' as path;
+// ignore: depend_on_referenced_packages
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
@@ -74,23 +75,19 @@ class TestAgent {
     // dart-define で与えられた言語情報を設定する
     LocaleSettings.setLocaleRaw(locale);
 
+    // 一部テストで下記エラーがでるのでPathProviderをモック化
+    // The following MissingPluginException was thrown running a test (but after
+    // the test had completed):MissingPluginException(No implementation found
+    // for method getTemporaryDirectory on channel plugins.flutter.io/path_provider_macos)
+    // see: https://qiita.com/teriyaki398_/items/642be2f0ed1e87d8ae38
+    // see: https://stackoverflow.com/questions/62597011/mock-getexternalstoragedirectory-on-flutter
+    PathProviderPlatform.instance = MockPathProviderPlatform();
+
     // Hive のセットアップ
     await hiveTestAgent.setUp();
 
     // Isar のセットアップ
     await isarTestAgent.setUp();
-
-    // 一部テストで下記エラーがでる対策
-    // The following MissingPluginException was thrown running a test (but after
-    // the test had completed):MissingPluginException(No implementation found
-    // for method getTemporaryDirectory on channel plugins.flutter.io/path_provider_macos)
-    // see: https://qiita.com/teriyaki398_/items/642be2f0ed1e87d8ae38
-    const MethodChannel('plugins.flutter.io/path_provider_macos')
-        .setMockMethodCallHandler(
-      (methodCall) async {
-        return '.dart_tool/test/tmp';
-      },
-    );
 
     addOverrides = overrides;
   }
