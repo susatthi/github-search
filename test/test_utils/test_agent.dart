@@ -2,12 +2,10 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/app.dart';
@@ -17,14 +15,11 @@ import 'package:github_search/domain/repositories/repo_repository.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data_repository.dart';
-import 'package:github_search/infrastructure/isar/collections/query_history.dart';
 import 'package:github_search/infrastructure/objectbox/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
+import 'package:github_search/objectbox.g.dart';
 import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:isar/isar.dart';
-// ignore: unused_import
-import 'package:isar/src/version.dart';
 import 'package:path/path.dart' as path;
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
@@ -47,7 +42,7 @@ class TestAgent {
         .overrideWithProvider(hiveAppDataRepositoryProvider),
     repoRepositoryProvider.overrideWithProvider(githubRepoRepositoryProvider),
     queryHistoryRepositoryProvider
-        .overrideWithProvider(isarQueryHistoryRepositoryProvider),
+        .overrideWithProvider(objectboxQueryHistoryRepositoryProvider),
     // GitHubアクセストークンをダミー文字列にする
     githubAccessTokenProvider.overrideWithValue('dummy'),
     // モック版のHTTPクライアントを使う
@@ -63,7 +58,7 @@ class TestAgent {
   final mockGoRouter = MockGoRouter();
 
   final hiveTestAgent = HiveTestAgent();
-  final isarTestAgent = IsarTestAgent();
+  final objectboxTestAgent = ObjectboxTestAgent();
   final providerContainerTestAgent = ProviderContainerTestAgent();
 
   Future<void> setUp({
@@ -77,20 +72,20 @@ class TestAgent {
     // Hive のセットアップ
     await hiveTestAgent.setUp();
 
-    // Isar のセットアップ
-    await isarTestAgent.setUp();
+    // ObjectBox のセットアップ
+    await objectboxTestAgent.setUp();
 
-    // 一部テストで下記エラーがでる対策
-    // The following MissingPluginException was thrown running a test (but after
-    // the test had completed):MissingPluginException(No implementation found
-    // for method getTemporaryDirectory on channel plugins.flutter.io/path_provider_macos)
-    // see: https://qiita.com/teriyaki398_/items/642be2f0ed1e87d8ae38
-    const MethodChannel('plugins.flutter.io/path_provider_macos')
-        .setMockMethodCallHandler(
-      (methodCall) async {
-        return '.dart_tool/test/tmp';
-      },
-    );
+    // // 一部テストで下記エラーがでる対策
+    // // The following MissingPluginException was thrown running a test (but after
+    // // the test had completed):MissingPluginException(No implementation found
+    // // for method getTemporaryDirectory on channel plugins.flutter.io/path_provider_macos)
+    // // see: https://qiita.com/teriyaki398_/items/642be2f0ed1e87d8ae38
+    // const MethodChannel('plugins.flutter.io/path_provider_macos')
+    //     .setMockMethodCallHandler(
+    //   (methodCall) async {
+    //     return '.dart_tool/test/tmp';
+    //   },
+    // );
 
     addOverrides = overrides;
   }
@@ -128,14 +123,14 @@ class TestAgent {
   ) =>
       [
         ...defaultOverrides,
-        isarProvider.overrideWithValue(isarTestAgent.isar),
+        storeProvider.overrideWithValue(objectboxTestAgent.store),
         ...?addOverrides,
         ...?overrides,
       ];
 
   Future<void> tearDown() async {
     await hiveTestAgent.tearDown();
-    await isarTestAgent.tearDown();
+    await objectboxTestAgent.tearDown();
     providerContainerTestAgent.tearDown();
   }
 }
@@ -192,7 +187,7 @@ class TestDirectory {
     }
 
     if (dir.existsSync()) {
-      dir.deleteSync();
+      dir.deleteSync(recursive: true);
       _dir = null;
     }
   }
@@ -217,82 +212,24 @@ class HiveTestAgent {
   }
 }
 
-/// Isar のテストエージェント
-class IsarTestAgent {
+/// ObjectBox のテストエージェント
+class ObjectboxTestAgent {
   final testDir = TestDirectory();
-  Isar? _isar;
-  Isar get isar => _isar!;
+  Store? _store;
+  Store get store => _store!;
 
   /// セットアップする
   Future<void> setUp() async {
-    await testDir.open(prefix: 'isar');
-
-    // Isar.initializeIsarCore() 内部で Isar のライブラリを GitHub
-    // （例: https://github.com/isar/isar-core/releases/download/2.5.13/libisar_macos.dylib）
-    // からダウンロードしているため一時的にインターネットに出られるようにしている。
-    // ダウンロードしたライブラリファイルは ./dart_tool/test/tmp/isar_core_library 配下に
-    // Isarコアバージョン毎にフォルダを作成して保存することにしている。
-    final libraryDir = Directory(
-      path.join(
-        Directory.current.path,
-        '.dart_tool',
-        'test',
-        'tmp',
-        'isar_core_library',
-        isarCoreVersion,
-      ),
-    );
-    if (!libraryDir.existsSync()) {
-      await libraryDir.create(recursive: true);
-    }
-
-    final evacuation = HttpOverrides.current;
-    HttpOverrides.global = null;
-    await Isar.initializeIsarCore(
-      libraries: <Abi, String>{
-        Abi.current(): path.join(libraryDir.path, Abi.current().localName),
-      },
-      download: true,
-    );
-    HttpOverrides.global = evacuation;
-
-    _isar = await Isar.open(
+    await testDir.open(prefix: 'objectbox');
+    _store = await openStore(
       directory: testDir.dir.path,
-      schemas: [
-        QueryHistoryCollectionSchema,
-      ],
     );
   }
 
   /// 終了する
   Future<void> tearDown() async {
-    await _isar?.close(deleteFromDisk: true);
-    _isar = null;
+    _store?.close();
+    _store = null;
     testDir.close();
-  }
-}
-
-/// Copy from 'package:isar/src/native/isar_core.dart';
-extension on Abi {
-  String get localName {
-    switch (Abi.current()) {
-      case Abi.androidArm:
-      case Abi.androidArm64:
-      case Abi.androidIA32:
-      case Abi.androidX64:
-        return 'libisar.so';
-      case Abi.macosArm64:
-      case Abi.macosX64:
-        return 'libisar.dylib';
-      case Abi.linuxX64:
-        return 'libisar.so';
-      case Abi.windowsArm64:
-      case Abi.windowsX64:
-        return 'isar.dll';
-      default:
-        // ignore: only_throw_errors
-        throw 'Unsupported processor architecture "${Abi.current()}".'
-            'Please open an issue on GitHub to request it.';
-    }
   }
 }

@@ -20,13 +20,14 @@ void main() {
         throwsUnimplementedError,
       );
     });
-    test('queryHistoryRepositoryProviderからIsarQueryHistoryRepositoryが取得できるはず',
-        () async {
+    test(
+        'queryHistoryRepositoryProviderからObjectboxQueryHistoryRepository'
+        'が取得できるはず', () async {
       final queryHistoryRepository =
           agent.mockContainer().read(queryHistoryRepositoryProvider);
       expect(
         queryHistoryRepository.runtimeType.toString(),
-        'IsarQueryHistoryRepository',
+        'ObjectboxQueryHistoryRepository',
       );
     });
   });

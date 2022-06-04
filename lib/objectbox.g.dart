@@ -37,7 +37,7 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(3, 6149508526505359811),
             name: 'searchedAt',
-            type: 10,
+            type: 12,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -90,7 +90,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.startTable(4);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, queryStringOffset);
-          fbb.addInt64(2, object.searchedAt.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.searchedAt.microsecondsSinceEpoch * 1000);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -101,8 +101,10 @@ ModelDefinition getObjectBoxModel() {
           final object = QueryHistoryEntity(
               queryString: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
-              searchedAt: DateTime.fromMillisecondsSinceEpoch(
-                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0)))
+              searchedAt: DateTime.fromMicrosecondsSinceEpoch(
+                  (const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0) /
+                          1000)
+                      .round()))
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;

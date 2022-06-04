@@ -17,6 +17,10 @@ class QueryHistoryEntity {
   late String queryString;
 
   /// 検索日時
-  @Property(type: PropertyType.date)
+  @Property(type: PropertyType.dateNano)
   late DateTime searchedAt;
+
+  @override
+  String toString() =>
+      '{id: $id, queryString: $queryString, searchedAt: $searchedAt}';
 }

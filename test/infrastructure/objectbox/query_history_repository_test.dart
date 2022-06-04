@@ -15,19 +15,20 @@ void main() {
   late QueryHistoryRepository repository;
   setUp(() async {
     await agent.setUp();
-    repository = agent.mockContainer().read(isarQueryHistoryRepositoryProvider);
+    repository =
+        agent.mockContainer().read(objectboxQueryHistoryRepositoryProvider);
   });
   tearDown(agent.tearDown);
 
-  group('isarProvider', () {
+  group('storeProvider', () {
     test('DIする前はUnimplementedErrorがthrowされるはず', () async {
       expect(
-        () => ProviderContainer().read(isarProvider),
+        () => ProviderContainer().read(storeProvider),
         throwsUnimplementedError,
       );
     });
   });
-  group('IsarQueryHistoryRepository', () {
+  group('ObjectboxQueryHistoryRepository', () {
     test('add(): 正常に登録できるはず', () async {
       final input = QueryHistoryInput(queryString: 'flutter');
       await repository.add(input);
