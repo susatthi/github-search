@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/infrastructure/github/json_objects/search_repos_result/search_repos_result.dart';
+import 'package:github_search/infrastructure/github/json_objects/search_repos_result.dart';
 
-import '../../../../test_utils/utils.dart';
+import '../../../test_utils/utils.dart';
 
 void main() {
   final jsonMap =

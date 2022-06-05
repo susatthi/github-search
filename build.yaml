@@ -9,14 +9,14 @@ targets:
         generate_for:
           include:
             - lib/domain/**/*.dart
-            - lib/**/json_objects/**/*.dart
+            - lib/**/json_objects/*.dart
             - lib/**/state/*.dart
             - lib/**/*state.dart
       json_serializable:
         generate_for:
           include:
             - lib/domain/**/*.dart
-            - lib/**/json_objects/**/*.dart
+            - lib/**/json_objects/*.dart
             - lib/**/state/*.dart
             - lib/**/*state.dart
       fast_i18n:

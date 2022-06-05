@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../repo/repo.dart';
+import 'repo.dart';
 
 part 'search_repos_result.freezed.dart';
 part 'search_repos_result.g.dart';

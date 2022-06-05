@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
-import 'package:github_search/infrastructure/github/json_objects/repo/repo.dart';
+import 'package:github_search/infrastructure/github/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';

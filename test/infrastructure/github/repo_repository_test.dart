@@ -9,7 +9,7 @@ import 'package:github_search/domain/entities/values/repo_count.dart';
 import 'package:github_search/domain/entities/values/repo_language.dart';
 import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/domain/repositories/repo_repository.dart';
-import 'package:github_search/infrastructure/github/json_objects/repo/repo.dart';
+import 'package:github_search/infrastructure/github/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:hexcolor/hexcolor.dart';
 
