@@ -9,13 +9,13 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'config/app.dart';
-import 'domain/repositories/app_data_repository.dart';
-import 'domain/repositories/query_history_repository.dart';
-import 'domain/repositories/repo_repository.dart';
-import 'infrastructure/github/repo_repository.dart';
-import 'infrastructure/hive/app_data_repository.dart';
-import 'infrastructure/isar/collections/query_history.dart';
-import 'infrastructure/isar/query_history_repository.dart';
+import 'domain/repositories/app_data/app_data_repository.dart';
+import 'domain/repositories/query_history/query_history_repository.dart';
+import 'domain/repositories/repo/repo_repository.dart';
+import 'infrastructure/github/repo/repo_repository.dart';
+import 'infrastructure/hive/app_data/app_data_repository.dart';
+import 'infrastructure/isar/query_history/collections/query_history.dart';
+import 'infrastructure/isar/query_history/query_history_repository.dart';
 import 'localizations/strings.g.dart';
 
 Future<void> main() async {

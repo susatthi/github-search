@@ -7,7 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../localizations/strings.g.dart';
-import '../presentation/common/components/launch_url_state.dart';
+import '../presentation/components/launch_url_state.dart';
 import '../utils/logger.dart';
 import 'router.dart';
 import 'theme.dart';

@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/repo/pages/index_page.dart';
+import 'package:github_search/presentation/pages/repo/index_page.dart';
 
 import '../test_utils/test_agent.dart';
 
