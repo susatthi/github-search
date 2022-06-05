@@ -2,31 +2,21 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late Directory tmpDir;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-    useEnvironmentLocale();
-  });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('RepoAvatarPreviewPage', () {
     testWidgets('表示してタップで閉じるはず', (tester) async {
-      await tester.pumpWidget(mockGitHubSearchApp());
+      await tester.pumpWidget(agent.mockApp());
       await tester.pump();
 
       expect(find.text('flutter/flutter'), findsOneWidget);

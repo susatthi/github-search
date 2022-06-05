@@ -14,11 +14,8 @@ import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
-// ignore: depend_on_referenced_packages
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 class _MockPage extends StatelessWidget {
   const _MockPage();
@@ -37,14 +34,9 @@ class _MockPage extends StatelessWidget {
 }
 
 void main() {
-  late MockUrlLauncherPlatform mockUrlLauncherPlatform;
-  late MockGoRouter mockGoRouter;
-  setUp(() {
-    mockUrlLauncherPlatform = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
-    mockGoRouter = MockGoRouter();
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   /// ハイパーリンクをタップするテスト
   Future<void> wrapTapHyperlinkTest(
@@ -53,7 +45,7 @@ void main() {
     String Function(Repo data) urlSelector,
   ) async {
     await tester.pumpWidget(
-      mockGitHubSearchApp(
+      agent.mockApp(
         overrides: [
           repoSelectedRepoProvider.overrideWithProvider(
             repoSelectedRepoProviderFamily(
@@ -78,7 +70,7 @@ void main() {
     final url = urlSelector(data);
 
     when(
-      () => mockUrlLauncherPlatform.launch(
+      () => agent.mockUrlLauncherPlatform.launch(
         url,
         useSafariVC: true,
         useWebView: true,
@@ -94,7 +86,7 @@ void main() {
     await tester.pump();
 
     verify(
-      () => mockUrlLauncherPlatform.launch(
+      () => agent.mockUrlLauncherPlatform.launch(
         url,
         useSafariVC: true,
         useWebView: true,
@@ -109,7 +101,7 @@ void main() {
   group('RepoDetailView', () {
     testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(
@@ -164,7 +156,7 @@ void main() {
     });
     testWidgets('エラーが発生した場合はエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(
@@ -231,7 +223,7 @@ void main() {
     });
     testWidgets('アバター画像をタップしてプレビューが開くはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(
@@ -243,7 +235,7 @@ void main() {
             ),
           ],
           home: InheritedGoRouter(
-            goRouter: mockGoRouter,
+            goRouter: agent.mockGoRouter,
             child: const _MockPage(),
           ),
         ),
@@ -257,7 +249,7 @@ void main() {
       final data = detailView.repo;
 
       verifyNever(
-        () => mockGoRouter.goNamed(
+        () => agent.mockGoRouter.goNamed(
           RepoAvatarPreviewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',
@@ -272,7 +264,7 @@ void main() {
 
       // プレビュー画面に画面遷移するはず
       verify(
-        () => mockGoRouter.goNamed(
+        () => agent.mockGoRouter.goNamed(
           RepoAvatarPreviewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',

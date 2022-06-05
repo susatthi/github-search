@@ -6,17 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/common/components/icon_label.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('IconLabel', () {
     testWidgets('引数無しで意図して動作するはず', (tester) async {
       const expectedIcon = Icons.search;
       const expectedText = 'アイコンラベル';
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const IconLabel(
             icon: expectedIcon,
             text: expectedText,
@@ -33,7 +35,7 @@ void main() {
     testWidgets('タップイベントが検知できるはず', (tester) async {
       var isTapped = false;
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: Scaffold(
             body: IconLabel(
               icon: Icons.abc,

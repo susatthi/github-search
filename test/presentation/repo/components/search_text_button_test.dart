@@ -11,20 +11,17 @@ import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late MockGoRouter mockGoRouter;
-  setUp(() {
-    mockGoRouter = MockGoRouter();
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('RepoSearchTextButton', () {
     testWidgets('prefixIconが表示されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: RepoSearchTextButton(),
           ),
@@ -36,9 +33,9 @@ void main() {
     });
     testWidgets('タップするとリポジトリ検索画面に遷移するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: InheritedGoRouter(
-            goRouter: mockGoRouter,
+            goRouter: agent.mockGoRouter,
             child: const Scaffold(
               body: RepoSearchTextButton(),
             ),
@@ -46,22 +43,22 @@ void main() {
         ),
       );
 
-      verifyNever(() => mockGoRouter.goNamed(RepoSearchPage.name));
+      verifyNever(() => agent.mockGoRouter.goNamed(RepoSearchPage.name));
 
       // タップするとリポジトリ検索画面に遷移するはず
       await tester.tap(find.byType(RepoSearchTextButton));
-      verify(() => mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
+      verify(() => agent.mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
     });
     testWidgets('削除ボタンをタップすると検索文字列をクリアしてリポジトリ検索画面に遷移するはず', (tester) async {
       const initQuery = 'foooooo';
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryProvider.overrideWithValue(initQuery),
+            repoSearchReposInitQueryStringProvider.overrideWithValue(initQuery),
           ],
           home: InheritedGoRouter(
-            goRouter: mockGoRouter,
+            goRouter: agent.mockGoRouter,
             child: const Scaffold(
               body: RepoSearchTextButton(),
             ),
@@ -69,7 +66,7 @@ void main() {
         ),
       );
 
-      verifyNever(() => mockGoRouter.goNamed(RepoSearchPage.name));
+      verifyNever(() => agent.mockGoRouter.goNamed(RepoSearchPage.name));
 
       // 検索文字列が初期値になっているはず
       final state = tester.state(find.byType(RepoSearchTextField))
@@ -84,7 +81,7 @@ void main() {
       expect(state.controller.text, '');
 
       // リポジトリ検索画面に遷移するはず
-      verify(() => mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
+      verify(() => agent.mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
     });
   });
 }

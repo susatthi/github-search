@@ -20,7 +20,7 @@ mixin _$RepoListViewState {
   List<Repo> get items => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
-  String get query => throw _privateConstructorUsedError;
+  String get queryString => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RepoListViewStateCopyWith<RepoListViewState> get copyWith =>
@@ -33,7 +33,11 @@ abstract class $RepoListViewStateCopyWith<$Res> {
           RepoListViewState value, $Res Function(RepoListViewState) then) =
       _$RepoListViewStateCopyWithImpl<$Res>;
   $Res call(
-      {int totalCount, List<Repo> items, bool hasNext, int page, String query});
+      {int totalCount,
+      List<Repo> items,
+      bool hasNext,
+      int page,
+      String queryString});
 }
 
 /// @nodoc
@@ -51,7 +55,7 @@ class _$RepoListViewStateCopyWithImpl<$Res>
     Object? items = freezed,
     Object? hasNext = freezed,
     Object? page = freezed,
-    Object? query = freezed,
+    Object? queryString = freezed,
   }) {
     return _then(_value.copyWith(
       totalCount: totalCount == freezed
@@ -70,9 +74,9 @@ class _$RepoListViewStateCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      query: query == freezed
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
+      queryString: queryString == freezed
+          ? _value.queryString
+          : queryString // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -86,7 +90,11 @@ abstract class _$$_RepoListViewStateCopyWith<$Res>
       __$$_RepoListViewStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int totalCount, List<Repo> items, bool hasNext, int page, String query});
+      {int totalCount,
+      List<Repo> items,
+      bool hasNext,
+      int page,
+      String queryString});
 }
 
 /// @nodoc
@@ -106,7 +114,7 @@ class __$$_RepoListViewStateCopyWithImpl<$Res>
     Object? items = freezed,
     Object? hasNext = freezed,
     Object? page = freezed,
-    Object? query = freezed,
+    Object? queryString = freezed,
   }) {
     return _then(_$_RepoListViewState(
       totalCount: totalCount == freezed
@@ -125,9 +133,9 @@ class __$$_RepoListViewStateCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      query: query == freezed
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
+      queryString: queryString == freezed
+          ? _value.queryString
+          : queryString // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -141,7 +149,7 @@ class _$_RepoListViewState implements _RepoListViewState {
       final List<Repo> items = const <Repo>[],
       this.hasNext = false,
       this.page = 1,
-      this.query = ''})
+      this.queryString = ''})
       : _items = items;
 
   @override
@@ -163,11 +171,11 @@ class _$_RepoListViewState implements _RepoListViewState {
   final int page;
   @override
   @JsonKey()
-  final String query;
+  final String queryString;
 
   @override
   String toString() {
-    return 'RepoListViewState(totalCount: $totalCount, items: $items, hasNext: $hasNext, page: $page, query: $query)';
+    return 'RepoListViewState(totalCount: $totalCount, items: $items, hasNext: $hasNext, page: $page, queryString: $queryString)';
   }
 
   @override
@@ -180,7 +188,8 @@ class _$_RepoListViewState implements _RepoListViewState {
             const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
             const DeepCollectionEquality().equals(other.page, page) &&
-            const DeepCollectionEquality().equals(other.query, query));
+            const DeepCollectionEquality()
+                .equals(other.queryString, queryString));
   }
 
   @override
@@ -190,7 +199,7 @@ class _$_RepoListViewState implements _RepoListViewState {
       const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(hasNext),
       const DeepCollectionEquality().hash(page),
-      const DeepCollectionEquality().hash(query));
+      const DeepCollectionEquality().hash(queryString));
 
   @JsonKey(ignore: true)
   @override
@@ -205,7 +214,7 @@ abstract class _RepoListViewState implements RepoListViewState {
       final List<Repo> items,
       final bool hasNext,
       final int page,
-      final String query}) = _$_RepoListViewState;
+      final String queryString}) = _$_RepoListViewState;
 
   @override
   int get totalCount => throw _privateConstructorUsedError;
@@ -216,7 +225,7 @@ abstract class _RepoListViewState implements RepoListViewState {
   @override
   int get page => throw _privateConstructorUsedError;
   @override
-  String get query => throw _privateConstructorUsedError;
+  String get queryString => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_RepoListViewStateCopyWith<_$_RepoListViewState> get copyWith =>

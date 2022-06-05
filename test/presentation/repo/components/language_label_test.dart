@@ -7,17 +7,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/values/repo_language.dart';
 import 'package:github_search/presentation/repo/components/language_label.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('RepoLanguageLabel', () {
     testWidgets('正しく表示出来るはず', (tester) async {
       const expectedLanguage = RepoLanguage('Dart');
 
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const RepoLanguageLabel(
             language: expectedLanguage,
           ),
@@ -38,7 +40,7 @@ void main() {
       const expectedLanguage = RepoLanguage();
 
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const RepoLanguageLabel(
             language: expectedLanguage,
           ),

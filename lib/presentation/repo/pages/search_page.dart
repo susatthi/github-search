@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/components/search_app_bar.dart';
+import '../components/query_histories_list_view.dart';
 import '../components/search_text_field.dart';
 import '../components/sort_button.dart';
 
@@ -28,6 +29,7 @@ class RepoSearchPage extends StatelessWidget {
             backgroundColor: Theme.of(context).colorScheme.background,
             pinned: true,
           ),
+          const SliverRepoQueryHistoriesListView(),
         ],
       ),
     );

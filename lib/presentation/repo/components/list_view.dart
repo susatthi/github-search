@@ -39,31 +39,41 @@ class SliverRepoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(repoListViewStateProvider);
-    return asyncValue?.when(
-          data: (state) => SliverRepoListViewInternal(state: state),
-          error: (e, s) => SliverFillRemaining(
-            hasScrollBody: false,
-            child: ErrorView(
-              error: e,
-              stackTrace: s,
+    if (asyncValue.isRefreshing) {
+      // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
+      // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
+      if (controller?.hasClients == true) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => controller!.jumpTo(0),
+        );
+      }
+    }
+
+    return asyncValue.when(
+      data: (state) {
+        if (asyncValue.isRefreshing) {
+          // リフレッシュ状態（前回のデータが残っている状態）でもローディング表示する
+          return const SliverFillRemaining(
+            child: ListLoader(
+              avatarSize: _avatarSize,
             ),
-          ),
-          loading: () {
-            // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
-            // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
-            if (controller?.hasClients == true) {
-              WidgetsBinding.instance.addPostFrameCallback(
-                (_) => controller!.jumpTo(0),
-              );
-            }
-            return const SliverFillRemaining(
-              child: ListLoader(
-                avatarSize: _avatarSize,
-              ),
-            );
-          },
-        ) ??
-        const SliverFillRemaining();
+          );
+        }
+        return SliverRepoListViewInternal(state: state);
+      },
+      error: (e, s) => SliverFillRemaining(
+        hasScrollBody: false,
+        child: ErrorView(
+          error: e,
+          stackTrace: s,
+        ),
+      ),
+      loading: () => const SliverFillRemaining(
+        child: ListLoader(
+          avatarSize: _avatarSize,
+        ),
+      ),
+    );
   }
 }
 
@@ -79,7 +89,7 @@ class SliverRepoListViewInternal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 検索文字列が空の場合は検索を促す
-    if (state.query.isEmpty) {
+    if (state.queryString.isEmpty) {
       return const SliverFillRemaining(
         hasScrollBody: false,
         child: RepoPromptSearchView(),

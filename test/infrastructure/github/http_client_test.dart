@@ -9,15 +9,17 @@ import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
 import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 
-import '../../test_utils/locale.dart';
-import '../../test_utils/mocks.dart';
+import '../../test_utils/test_agent.dart';
 
 void main() {
+  final agent = TestAgent();
   late GitHubHttpClient client;
-  setUp(() {
-    client = mockProviderContainer().read(githubHttpClientProvider);
-    useEnvironmentLocale();
+  setUp(() async {
+    await agent.setUp();
+    client = agent.mockContainer().read(githubHttpClientProvider);
   });
+  tearDown(agent.tearDown);
+
   test('githubAccessTokenProvider', () async {
     final container = ProviderContainer();
     final token = container.read(githubAccessTokenProvider);

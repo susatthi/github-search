@@ -13,8 +13,7 @@ import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../test_utils/locale.dart';
-import '../../test_utils/mocks.dart';
+import '../../test_utils/test_agent.dart';
 import '../../test_utils/utils.dart';
 
 void main() {
@@ -24,16 +23,18 @@ void main() {
     ),
   );
 
+  final agent = TestAgent();
   late RepoRepository repository;
-  setUp(() {
-    repository = mockProviderContainer().read(githubRepoRepositoryProvider);
-    useEnvironmentLocale();
+  setUp(() async {
+    await agent.setUp();
+    repository = agent.mockContainer().read(githubRepoRepositoryProvider);
   });
+  tearDown(agent.tearDown);
 
   group('GitHubRepoRepository', () {
     test('searchRepos() 検索できるはず', () async {
       final result = await repository.searchRepos(
-        query: 'flutter',
+        queryString: 'flutter',
         sort: SearchReposSort.bestMatch,
         order: SearchReposOrder.desc,
       );

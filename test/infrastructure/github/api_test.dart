@@ -7,19 +7,18 @@ import 'package:github_search/domain/entities/search_repos_order.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/api.dart';
 
-import '../../test_utils/locale.dart';
+import '../../test_utils/test_agent.dart';
 
 void main() {
-  late GitHubApi api;
-  setUp(() {
-    api = const GitHubApi();
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  const api = GitHubApi();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('GitHubApi.searchRepos()', () {
     test('クエリパラメータが正しいはず1', () {
       final uri = api.searchRepos(
-        query: 'query',
+        queryString: 'query',
         sort: GitHubSearchReposSort.stars,
         order: GitHubSearchReposOrder.desc,
         perPage: 10,
@@ -29,7 +28,7 @@ void main() {
     });
     test('クエリパラメータが正しいはず2', () {
       final uri = api.searchRepos(
-        query: 'query',
+        queryString: 'query',
         sort: GitHubSearchReposSort.forks,
         order: GitHubSearchReposOrder.asc,
         perPage: 20,
@@ -39,7 +38,7 @@ void main() {
     });
     test('クエリパラメータが正しいはず3', () {
       final uri = api.searchRepos(
-        query: 'query',
+        queryString: 'query',
         sort: GitHubSearchReposSort.helpWantedIssues,
         order: GitHubSearchReposOrder.asc,
         perPage: 20,
@@ -51,13 +50,13 @@ void main() {
       );
     });
     test('クエリパラメータが正しいはず4', () {
-      final uri = api.searchRepos(query: 'query');
+      final uri = api.searchRepos(queryString: 'query');
       expect(uri.query, 'q=query');
     });
     test('検索文字列が空の場合はassertが発生するはず', () {
       expect(
         () {
-          api.searchRepos(query: '');
+          api.searchRepos(queryString: '');
         },
         throwsAssertionError,
       );
@@ -65,13 +64,13 @@ void main() {
     test('perPageが0以下の場合はassertが発生するはず', () {
       expect(
         () {
-          api.searchRepos(query: 'query', perPage: 0);
+          api.searchRepos(queryString: 'query', perPage: 0);
         },
         throwsAssertionError,
       );
       expect(
         () {
-          api.searchRepos(query: 'query', perPage: -1);
+          api.searchRepos(queryString: 'query', perPage: -1);
         },
         throwsAssertionError,
       );
@@ -79,7 +78,7 @@ void main() {
     test('perPageが101以上の場合はassertが発生するはず', () {
       expect(
         () {
-          api.searchRepos(query: 'query', perPage: 101);
+          api.searchRepos(queryString: 'query', perPage: 101);
         },
         throwsAssertionError,
       );
@@ -87,13 +86,13 @@ void main() {
     test('pageが0以下の場合はassertが発生するはず', () {
       expect(
         () {
-          api.searchRepos(query: 'query', page: 0);
+          api.searchRepos(queryString: 'query', page: 0);
         },
         throwsAssertionError,
       );
       expect(
         () {
-          api.searchRepos(query: 'query', page: -1);
+          api.searchRepos(queryString: 'query', page: -1);
         },
         throwsAssertionError,
       );

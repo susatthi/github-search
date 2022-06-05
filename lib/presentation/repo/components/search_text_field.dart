@@ -49,7 +49,15 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   void initState() {
     super.initState();
     controller = widget.controller ?? TextEditingController();
-    controller.text = ref.read(repoSearchReposQueryProvider);
+
+    final queryString = ref.read(repoSearchReposQueryStringProvider);
+    controller
+      ..text = queryString
+      // 使い勝手を良くするために表示されたときは全選択状態にする
+      ..selection = TextSelection(
+        baseOffset: 0,
+        extentOffset: queryString.length,
+      );
   }
 
   @override
@@ -63,7 +71,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   @override
   Widget build(BuildContext context) {
     // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
-    ref.listen(repoSearchReposQueryProvider, (previous, next) {
+    ref.listen(repoSearchReposQueryStringProvider, (previous, next) {
       logger.v(
         'Update query: current = ${controller.text}, '
         'next = ${next.toString()}',
@@ -88,6 +96,12 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
                 onTap: () {
                   // 検索文字列をクリアする
                   controller.clear();
+
+                  // onChanged が呼ばれないので明示的に入力中検索文字列状態を空にする
+                  ref
+                      .read(repoSearchReposEnteringQueryStringProvider.notifier)
+                      .state = '';
+
                   widget.onTappedDelete?.call();
                 },
                 child: Icon(
@@ -117,16 +131,20 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
           borderRadius: BorderRadius.circular(25),
         ),
       ),
+      // 入力文字が変更されたら状態を更新する
+      onChanged: (text) {
+        ref.read(repoSearchReposEnteringQueryStringUpdater)(text);
+      },
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         logger.i('Called onSubmitted(): text = $text');
-        ref.read(repoSearchReposQueryProvider.notifier).state = text;
+        ref.read(repoSearchReposQueryStringUpdater)(text);
         Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする
       textInputAction: TextInputAction.search,
       // trueにすると画面表示時に自動でキーボードを出してくれる
-      autofocus: true,
+      autofocus: !widget.readOnly,
       readOnly: widget.readOnly,
       onTap: widget.onTap,
       focusNode: focusNode,

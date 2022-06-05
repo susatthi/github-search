@@ -2,30 +2,22 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/search_repos_order.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
 import 'package:github_search/domain/repositories/app_data_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data_repository.dart';
 
-import '../../test_utils/hive.dart';
-import '../../test_utils/locale.dart';
-import '../../test_utils/mocks.dart';
+import '../../test_utils/test_agent.dart';
 
 void main() {
-  late Directory tmpDir;
+  final agent = TestAgent();
   late AppDataRepository repository;
   setUp(() async {
-    tmpDir = await openAppDataBox();
-    repository = mockProviderContainer().read(hiveAppDataRepositoryProvider);
-    useEnvironmentLocale();
+    await agent.setUp();
+    repository = agent.mockContainer().read(hiveAppDataRepositoryProvider);
   });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  tearDown(agent.tearDown);
 
   group('HiveAppDataRepository', () {
     test('setSearchReposSort() / getSearchReposSort()', () async {

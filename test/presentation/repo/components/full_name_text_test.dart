@@ -8,15 +8,18 @@ import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/presentation/repo/components/full_name_text.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';
 
-import '../../../test_utils/locale.dart';
 import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('RepoFullNameText', () {
     testWidgets('正しく表示出来るはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(
@@ -43,7 +46,7 @@ void main() {
     });
     testWidgets('エラー時は何も表示しないはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             // 常にエラーを返すHTTPクライアントを使う
             httpClientProvider.overrideWithValue(mockHttpClientError),

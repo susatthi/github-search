@@ -4,25 +4,23 @@
 
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:github_search/config/app.dart';
-import 'package:github_search/domain/repositories/app_data_repository.dart';
-import 'package:github_search/domain/repositories/repo_repository.dart';
-import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/infrastructure/github/repo_repository.dart';
-import 'package:github_search/infrastructure/hive/app_data_repository.dart';
-import 'package:github_search/presentation/repo/state/search_repos_query.dart';
+import 'package:github_search/domain/entities/query_history.dart';
+import 'package:github_search/domain/entities/query_history_input.dart';
+import 'package:github_search/domain/repositories/query_history_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:path/path.dart' as path;
+// ignore: depend_on_referenced_packages
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'logger.dart';
+import 'test_agent.dart';
 import 'utils.dart';
 
 /// モック版のHTTPクライアント
@@ -149,52 +147,6 @@ final mockHttpClientError = MockClient(
   },
 );
 
-/// モック版のGitHubSearchAppを返す
-Widget mockGitHubSearchApp({
-  List<Override>? overrides,
-  Widget? home,
-}) {
-  return ProviderScope(
-    overrides: [
-      // リポジトリの実装をDI
-      appDataRepositoryProvider
-          .overrideWithProvider(hiveAppDataRepositoryProvider),
-      repoRepositoryProvider.overrideWithProvider(githubRepoRepositoryProvider),
-      // GitHubアクセストークンをダミー文字列にする
-      githubAccessTokenProvider.overrideWithValue('dummy'),
-      // モック版のHTTPクライアントを使う
-      httpClientProvider.overrideWithValue(mockHttpClient),
-      // リポジトリ検索文字列の初期値を設定する
-      repoSearchReposInitQueryProvider.overrideWithValue('flutter'),
-      ...?overrides,
-    ],
-    child: GitHubSearchApp(
-      home: home,
-    ),
-  );
-}
-
-/// モック版のProviderContainerを返す
-ProviderContainer mockProviderContainer({
-  List<Override>? overrides,
-}) {
-  return ProviderContainer(
-    overrides: [
-      // リポジトリの実装をDI
-      appDataRepositoryProvider
-          .overrideWithProvider(hiveAppDataRepositoryProvider),
-      repoRepositoryProvider.overrideWithProvider(githubRepoRepositoryProvider),
-      // GitHubアクセストークンをダミー文字列にする
-      githubAccessTokenProvider.overrideWithValue('dummy'),
-      // モック版のHTTPクライアントを使う
-      httpClientProvider.overrideWithValue(mockHttpClient),
-      // リポジトリ検索文字列の初期値を設定する
-      repoSearchReposInitQueryProvider.overrideWithValue('flutter'),
-      ...?overrides,
-    ],
-  );
-}
-
 /// モック版のGoRouter
 class MockGoRouter extends Mock implements GoRouter {}
 
@@ -202,3 +154,75 @@ class MockGoRouter extends Mock implements GoRouter {}
 class MockUrlLauncherPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements UrlLauncherPlatform {}
+
+/// 常にエラーを返すモック版のQueryHistoryRepository
+class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
+  @override
+  Future<void> add(QueryHistoryInput input) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> delete(QueryHistory query) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<QueryHistory>> findByQueryString(String queryString) {
+    throw UnimplementedError();
+  }
+}
+
+/// モック版のPathProviderPlatform
+class MockPathProviderPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements PathProviderPlatform {
+  final rootDir = Directory(
+    path.join(
+      TestDirectory.rootDir.path,
+      'path_provider',
+    ),
+  );
+
+  @override
+  Future<String> getTemporaryPath() async {
+    return Directory(path.join(rootDir.path, 'temporary')).path;
+  }
+
+  @override
+  Future<String> getApplicationSupportPath() async {
+    return Directory(path.join(rootDir.path, 'application_support')).path;
+  }
+
+  @override
+  Future<String> getLibraryPath() async {
+    return Directory(path.join(rootDir.path, 'library')).path;
+  }
+
+  @override
+  Future<String> getApplicationDocumentsPath() async {
+    return Directory(path.join(rootDir.path, 'application_documents')).path;
+  }
+
+  @override
+  Future<String> getExternalStoragePath() async {
+    return Directory(path.join(rootDir.path, 'external_storage')).path;
+  }
+
+  @override
+  Future<List<String>> getExternalCachePaths() async {
+    return [Directory(path.join(rootDir.path, 'external_cache')).path];
+  }
+
+  @override
+  Future<List<String>?> getExternalStoragePaths({
+    StorageDirectory? type,
+  }) async {
+    return [Directory(path.join(rootDir.path, 'external_storage')).path];
+  }
+
+  @override
+  Future<String> getDownloadsPath() async {
+    return Directory(path.join(rootDir.path, 'downloads')).path;
+  }
+}

@@ -2,33 +2,23 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/repo/components/sort_button.dart';
 import 'package:github_search/presentation/repo/components/sort_selector_bottom_sheet.dart';
 
-import '../../../test_utils/hive.dart';
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late Directory tmpDir;
-  setUp(() async {
-    tmpDir = await openAppDataBox();
-    useEnvironmentLocale();
-  });
-
-  tearDown(() async {
-    await closeAppDataBox(tmpDir);
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('RepoSortButton', () {
     testWidgets('正しく表示できるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: RepoSortButton(),
           ),
@@ -47,7 +37,7 @@ void main() {
 
     testWidgets('ボタン押下でボトムシートを表示するはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: RepoSortButton(),
           ),

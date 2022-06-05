@@ -6,25 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/common/components/hyperlink_text.dart';
 import 'package:mocktail/mocktail.dart';
-// ignore: depend_on_referenced_packages
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  late MockUrlLauncherPlatform mockUrlLauncherPlatform;
-  setUp(() {
-    mockUrlLauncherPlatform = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mockUrlLauncherPlatform;
-    useEnvironmentLocale();
-  });
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
 
   group('HyperlinkText', () {
     testWidgets('正しく表示するはず', (tester) async {
       const expectedText = 'リンク';
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: HyperlinkText(
               text: expectedText,
@@ -44,7 +38,7 @@ void main() {
       const urlString = 'https://github.com';
 
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -56,7 +50,7 @@ void main() {
       ).thenAnswer((_) async => true);
 
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: HyperlinkText(
               text: 'リンク',
@@ -72,7 +66,7 @@ void main() {
 
       // URL起動出来ているはず
       verify(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -88,7 +82,7 @@ void main() {
 
       // URL起動失敗を返す
       when(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -100,7 +94,7 @@ void main() {
       ).thenAnswer((_) async => false);
 
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: HyperlinkText(
               text: 'リンク',
@@ -119,7 +113,7 @@ void main() {
 
       // URL起動を試みているはず
       verify(
-        () => mockUrlLauncherPlatform.launch(
+        () => agent.mockUrlLauncherPlatform.launch(
           urlString,
           useSafariVC: true,
           useWebView: true,
@@ -136,7 +130,7 @@ void main() {
     testWidgets('urlがnullならアンカー表示しないはず', (tester) async {
       const expectedText = 'リンク';
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           home: const Scaffold(
             body: HyperlinkText(
               text: expectedText,

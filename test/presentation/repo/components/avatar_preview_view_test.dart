@@ -7,15 +7,17 @@ import 'package:github_search/presentation/repo/pages/avatar_preview_page.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('RepoAvatarPreviewView', () {
     testWidgets('PhotoViewが表示されるはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(
@@ -40,7 +42,7 @@ void main() {
     });
     testWidgets('エラーが発生した場合は何も表示しないはず', (tester) async {
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(

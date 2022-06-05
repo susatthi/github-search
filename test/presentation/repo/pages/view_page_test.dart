@@ -8,16 +8,18 @@ import 'package:github_search/presentation/repo/components/full_name_text.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';
 
-import '../../../test_utils/locale.dart';
-import '../../../test_utils/mocks.dart';
+import '../../../test_utils/test_agent.dart';
 
 void main() {
-  setUp(useEnvironmentLocale);
+  final agent = TestAgent();
+  setUp(agent.setUp);
+  tearDown(agent.tearDown);
+
   group('RepoViewPage', () {
     testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
       // リポジトリ詳細画面を表示したはず
       await tester.pumpWidget(
-        mockGitHubSearchApp(
+        agent.mockApp(
           overrides: [
             repoSelectedRepoProvider.overrideWithProvider(
               repoSelectedRepoProviderFamily(

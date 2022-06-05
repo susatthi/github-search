@@ -32,20 +32,20 @@ class GitHubApi {
 
   /// https://docs.github.com/ja/rest/reference/search#search-repositories
   Uri searchRepos({
-    required String query,
+    required String queryString,
     GitHubSearchReposSort? sort,
     GitHubSearchReposOrder? order,
     int? perPage,
     int? page,
   }) {
-    assert(query.isNotEmpty);
+    assert(queryString.isNotEmpty);
     assert(perPage == null || (0 < perPage && perPage <= 100));
     assert(page == null || 0 < page);
     return _buildUri(
       endpoint: '/search/repositories',
       parametersBuilder: () {
         return {
-          'q': query,
+          'q': queryString,
           if (sort != null) 'sort': sort.jsonName,
           if (order != null) 'order': order.jsonName,
           if (perPage != null) 'per_page': '$perPage',
