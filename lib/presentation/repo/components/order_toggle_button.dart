@@ -49,6 +49,9 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
               ref.read(repoSearchReposOrderUpdater)(newOrder);
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
             }
           : null,
       icon: Icon(
