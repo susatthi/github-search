@@ -12,7 +12,7 @@ import 'selected_repo_parameter.dart';
 /// 選択中のリポジトリプロバイダー
 final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<
     RepoSelectedRepoNotifier, AsyncValue<Repo>>(
-  (ref) => throw StateError('Provider was not initialized'),
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// 選択中のリポジトリプロバイダー（Family）

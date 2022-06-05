@@ -56,13 +56,13 @@ void main() {
   tearDown(agent.tearDown);
 
   group('repoSelectedRepoProvider', () {
-    test('最初はStateErrorをthrowするはず', () async {
+    test('最初はUnimplementedErrorをthrowするはず', () async {
       expect(
         () => agent.mockContainer().read(repoSelectedRepoProvider),
-        throwsStateError,
+        throwsUnimplementedError,
       );
     });
-    test('overridesすればStateErrorをthrowしないはず', () async {
+    test('overridesすればUnimplementedErrorをthrowしないはず', () async {
       agent.mockContainer(
         overrides: [
           repoSelectedRepoProvider.overrideWithProvider(
