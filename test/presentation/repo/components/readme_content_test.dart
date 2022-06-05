@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
-import 'package:github_search/presentation/repo/state/readme_content.dart';
+import 'package:github_search/presentation/repo/components/readme_content.dart';
 
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/test_agent.dart';

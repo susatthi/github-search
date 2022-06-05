@@ -8,9 +8,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/router.dart';
 import 'package:github_search/infrastructure/github/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
+import 'package:github_search/presentation/repo/components/selected_repo.dart';
+import 'package:github_search/presentation/repo/components/selected_repo_parameter.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
-import 'package:github_search/presentation/repo/state/selected_repo.dart';
-import 'package:github_search/presentation/repo/state/selected_repo_parameter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../test_utils/test_agent.dart';

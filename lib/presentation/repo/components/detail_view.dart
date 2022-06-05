@@ -13,12 +13,12 @@ import '../../common/components/cached_circle_avatar.dart';
 import '../../common/components/error_view.dart';
 import '../../common/components/hyperlink_text.dart';
 import '../../common/components/icon_label.dart';
-import '../../common/state/launch_url_state.dart';
+import '../../common/components/launch_url_state.dart';
 import '../pages/avatar_preview_page.dart';
 import '../pages/view_page.dart';
-import '../state/selected_repo.dart';
 import 'language_label.dart';
 import 'readme_markdown.dart';
+import 'selected_repo.dart';
 
 /// 1行の縦方向のパディング
 const _verticalPadding = 8.0;

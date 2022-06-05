@@ -4,7 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/search_repos_sort.dart';
-import 'package:github_search/presentation/repo/state/search_repos_sort.dart';
+import 'package:github_search/presentation/repo/components/search_repos_sort.dart';
 
 import '../../../test_utils/test_agent.dart';
 

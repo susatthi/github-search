@@ -8,12 +8,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/common/pages/error_page.dart';
+import '../presentation/repo/components/selected_repo.dart';
+import '../presentation/repo/components/selected_repo_parameter.dart';
 import '../presentation/repo/pages/avatar_preview_page.dart';
 import '../presentation/repo/pages/index_page.dart';
 import '../presentation/repo/pages/search_page.dart';
 import '../presentation/repo/pages/view_page.dart';
-import '../presentation/repo/state/selected_repo.dart';
-import '../presentation/repo/state/selected_repo_parameter.dart';
 
 /// 画面遷移の定義Provider
 final routerProvider = Provider<GoRouter>(

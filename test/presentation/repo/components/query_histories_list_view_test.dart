@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/query_history_repository.dart';
 import 'package:github_search/presentation/repo/components/query_histories_list_view.dart';
-import 'package:github_search/presentation/repo/state/search_repos_query.dart';
+import 'package:github_search/presentation/repo/components/search_repos_query.dart';
 
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/test_agent.dart';

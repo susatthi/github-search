@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
-import '../state/search_repos_query.dart';
+import 'search_repos_query.dart';
 
 /// リポジトリ検索用テキストフィールド
 class RepoSearchTextField extends ConsumerStatefulWidget {

@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/presentation/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/repo/components/search_text_field.dart';
-import 'package:github_search/presentation/repo/state/search_repos_query.dart';
 
 import '../../../test_utils/test_agent.dart';
 

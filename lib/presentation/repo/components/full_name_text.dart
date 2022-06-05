@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../state/selected_repo.dart';
+import 'selected_repo.dart';
 
 /// リポジトリ名を表示するText
 class RepoFullNameText extends ConsumerWidget {

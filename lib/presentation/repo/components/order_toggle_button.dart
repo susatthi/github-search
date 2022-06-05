@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/entities/search_repos_order.dart';
 import '../../../localizations/strings.g.dart';
 import '../../../utils/logger.dart';
-import '../state/list_view_state.dart';
-import '../state/search_repos_order.dart';
+import 'list_view_state.dart';
+import 'search_repos_order.dart';
 
 /// リポジトリ検索用オーダー値変更ボタン
 class RepoOrderToggleButton extends ConsumerWidget {

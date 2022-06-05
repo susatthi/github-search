@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history_repository.dart';
-import 'package:github_search/presentation/repo/state/query_histories.dart';
-import 'package:github_search/presentation/repo/state/search_repos_query.dart';
+import 'package:github_search/presentation/repo/components/query_histories.dart';
+import 'package:github_search/presentation/repo/components/search_repos_query.dart';
 
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/test_agent.dart';
