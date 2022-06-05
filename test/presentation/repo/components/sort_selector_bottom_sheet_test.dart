@@ -126,6 +126,11 @@ void main() {
       });
       await tester.pumpAndSettle();
 
+      // 閉じてしまうので再度ボタンをタップする
+      testLogger.i('Tap a button 2');
+      await tester.tap(find.text('button'));
+      await tester.pumpAndSettle();
+
       // 昇順になったはず
       expect(find.byIcon(Icons.arrow_upward), findsOneWidget);
 
@@ -134,6 +139,11 @@ void main() {
         testLogger.i('Tap order toggle button 2');
         await tester.tap(find.byType(RepoOrderToggleButton));
       });
+      await tester.pumpAndSettle();
+
+      // 閉じてしまうので再度ボタンをタップする
+      testLogger.i('Tap a button 3');
+      await tester.tap(find.text('button'));
       await tester.pumpAndSettle();
 
       // 降順になったはず
