@@ -60,6 +60,7 @@ dev_dependencies:
   mocktail: ^0.3.0
   path: ^1.8.1
   pedantic_mono: ^1.19.2
+  sqflite_common_ffi: ^2.1.1
 
 flutter:
   assets:

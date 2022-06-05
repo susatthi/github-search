@@ -200,29 +200,31 @@ void main() {
   });
   group('AnimatedAppBarBackground', () {
     testWidgets('リポジトリ一覧画面から検索画面の画面遷移時にアニメーションするはず', (tester) async {
-      await tester.pumpWidget(agent.mockApp());
-      await tester.pumpAndSettle();
+      await tester.runAsync(() async {
+        await tester.pumpWidget(agent.mockApp());
+        await tester.pumpAndSettle();
 
-      final state = tester.firstState(find.byType(AnimatedAppBarBackground))
-          as AnimatedAppBarBackgroundState;
+        final state = tester.firstState(find.byType(AnimatedAppBarBackground))
+            as AnimatedAppBarBackgroundState;
 
-      // 最初は折り畳んでいる状態のはず
-      expect(state.isFilled, false);
+        // 最初は折り畳んでいる状態のはず
+        expect(state.isFilled, false);
 
-      // // 検索ボタン押下で検索ページに遷移する
-      // await tester.tap(find.byType(RepoSearchTextButton));
-      // await tester.pumpAndSettle();
+        // 検索ボタン押下で検索ページに遷移する
+        await tester.tap(find.byType(RepoSearchTextButton));
+        await tester.pumpAndSettle();
 
-      // // 検索画面に遷移した後は広がっているはず
-      // expect(state.isFilled, true);
+        // 検索画面に遷移した後は広がっているはず
+        expect(state.isFilled, true);
 
-      // // 検索文字列を入力して検索ボタン押下
-      // await tester.enterText(find.byType(RepoSearchTextField).last, 'kboy');
-      // await tester.testTextInput.receiveAction(TextInputAction.done);
-      // await tester.pumpAndSettle();
+        // 検索文字列を入力して検索ボタン押下
+        await tester.enterText(find.byType(RepoSearchTextField).last, 'kboy');
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
 
-      // 一覧画面に戻ってきて折り畳んでいる状態のはず
-      expect(state.isFilled, false);
+        // 一覧画面に戻ってきて折り畳んでいる状態のはず
+        expect(state.isFilled, false);
+      });
     });
     testWidgets('リポジトリ一覧画面から詳細画面の画面遷移時にアニメーションしないはず', (tester) async {
       await tester.pumpWidget(agent.mockApp());

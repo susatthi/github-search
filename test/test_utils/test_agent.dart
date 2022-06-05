@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/app.dart';
@@ -27,6 +28,8 @@ import 'package:isar/src/version.dart';
 import 'package:path/path.dart' as path;
 // ignore: depend_on_referenced_packages
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
+// ignore: depend_on_referenced_packages
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
@@ -82,6 +85,22 @@ class TestAgent {
     // see: https://qiita.com/teriyaki398_/items/642be2f0ed1e87d8ae38
     // see: https://stackoverflow.com/questions/62597011/mock-getexternalstoragedirectory-on-flutter
     PathProviderPlatform.instance = MockPathProviderPlatform();
+
+    const MethodChannel('com.tekartik.sqflite').setMockMethodCallHandler(
+      (MethodCall methodCall) async {
+        if (methodCall.method == 'getDatabasesPath') {
+          return path.join(
+            TestDirectory.rootDir.path,
+            'sqflite',
+            'dummy.db',
+          );
+        }
+        if (methodCall.method == 'openDatabase') {
+          final args = methodCall.arguments as Map<dynamic, dynamic>;
+          return databaseFactoryFfi.openDatabase(args['path'] as String);
+        }
+      },
+    );
 
     // Hive のセットアップ
     await hiveTestAgent.setUp();
@@ -156,6 +175,16 @@ class ProviderContainerTestAgent {
 }
 
 class TestDirectory {
+  /// テストルートディレクトリ
+  static final rootDir = Directory(
+    path.join(
+      Directory.current.path,
+      '.dart_tool',
+      'test',
+      'tmp',
+    ),
+  );
+
   /// テストディレクトリ
   Directory? _dir;
   Directory get dir => _dir!;
@@ -170,9 +199,7 @@ class TestDirectory {
 
     final name = Random().nextInt(pow(2, 32) as int);
     final effectivePrefix = prefix ?? 'tmp';
-    final tempPath =
-        path.join(Directory.current.path, '.dart_tool', 'test', 'tmp');
-    final dir = Directory(path.join(tempPath, '${effectivePrefix}_$name'));
+    final dir = Directory(path.join(rootDir.path, '${effectivePrefix}_$name'));
 
     if (dir.existsSync()) {
       await dir.delete(recursive: true);
@@ -189,7 +216,7 @@ class TestDirectory {
     }
 
     if (dir.existsSync()) {
-      dir.deleteSync();
+      dir.deleteSync(recursive: true);
       _dir = null;
     }
   }
@@ -197,12 +224,12 @@ class TestDirectory {
 
 /// Hive のテストエージェント
 class HiveTestAgent {
-  final _testDir = TestDirectory();
+  final testDir = TestDirectory();
 
   /// セットアップする
   Future<void> setUp() async {
-    await _testDir.open(prefix: 'hive');
-    Hive.init(_testDir.dir.path);
+    await testDir.open(prefix: 'hive');
+    Hive.init(testDir.dir.path);
     final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
     await box.clear();
   }
@@ -210,7 +237,7 @@ class HiveTestAgent {
   /// 終了する
   Future<void> tearDown() async {
     await Hive.deleteFromDisk();
-    _testDir.close();
+    testDir.close();
   }
 }
 
@@ -227,14 +254,11 @@ class IsarTestAgent {
     // Isar.initializeIsarCore() 内部で Isar のライブラリを GitHub
     // （例: https://github.com/isar/isar-core/releases/download/2.5.13/libisar_macos.dylib）
     // からダウンロードしているため一時的にインターネットに出られるようにしている。
-    // ダウンロードしたライブラリファイルは ./dart_tool/test/tmp/isar_core_library 配下に
+    // ダウンロードしたライブラリファイルは ./dart_tool/ 配下に
     // Isarコアバージョン毎にフォルダを作成して保存することにしている。
     final libraryDir = Directory(
       path.join(
-        Directory.current.path,
-        '.dart_tool',
-        'test',
-        'tmp',
+        TestDirectory.rootDir.path,
         'isar_core_library',
         isarCoreVersion,
       ),

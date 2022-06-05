@@ -20,6 +20,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'logger.dart';
+import 'test_agent.dart';
 import 'utils.dart';
 
 /// モック版のHTTPクライアント
@@ -178,10 +179,7 @@ class MockPathProviderPlatform extends Mock
     implements PathProviderPlatform {
   final rootDir = Directory(
     path.join(
-      Directory.current.path,
-      '.dart_tool',
-      'test',
-      'tmp',
+      TestDirectory.rootDir.path,
       'path_provider',
     ),
   );
