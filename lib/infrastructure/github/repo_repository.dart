@@ -14,8 +14,8 @@ import '../../domain/exceptions.dart';
 import '../../domain/repositories/repo_repository.dart';
 import 'api.dart';
 import 'http_client.dart';
-import 'json_object/repo/repo.dart';
-import 'json_object/search_repos_result/search_repos_result.dart';
+import 'json_objects/repo/repo.dart';
+import 'json_objects/search_repos_result/search_repos_result.dart';
 
 /// GitHubAPI版リポジトリRepositoryプロバイダー
 final githubRepoRepositoryProvider = Provider<RepoRepository>(
