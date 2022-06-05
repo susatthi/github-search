@@ -41,21 +41,24 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
       return;
     }
 
+    final queryString = input.queryString.trim();
+    logger.v('START TRANSACTION add(): queryString = $queryString');
     return _isar.writeTxn(
       (isar) async {
         final id = await isar.queryHistoryCollections.put(
           QueryHistoryCollection()
-            ..queryString = input.queryString.trim()
+            ..queryString = queryString
             ..searchedAt = DateTime.now(),
         );
         final added = await isar.queryHistoryCollections.get(id);
-        logger.v('Added query history: $added');
+        logger.v('END TRANSACTION add(): $added');
       },
     );
   }
 
   @override
   Future<void> delete(QueryHistory query) async {
+    logger.v('START TRANSACTION delete(): queryString = ${query.queryString}');
     return _isar.writeTxn(
       (isar) async {
         final count = await _isar.queryHistoryCollections
@@ -63,7 +66,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
             .queryStringEqualTo(query.queryString)
             .deleteAll();
         logger.v(
-          'Deleted query history: queryString = ${query.queryString}, '
+          'END TRANSACTION delete(): queryString = ${query.queryString}, '
           'count = $count',
         );
       },
@@ -89,7 +92,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
         .toList();
 
     logger.v(
-      'Find query histories: queryString = $queryString, '
+      'findByQueryString(): queryString = $queryString, '
       'count = ${queries.length}',
     );
     return queries;

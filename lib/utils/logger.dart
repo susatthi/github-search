@@ -8,10 +8,13 @@ import 'package:roggle/roggle.dart';
 
 final logger = Roggle(
   printer: SinglePrettyPrinter(
+    loggerName: ' [APP]',
     // warning 以上のときはスタックトレースを出力する
     stackTraceLevel: Level.warning,
     // iOS はカラー非対応
     colors: !Platform.isIOS,
+    // ログが長くなるので非表示
+    printCaller: false,
   ),
   output: _AssertionOutput(),
 );

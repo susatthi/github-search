@@ -8,5 +8,6 @@ final testLogger = Roggle(
   printer: SinglePrettyPrinter(
     loggerName: '[TEST]',
     colors: false,
+    printCaller: false,
   ),
 );
