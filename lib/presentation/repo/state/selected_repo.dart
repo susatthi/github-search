@@ -2,14 +2,12 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/repo.dart';
 import '../../../domain/repositories/repo_repository.dart';
 import '../../../utils/logger.dart';
-import '../pages/view_page.dart';
+import 'selected_repo_parameter.dart';
 
 /// 選択中のリポジトリプロバイダー
 final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<
@@ -28,35 +26,6 @@ final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
     );
   },
 );
-
-/// 選択中のリポジトリ用パラメータ
-class RepoSelectedRepoParameter extends Equatable {
-  const RepoSelectedRepoParameter({
-    required this.ownerName,
-    required this.repoName,
-    this.extra,
-  });
-
-  factory RepoSelectedRepoParameter.from(GoRouterState state) =>
-      RepoSelectedRepoParameter(
-        ownerName: state.params[pageParamKeyOwnerName]!,
-        repoName: state.params[pageParamKeyRepoName]!,
-        extra: state.extra as Repo?,
-      );
-
-  /// オーナー名
-  final String ownerName;
-
-  /// リポジトリ名
-  final String repoName;
-
-  /// 一覧画面から渡されるリポジトリデータ
-  /// 詳細画面で再読込した場合などは null になる場合がある
-  final Repo? extra;
-
-  @override
-  List<Object?> get props => [ownerName, repoName, extra];
-}
 
 /// 選択中のリポジトリNotifier
 class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {

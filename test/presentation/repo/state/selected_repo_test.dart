@@ -10,6 +10,7 @@ import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
 import 'package:github_search/infrastructure/github/repo_repository.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';
+import 'package:github_search/presentation/repo/state/selected_repo_parameter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../test_utils/test_agent.dart';

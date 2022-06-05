@@ -7,6 +7,7 @@ import 'package:github_search/presentation/repo/components/detail_view.dart';
 import 'package:github_search/presentation/repo/components/full_name_text.dart';
 import 'package:github_search/presentation/repo/pages/view_page.dart';
 import 'package:github_search/presentation/repo/state/selected_repo.dart';
+import 'package:github_search/presentation/repo/state/selected_repo_parameter.dart';
 
 import '../../../test_utils/test_agent.dart';
 
