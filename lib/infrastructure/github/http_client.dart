@@ -28,34 +28,29 @@ final httpClientProvider = Provider<http.Client>(
 
 /// GitHub API 用の HTTPクライアントプロバイダー
 final githubHttpClientProvider = Provider<GitHubHttpClient>(
-  (ref) {
-    final token = ref.watch(githubAccessTokenProvider);
-    final client = ref.watch(httpClientProvider);
-    return GitHubHttpClient(
-      token: token,
-      client: client,
-    );
-  },
+  (ref) => GitHubHttpClient(
+    token: ref.watch(githubAccessTokenProvider),
+    client: ref.watch(httpClientProvider),
+  ),
 );
 
 /// GitHub API 用の HTTPクライアント
 class GitHubHttpClient {
   const GitHubHttpClient({
-    required String token,
-    required http.Client client,
-  })  : _token = token,
-        _client = client;
+    required this.token,
+    required this.client,
+  });
 
   /// アクセストークン
-  final String _token;
+  final String token;
 
   /// HTTPクライアント
-  final http.Client _client;
+  final http.Client client;
 
   /// 共通ヘッダを返す
   Map<String, String> get _headers => <String, String>{
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': 'token $_token',
+        'Authorization': 'token $token',
       };
 
   /// GET Request
@@ -65,7 +60,7 @@ class GitHubHttpClient {
   }) async {
     try {
       logger.i('Get request: uri = $uri');
-      final response = await _client.get(uri, headers: _headers);
+      final response = await client.get(uri, headers: _headers);
       logger.i(
         'Get response: code = ${response.statusCode}, '
         'length = ${response.contentLength}',
@@ -101,7 +96,7 @@ class GitHubHttpClient {
   }) async {
     try {
       logger.i('Get raw request: uri = $uri');
-      final response = await _client.get(uri);
+      final response = await client.get(uri);
       logger.i(
         'Get raw response: code = ${response.statusCode}, '
         'length = ${response.contentLength}',

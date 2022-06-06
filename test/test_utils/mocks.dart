@@ -4,9 +4,9 @@
 
 import 'dart:io';
 
-import 'package:github_search/domain/entities/query_history.dart';
-import 'package:github_search/domain/entities/query_history_input.dart';
-import 'package:github_search/domain/repositories/query_history_repository.dart';
+import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
+import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
+import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';

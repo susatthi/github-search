@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/common/pages/error_page.dart';
-import '../presentation/repo/pages/avatar_preview_page.dart';
-import '../presentation/repo/pages/index_page.dart';
-import '../presentation/repo/pages/search_page.dart';
-import '../presentation/repo/pages/view_page.dart';
-import '../presentation/repo/state/selected_repo.dart';
+import '../presentation/pages/error/error_page.dart';
+import '../presentation/pages/repo/avatar_preview_page.dart';
+import '../presentation/pages/repo/components/selected_repo.dart';
+import '../presentation/pages/repo/repo_index_page.dart';
+import '../presentation/pages/repo/repo_search_page.dart';
+import '../presentation/pages/repo/repo_view_page.dart';
 
 /// 画面遷移の定義Provider
 final routerProvider = Provider<GoRouter>(
@@ -45,9 +45,9 @@ final routerProvider = Provider<GoRouter>(
               state: state,
               child: ProviderScope(
                 overrides: [
-                  repoSelectedRepoProvider.overrideWithProvider(
-                    repoSelectedRepoProviderFamily(
-                      RepoSelectedRepoParameter.from(state),
+                  selectedRepoProvider.overrideWithProvider(
+                    selectedRepoProviderFamily(
+                      SelectedRepoParameter.from(state),
                     ),
                   ),
                 ],
@@ -57,20 +57,20 @@ final routerProvider = Provider<GoRouter>(
             routes: [
               // アバタープレビュー画面
               GoRoute(
-                path: RepoAvatarPreviewPage.path,
-                name: RepoAvatarPreviewPage.name,
+                path: AvatarPreviewPage.path,
+                name: AvatarPreviewPage.name,
                 pageBuilder: (context, state) => DefaultTransitionPage(
                   state: state,
                   opaque: false,
                   child: ProviderScope(
                     overrides: [
-                      repoSelectedRepoProvider.overrideWithProvider(
-                        repoSelectedRepoProviderFamily(
-                          RepoSelectedRepoParameter.from(state),
+                      selectedRepoProvider.overrideWithProvider(
+                        selectedRepoProviderFamily(
+                          SelectedRepoParameter.from(state),
                         ),
                       ),
                     ],
-                    child: const RepoAvatarPreviewPage(),
+                    child: const AvatarPreviewPage(),
                   ),
                 ),
               ),

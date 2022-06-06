@@ -9,16 +9,14 @@ targets:
         generate_for:
           include:
             - lib/domain/**/*.dart
-            - lib/**/json_object/**/*.dart
-            - lib/**/state/*.dart
-            - lib/**/*state.dart
+            - lib/infrastructure/**/json_objects/*.dart
+            - lib/presentation/**/*.dart
       json_serializable:
         generate_for:
           include:
             - lib/domain/**/*.dart
-            - lib/**/json_object/**/*.dart
-            - lib/**/state/*.dart
-            - lib/**/*state.dart
+            - lib/infrastructure/**/json_objects/*.dart
+            - lib/presentation/**/*.dart
       fast_i18n:
         options:
           # 入力ファイルへのパス

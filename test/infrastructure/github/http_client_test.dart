@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/infrastructure/github/json_object/owner/owner.dart';
-import 'package:github_search/infrastructure/github/json_object/repo/repo.dart';
+import 'package:github_search/infrastructure/github/repo/json_objects/owner.dart';
+import 'package:github_search/infrastructure/github/repo/json_objects/repo.dart';
 
 import '../../test_utils/test_agent.dart';
 
