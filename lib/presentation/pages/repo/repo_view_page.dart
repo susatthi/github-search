@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 
 import '../../components/search_app_bar.dart';
-import 'components/detail_view.dart';
-import 'components/full_name_text.dart';
+import 'components/repo_detail_view.dart';
+import 'components/repo_full_name_text.dart';
 
 /// 画面遷移時に渡すパラメータのキー
 const pageParamKeyOwnerName = 'owner_name';

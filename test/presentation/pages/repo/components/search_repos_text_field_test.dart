@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
-import 'package:github_search/presentation/pages/repo/components/search_text_field.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
 
 import '../../../../test_utils/test_agent.dart';
 
@@ -14,7 +14,7 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('RepoSearchTextField', () {
+  group('SearchReposTextField', () {
     testWidgets('検索を実行すると検索文字列を更新するはず', (tester) async {
       const expectedQuery = 'foooooo';
       final controller = TextEditingController();
@@ -22,11 +22,10 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryStringProvider
-                .overrideWithValue(expectedQuery),
+            searchReposInitQueryStringProvider.overrideWithValue(expectedQuery),
           ],
           home: Scaffold(
-            body: RepoSearchTextField(
+            body: SearchReposTextField(
               controller: controller,
             ),
           ),
@@ -58,17 +57,16 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryStringProvider
-                .overrideWithValue(expectedQuery),
+            searchReposInitQueryStringProvider.overrideWithValue(expectedQuery),
           ],
           home: Scaffold(
             body: Column(
               children: [
-                RepoSearchTextField(
+                SearchReposTextField(
                   key: key1,
                   controller: controller1,
                 ),
-                RepoSearchTextField(
+                SearchReposTextField(
                   controller: controller2,
                 ),
               ],
@@ -98,11 +96,10 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryStringProvider
-                .overrideWithValue('some query'),
+            searchReposInitQueryStringProvider.overrideWithValue('some query'),
           ],
           home: Scaffold(
-            body: RepoSearchTextField(
+            body: SearchReposTextField(
               controller: controller,
               onTappedDelete: () {
                 tappedDeleteButton = true;
@@ -146,11 +143,10 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryStringProvider
-                .overrideWithValue('some query'),
+            searchReposInitQueryStringProvider.overrideWithValue('some query'),
           ],
           home: Scaffold(
-            body: RepoSearchTextField(
+            body: SearchReposTextField(
               readOnly: true,
               controller: controller,
               onTap: () {
@@ -185,7 +181,7 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           home: const Scaffold(
-            body: RepoSearchTextField(
+            body: SearchReposTextField(
               prefixIcon: Icon(expectedIcon),
             ),
           ),

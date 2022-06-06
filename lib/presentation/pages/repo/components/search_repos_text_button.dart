@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../search_page.dart';
+import '../repo_search_page.dart';
 import 'search_repos_query.dart';
-import 'search_text_field.dart';
+import 'search_repos_text_field.dart';
 
 /// リポジトリ検索用テキストボタン
-class RepoSearchTextButton extends ConsumerWidget {
-  const RepoSearchTextButton({super.key});
+class SearchReposTextButton extends ConsumerWidget {
+  const SearchReposTextButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +38,7 @@ class RepoSearchTextButton extends ConsumerWidget {
             EdgeInsets.zero,
           ),
         ),
-        child: RepoSearchTextField(
+        child: SearchReposTextField(
           readOnly: true,
           prefixIcon: Icon(
             Icons.search,
@@ -50,7 +50,7 @@ class RepoSearchTextButton extends ConsumerWidget {
           },
           onTappedDelete: () {
             // 検索文字列をクリアしてリポジトリ検索画面に遷移する
-            ref.read(repoSearchReposQueryStringUpdater)('');
+            ref.read(searchReposQueryStringUpdater)('');
             context.goNamed(RepoSearchPage.name);
           },
         ),

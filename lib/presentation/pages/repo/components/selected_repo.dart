@@ -10,17 +10,17 @@ import '../../../../utils/logger.dart';
 import 'selected_repo_parameter.dart';
 
 /// 選択中のリポジトリプロバイダー
-final repoSelectedRepoProvider = StateNotifierProvider.autoDispose<
-    RepoSelectedRepoNotifier, AsyncValue<Repo>>(
+final selectedRepoProvider =
+    StateNotifierProvider.autoDispose<SelectedRepoNotifier, AsyncValue<Repo>>(
   (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// 選択中のリポジトリプロバイダー（Family）
-final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
-    RepoSelectedRepoNotifier, AsyncValue<Repo>, RepoSelectedRepoParameter>(
+final selectedRepoProviderFamily = StateNotifierProvider.family
+    .autoDispose<SelectedRepoNotifier, AsyncValue<Repo>, SelectedRepoParameter>(
   (ref, parameter) {
-    logger.i('Create RepoSelectedRepoNotifier: parameter = $parameter');
-    return RepoSelectedRepoNotifier(
+    logger.i('Create SelectedRepoNotifier: parameter = $parameter');
+    return SelectedRepoNotifier(
       ref.read,
       parameter: parameter,
     );
@@ -28,8 +28,8 @@ final repoSelectedRepoProviderFamily = StateNotifierProvider.family.autoDispose<
 );
 
 /// 選択中のリポジトリNotifier
-class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
-  RepoSelectedRepoNotifier(
+class SelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
+  SelectedRepoNotifier(
     Reader read, {
     required this.parameter,
   })  : _repoRepository = read(repoRepositoryProvider),
@@ -47,7 +47,7 @@ class RepoSelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
   final RepoRepository _repoRepository;
 
   /// パラメータ
-  final RepoSelectedRepoParameter parameter;
+  final SelectedRepoParameter parameter;
 
   Future<void> _get() async {
     state = const AsyncValue.loading();

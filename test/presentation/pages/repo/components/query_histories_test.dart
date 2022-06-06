@@ -47,9 +47,7 @@ void main() {
 
       // 入力中の検索文字列を更新して検索履歴一覧を更新する
       await Future.wait([
-        agent
-            .mockContainer()
-            .read(repoSearchReposEnteringQueryStringUpdater)('')
+        agent.mockContainer().read(searchReposEnteringQueryStringUpdater)('')
       ]);
 
       final notifier = agent
@@ -80,7 +78,7 @@ void main() {
       final container = agent.mockContainer(
         overrides: [
           // 検索文字列の初期値は空文字にしておく
-          repoSearchReposInitQueryStringProvider.overrideWithValue(''),
+          searchReposInitQueryStringProvider.overrideWithValue(''),
         ],
       )..listen<QueryHistoriesNotifier>(
           queryHistoriesProvider.notifier,
@@ -93,7 +91,7 @@ void main() {
       expect(currentNotifier, isNull);
 
       // fを入力
-      await container.read(repoSearchReposEnteringQueryStringUpdater)('f');
+      await container.read(searchReposEnteringQueryStringUpdater)('f');
 
       // Notifierが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -101,7 +99,7 @@ void main() {
       expect(currentNotifier?.queryString, 'f');
 
       // flを入力
-      await container.read(repoSearchReposEnteringQueryStringUpdater)('fl');
+      await container.read(searchReposEnteringQueryStringUpdater)('fl');
 
       // Notifierが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));

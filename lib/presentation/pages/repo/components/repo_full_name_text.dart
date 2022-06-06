@@ -13,7 +13,7 @@ class RepoFullNameText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoSelectedRepoProvider);
+    final asyncValue = ref.watch(selectedRepoProvider);
     return asyncValue.when(
       data: (repo) => Text(repo.fullName),
       error: (_, __) => const SizedBox(),

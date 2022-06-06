@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../localizations/strings.g.dart';
-import 'sort_selector_bottom_sheet.dart';
+import 'search_repos_sort_selector_bottom_sheet.dart';
 
 /// リポジトリ検索用ソートボタン
 class RepoSortButton extends StatelessWidget {
@@ -22,7 +22,7 @@ class RepoSortButton extends StatelessWidget {
             topRight: Radius.circular(10),
           ),
         ),
-        builder: (context) => const RepoSortSelectorBottomSheet(),
+        builder: (context) => const SearchReposSortSelectorBottomSheet(),
       ),
       icon: const Icon(Icons.sort),
       tooltip: i18n.sort,

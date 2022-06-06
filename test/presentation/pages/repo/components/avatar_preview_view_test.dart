@@ -20,16 +20,16 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            repoSelectedRepoProvider.overrideWithProvider(
-              repoSelectedRepoProviderFamily(
-                const RepoSelectedRepoParameter(
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
               ),
             ),
           ],
-          home: const RepoAvatarPreviewPage(),
+          home: const AvatarPreviewPage(),
         ),
       );
 
@@ -45,16 +45,16 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            repoSelectedRepoProvider.overrideWithProvider(
-              repoSelectedRepoProviderFamily(
-                const RepoSelectedRepoParameter(
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
                   ownerName: 'unknown',
                   repoName: 'unknown',
                 ),
               ),
             ),
           ],
-          home: const RepoAvatarPreviewPage(),
+          home: const AvatarPreviewPage(),
         ),
       );
 

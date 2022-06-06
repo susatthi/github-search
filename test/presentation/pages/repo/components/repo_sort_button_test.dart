@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/sort_button.dart';
-import 'package:github_search/presentation/pages/repo/components/sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
 
 import '../../../../test_utils/test_agent.dart';
 
@@ -46,21 +46,21 @@ void main() {
       await tester.pump();
 
       // まだ表示されていないはず
-      expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
 
       // ボタンをタップ
       await tester.tap(find.byType(RepoSortButton));
       await tester.pumpAndSettle();
 
       // 表示したはず
-      expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsOneWidget);
 
       // 適当なところをタップ
       await tester.tapAt(const Offset(100, 100));
       await tester.pumpAndSettle();
 
       // 消えたはず
-      expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
     });
   });
 }

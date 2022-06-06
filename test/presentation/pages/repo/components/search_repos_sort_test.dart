@@ -13,22 +13,22 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('repoSearchReposSortProvider', () {
+  group('searchReposSortProvider', () {
     test('初期値はベストマッチのはず', () async {
-      final sort = agent.mockContainer().read(repoSearchReposSortProvider);
+      final sort = agent.mockContainer().read(searchReposSortProvider);
       expect(sort, SearchReposSort.bestMatch);
     });
   });
-  group('repoSearchReposSortUpdater', () {
+  group('searchReposSortUpdater', () {
     test('ソート値を変更できるはず', () async {
-      final updater = agent.mockContainer().read(repoSearchReposSortUpdater);
+      final updater = agent.mockContainer().read(searchReposSortUpdater);
 
       // スター数に変更する
       updater(SearchReposSort.stars);
 
       // スター数のはず
       expect(
-        agent.mockContainer().read(repoSearchReposSortProvider),
+        agent.mockContainer().read(searchReposSortProvider),
         SearchReposSort.stars,
       );
 
@@ -37,7 +37,7 @@ void main() {
 
       // フォーク数のはず
       expect(
-        agent.mockContainer().read(repoSearchReposSortProvider),
+        agent.mockContainer().read(searchReposSortProvider),
         SearchReposSort.forks,
       );
 
@@ -46,7 +46,7 @@ void main() {
 
       // ヘルプ数のはず
       expect(
-        agent.mockContainer().read(repoSearchReposSortProvider),
+        agent.mockContainer().read(searchReposSortProvider),
         SearchReposSort.helpWantedIssues,
       );
 
@@ -55,7 +55,7 @@ void main() {
 
       // ベストマッチのはず
       expect(
-        agent.mockContainer().read(repoSearchReposSortProvider),
+        agent.mockContainer().read(searchReposSortProvider),
         SearchReposSort.bestMatch,
       );
     });

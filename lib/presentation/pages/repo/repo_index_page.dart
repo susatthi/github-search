@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import '../../../config/router.dart';
 import '../../../utils/logger.dart';
 import '../../components/search_app_bar.dart';
-import 'components/list_view.dart';
-import 'components/search_text_button.dart';
-import 'components/sort_button.dart';
-import 'search_page.dart';
+import 'components/repo_list_view.dart';
+import 'components/repo_sort_button.dart';
+import 'components/search_repos_text_button.dart';
+import 'repo_search_page.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatefulWidget {
@@ -34,7 +34,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
         controller: _scrollController,
         slivers: [
           SearchAppBar(
-            title: const RepoSearchTextButton(),
+            title: const SearchReposTextButton(),
             actions: const [
               RepoSortButton(),
             ],

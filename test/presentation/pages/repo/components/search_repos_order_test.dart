@@ -13,22 +13,22 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('repoSearchReposOrderProvider', () {
+  group('searchReposOrderProvider', () {
     test('初期値は降順のはず', () async {
-      final order = agent.mockContainer().read(repoSearchReposOrderProvider);
+      final order = agent.mockContainer().read(searchReposOrderProvider);
       expect(order, SearchReposOrder.desc);
     });
   });
-  group('repoSearchReposOrderUpdater', () {
+  group('searchReposOrderUpdater', () {
     test('オーダー値を変更できるはず', () async {
-      final updater = agent.mockContainer().read(repoSearchReposOrderUpdater);
+      final updater = agent.mockContainer().read(searchReposOrderUpdater);
 
       // 昇順に変更する
       updater(SearchReposOrder.asc);
 
       // 昇順のはず
       expect(
-        agent.mockContainer().read(repoSearchReposOrderProvider),
+        agent.mockContainer().read(searchReposOrderProvider),
         SearchReposOrder.asc,
       );
 
@@ -37,7 +37,7 @@ void main() {
 
       // 降順のはず
       expect(
-        agent.mockContainer().read(repoSearchReposOrderProvider),
+        agent.mockContainer().read(searchReposOrderProvider),
         SearchReposOrder.desc,
       );
     });

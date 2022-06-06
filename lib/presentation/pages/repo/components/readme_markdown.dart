@@ -17,9 +17,9 @@ import '../../../../utils/logger.dart';
 import '../../../components/launch_url_state.dart';
 import 'readme_content.dart';
 
-/// リポジトリREADMEのMarkdown表示
-class RepoReadmeMarkdown extends ConsumerWidget {
-  const RepoReadmeMarkdown({
+/// READMEのMarkdown表示
+class ReadmeMarkdown extends ConsumerWidget {
+  const ReadmeMarkdown({
     super.key,
     required this.repo,
     this.cacheManager,
@@ -34,7 +34,7 @@ class RepoReadmeMarkdown extends ConsumerWidget {
   /// CacheManager
   CacheManager get _defaultCacheManager => CacheManager(
         Config(
-          'RepoReadmeMarkdown',
+          'ReadmeMarkdown',
           stalePeriod: const Duration(days: 1),
           maxNrOfCacheObjects: 200,
         ),
@@ -42,9 +42,9 @@ class RepoReadmeMarkdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoReadmeContentProviderFamily(repo));
+    final asyncValue = ref.watch(readmeContentProviderFamily(repo));
     return asyncValue.when(
-      data: (content) => RepoReadmeMarkdownInternal(
+      data: (content) => ReadmeMarkdownInternal(
         content: content,
         cacheManager: cacheManager ?? _defaultCacheManager,
       ),
@@ -55,8 +55,8 @@ class RepoReadmeMarkdown extends ConsumerWidget {
 }
 
 @visibleForTesting
-class RepoReadmeMarkdownInternal extends ConsumerWidget {
-  const RepoReadmeMarkdownInternal({
+class ReadmeMarkdownInternal extends ConsumerWidget {
+  const ReadmeMarkdownInternal({
     super.key,
     required this.content,
     required this.cacheManager,

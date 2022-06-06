@@ -15,15 +15,15 @@ import 'search_repos_order.dart';
 import 'search_repos_query.dart';
 import 'search_repos_sort.dart';
 
-part 'list_view_state.freezed.dart';
+part 'repo_list_view_state.freezed.dart';
 
 /// リポジトリ一覧View状態プロバイダー
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewNotifier, AsyncValue<RepoListViewState>>(
   (ref) {
-    final queryString = ref.watch(repoSearchReposQueryStringProvider);
-    final sort = ref.watch(repoSearchReposSortProvider);
-    final order = ref.watch(repoSearchReposOrderProvider);
+    final queryString = ref.watch(searchReposQueryStringProvider);
+    final sort = ref.watch(searchReposSortProvider);
+    final order = ref.watch(searchReposOrderProvider);
     logger.i(
       'Create RepoListViewNotifier: queryString = $queryString, '
       'sort = ${sort.name}, order = ${order.name}',

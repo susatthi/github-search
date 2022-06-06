@@ -8,18 +8,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_order.dart';
 import '../../../../localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
-import 'list_view_state.dart';
+import 'repo_list_view_state.dart';
 import 'search_repos_order.dart';
 
 /// リポジトリ検索用オーダー値変更ボタン
-class RepoOrderToggleButton extends ConsumerWidget {
-  const RepoOrderToggleButton({super.key});
+class SearchReposOrderToggleButton extends ConsumerWidget {
+  const SearchReposOrderToggleButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // リポジトリ検索の実行中やエラー時はトグルボタンを無効化する
     final asyncValue = ref.watch(repoListViewStateProvider);
-    return RepoOrderToggleButtonInternal(
+    return SearchReposOrderToggleButtonInternal(
       enabled: asyncValue.when(
         data: (state) => true,
         error: (_, __) => false,
@@ -30,8 +30,8 @@ class RepoOrderToggleButton extends ConsumerWidget {
 }
 
 @visibleForTesting
-class RepoOrderToggleButtonInternal extends ConsumerWidget {
-  const RepoOrderToggleButtonInternal({
+class SearchReposOrderToggleButtonInternal extends ConsumerWidget {
+  const SearchReposOrderToggleButtonInternal({
     super.key,
     this.enabled = true,
   });
@@ -41,14 +41,14 @@ class RepoOrderToggleButtonInternal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final order = ref.watch(repoSearchReposOrderProvider);
+    final order = ref.watch(searchReposOrderProvider);
     logger.v('enabled = $enabled, order = ${order.name}');
     return IconButton(
       onPressed: enabled
           ? () {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
-              ref.read(repoSearchReposOrderUpdater)(newOrder);
+              ref.read(searchReposOrderUpdater)(newOrder);
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
               }

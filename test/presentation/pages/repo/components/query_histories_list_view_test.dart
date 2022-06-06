@@ -24,7 +24,7 @@ class _MockPage extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref.read(repoSearchReposQueryStringUpdater)('flutter');
+                  ref.read(searchReposQueryStringUpdater)('flutter');
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -33,13 +33,13 @@ class _MockPage extends ConsumerWidget {
                 width: 100,
                 child: TextField(
                   onChanged: (text) {
-                    ref.read(repoSearchReposEnteringQueryStringUpdater)(text);
+                    ref.read(searchReposEnteringQueryStringUpdater)(text);
                   },
                 ),
               ),
             ],
           ),
-          const SliverRepoQueryHistoriesListView(),
+          const SliverQueryHistoriesListView(),
         ],
       ),
     );
@@ -51,7 +51,7 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('SliverRepoQueryHistoriesListView', () {
+  group('SliverQueryHistoriesListView', () {
     testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(

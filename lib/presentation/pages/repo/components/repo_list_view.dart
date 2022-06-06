@@ -18,9 +18,9 @@ import '../../../components/cached_circle_avatar.dart';
 import '../../../components/icon_label.dart';
 import '../../../components/list_loader.dart';
 import '../../error/components/error_view.dart';
-import '../view_page.dart';
-import 'language_label.dart';
-import 'list_view_state.dart';
+import '../repo_view_page.dart';
+import 'repo_language_label.dart';
+import 'repo_list_view_state.dart';
 
 /// ListTileのleadingに表示するアバターのサイズ
 const _avatarSize = 40.0;

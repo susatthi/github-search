@@ -57,7 +57,7 @@ class TestAgent {
     // モック版のHTTPクライアントを使う
     httpClientProvider.overrideWithValue(mockHttpClient),
     // リポジトリ検索文字列の初期値を設定する
-    repoSearchReposInitQueryStringProvider.overrideWithValue('flutter'),
+    searchReposInitQueryStringProvider.overrideWithValue('flutter'),
   ];
 
   List<Override>? addOverrides;

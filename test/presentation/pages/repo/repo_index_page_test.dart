@@ -6,16 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/order_toggle_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_text_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_text_field.dart';
-import 'package:github_search/presentation/pages/repo/components/sort_button.dart';
-import 'package:github_search/presentation/pages/repo/components/sort_selector_bottom_sheet.dart';
-import 'package:github_search/presentation/pages/repo/index_page.dart';
-import 'package:github_search/presentation/pages/repo/view_page.dart';
+import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_text_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
+import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/logger.dart';
-
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/test_agent.dart';
 
@@ -32,7 +31,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(RepoSearchTextField), findsOneWidget);
+      expect(find.byType(SearchReposTextField), findsOneWidget);
       expect(find.byType(RepoSortButton), findsOneWidget);
     });
     testWidgets('エラーが発生したらエラー画面を表示するはず', (tester) async {
@@ -64,7 +63,7 @@ void main() {
 
     //     // 検索ボタン押下で検索ページに遷移する
     //     testLogger.d('Tapped SearchTextButton 1');
-    //     await tester.tap(find.byType(RepoSearchTextButton));
+    //     await tester.tap(find.byType(SearchReposTextButton));
     //     await tester.pumpAndSettle();
 
     //     // 検索画面に遷移したはず
@@ -84,7 +83,7 @@ void main() {
 
     //     // もう一度検索ボタン押下で検索ページに遷移する
     //     testLogger.d('Tapped SearchTextButton 2');
-    //     await tester.tap(find.byType(RepoSearchTextButton));
+    //     await tester.tap(find.byType(SearchReposTextButton));
     //     await tester.pumpAndSettle();
 
     //     // 検索画面に遷移したはず
@@ -145,7 +144,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // ボトムシートが表示されたはず
-      expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsOneWidget);
 
       // stars をタップ
       await tester.runAsync<void>(() async {
@@ -154,7 +153,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // ソート選択が閉じたはず
-      expect(find.byType(RepoSortSelectorBottomSheet), findsNothing);
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
 
       // スター数に変更されたはず
       expect(find.text('flutter/flutter'), findsOneWidget);
@@ -177,7 +176,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // ボトムシートが表示されたはず
-      expect(find.byType(RepoSortSelectorBottomSheet), findsOneWidget);
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsOneWidget);
 
       // 最初は降順のはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
@@ -185,7 +184,7 @@ void main() {
       // オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 1');
-        await tester.tap(find.byType(RepoOrderToggleButton));
+        await tester.tap(find.byType(SearchReposOrderToggleButton));
       });
       await tester.pumpAndSettle();
 
@@ -199,7 +198,7 @@ void main() {
       // もう一度オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 2');
-        await tester.tap(find.byType(RepoOrderToggleButton));
+        await tester.tap(find.byType(SearchReposOrderToggleButton));
       });
       await tester.pumpAndSettle();
 
@@ -224,14 +223,14 @@ void main() {
         expect(state.isFilled, false);
 
         // 検索ボタン押下で検索ページに遷移する
-        await tester.tap(find.byType(RepoSearchTextButton));
+        await tester.tap(find.byType(SearchReposTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移した後は広がっているはず
         expect(state.isFilled, true);
 
         // 検索文字列を入力して検索ボタン押下
-        await tester.enterText(find.byType(RepoSearchTextField).last, 'kboy');
+        await tester.enterText(find.byType(SearchReposTextField).last, 'kboy');
         await tester.testTextInput.receiveAction(TextInputAction.done);
         await tester.pumpAndSettle();
 

@@ -11,7 +11,7 @@ import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo_parameter.dart';
 
-import 'package:github_search/presentation/pages/repo/view_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../test_utils/test_agent.dart';
@@ -47,7 +47,7 @@ class _FirstPage extends StatelessWidget {
 }
 
 void main() {
-  const repoDetailViewParameter = RepoSelectedRepoParameter(
+  const repoDetailViewParameter = SelectedRepoParameter(
     ownerName: 'flutter',
     repoName: 'flutter',
   );
@@ -56,24 +56,24 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('repoSelectedRepoProvider', () {
+  group('selectedRepoProvider', () {
     test('最初はUnimplementedErrorをthrowするはず', () async {
       expect(
-        () => agent.mockContainer().read(repoSelectedRepoProvider),
+        () => agent.mockContainer().read(selectedRepoProvider),
         throwsUnimplementedError,
       );
     });
     test('overridesすればUnimplementedErrorをthrowしないはず', () async {
       agent.mockContainer(
         overrides: [
-          repoSelectedRepoProvider.overrideWithProvider(
-            repoSelectedRepoProviderFamily(repoDetailViewParameter),
+          selectedRepoProvider.overrideWithProvider(
+            selectedRepoProviderFamily(repoDetailViewParameter),
           ),
         ],
-      ).read(repoSelectedRepoProvider);
+      ).read(selectedRepoProvider);
     });
   });
-  group('RepoSelectedRepoParameter', () {
+  group('SelectedRepoParameter', () {
     testWidgets('from()でインスタンスが生成できるはず', (tester) async {
       await tester.pumpWidget(
         agent.mockApp(
@@ -89,8 +89,7 @@ void main() {
                         name: 'repo_view',
                         path: ':$pageParamKeyOwnerName/:$pageParamKeyRepoName',
                         builder: (context, state) {
-                          final parameter =
-                              RepoSelectedRepoParameter.from(state);
+                          final parameter = SelectedRepoParameter.from(state);
                           expect(parameter.ownerName, 'ownerName');
                           expect(parameter.repoName, 'repoName');
                           expect(parameter.extra, _extra);
@@ -111,18 +110,18 @@ void main() {
       await tester.pump();
     });
   });
-  group('RepoSelectedRepoNotifier', () {
+  group('SelectedRepoNotifier', () {
     test('Notifierを生成するとリポジトリエンティティを取得するはず', () async {
       final notifier = agent
           .mockContainer(
             overrides: [
-              repoSelectedRepoProvider.overrideWithProvider(
-                repoSelectedRepoProviderFamily(repoDetailViewParameter),
+              selectedRepoProvider.overrideWithProvider(
+                selectedRepoProviderFamily(repoDetailViewParameter),
               ),
             ],
           )
           .listen(
-            repoSelectedRepoProvider.notifier,
+            selectedRepoProvider.notifier,
             (previous, next) {},
           )
           .read();
@@ -142,9 +141,9 @@ void main() {
       final notifier = agent
           .mockContainer(
             overrides: [
-              repoSelectedRepoProvider.overrideWithProvider(
-                repoSelectedRepoProviderFamily(
-                  RepoSelectedRepoParameter(
+              selectedRepoProvider.overrideWithProvider(
+                selectedRepoProviderFamily(
+                  SelectedRepoParameter(
                     ownerName: 'flutter',
                     repoName: 'flutter',
                     extra: _extra,
@@ -154,7 +153,7 @@ void main() {
             ],
           )
           .listen(
-            repoSelectedRepoProvider.notifier,
+            selectedRepoProvider.notifier,
             (previous, next) {},
           )
           .read();

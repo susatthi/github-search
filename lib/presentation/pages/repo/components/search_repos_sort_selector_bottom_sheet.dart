@@ -8,12 +8,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_sort.dart';
 import '../../../../localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
-import 'order_toggle_button.dart';
+import 'search_repos_order_toggle_button.dart';
 import 'search_repos_sort.dart';
 
 /// リポジトリ検索用ソート選択ボトムシート
-class RepoSortSelectorBottomSheet extends ConsumerWidget {
-  const RepoSortSelectorBottomSheet({super.key});
+class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
+  const SearchReposSortSelectorBottomSheet({super.key});
 
   /// 選択項目のマップ
   Map<String, SearchReposSort> get _items => {
@@ -25,7 +25,7 @@ class RepoSortSelectorBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sort = ref.watch(repoSearchReposSortProvider);
+    final sort = ref.watch(searchReposSortProvider);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -34,7 +34,7 @@ class RepoSortSelectorBottomSheet extends ConsumerWidget {
               i18n.sort,
               style: Theme.of(context).textTheme.titleSmall,
             ),
-            trailing: const RepoOrderToggleButton(),
+            trailing: const SearchReposOrderToggleButton(),
           ),
           ..._items.entries
               .map(
@@ -46,7 +46,7 @@ class RepoSortSelectorBottomSheet extends ConsumerWidget {
                   title: Text(e.key),
                   onTap: () {
                     logger.i('Changed: newSort = ${e.value.name}');
-                    ref.read(repoSearchReposSortUpdater)(e.value);
+                    ref.read(searchReposSortUpdater)(e.value);
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop();
                     }

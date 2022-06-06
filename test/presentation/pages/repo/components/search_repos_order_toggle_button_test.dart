@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/presentation/pages/repo/components/order_toggle_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 
 import '../../../../test_utils/logger.dart';
@@ -17,12 +17,12 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('RepoOrderToggleButton', () {
+  group('SearchReposOrderToggleButton', () {
     testWidgets('オーダーボタン押下で昇順降順を切り替えられるはず', (tester) async {
       await tester.pumpWidget(
         agent.mockApp(
           home: const Scaffold(
-            body: RepoOrderToggleButton(),
+            body: SearchReposOrderToggleButton(),
           ),
         ),
       );
@@ -34,7 +34,7 @@ void main() {
       // オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 1');
-        await tester.tap(find.byType(RepoOrderToggleButton));
+        await tester.tap(find.byType(SearchReposOrderToggleButton));
       });
       await tester.pump();
 
@@ -45,7 +45,7 @@ void main() {
       // もう一度オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 2');
-        await tester.tap(find.byType(RepoOrderToggleButton));
+        await tester.tap(find.byType(SearchReposOrderToggleButton));
       });
       await tester.pump();
 
@@ -56,17 +56,17 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           home: const Scaffold(
-            body: RepoOrderToggleButton(),
+            body: SearchReposOrderToggleButton(),
           ),
         ),
       );
 
       // ローディング中は無効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+      expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);
       expect(
         tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
+            .widgetList<SearchReposOrderToggleButtonInternal>(
+              find.byType(SearchReposOrderToggleButtonInternal),
             )
             .first
             .enabled,
@@ -76,11 +76,11 @@ void main() {
       await tester.pump();
 
       // ローディングが終了したら有効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+      expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);
       expect(
         tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
+            .widgetList<SearchReposOrderToggleButtonInternal>(
+              find.byType(SearchReposOrderToggleButtonInternal),
             )
             .first
             .enabled,
@@ -95,18 +95,18 @@ void main() {
             httpClientProvider.overrideWithValue(mockHttpClientError),
           ],
           home: const Scaffold(
-            body: RepoOrderToggleButton(),
+            body: SearchReposOrderToggleButton(),
           ),
         ),
       );
       await tester.pump();
 
       // エラー時は無効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+      expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);
       expect(
         tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
+            .widgetList<SearchReposOrderToggleButtonInternal>(
+              find.byType(SearchReposOrderToggleButtonInternal),
             )
             .first
             .enabled,
@@ -118,20 +118,20 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
-            repoSearchReposInitQueryStringProvider.overrideWithValue(''),
+            searchReposInitQueryStringProvider.overrideWithValue(''),
           ],
           home: const Scaffold(
-            body: RepoOrderToggleButton(),
+            body: SearchReposOrderToggleButton(),
           ),
         ),
       );
 
       // 初期状態は無効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+      expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);
       expect(
         tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
+            .widgetList<SearchReposOrderToggleButtonInternal>(
+              find.byType(SearchReposOrderToggleButtonInternal),
             )
             .first
             .enabled,
@@ -141,11 +141,11 @@ void main() {
       await tester.pump();
 
       // 有効化になるはず
-      expect(find.byType(RepoOrderToggleButtonInternal), findsOneWidget);
+      expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);
       expect(
         tester
-            .widgetList<RepoOrderToggleButtonInternal>(
-              find.byType(RepoOrderToggleButtonInternal),
+            .widgetList<SearchReposOrderToggleButtonInternal>(
+              find.byType(SearchReposOrderToggleButtonInternal),
             )
             .first
             .enabled,

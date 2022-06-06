@@ -31,7 +31,7 @@ void main() {
       final notifier = agent
           .mockContainer()
           .listen(
-            repoReadmeContentProviderFamily(repo).notifier,
+            readmeContentProviderFamily(repo).notifier,
             (previous, next) {},
           )
           .read();
@@ -55,7 +55,7 @@ void main() {
             ],
           )
           .listen(
-            repoReadmeContentProviderFamily(repo).notifier,
+            readmeContentProviderFamily(repo).notifier,
             (previous, next) {},
           )
           .read();

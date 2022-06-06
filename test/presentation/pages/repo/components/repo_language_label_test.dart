@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/values/repo_language.dart';
-import 'package:github_search/presentation/pages/repo/components/language_label.dart';
+import 'package:github_search/presentation/pages/repo/components/repo_language_label.dart';
 
 import '../../../../test_utils/test_agent.dart';
 

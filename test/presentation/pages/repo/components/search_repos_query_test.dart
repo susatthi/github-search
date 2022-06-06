@@ -14,33 +14,29 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('repoSearchReposInitQueryStringProvider', () {
+  group('searchReposInitQueryStringProvider', () {
     test('初期値は環境変数の値と一致するはず', () async {
       final query =
-          ProviderContainer().read(repoSearchReposInitQueryStringProvider);
+          ProviderContainer().read(searchReposInitQueryStringProvider);
       expect(query, Env.defaultSearchValue);
     });
   });
-  group('repoSearchReposQueryStringUpdater', () {
+  group('searchReposQueryStringUpdater', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      await agent
-          .mockContainer()
-          .read(repoSearchReposQueryStringUpdater)('dummy');
-      final query =
-          agent.mockContainer().read(repoSearchReposQueryStringProvider);
+      await agent.mockContainer().read(searchReposQueryStringUpdater)('dummy');
+      final query = agent.mockContainer().read(searchReposQueryStringProvider);
       expect(query, 'dummy');
     });
   });
-  group('repoSearchReposEnteringQueryStringUpdater', () {
+  group('searchReposEnteringQueryStringUpdater', () {
     test('入力中の検索文字列を変更できるはず', () async {
       // 入力中の検索文字列を変更する
       await agent
           .mockContainer()
-          .read(repoSearchReposEnteringQueryStringUpdater)('dummy');
-      final query = agent
-          .mockContainer()
-          .read(repoSearchReposEnteringQueryStringProvider);
+          .read(searchReposEnteringQueryStringUpdater)('dummy');
+      final query =
+          agent.mockContainer().read(searchReposEnteringQueryStringProvider);
       expect(query, 'dummy');
     });
   });

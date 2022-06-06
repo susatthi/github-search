@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/order_toggle_button.dart';
-import 'package:github_search/presentation/pages/repo/components/sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
 import 'package:github_search/utils/extensions.dart';
 
 import '../../../../test_utils/logger.dart';
@@ -22,7 +22,7 @@ class _MockPage extends StatelessWidget {
     return TextButton(
       onPressed: () => showModalBottomSheet<void>(
         context: context,
-        builder: (context) => const RepoSortSelectorBottomSheet(),
+        builder: (context) => const SearchReposSortSelectorBottomSheet(),
       ),
       child: const Text('button'),
     );
@@ -34,7 +34,7 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('RepoSortSelectorBottomSheet', () {
+  group('SearchReposSortSelectorBottomSheet', () {
     testWidgets('各選択肢を選択してソートが変更されるはず', (tester) async {
       await tester.pumpWidget(
         agent.mockApp(
@@ -121,7 +121,7 @@ void main() {
       // オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 1');
-        await tester.tap(find.byType(RepoOrderToggleButton));
+        await tester.tap(find.byType(SearchReposOrderToggleButton));
       });
       await tester.pumpAndSettle();
 
@@ -136,7 +136,7 @@ void main() {
       // もう一度オーダーアイコンをタップ
       await tester.runAsync<void>(() async {
         testLogger.i('Tap order toggle button 2');
-        await tester.tap(find.byType(RepoOrderToggleButton));
+        await tester.tap(find.byType(SearchReposOrderToggleButton));
       });
       await tester.pumpAndSettle();
 
@@ -170,7 +170,7 @@ void main() {
       expect(find.byIcon(Icons.arrow_upward), findsNothing);
 
       // オーダー変更ボタンが disable になっているので押せないはず
-      await tester.tap(find.byType(RepoOrderToggleButton));
+      await tester.tap(find.byType(SearchReposOrderToggleButton));
 
       // オーダー変更ボタンは昇順のままのはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);

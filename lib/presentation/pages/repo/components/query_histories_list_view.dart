@@ -11,14 +11,14 @@ import 'query_histories.dart';
 import 'search_repos_query.dart';
 
 /// Sliver版検索履歴一覧View
-class SliverRepoQueryHistoriesListView extends ConsumerWidget {
-  const SliverRepoQueryHistoriesListView({super.key});
+class SliverQueryHistoriesListView extends ConsumerWidget {
+  const SliverQueryHistoriesListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(queryHistoriesProvider);
     return asyncValue.when(
-      data: (queryHistories) => SliverRepoQueryHistoriesListViewInternal(
+      data: (queryHistories) => SliverQueryHistoriesListViewInternal(
         queryHistories: queryHistories,
       ),
       error: (_, __) => const SliverFillRemaining(),
@@ -28,8 +28,8 @@ class SliverRepoQueryHistoriesListView extends ConsumerWidget {
 }
 
 @visibleForTesting
-class SliverRepoQueryHistoriesListViewInternal extends StatelessWidget {
-  const SliverRepoQueryHistoriesListViewInternal({
+class SliverQueryHistoriesListViewInternal extends StatelessWidget {
+  const SliverQueryHistoriesListViewInternal({
     super.key,
     required this.queryHistories,
   });
@@ -76,7 +76,7 @@ class _QueryHistoryListTile extends ConsumerWidget {
         icon: const Icon(Icons.close),
       ),
       onTap: () {
-        ref.read(repoSearchReposQueryStringUpdater)(query.queryString);
+        ref.read(searchReposQueryStringUpdater)(query.queryString);
         Navigator.of(context).pop();
       },
     );

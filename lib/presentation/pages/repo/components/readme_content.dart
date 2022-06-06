@@ -8,24 +8,24 @@ import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/logger.dart';
 
-/// リポジトリREADMEコンテンツプロバイダー（Family）
-final repoReadmeContentProviderFamily = StateNotifierProvider.family
-    .autoDispose<RepoReadmeContentNotifier, AsyncValue<String>, Repo>(
+/// READMEコンテンツプロバイダー（Family）
+final readmeContentProviderFamily = StateNotifierProvider.family
+    .autoDispose<ReadmeContentNotifier, AsyncValue<String>, Repo>(
   (ref, repo) {
     logger.i(
-      'Create RepoReadmeContentNotifier: fullName = ${repo.fullName}, '
+      'Create ReadmeContentNotifier: fullName = ${repo.fullName}, '
       'defaultBranch = ${repo.defaultBranch}',
     );
-    return RepoReadmeContentNotifier(
+    return ReadmeContentNotifier(
       ref.read,
       repo: repo,
     );
   },
 );
 
-/// リポジトリREADMEコンテンツNotifier
-class RepoReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
-  RepoReadmeContentNotifier(
+/// READMEコンテンツNotifier
+class ReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
+  ReadmeContentNotifier(
     Reader read, {
     required this.repo,
   })  : _repoRepository = read(repoRepositoryProvider),

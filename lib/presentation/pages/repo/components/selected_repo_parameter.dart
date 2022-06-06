@@ -6,14 +6,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../view_page.dart';
+import '../repo_view_page.dart';
 
 part 'selected_repo_parameter.freezed.dart';
 
 /// 選択中のリポジトリ用パラメータ
 @freezed
-class RepoSelectedRepoParameter with _$RepoSelectedRepoParameter {
-  const factory RepoSelectedRepoParameter({
+class SelectedRepoParameter with _$SelectedRepoParameter {
+  const factory SelectedRepoParameter({
     /// オーナー名
     required String ownerName,
 
@@ -23,10 +23,10 @@ class RepoSelectedRepoParameter with _$RepoSelectedRepoParameter {
     /// 一覧画面から渡されるリポジトリデータ
     /// 詳細画面で再読込した場合などは null になる場合がある
     Repo? extra,
-  }) = _RepoSelectedRepoParameter;
+  }) = _SelectedRepoParameter;
 
-  factory RepoSelectedRepoParameter.from(GoRouterState state) =>
-      RepoSelectedRepoParameter(
+  factory SelectedRepoParameter.from(GoRouterState state) =>
+      SelectedRepoParameter(
         ownerName: state.params[pageParamKeyOwnerName]!,
         repoName: state.params[pageParamKeyRepoName]!,
         extra: state.extra as Repo?,

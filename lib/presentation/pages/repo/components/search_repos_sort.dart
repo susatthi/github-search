@@ -8,7 +8,7 @@ import '../../../../domain/repositories/app_data/app_data_repository.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_sort.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
-final repoSearchReposSortProvider = StateProvider<SearchReposSort>(
+final searchReposSortProvider = StateProvider<SearchReposSort>(
   (ref) {
     final appDataRepository = ref.read(appDataRepositoryProvider);
     return appDataRepository.getSearchReposSort();
@@ -16,9 +16,9 @@ final repoSearchReposSortProvider = StateProvider<SearchReposSort>(
 );
 
 /// リポジトリ検索用ソート値更新メソッドプロバイダー
-final repoSearchReposSortUpdater = Provider(
+final searchReposSortUpdater = Provider(
   (ref) {
-    final notifier = ref.read(repoSearchReposSortProvider.notifier);
+    final notifier = ref.read(searchReposSortProvider.notifier);
     final appDataRepository = ref.read(appDataRepositoryProvider);
     return (SearchReposSort sort) {
       appDataRepository.setSearchReposSort(sort);

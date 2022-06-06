@@ -8,11 +8,11 @@ import 'package:github_search/domain/repositories/repo/entities/repo.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/pages/error/components/error_view.dart';
 import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
-import 'package:github_search/presentation/pages/repo/components/detail_view.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
+import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo_parameter.dart';
-import 'package:github_search/presentation/pages/repo/view_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -48,9 +48,9 @@ void main() {
     await tester.pumpWidget(
       agent.mockApp(
         overrides: [
-          repoSelectedRepoProvider.overrideWithProvider(
-            repoSelectedRepoProviderFamily(
-              const RepoSelectedRepoParameter(
+          selectedRepoProvider.overrideWithProvider(
+            selectedRepoProviderFamily(
+              const SelectedRepoParameter(
                 ownerName: 'flutter',
                 repoName: 'plugins',
               ),
@@ -104,9 +104,9 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            repoSelectedRepoProvider.overrideWithProvider(
-              repoSelectedRepoProviderFamily(
-                const RepoSelectedRepoParameter(
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
@@ -153,15 +153,15 @@ void main() {
       expect(find.byIcon(Icons.bug_report_outlined), findsOneWidget);
 
       // README
-      expect(find.byType(RepoReadmeMarkdown), findsOneWidget);
+      expect(find.byType(ReadmeMarkdown), findsOneWidget);
     });
     testWidgets('エラーが発生した場合はエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            repoSelectedRepoProvider.overrideWithProvider(
-              repoSelectedRepoProviderFamily(
-                const RepoSelectedRepoParameter(
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
                   ownerName: 'unknown',
                   repoName: 'unknown',
                 ),
@@ -226,9 +226,9 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            repoSelectedRepoProvider.overrideWithProvider(
-              repoSelectedRepoProviderFamily(
-                const RepoSelectedRepoParameter(
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
@@ -251,7 +251,7 @@ void main() {
 
       verifyNever(
         () => agent.mockGoRouter.goNamed(
-          RepoAvatarPreviewPage.name,
+          AvatarPreviewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',
             repoName: 'plugins',
@@ -266,7 +266,7 @@ void main() {
       // プレビュー画面に画面遷移するはず
       verify(
         () => agent.mockGoRouter.goNamed(
-          RepoAvatarPreviewPage.name,
+          AvatarPreviewPage.name,
           params: RepoViewPage.params(
             ownerName: 'flutter',
             repoName: 'plugins',

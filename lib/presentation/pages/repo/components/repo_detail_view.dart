@@ -15,9 +15,9 @@ import '../../../components/icon_label.dart';
 import '../../../components/launch_url_state.dart';
 import '../../error/components/error_view.dart';
 import '../avatar_preview_page.dart';
-import '../view_page.dart';
-import 'language_label.dart';
+import '../repo_view_page.dart';
 import 'readme_markdown.dart';
+import 'repo_language_label.dart';
 import 'selected_repo.dart';
 
 /// 1行の縦方向のパディング
@@ -32,7 +32,7 @@ class SliverRepoDetailView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoSelectedRepoProvider);
+    final asyncValue = ref.watch(selectedRepoProvider);
     return asyncValue.when(
       data: (repo) => SliverRepoDetailViewInternal(repo: repo),
       error: (e, s) => SliverFillRemaining(
@@ -67,7 +67,7 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
       delegate: SliverChildListDelegate.fixed(
         [
           _AvatarRow(repo: repo),
-          _FullnameRow(repo: repo),
+          _FullNameRow(repo: repo),
           _DescriptionRow(repo: repo),
           _LanguageRow(repo: repo),
           _IconLabelsRow(repo: repo),
@@ -99,7 +99,7 @@ class _AvatarRow extends StatelessWidget {
 
             // アバタープレビュー画面に遷移する
             context.goNamed(
-              RepoAvatarPreviewPage.name,
+              AvatarPreviewPage.name,
               params: RepoViewPage.params(
                 ownerName: repo.ownerName,
                 repoName: repo.repoName,
@@ -124,8 +124,8 @@ class _AvatarRow extends StatelessWidget {
 }
 
 /// リポジトリのフルネーム
-class _FullnameRow extends StatelessWidget {
-  const _FullnameRow({
+class _FullNameRow extends StatelessWidget {
+  const _FullNameRow({
     required this.repo,
   });
 
@@ -295,7 +295,7 @@ class _ReadmeRow extends StatelessWidget {
         horizontal: _horizontalPadding,
         vertical: _verticalPadding,
       ),
-      child: RepoReadmeMarkdown(repo: repo),
+      child: ReadmeMarkdown(repo: repo),
     );
   }
 }

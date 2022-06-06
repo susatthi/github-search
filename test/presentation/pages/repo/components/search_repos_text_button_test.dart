@@ -5,9 +5,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
-import 'package:github_search/presentation/pages/repo/components/search_text_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_text_field.dart';
-import 'package:github_search/presentation/pages/repo/search_page.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_text_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
+import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -18,12 +18,12 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('RepoSearchTextButton', () {
+  group('SearchReposTextButton', () {
     testWidgets('prefixIconが表示されるはず', (tester) async {
       await tester.pumpWidget(
         agent.mockApp(
           home: const Scaffold(
-            body: RepoSearchTextButton(),
+            body: SearchReposTextButton(),
           ),
         ),
       );
@@ -37,7 +37,7 @@ void main() {
           home: InheritedGoRouter(
             goRouter: agent.mockGoRouter,
             child: const Scaffold(
-              body: RepoSearchTextButton(),
+              body: SearchReposTextButton(),
             ),
           ),
         ),
@@ -46,7 +46,7 @@ void main() {
       verifyNever(() => agent.mockGoRouter.goNamed(RepoSearchPage.name));
 
       // タップするとリポジトリ検索画面に遷移するはず
-      await tester.tap(find.byType(RepoSearchTextButton));
+      await tester.tap(find.byType(SearchReposTextButton));
       verify(() => agent.mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
     });
     testWidgets('削除ボタンをタップすると検索文字列をクリアしてリポジトリ検索画面に遷移するはず', (tester) async {
@@ -55,12 +55,12 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            repoSearchReposInitQueryStringProvider.overrideWithValue(initQuery),
+            searchReposInitQueryStringProvider.overrideWithValue(initQuery),
           ],
           home: InheritedGoRouter(
             goRouter: agent.mockGoRouter,
             child: const Scaffold(
-              body: RepoSearchTextButton(),
+              body: SearchReposTextButton(),
             ),
           ),
         ),
@@ -69,8 +69,8 @@ void main() {
       verifyNever(() => agent.mockGoRouter.goNamed(RepoSearchPage.name));
 
       // 検索文字列が初期値になっているはず
-      final state = tester.state(find.byType(RepoSearchTextField))
-          as RepoSearchTextFieldState;
+      final state = tester.state(find.byType(SearchReposTextField))
+          as SearchReposTextFieldState;
       expect(state.controller.text, initQuery);
 
       // 削除ボタンをタップする

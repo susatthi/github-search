@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/pages/repo/components/detail_view.dart';
-import 'package:github_search/presentation/pages/repo/components/full_name_text.dart';
+import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';
+import 'package:github_search/presentation/pages/repo/components/repo_full_name_text.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo_parameter.dart';
-import 'package:github_search/presentation/pages/repo/view_page.dart';
+import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/test_agent.dart';
 
@@ -22,9 +22,9 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            repoSelectedRepoProvider.overrideWithProvider(
-              repoSelectedRepoProviderFamily(
-                const RepoSelectedRepoParameter(
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),

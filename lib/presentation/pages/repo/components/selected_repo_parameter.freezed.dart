@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$RepoSelectedRepoParameter {
+mixin _$SelectedRepoParameter {
   /// オーナー名
   String get ownerName => throw _privateConstructorUsedError;
 
@@ -27,28 +27,28 @@ mixin _$RepoSelectedRepoParameter {
   Repo? get extra => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $RepoSelectedRepoParameterCopyWith<RepoSelectedRepoParameter> get copyWith =>
+  $SelectedRepoParameterCopyWith<SelectedRepoParameter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RepoSelectedRepoParameterCopyWith<$Res> {
-  factory $RepoSelectedRepoParameterCopyWith(RepoSelectedRepoParameter value,
-          $Res Function(RepoSelectedRepoParameter) then) =
-      _$RepoSelectedRepoParameterCopyWithImpl<$Res>;
+abstract class $SelectedRepoParameterCopyWith<$Res> {
+  factory $SelectedRepoParameterCopyWith(SelectedRepoParameter value,
+          $Res Function(SelectedRepoParameter) then) =
+      _$SelectedRepoParameterCopyWithImpl<$Res>;
   $Res call({String ownerName, String repoName, Repo? extra});
 
   $RepoCopyWith<$Res>? get extra;
 }
 
 /// @nodoc
-class _$RepoSelectedRepoParameterCopyWithImpl<$Res>
-    implements $RepoSelectedRepoParameterCopyWith<$Res> {
-  _$RepoSelectedRepoParameterCopyWithImpl(this._value, this._then);
+class _$SelectedRepoParameterCopyWithImpl<$Res>
+    implements $SelectedRepoParameterCopyWith<$Res> {
+  _$SelectedRepoParameterCopyWithImpl(this._value, this._then);
 
-  final RepoSelectedRepoParameter _value;
+  final SelectedRepoParameter _value;
   // ignore: unused_field
-  final $Res Function(RepoSelectedRepoParameter) _then;
+  final $Res Function(SelectedRepoParameter) _then;
 
   @override
   $Res call({
@@ -85,12 +85,11 @@ class _$RepoSelectedRepoParameterCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_RepoSelectedRepoParameterCopyWith<$Res>
-    implements $RepoSelectedRepoParameterCopyWith<$Res> {
-  factory _$$_RepoSelectedRepoParameterCopyWith(
-          _$_RepoSelectedRepoParameter value,
-          $Res Function(_$_RepoSelectedRepoParameter) then) =
-      __$$_RepoSelectedRepoParameterCopyWithImpl<$Res>;
+abstract class _$$_SelectedRepoParameterCopyWith<$Res>
+    implements $SelectedRepoParameterCopyWith<$Res> {
+  factory _$$_SelectedRepoParameterCopyWith(_$_SelectedRepoParameter value,
+          $Res Function(_$_SelectedRepoParameter) then) =
+      __$$_SelectedRepoParameterCopyWithImpl<$Res>;
   @override
   $Res call({String ownerName, String repoName, Repo? extra});
 
@@ -99,17 +98,16 @@ abstract class _$$_RepoSelectedRepoParameterCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RepoSelectedRepoParameterCopyWithImpl<$Res>
-    extends _$RepoSelectedRepoParameterCopyWithImpl<$Res>
-    implements _$$_RepoSelectedRepoParameterCopyWith<$Res> {
-  __$$_RepoSelectedRepoParameterCopyWithImpl(
-      _$_RepoSelectedRepoParameter _value,
-      $Res Function(_$_RepoSelectedRepoParameter) _then)
-      : super(_value, (v) => _then(v as _$_RepoSelectedRepoParameter));
+class __$$_SelectedRepoParameterCopyWithImpl<$Res>
+    extends _$SelectedRepoParameterCopyWithImpl<$Res>
+    implements _$$_SelectedRepoParameterCopyWith<$Res> {
+  __$$_SelectedRepoParameterCopyWithImpl(_$_SelectedRepoParameter _value,
+      $Res Function(_$_SelectedRepoParameter) _then)
+      : super(_value, (v) => _then(v as _$_SelectedRepoParameter));
 
   @override
-  _$_RepoSelectedRepoParameter get _value =>
-      super._value as _$_RepoSelectedRepoParameter;
+  _$_SelectedRepoParameter get _value =>
+      super._value as _$_SelectedRepoParameter;
 
   @override
   $Res call({
@@ -117,7 +115,7 @@ class __$$_RepoSelectedRepoParameterCopyWithImpl<$Res>
     Object? repoName = freezed,
     Object? extra = freezed,
   }) {
-    return _then(_$_RepoSelectedRepoParameter(
+    return _then(_$_SelectedRepoParameter(
       ownerName: ownerName == freezed
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
@@ -136,8 +134,8 @@ class __$$_RepoSelectedRepoParameterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RepoSelectedRepoParameter implements _RepoSelectedRepoParameter {
-  const _$_RepoSelectedRepoParameter(
+class _$_SelectedRepoParameter implements _SelectedRepoParameter {
+  const _$_SelectedRepoParameter(
       {required this.ownerName, required this.repoName, this.extra});
 
   /// オーナー名
@@ -155,14 +153,14 @@ class _$_RepoSelectedRepoParameter implements _RepoSelectedRepoParameter {
 
   @override
   String toString() {
-    return 'RepoSelectedRepoParameter(ownerName: $ownerName, repoName: $repoName, extra: $extra)';
+    return 'SelectedRepoParameter(ownerName: $ownerName, repoName: $repoName, extra: $extra)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RepoSelectedRepoParameter &&
+            other is _$_SelectedRepoParameter &&
             const DeepCollectionEquality().equals(other.ownerName, ownerName) &&
             const DeepCollectionEquality().equals(other.repoName, repoName) &&
             const DeepCollectionEquality().equals(other.extra, extra));
@@ -177,16 +175,16 @@ class _$_RepoSelectedRepoParameter implements _RepoSelectedRepoParameter {
 
   @JsonKey(ignore: true)
   @override
-  _$$_RepoSelectedRepoParameterCopyWith<_$_RepoSelectedRepoParameter>
-      get copyWith => __$$_RepoSelectedRepoParameterCopyWithImpl<
-          _$_RepoSelectedRepoParameter>(this, _$identity);
+  _$$_SelectedRepoParameterCopyWith<_$_SelectedRepoParameter> get copyWith =>
+      __$$_SelectedRepoParameterCopyWithImpl<_$_SelectedRepoParameter>(
+          this, _$identity);
 }
 
-abstract class _RepoSelectedRepoParameter implements RepoSelectedRepoParameter {
-  const factory _RepoSelectedRepoParameter(
+abstract class _SelectedRepoParameter implements SelectedRepoParameter {
+  const factory _SelectedRepoParameter(
       {required final String ownerName,
       required final String repoName,
-      final Repo? extra}) = _$_RepoSelectedRepoParameter;
+      final Repo? extra}) = _$_SelectedRepoParameter;
 
   @override
 
@@ -203,6 +201,6 @@ abstract class _RepoSelectedRepoParameter implements RepoSelectedRepoParameter {
   Repo? get extra => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_RepoSelectedRepoParameterCopyWith<_$_RepoSelectedRepoParameter>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$_SelectedRepoParameterCopyWith<_$_SelectedRepoParameter> get copyWith =>
+      throw _privateConstructorUsedError;
 }

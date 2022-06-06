@@ -10,8 +10,8 @@ import '../../../../utils/logger.dart';
 import 'search_repos_query.dart';
 
 /// リポジトリ検索用テキストフィールド
-class RepoSearchTextField extends ConsumerStatefulWidget {
-  const RepoSearchTextField({
+class SearchReposTextField extends ConsumerStatefulWidget {
+  const SearchReposTextField({
     super.key,
     this.readOnly = false,
     this.prefixIcon,
@@ -36,12 +36,12 @@ class RepoSearchTextField extends ConsumerStatefulWidget {
   final TextEditingController? controller;
 
   @override
-  ConsumerState<RepoSearchTextField> createState() =>
-      RepoSearchTextFieldState();
+  ConsumerState<SearchReposTextField> createState() =>
+      SearchReposTextFieldState();
 }
 
 @visibleForTesting
-class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
+class SearchReposTextFieldState extends ConsumerState<SearchReposTextField> {
   late TextEditingController controller;
   final focusNode = FocusNode();
 
@@ -50,7 +50,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
     super.initState();
     controller = widget.controller ?? TextEditingController();
 
-    final queryString = ref.read(repoSearchReposQueryStringProvider);
+    final queryString = ref.read(searchReposQueryStringProvider);
     controller
       ..text = queryString
       // 使い勝手を良くするために表示されたときは全選択状態にする
@@ -71,7 +71,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
   @override
   Widget build(BuildContext context) {
     // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
-    ref.listen(repoSearchReposQueryStringProvider, (previous, next) {
+    ref.listen(searchReposQueryStringProvider, (previous, next) {
       logger.v(
         'Update query: current = ${controller.text}, '
         'next = ${next.toString()}',
@@ -99,7 +99,7 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
 
                   // onChanged が呼ばれないので明示的に入力中検索文字列状態を空にする
                   ref
-                      .read(repoSearchReposEnteringQueryStringProvider.notifier)
+                      .read(searchReposEnteringQueryStringProvider.notifier)
                       .state = '';
 
                   widget.onTappedDelete?.call();
@@ -133,12 +133,12 @@ class RepoSearchTextFieldState extends ConsumerState<RepoSearchTextField> {
       ),
       // 入力文字が変更されたら状態を更新する
       onChanged: (text) {
-        ref.read(repoSearchReposEnteringQueryStringUpdater)(text);
+        ref.read(searchReposEnteringQueryStringUpdater)(text);
       },
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         logger.i('Called onSubmitted(): text = $text');
-        ref.read(repoSearchReposQueryStringUpdater)(text);
+        ref.read(searchReposQueryStringUpdater)(text);
         Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする

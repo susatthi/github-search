@@ -11,14 +11,14 @@ import '../../../../domain/repositories/repo/entities/repo.dart';
 import 'selected_repo.dart';
 
 /// アバター画像プレビューView
-class RepoAvatarPreviewView extends ConsumerWidget {
-  const RepoAvatarPreviewView({super.key});
+class AvatarPreviewView extends ConsumerWidget {
+  const AvatarPreviewView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(repoSelectedRepoProvider);
+    final asyncValue = ref.watch(selectedRepoProvider);
     return asyncValue.when(
-      data: (repo) => _RepoAvatarPreviewView(repo: repo),
+      data: (repo) => _AvatarPreviewView(repo: repo),
       // ほぼ失敗しないしすぐに元に戻れるのでエラー表示はしない
       error: (_, __) => const SizedBox(),
       // 取得時間は短いと思うのでローディング表示はしない
@@ -27,8 +27,8 @@ class RepoAvatarPreviewView extends ConsumerWidget {
   }
 }
 
-class _RepoAvatarPreviewView extends ConsumerWidget {
-  const _RepoAvatarPreviewView({
+class _AvatarPreviewView extends ConsumerWidget {
+  const _AvatarPreviewView({
     required this.repo,
   });
 

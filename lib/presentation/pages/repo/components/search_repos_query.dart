@@ -11,7 +11,7 @@ import '../../../../domain/repositories/query_history/query_history_repository.d
 import '../../../../utils/logger.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
-final repoSearchReposInitQueryStringProvider = Provider<String>(
+final searchReposInitQueryStringProvider = Provider<String>(
   (ref) => const String.fromEnvironment(
     dartDefineKeyDefaultSearchValue,
     //ignore: avoid_redundant_argument_values
@@ -20,14 +20,14 @@ final repoSearchReposInitQueryStringProvider = Provider<String>(
 );
 
 /// リポジトリ検索文字列プロバイダー
-final repoSearchReposQueryStringProvider = StateProvider<String>(
-  (ref) => ref.read(repoSearchReposInitQueryStringProvider),
+final searchReposQueryStringProvider = StateProvider<String>(
+  (ref) => ref.read(searchReposInitQueryStringProvider),
 );
 
 /// リポジトリ検索文字列更新メソッドプロバイダー
-final repoSearchReposQueryStringUpdater = Provider(
+final searchReposQueryStringUpdater = Provider(
   (ref) => (String queryString) async {
-    ref.read(repoSearchReposQueryStringProvider.notifier).state = queryString;
+    ref.read(searchReposQueryStringProvider.notifier).state = queryString;
     await ref.read(queryHistoryRepositoryProvider).add(
           QueryHistoryInput(queryString: queryString),
         );
@@ -35,20 +35,20 @@ final repoSearchReposQueryStringUpdater = Provider(
 );
 
 /// 入力中のリポジトリ検索文字列プロバイダー
-final repoSearchReposEnteringQueryStringProvider = StateProvider<String>(
-  (ref) => ref.read(repoSearchReposQueryStringProvider),
+final searchReposEnteringQueryStringProvider = StateProvider<String>(
+  (ref) => ref.read(searchReposQueryStringProvider),
 );
 
 /// 入力中のリポジトリ検索文字列更新メソッドプロバイダー
-final repoSearchReposEnteringQueryStringUpdater = Provider(
+final searchReposEnteringQueryStringUpdater = Provider(
   (ref) => (String queryString) async {
     // もし現在の文字列と同じ場合は更新しない
-    final current = ref.read(repoSearchReposEnteringQueryStringProvider);
+    final current = ref.read(searchReposEnteringQueryStringProvider);
     if (current != queryString) {
       logger.v(
-        'Update repoSearchReposEnteringQueryString: queryString = $queryString',
+        'Update searchReposEnteringQueryString: queryString = $queryString',
       );
-      ref.read(repoSearchReposEnteringQueryStringProvider.notifier).state =
+      ref.read(searchReposEnteringQueryStringProvider.notifier).state =
           queryString;
     }
   },

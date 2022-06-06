@@ -121,7 +121,7 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('RepoReadmeMarkdown', () {
+  group('ReadmeMarkdown', () {
     testWidgets('画像取得時にエラーが起きたときはSVGとして取得を試みるはず', (tester) async {
       // 参考サイト: https://github.com/dnfield/flutter_svg/blob/master/test/widget_svg_test.dart
 
@@ -143,7 +143,7 @@ void main() {
           await tester.pumpWidget(
             agent.mockApp(
               home: SingleChildScrollView(
-                child: RepoReadmeMarkdown(
+                child: ReadmeMarkdown(
                   repo: repo,
                   cacheManager: mockCacheManager,
                 ),
@@ -165,7 +165,7 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           home: SingleChildScrollView(
-            child: RepoReadmeMarkdown(repo: repo),
+            child: ReadmeMarkdown(repo: repo),
           ),
         ),
       );
@@ -188,7 +188,7 @@ void main() {
             httpClientProvider.overrideWithValue(mockHttpClientError),
           ],
           home: SingleChildScrollView(
-            child: RepoReadmeMarkdown(repo: repo),
+            child: ReadmeMarkdown(repo: repo),
           ),
         ),
       );
@@ -225,7 +225,7 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           home: SingleChildScrollView(
-            child: RepoReadmeMarkdown(repo: repo),
+            child: ReadmeMarkdown(repo: repo),
           ),
         ),
       );

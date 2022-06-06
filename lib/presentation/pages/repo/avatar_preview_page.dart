@@ -9,8 +9,8 @@ import '../../../utils/logger.dart';
 import 'components/avatar_preview_view.dart';
 
 /// アバターのプレビュー画面
-class RepoAvatarPreviewPage extends StatelessWidget {
-  const RepoAvatarPreviewPage({super.key});
+class AvatarPreviewPage extends StatelessWidget {
+  const AvatarPreviewPage({super.key});
 
   static const name = 'avatar-preview';
   static const path = 'avatar-preview';
@@ -26,7 +26,7 @@ class RepoAvatarPreviewPage extends StatelessWidget {
           logger.v('Called onTap');
           context.pop();
         },
-        child: const RepoAvatarPreviewView(),
+        child: const AvatarPreviewView(),
       ),
     );
   }

@@ -15,7 +15,7 @@ final queryHistoriesProvider = StateNotifierProvider.autoDispose<
   (ref) {
     final notifier = QueryHistoriesNotifier(
       ref.read,
-      queryString: ref.watch(repoSearchReposEnteringQueryStringProvider),
+      queryString: ref.watch(searchReposEnteringQueryStringProvider),
     );
     ref.onDispose(() {
       logger.v('Disposed notifier: $notifier');
