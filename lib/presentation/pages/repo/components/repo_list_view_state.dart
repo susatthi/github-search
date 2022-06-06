@@ -11,9 +11,9 @@ import '../../../../domain/repositories/repo/entities/search_repos_result.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_sort.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/logger.dart';
-import 'search_repos_order.dart';
+import 'search_repos_order_toggle_button.dart';
 import 'search_repos_query.dart';
-import 'search_repos_sort.dart';
+import 'search_repos_sort_selector_bottom_sheet.dart';
 
 part 'repo_list_view_state.freezed.dart';
 

@@ -5,7 +5,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
-import 'package:github_search/presentation/pages/repo/components/selected_repo_parameter.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../test_utils/test_agent.dart';

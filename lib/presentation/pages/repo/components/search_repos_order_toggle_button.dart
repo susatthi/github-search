@@ -5,11 +5,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../domain/repositories/app_data/app_data_repository.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_order.dart';
 import '../../../../localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import 'repo_list_view_state.dart';
-import 'search_repos_order.dart';
+
+/// リポジトリ検索用オーダー値プロバイダー
+final searchReposOrderProvider = StateProvider<SearchReposOrder>(
+  (ref) {
+    final appDataRepository = ref.read(appDataRepositoryProvider);
+    return appDataRepository.getSearchReposOrder();
+  },
+);
+
+/// リポジトリ検索用オーダー値更新メソッドプロバイダー
+final searchReposOrderUpdater = Provider(
+  (ref) {
+    final notifier = ref.read(searchReposOrderProvider.notifier);
+    final appDataRepository = ref.read(appDataRepositoryProvider);
+    return (SearchReposOrder order) {
+      appDataRepository.setSearchReposOrder(order);
+      notifier.state = appDataRepository.getSearchReposOrder();
+    };
+  },
+);
 
 /// リポジトリ検索用オーダー値変更ボタン
 class SearchReposOrderToggleButton extends ConsumerWidget {

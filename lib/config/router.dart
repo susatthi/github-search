@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import '../presentation/pages/error/error_page.dart';
 import '../presentation/pages/repo/avatar_preview_page.dart';
 import '../presentation/pages/repo/components/selected_repo.dart';
-import '../presentation/pages/repo/components/selected_repo_parameter.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
 import '../presentation/pages/repo/repo_search_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';

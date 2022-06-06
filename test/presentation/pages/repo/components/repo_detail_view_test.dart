@@ -11,7 +11,6 @@ import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
-import 'package:github_search/presentation/pages/repo/components/selected_repo_parameter.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';

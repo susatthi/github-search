@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -9,6 +11,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
@@ -121,6 +124,47 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
+  group('repoReadmeContentProvider', () {
+    test('正常にREADMEコンテンツが取得できるはず', () async {
+      final notifier = agent
+          .mockContainer()
+          .listen(
+            readmeContentProviderFamily(repo).notifier,
+            (previous, next) {},
+          )
+          .read();
+      // 初期値はAsyncLoading
+      expect(notifier.state is AsyncLoading, true);
+      expect(notifier.state.value, isNull);
+
+      // データを取り終わるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
+
+      // データが取得できているはず
+      expect(notifier.state is AsyncData, true);
+      expect(notifier.state.value, isNotNull);
+    });
+    test('通信エラー時はAsyncErrorのはず', () async {
+      final notifier = agent
+          .mockContainer(
+            overrides: [
+              // 常にエラーを返すHTTPクライアントを使う
+              httpClientProvider.overrideWithValue(mockHttpClientError),
+            ],
+          )
+          .listen(
+            readmeContentProviderFamily(repo).notifier,
+            (previous, next) {},
+          )
+          .read();
+
+      // データを取り終わるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
+
+      // AsyncErrorのはず
+      expect(notifier.state is AsyncError, true);
+    });
+  });
   group('ReadmeMarkdown', () {
     testWidgets('画像取得時にエラーが起きたときはSVGとして取得を試みるはず', (tester) async {
       // 参考サイト: https://github.com/dnfield/flutter_svg/blob/master/test/widget_svg_test.dart

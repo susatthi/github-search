@@ -7,7 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_full_name_text.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
-import 'package:github_search/presentation/pages/repo/components/selected_repo_parameter.dart';
 
 import '../../../../test_utils/mocks.dart';
 import '../../../../test_utils/test_agent.dart';
