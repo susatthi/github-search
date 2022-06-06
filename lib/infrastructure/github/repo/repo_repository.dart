@@ -17,27 +17,28 @@ import '../http_client.dart';
 import 'json_objects/repo.dart';
 import 'json_objects/search_repos_result.dart';
 
-/// GitHubAPI版リポジトリRepositoryプロバイダー
-final githubRepoRepositoryProvider = Provider<RepoRepository>(
-  (ref) {
-    final githubHttpClient = ref.watch(githubHttpClientProvider);
-    return GitHubRepoRepository(
-      api: const GitHubApi(),
-      client: githubHttpClient,
-    );
-  },
+/// GitHubApiプロバイダー
+final githubApiProvider = Provider<GitHubApi>(
+  (ref) => const GitHubApi(),
 );
 
-/// GitHubAPI版リポジトリRepository
+/// GitHub版リポジトリRepositoryプロバイダー
+final githubRepoRepositoryProvider = Provider<RepoRepository>(
+  (ref) => GitHubRepoRepository(
+    api: ref.watch(githubApiProvider),
+    client: ref.watch(githubHttpClientProvider),
+  ),
+);
+
+/// GitHub版リポジトリRepository
 class GitHubRepoRepository implements RepoRepository {
   const GitHubRepoRepository({
-    required GitHubApi api,
-    required GitHubHttpClient client,
-  })  : _api = api,
-        _client = client;
+    required this.api,
+    required this.client,
+  });
 
-  final GitHubApi _api;
-  final GitHubHttpClient _client;
+  final GitHubApi api;
+  final GitHubHttpClient client;
 
   @override
   Future<SearchReposResult> searchRepos({
@@ -47,8 +48,8 @@ class GitHubRepoRepository implements RepoRepository {
     int? perPage,
     int? page,
   }) async =>
-      _client.get<SearchReposResult>(
-        uri: _api.searchRepos(
+      client.get<SearchReposResult>(
+        uri: api.searchRepos(
           queryString: queryString,
           sort: GitHubSearchReposSort.valueOf(sort),
           order: GitHubSearchReposOrder.valueOf(order),
@@ -70,8 +71,8 @@ class GitHubRepoRepository implements RepoRepository {
     required String ownerName,
     required String repoName,
   }) async =>
-      _client.get<Repo>(
-        uri: _api.getRepo(
+      client.get<Repo>(
+        uri: api.getRepo(
           ownerName: ownerName,
           repoName: repoName,
         ),
@@ -119,7 +120,7 @@ class GitHubRepoRepository implements RepoRepository {
         'https://raw.githubusercontent.com/${repo.ownerName}/${repo.repoName}/${repo.defaultBranch}/$fileName',
       );
       try {
-        return await _client.getRaw(uri: uri);
+        return await client.getRaw(uri: uri);
       } on NetworkException catch (e) {
         // 404 の場合はファイル名を変えてリトライする
         if (e.code == NetworkException.codeNotFound) {

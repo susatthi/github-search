@@ -9,7 +9,7 @@ import 'entities/query_history_input.dart';
 
 /// 検索履歴Repositoryプロバイダー
 final queryHistoryRepositoryProvider = Provider<QueryHistoryRepository>(
-  (ref) => throw UnimplementedError(),
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// 検索履歴Repository

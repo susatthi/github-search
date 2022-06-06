@@ -10,7 +10,7 @@ import 'entities/search_repos_result.dart';
 import 'entities/search_repos_sort.dart';
 
 final repoRepositoryProvider = Provider<RepoRepository>(
-  (ref) => throw UnimplementedError(),
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// リポジトリRepository

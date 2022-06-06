@@ -9,7 +9,7 @@ import '../repo/entities/search_repos_sort.dart';
 
 /// アプリデータRepositoryプロバイダー
 final appDataRepositoryProvider = Provider<AppDataRepository>(
-  (ref) => throw UnimplementedError(),
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// アプリデータRepository

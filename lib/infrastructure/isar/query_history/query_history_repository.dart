@@ -16,21 +16,23 @@ import 'collections/query_history.dart';
 ///
 /// runApp()前に初期化したIsarインスタンスでoverrideすること
 final isarProvider = Provider<Isar>(
-  (ref) => throw UnimplementedError(),
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// Isar版検索履歴Repositoryプロバイダー
 final isarQueryHistoryRepositoryProvider = Provider<QueryHistoryRepository>(
-  (ref) => IsarQueryHistoryRepository(ref.read),
+  (ref) => IsarQueryHistoryRepository(
+    isar: ref.watch(isarProvider),
+  ),
 );
 
 /// Isar版検索履歴Repository
 class IsarQueryHistoryRepository implements QueryHistoryRepository {
-  IsarQueryHistoryRepository(
-    Reader read,
-  ) : _isar = read(isarProvider);
+  IsarQueryHistoryRepository({
+    required this.isar,
+  });
 
-  final Isar _isar;
+  final Isar isar;
 
   @override
   Future<void> add(QueryHistoryInput input) async {
@@ -43,7 +45,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
     final queryString = input.queryString.trim();
     logger.v('START TRANSACTION add(): queryString = $queryString');
-    return _isar.writeTxn(
+    return isar.writeTxn(
       (isar) async {
         final id = await isar.queryHistoryCollections.put(
           QueryHistoryCollection()
@@ -59,9 +61,9 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
   @override
   Future<void> delete(QueryHistory query) async {
     logger.v('START TRANSACTION delete(): queryString = ${query.queryString}');
-    return _isar.writeTxn(
+    return isar.writeTxn(
       (isar) async {
-        final count = await _isar.queryHistoryCollections
+        final count = await isar.queryHistoryCollections
             .filter()
             .queryStringEqualTo(query.queryString)
             .deleteAll();
@@ -75,7 +77,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
   @override
   Future<List<QueryHistory>> findByQueryString(String queryString) async {
-    final collections = await _isar.queryHistoryCollections
+    final collections = await isar.queryHistoryCollections
         .filter()
         .queryStringStartsWith(queryString, caseSensitive: false)
         .sortBySearchedAtDesc()

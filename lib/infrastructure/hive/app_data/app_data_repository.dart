@@ -14,22 +14,19 @@ const hiveBoxNameAppData = 'appData';
 
 /// Hive版アプリデータRepositoryプロバイダー
 final hiveAppDataRepositoryProvider = Provider<AppDataRepository>(
-  (ref) {
-    final box = Hive.box<dynamic>(hiveBoxNameAppData);
-    return HiveAppDataRepository(
-      box: box,
-    );
-  },
+  (ref) => HiveAppDataRepository(
+    box: Hive.box<dynamic>(hiveBoxNameAppData),
+  ),
 );
 
 /// Hive版アプリデータRepository
 class HiveAppDataRepository implements AppDataRepository {
   const HiveAppDataRepository({
-    required Box<dynamic> box,
-  }) : _box = box;
+    required this.box,
+  });
 
   /// Hive Box
-  final Box<dynamic> _box;
+  final Box<dynamic> box;
 
   /// デフォルト値を返す
   /// キーが見つからない場合は IterableElementError.noElement() を投げる
@@ -40,7 +37,7 @@ class HiveAppDataRepository implements AppDataRepository {
 
   @override
   void setSearchReposSort(SearchReposSort sort) {
-    _box.put(AppDataKey.searchReposSort.name, sort.name);
+    box.put(AppDataKey.searchReposSort.name, sort.name);
   }
 
   @override
@@ -48,7 +45,7 @@ class HiveAppDataRepository implements AppDataRepository {
     final defaultValue = _getDefaultValue<SearchReposSort>(
       AppDataKey.searchReposSort,
     );
-    final name = _box.get(
+    final name = box.get(
       AppDataKey.searchReposSort.name,
       defaultValue: defaultValue?.name,
     ) as String;
@@ -57,7 +54,7 @@ class HiveAppDataRepository implements AppDataRepository {
 
   @override
   void setSearchReposOrder(SearchReposOrder order) {
-    _box.put(AppDataKey.searchReposOrder.name, order.name);
+    box.put(AppDataKey.searchReposOrder.name, order.name);
   }
 
   @override
@@ -65,7 +62,7 @@ class HiveAppDataRepository implements AppDataRepository {
     final defaultValue = _getDefaultValue<SearchReposOrder>(
       AppDataKey.searchReposOrder,
     );
-    final name = _box.get(
+    final name = box.get(
       AppDataKey.searchReposOrder.name,
       defaultValue: defaultValue?.name,
     ) as String;
