@@ -14,7 +14,7 @@
 > **:warning: 注意**  
 > このアプリは `GitHub API` を利用するために GitHub の `アクセストークン` をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に `アクセストークン` を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。
 
-![github_search_0_5_0_demo](https://user-images.githubusercontent.com/13707135/165467407-238ec9e2-dc46-4ef7-9856-efe8a098f8c8.gif)
+![github_search_0_9_0_demo](https://user-images.githubusercontent.com/13707135/172117146-22d5f5b2-5e90-4d09-8060-8c1976b2b42a.gif)
 
 ## ビルド方法
 
@@ -47,32 +47,34 @@ Configurations を選択してビルドしてください。
 
 |Configurations 名 |説明                       |
 |------------------|--------------------------|
-|`app`             |アプリ（iOS / Android）向け |
-|`web`             |Web 向け                   |
+|`app-debug`       |アプリ向けデバッグビルド      |
+|`app-release`     |アプリ向けリリースビルド      |
+|`web-debug`       |Web 向けデバッグビルド       |
 
-## アプリの機能
+## 技術スタック
 
-- シンプルな UI / UX
+- アプリの機能
   - GitHub リポジトリの検索と詳細表示
   - 検索結果の並び替えと [hive](https://pub.dev/packages/hive) を使ったデータの永続化
-  - 無限スクロール対応
-- [go_router](https://pub.dev/packages/go_router) を使った新しいルーティング
+  - Sliver を使った無限スクロール対応
+  - [isar](https://isar.dev/) を使った検索履歴の保存とサジェスト
+- [go_router](https://pub.dev/packages/go_router) を使ったルーティング
 - [http](https://pub.dev/packages/http) を使った REST API の実装
 - [fast_i18n](https://pub.dev/packages/fast_i18n) を使った多言語対応（日本語/英語）
 - カスタムフォント対応
 - [mocktail](https://pub.dev/packages/mocktail) を使った Unit / Widget テスト
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) を使ったアプリアイコン
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
-- [GitHub Actions](https://github.co.jp/features/actions) による自動テストと自動ビルド
+- [GitHub Actions](https://github.co.jp/features/actions) によるCI(自動テストと自動ビルド)
 - サポートするプラットフォーム
   - iOS / Android / Web / macOS / Windows
 
 ### 今後対応予定
 
-- Integration テスト
-- テーマ対応
+- デスクトップ UI
 - ダークモード対応
-- よりよい UI / UX
+- Golden テスト
+- Integration テスト
 
 ### 対応しないこと
 
@@ -82,76 +84,44 @@ Configurations を選択してビルドしてください。
 ## アーキテクチャ / パッケージ
 
 - [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [state_notifier](https://pub.dev/packages/state_notifier) + [freezed](https://pub.dev/packages/freezed) + [go_router](https://pub.dev/packages/go_router)
-- [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) の次のアーキテクチャを参考にしています。本アプリでは、Application Layer は省略しています。
+- [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) と [DDD](https://little-hands.hatenablog.com/entry/2018/12/10/ddd-architecture) のアーキテクチャを参考にして、本アプリは下記の３層アーキテクチャで実装しています。
 
-![CODE_WITH_ANDREA](https://user-images.githubusercontent.com/13707135/160351645-7acb5ab6-34f9-45a8-9f95-80147af6c408.png)
+![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/172113889-bdb2cff8-d657-419c-ba30-2c6af09bf96b.png)
 
-### 依存関係図
+### プレゼンテーション層
 
-```mermaid
-%%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
-graph TD
-    subgraph プレゼンテーション層
-    IndexPage(一覧ページ<br>StatelessWidget) --> SearchTextField(検索テキストフィールド<br>ConsumerWidget)
-    IndexPage --> ListView(一覧 View<br>ConsumerWidget)
-    IndexPage --> OrderToggleButton(オーダー値ボタン<br>ConsumerWidget)
-    IndexPage --> SortSelectorDialog(ソート値選択ダイアログ<br>ConsumerWidget)    
-    SearchTextField --> SearchText([検索文字列<br>String])
-    ListView --> ListViewState([一覧 View 状態<br>State])
-    ListViewState --> ListViewController(一覧 View コントローラ<br>StateNotifier)
-    ListViewController --> SearchText
-    ListViewController --> Order
-    ListViewController --> Sort
-    OrderToggleButton --> ListViewState
-    OrderToggleButton --> Order([オーダー値<br>Enum])
-    SortSelectorDialog --> Sort([ソート値<br>Enum])
-    Order --> OrderController(オーダー値コントローラ<br>StateNotifier)
-    Sort --> SortController(ソート値コントローラ<br>StateNotifier)
-    ViewPage(詳細ページ<br>StatelessWidget) --> DetailView(詳細 View<br>ConsumerWidget)
-    DetailView --> DetailViewState([詳細 View 状態<br>State])
-    DetailViewState --> DetailViewController(詳細 View コントローラ<br>StateNotifier)
-    DetailViewController --> ViewParameter([オーナー名とリポジトリ名<br>Equatable])
-    end
-    subgraph データ層
-    ListViewController --> RepoRepository(リポジトリ用リポジトリ)
-    DetailViewController ---> RepoRepository
-    OrderController --> AppDataRepository(アプリデータ用リポジトリ)
-    SortController --> AppDataRepository
-    RepoRepository --> GitHubRepoRepository(GitHub 版リポジトリ用リポジトリ)
-    AppDataRepository --> HiveAppDataRepository(Hive 版アプリデータ用リポジトリ)
-    subgraph DTO
-    GitHubRepoRepository --> GitHubHttpClient(GitHub 向け HTTP クライアント)
-    GitHubRepoRepository --> GitHubApiDef(GitHub API 定義)
-    HiveAppDataRepository --> HiveBox(Hive.box)
-    end
-    subgraph データソース
-    GitHubHttpClient --> GitHubApi(GitHub API)
-    HiveBox --> File(File)
-    end
-    end
-    subgraph 環境変数
-    SearchText --> EnvSearchText{{検索文字列初期値<br>String}}
-    GitHubHttpClient ---> EnvAccessToken{{アクセストークン<br>String}}
-    end
+#### Widgets
 
-    classDef widget fill:#4063DD, color:#ffffff;
-    classDef controller fill:#4063DD, color:#ffffff;
-    classDef state fill:#BDB5F4, color:#ffffff;    
-    classDef repository fill:#437C40, color:#ffffff;
-    classDef env fill:#7c7d7c, color:#ffffff;
-    class IndexPage,ViewPage,ListView,SearchTextField,DetailView,OrderToggleButton,SortSelectorDialog widget;
-    class ListViewController,DetailViewController,OrderController,SortController controller;
-    class SearchText,ListViewState,DetailViewState,ViewParameter,Order,Sort state;
-    class RepoRepository,GitHubRepoRepository,GitHubHttpClient,GitHubApiDef,GitHubApi,AppDataRepository,HiveAppDataRepository,HiveBox,File repository;
-    class EnvSearchText,EnvAccessToken env;
-```
+ページや UI 部品の Widget クラス群。状態を監視して UI に表現する。ユーザーイベントを検知してコントローラーのメソッドを呼び出す。
 
-- 検索実行時に `一覧 View` が更新される例
-  - `一覧 View`の依存関係は、`一覧 View` → `一覧 View 状態` → `一覧 View コントローラ` → `検索文字列`となっています。ユーザが検索文字列を変更し検索を実行した場合、`検索文字列`が更新されます。すると`検索文字列`に依存している`一覧 View コントローラ`が更新され、`リポジトリ用リポジトリ`に`検索文字列`を与えてリポジトリの検索を実行し、その結果をもとに`一覧 View 状態`を更新します。すると`一覧 View 状態`に依存している`一覧 View`がリビルドされて再描画されます。
-- ソート値変更時に `一覧 View` が更新される例
-  - ユーザがソート値選択ダイアログを表示してソート値を変更した場合、`ソート値`が更新されます。すると`ソート値`に依存している`一覧 View コントローラ`が更新され、`リポジトリ用リポジトリ`に`ソート値`を与えてリポジトリの検索を実行し、その結果をもとに`一覧 View 状態`を更新します。すると`一覧 View 状態`に依存している`一覧 View`がリビルドされて再描画されます。
-- `詳細 View`への画面遷移の例
-  - `一覧 View`の`ListTile`がタップされると`オーナー名とリポジトリ名`を表示したい内容に更新して`詳細ページ`に画面遷移します。`詳細画面`が開くと`詳細 View`がビルドされ、`詳細 View コントローラ`も作成されます。`詳細 View コントローラ`は`オーナー名とリポジトリ名`を`リポジトリ用リポジトリ`に与えてリポジトリの取得を実行し、その結果をもとに`詳細 View 状態`を更新します。すると`詳細 View 状態`に依存している`詳細 View`がリビルドされて再描画されます。
+#### Controllers
+
+Repository Interfaces を呼び出して Entities を受け取って States を更新する。Widgets からのメソッド呼び出しや、依存する States の更新を契機に発火する。ドメイン層に依存するがインフラストラクチャ層には依存してはいけない。
+
+#### States
+
+アプリのあらゆる状態。
+
+### ドメイン層
+
+#### Entities
+
+ユーザーなどの実体。どこにも依存しないこと。
+
+#### Repository Interfaces
+
+データの永続化をになうリポジトリ層のインターフェース。どこにも依存しないこと。
+
+### インフラストラクチャ層
+
+#### Repository Implements
+
+Repository Interfaces の実体。Data Sources を利用してデータの永続化を行う。
+
+#### Data Sources
+
+データソース。Hive だったり、SharedPreferences だったり、Isar だったりする。
+
 
 ### Riverpod の依存関係図
 
@@ -177,86 +147,223 @@ flowchart TB
     ConsumerWidget((widget));
     Provider[[provider]];
   end
+  _MockPage((_MockPage));
+  searchReposQueryStringUpdater -.-> _MockPage;
+  searchReposEnteringQueryStringUpdater -.-> _MockPage;
   _GitHubSearchApp((_GitHubSearchApp));
   themeProvider ==> _GitHubSearchApp;
   routerProvider ==> _GitHubSearchApp;
-  RepoDetailView((RepoDetailView));
-  repoDetailViewStateProvider ==> RepoDetailView;
+  launchUrlStateProvider --> _GitHubSearchApp;
+  HyperlinkText((HyperlinkText));
+  launcher -.-> HyperlinkText;
+  SearchReposTextButton((SearchReposTextButton));
+  searchReposQueryStringUpdater -.-> SearchReposTextButton;
+  SliverRepoDetailView((SliverRepoDetailView));
+  selectedRepoProvider ==> SliverRepoDetailView;
+  _IconLabel((_IconLabel));
+  launcher -.-> _IconLabel;
+  SearchReposSortSelectorBottomSheet((SearchReposSortSelectorBottomSheet));
+  searchReposSortProvider ==> SearchReposSortSelectorBottomSheet;
+  searchReposSortUpdater -.-> SearchReposSortSelectorBottomSheet;
   SliverRepoListView((SliverRepoListView));
   repoListViewStateProvider ==> SliverRepoListView;
   _LastIndicator((_LastIndicator));
   repoListViewStateProvider -.-> _LastIndicator;
-  RepoOrderToggleButton((RepoOrderToggleButton));
-  repoListViewStateProvider ==> RepoOrderToggleButton;
-  RepoOrderToggleButtonInternal((RepoOrderToggleButtonInternal));
-  repoSearchReposOrderProvider ==> RepoOrderToggleButtonInternal;
-  repoSearchReposOrderProvider -.-> RepoOrderToggleButtonInternal;
-  RepoSortSelectorDialog((RepoSortSelectorDialog));
-  repoSearchReposSortProvider ==> RepoSortSelectorDialog;
-  repoSearchReposSortProvider -.-> RepoSortSelectorDialog;
-  RepoSearchTextButton((RepoSearchTextButton));
-  repoSearchReposQueryProvider -.-> RepoSearchTextButton;
+  AvatarPreviewView((AvatarPreviewView));
+  selectedRepoProvider ==> AvatarPreviewView;
+  RepoFullNameText((RepoFullNameText));
+  selectedRepoProvider ==> RepoFullNameText;
+  SearchReposOrderToggleButton((SearchReposOrderToggleButton));
+  repoListViewStateProvider ==> SearchReposOrderToggleButton;
+  SearchReposOrderToggleButtonInternal((SearchReposOrderToggleButtonInternal));
+  searchReposOrderProvider ==> SearchReposOrderToggleButtonInternal;
+  searchReposOrderUpdater -.-> SearchReposOrderToggleButtonInternal;
+  SliverQueryHistoriesListView((SliverQueryHistoriesListView));
+  queryHistoriesProvider ==> SliverQueryHistoriesListView;
+  _QueryHistoryListTile((_QueryHistoryListTile));
+  queryHistoriesProvider -.-> _QueryHistoryListTile;
+  searchReposQueryStringUpdater -.-> _QueryHistoryListTile;
+  ReadmeMarkdown((ReadmeMarkdown));
+  readmeContentProviderFamily ==> ReadmeMarkdown;
+  ReadmeMarkdownInternal((ReadmeMarkdownInternal));
+  launcher -.-> ReadmeMarkdownInternal;
+  searchReposQueryStringUpdater[[searchReposQueryStringUpdater]];
+  searchReposQueryStringProvider ==> searchReposQueryStringUpdater;
+  queryHistoryRepositoryProvider ==> searchReposQueryStringUpdater;
+  searchReposEnteringQueryStringUpdater[[searchReposEnteringQueryStringUpdater]];
+  searchReposEnteringQueryStringProvider ==> searchReposEnteringQueryStringUpdater;
+  searchReposEnteringQueryStringProvider -.-> searchReposEnteringQueryStringUpdater;
+  launchUrlStateProvider[[launchUrlStateProvider]];
   themeProvider[[themeProvider]];
   routerProvider[[routerProvider]];
-  appDataRepositoryProvider[[appDataRepositoryProvider]];
-  hiveAppDataRepositoryProvider ==> appDataRepositoryProvider;
-  hiveAppDataRepositoryProvider[[hiveAppDataRepositoryProvider]];
-  repoRepositoryProvider[[repoRepositoryProvider]];
-  githubRepoRepositoryProvider ==> repoRepositoryProvider;
-  githubRepoRepositoryProvider[[githubRepoRepositoryProvider]];
-  githubHttpClientProvider ==> githubRepoRepositoryProvider;
+  isarQueryHistoryRepositoryProvider[[isarQueryHistoryRepositoryProvider]];
+  isarProvider ==> isarQueryHistoryRepositoryProvider;
+  isarProvider[[isarProvider]];
   githubHttpClientProvider[[githubHttpClientProvider]];
   githubAccessTokenProvider ==> githubHttpClientProvider;
   httpClientProvider ==> githubHttpClientProvider;
   githubAccessTokenProvider[[githubAccessTokenProvider]];
   httpClientProvider[[httpClientProvider]];
-  repoDetailViewStateProvider[[repoDetailViewStateProvider]];
-  repoSearchReposOrderProvider[[repoSearchReposOrderProvider]];
-  appDataRepositoryProvider ==> repoSearchReposOrderProvider;
+  githubRepoRepositoryProvider[[githubRepoRepositoryProvider]];
+  githubApiProvider ==> githubRepoRepositoryProvider;
+  githubHttpClientProvider ==> githubRepoRepositoryProvider;
+  githubApiProvider[[githubApiProvider]];
+  launcher[[launcher]];
+  launchUrlStateProvider -.-> launcher;
+  launchModeProvider -.-> launcher;
+  launchModeProvider[[launchModeProvider]];
+  selectedRepoProvider[[selectedRepoProvider]];
+  searchReposSortProvider[[searchReposSortProvider]];
+  appDataRepositoryProvider ==> searchReposSortProvider;
+  searchReposSortUpdater[[searchReposSortUpdater]];
+  searchReposSortProvider ==> searchReposSortUpdater;
+  appDataRepositoryProvider ==> searchReposSortUpdater;
+  appDataRepositoryProvider[[appDataRepositoryProvider]];
+  searchReposQueryStringProvider[[searchReposQueryStringProvider]];
+  searchReposInitQueryStringProvider ==> searchReposQueryStringProvider;
+  searchReposInitQueryStringProvider[[searchReposInitQueryStringProvider]];
+  queryHistoryRepositoryProvider[[queryHistoryRepositoryProvider]];
+  searchReposEnteringQueryStringProvider[[searchReposEnteringQueryStringProvider]];
+  searchReposQueryStringProvider ==> searchReposEnteringQueryStringProvider;
   repoListViewStateProvider[[repoListViewStateProvider]];
+  searchReposQueryStringProvider ==> repoListViewStateProvider;
+  searchReposSortProvider ==> repoListViewStateProvider;
+  searchReposOrderProvider ==> repoListViewStateProvider;
   repoRepositoryProvider ==> repoListViewStateProvider;
-  repoSearchReposQueryProvider ==> repoListViewStateProvider;
-  repoSearchReposSortProvider ==> repoListViewStateProvider;
-  repoSearchReposOrderProvider ==> repoListViewStateProvider;
-  repoSearchReposSortProvider[[repoSearchReposSortProvider]];
-  appDataRepositoryProvider ==> repoSearchReposSortProvider;
-  repoSearchReposQueryProvider[[repoSearchReposQueryProvider]];
-  repoSearchReposInitQueryProvider ==> repoSearchReposQueryProvider;
-  repoDetailViewStateProviderFamily[[repoDetailViewStateProviderFamily]];
-  repoRepositoryProvider ==> repoDetailViewStateProviderFamily;
-  repoSearchReposInitQueryProvider[[repoSearchReposInitQueryProvider]];
+  selectedRepoProviderFamily[[selectedRepoProviderFamily]];
+  repoRepositoryProvider ==> selectedRepoProviderFamily;
+  repoRepositoryProvider[[repoRepositoryProvider]];
+  searchReposOrderProvider[[searchReposOrderProvider]];
+  appDataRepositoryProvider ==> searchReposOrderProvider;
+  searchReposOrderUpdater[[searchReposOrderUpdater]];
+  searchReposOrderProvider ==> searchReposOrderUpdater;
+  appDataRepositoryProvider ==> searchReposOrderUpdater;
+  queryHistoriesProvider[[queryHistoriesProvider]];
+  queryHistoryRepositoryProvider ==> queryHistoriesProvider;
+  searchReposEnteringQueryStringProvider ==> queryHistoriesProvider;
+  readmeContentProviderFamily[[readmeContentProviderFamily]];
+  repoRepositoryProvider ==> readmeContentProviderFamily;
 ```
 
 ## フォルダ構成
 
-|フォルダ名                         | 説明
-|---------------------------------|--
-| `/config`                      | アプリケーション、定義値、環境変数
-| `/entities`                    | モデル層のファイル<br>リポジトリの戻り値に使うエンティティ<br>プレゼンテーション層で使うエンティティ（`_data` suffix がつく）
-| `/localizations`               | 言語ファイル（`json` ファイル）、自動生成されるクラス
-| `/presentation/pages`          | プレゼンテーション層のファイル<br>画面Widget
-| `/presentation/components`     | プレゼンテーション層のファイル<br>部品Widget、Controller、State
-| `/repositories`                | データ層のファイル<br>リポジトリ、データソース<br>データソースはサブディレクトリで管理
-| `/utils`                       | 拡張機能、ロガー、`assets`にアクセスする自動生成されるユーティリティクラスなど便利クラス
+```
+├── config                                 アプリケーション、ルーター、テーマ、環境変数等の設定値
+│   ├── app.dart
+│   ├── env.dart
+│   ├── env.default.dart
+│   ├── env_define.dart
+│   ├── router.dart
+│   └── theme.dart
+├── domain
+│   ├── entities                           ドメイン層で共通のエンティティ
+│   │   └── input.dart
+│   ├── exceptions.dart                    例外クラス
+│   └── repositories                       リポジトリのインターフェース
+│       ├── app_data
+│       │   └── app_data_repository.dart
+│       ├── query_history
+│       │   ├── entities                   エンティティクラス
+│       │   │   ├── query_history.dart
+│       │   │   ├── query_history.freezed.dart
+│       │   │   ├── query_history_input.dart
+│       │   │   └── query_history_input.freezed.dart
+│       │   └── query_history_repository.dart
+│       └── repo
+│           ├── entities                   エンティティクラス
+│           │   ├── repo.dart
+│           │   ├── repo.freezed.dart
+│           │   ├── search_repos_order.dart
+│           │   ├── search_repos_result.dart
+│           │   ├── search_repos_result.freezed.dart
+│           │   ├── search_repos_sort.dart
+│           │   └── values                 値オブジェクトクラス
+│           │       ├── repo_count.dart
+│           │       ├── repo_count.freezed.dart
+│           │       ├── repo_language.dart
+│           │       └── repo_language.freezed.dart
+│           └── repo_repository.dart
+├── generated_plugin_registrant.dart
+├── infrastructure                         インフラストラクチャ層
+│   ├── github                             データソース毎にサブクラスを用意する
+│   │   ├── api.dart
+│   │   ├── http_client.dart
+│   │   └── repo                           関心事毎にサブクラスを用意する
+│   │       ├── json_objects               データソース内でのみ使うエンティティなど
+│   │       │   ├── owner.dart
+│   │       │   ├── owner.freezed.dart
+│   │       │   ├── owner.g.dart
+│   │       │   ├── repo.dart
+│   │       │   ├── repo.freezed.dart
+│   │       │   ├── repo.g.dart
+│   │       │   ├── search_repos_result.dart
+│   │       │   ├── search_repos_result.freezed.dart
+│   │       │   └── search_repos_result.g.dart
+│   │       └── repo_repository.dart       ドメイン層のインターフェースを実装したリポジトリの実体
+│   ├── hive
+│   │   └── app_data
+│   │       └── app_data_repository.dart
+│   └── isar
+│       └── query_history
+│           ├── collections
+│           │   ├── query_history.dart
+│           │   └── query_history.g.dart
+│           └── query_history_repository.dart
+├── localizations                           多言語ファイル
+│   ├── strings.g.dart
+│   ├── strings.i18n.json
+│   └── strings_ja.i18n.json
+├── main.dart
+├── presentation                            プレゼンテーション層
+│   ├── components                          共通のコンポーネント
+│   │   ├── cached_circle_avatar.dart
+│   │   ├── error_view.dart
+│   │   ├── hyperlink_text.dart
+│   │   ├── icon_label.dart
+│   │   ├── launch_url_state.dart
+│   │   ├── launch_url_state.freezed.dart
+│   │   ├── list_loader.dart
+│   │   └── search_app_bar.dart
+│   └── pages                                ページ（画面）一式、機能毎にサブクラスを用意する
+│       ├── error
+│       │   └── error_page.dart
+│       └── repo
+│           ├── avatar_preview_page.dart
+│           ├── components                   機能毎のコンポーネント、状態もここに含める
+│           │   ├── avatar_preview_view.dart
+│           │   ├── query_histories_list_view.dart
+│           │   ├── readme_markdown.dart
+│           │   ├── repo_detail_view.dart
+│           │   ├── repo_full_name_text.dart
+│           │   ├── repo_language_label.dart
+│           │   ├── repo_list_view.dart
+│           │   ├── repo_list_view_state.dart
+│           │   ├── repo_list_view_state.freezed.dart
+│           │   ├── repo_sort_button.dart
+│           │   ├── search_repos_order_toggle_button.dart
+│           │   ├── search_repos_query.dart
+│           │   ├── search_repos_sort_selector_bottom_sheet.dart
+│           │   ├── search_repos_text_button.dart
+│           │   ├── search_repos_text_field.dart
+│           │   ├── selected_repo.dart
+│           │   └── selected_repo.freezed.dart
+│           ├── repo_index_page.dart
+│           ├── repo_search_page.dart
+│           └── repo_view_page.dart
+└── utils                                    拡張機能、ロガーなどのユーティリティクラス
+    ├── assets
+    │   ├── assets.gen.dart
+    │   └── fonts.gen.dart
+    ├── extensions.dart
+    └── logger.dart
+```
 
 ## 環境
 
 |                | Version                          |
 |----------------|----------------------------------|
-| Xcode          | 13.3                             |
-| Android Studio | Bumblebee 2021.1.1 Patch 3       |
-| Flutter        | 2.10.5                           |
-| Swift          | 5.6                              |
-| Kotlin         | 1.6.10                           |
-| Chrome         | 100                              |
-
-## 対象 OSバージョン
-
-|        | OS Version    |
-|--------|---------------|
-|iOS     | 9.0 ~ 15.4    |
-|Android | 8.0 ~ 13      |
-
+| Flutter        | 3.0.1                            |
+| Dart           | 2.17.1                           |
 
 ### コードの自動生成
 
@@ -302,28 +409,27 @@ bin/dartdoc
 ```mermaid
 %%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
 flowchart LR
-    Start((開始)) --> Analyze(静的解析)
-    subgraph テスト
-    Analyze --> Test(単体テスト)
-    Test --> UploadCoverage(Codecovに結果を送信)
-    end
-    subgraph ビルド
-    UploadCoverage --> BuildAndroid(Androidビルド)
-    UploadCoverage --> BuildiOS(iOSビルド)
-    UploadCoverage --> BuildWeb(Webビルド)
-    UploadCoverage --> BuildMacOS(macOSビルド)
-    UploadCoverage --> BuildWindows(Windowsビルド)
-    UploadCoverage --> CreateApiDoc(APIドキュメント作成)
-    CreateApiDoc --> DeployGitHubPages(GitHubPagesにデプロイ)
-    end
-    subgraph レポート
-    BuildAndroid ---> NotifySlack(Slackに結果を送信)
-    BuildiOS ---> NotifySlack
-    BuildWeb ---> NotifySlack
-    BuildMacOS ---> NotifySlack
-    BuildWindows ---> NotifySlack
-    DeployGitHubPages --> NotifySlack
-    end
+    Start((開始)) --> AnalyzeUbuntu(Ubuntu静的解析)
+    Start --> AnalyzeMacos(macOS静的解析)
+    Start --> AnalyzeWindows(Windows静的解析)
+    Start --> BuildAndroid(Androidビルド)
+    Start --> BuildiOS(iOSビルド)
+    Start --> BuildWeb(Webビルド)
+    Start --> BuildMacOS(macOSビルド)
+    Start --> BuildWindows(Windowsビルド)
+
+    AnalyzeUbuntu --> TestUbuntu(Ubuntu単体テスト)
+    TestUbuntu --> UploadCoverageUbuntu(Codecovに結果を送信)
+    AnalyzeMacos ---> TestMacos(macOS単体テスト)
+    AnalyzeWindows ---> TestWindows(Windows単体テスト)
+    UploadCoverageUbuntu --> NotifySlack(Slackに結果を送信)
+    TestMacos --> NotifySlack
+    TestWindows --> NotifySlack
+    BuildAndroid ----> NotifySlack
+    BuildiOS ----> NotifySlack
+    BuildWeb ----> NotifySlack
+    BuildMacOS ----> NotifySlack
+    BuildWindows ----> NotifySlack
     NotifySlack --> End((終了))
 
     classDef anchor fill:#4063DD, color:#ffffff;
@@ -331,7 +437,7 @@ flowchart LR
     classDef buildJob fill:#d32f2f, color:#ffffff;
     classDef reportJob fill:#437C40, color:#ffffff;
     %% class Start,End anchor;
-    class Analyze,Test,UploadCoverage testJob;
+    class AnalyzeUbuntu,TestUbuntu,UploadCoverageUbuntu,AnalyzeMacos,TestMacos,AnalyzeWindows,TestWindows testJob;
     class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc,DeployGitHubPages buildJob;
     class NotifySlack reportJob;
 ```
