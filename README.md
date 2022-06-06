@@ -86,7 +86,7 @@ Configurations を選択してビルドしてください。
 - [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [state_notifier](https://pub.dev/packages/state_notifier) + [freezed](https://pub.dev/packages/freezed) + [go_router](https://pub.dev/packages/go_router)
 - [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) と [DDD](https://little-hands.hatenablog.com/entry/2018/12/10/ddd-architecture) のアーキテクチャを参考にして、本アプリは下記の３層アーキテクチャで実装しています。
 
-![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/172113889-bdb2cff8-d657-419c-ba30-2c6af09bf96b.png)
+![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/172120909-bfd17ff6-f1ca-4b72-ad24-babd5b147188.png)
 
 ### プレゼンテーション層
 
@@ -100,17 +100,17 @@ Repository Interfaces を呼び出して Entities を受け取って States を�
 
 #### States
 
-アプリのあらゆる状態。
+アプリのあらゆる状態。`Provider` 等でラップされ Widgets に利用される。
 
 ### ドメイン層
 
 #### Entities
 
-ユーザーなどの実体。どこにも依存しないこと。
+ユーザーなどの実体。入力値のバリデーションはエンティティで実装しインフラストラクチャ層が呼び出す。どこにも依存しないこと。
 
 #### Repository Interfaces
 
-データの永続化をになうリポジトリ層のインターフェース。どこにも依存しないこと。
+データの永続化をになうリポジトリ層のインターフェース。どこにも依存しないこと。インフラストラクチャ層が投げる例外はドメイン層で定義する。
 
 ### インフラストラクチャ層
 
@@ -120,8 +120,7 @@ Repository Interfaces の実体。Data Sources を利用してデータの永続
 
 #### Data Sources
 
-データソース。Hive だったり、SharedPreferences だったり、Isar だったりする。
-
+データソース。API だったり、Hive だったり、SharedPreferences だったり、Isar だったりする。
 
 ### Riverpod の依存関係図
 
@@ -249,26 +248,11 @@ flowchart TB
 
 ```
 ├── config                                 アプリケーション、ルーター、テーマ、環境変数等の設定値
-│   ├── app.dart
-│   ├── env.dart
-│   ├── env.default.dart
-│   ├── env_define.dart
-│   ├── router.dart
-│   └── theme.dart
-├── domain
-│   ├── entities                           ドメイン層で共通のエンティティ
+├── domain                                 ドメイン層
+│   ├── entities                           ドメイン層で共通のエンティティクラス
 │   │   └── input.dart
 │   ├── exceptions.dart                    例外クラス
-│   └── repositories                       リポジトリのインターフェース
-│       ├── app_data
-│       │   └── app_data_repository.dart
-│       ├── query_history
-│       │   ├── entities                   エンティティクラス
-│       │   │   ├── query_history.dart
-│       │   │   ├── query_history.freezed.dart
-│       │   │   ├── query_history_input.dart
-│       │   │   └── query_history_input.freezed.dart
-│       │   └── query_history_repository.dart
+│   └── repositories
 │       └── repo
 │           ├── entities                   エンティティクラス
 │           │   ├── repo.dart
@@ -282,78 +266,33 @@ flowchart TB
 │           │       ├── repo_count.freezed.dart
 │           │       ├── repo_language.dart
 │           │       └── repo_language.freezed.dart
-│           └── repo_repository.dart
-├── generated_plugin_registrant.dart
+│           └── repo_repository.dart       リポジトリのインターフェース
 ├── infrastructure                         インフラストラクチャ層
-│   ├── github                             データソース毎にサブクラスを用意する
-│   │   ├── api.dart
-│   │   ├── http_client.dart
-│   │   └── repo                           関心事毎にサブクラスを用意する
-│   │       ├── json_objects               データソース内でのみ使うエンティティなど
-│   │       │   ├── owner.dart
-│   │       │   ├── owner.freezed.dart
-│   │       │   ├── owner.g.dart
-│   │       │   ├── repo.dart
-│   │       │   ├── repo.freezed.dart
-│   │       │   ├── repo.g.dart
-│   │       │   ├── search_repos_result.dart
-│   │       │   ├── search_repos_result.freezed.dart
-│   │       │   └── search_repos_result.g.dart
-│   │       └── repo_repository.dart       ドメイン層のインターフェースを実装したリポジトリの実体
-│   ├── hive
-│   │   └── app_data
-│   │       └── app_data_repository.dart
-│   └── isar
-│       └── query_history
-│           ├── collections
-│           │   ├── query_history.dart
-│           │   └── query_history.g.dart
-│           └── query_history_repository.dart
-├── localizations                           多言語ファイル
-│   ├── strings.g.dart
-│   ├── strings.i18n.json
-│   └── strings_ja.i18n.json
-├── main.dart
-├── presentation                            プレゼンテーション層
-│   ├── components                          共通のコンポーネント
-│   │   ├── cached_circle_avatar.dart
-│   │   ├── error_view.dart
-│   │   ├── hyperlink_text.dart
-│   │   ├── icon_label.dart
-│   │   ├── launch_url_state.dart
-│   │   ├── launch_url_state.freezed.dart
-│   │   ├── list_loader.dart
-│   │   └── search_app_bar.dart
-│   └── pages                                ページ（画面）一式、機能毎にサブクラスを用意する
-│       ├── error
-│       │   └── error_page.dart
+│   └── github                             データソース毎にサブクラスを用意する
+│       ├── api.dart
+│       ├── http_client.dart
+│       └── repo                           関心事毎にサブクラスを用意する
+│           ├── json_objects               データソース内でのみ使うエンティティなど
+│           │   ├── owner.dart
+│           │   ├── owner.freezed.dart
+│           │   ├── owner.g.dart
+│           │   ├── repo.dart
+│           │   ├── repo.freezed.dart
+│           │   ├── repo.g.dart
+│           │   ├── search_repos_result.dart
+│           │   ├── search_repos_result.freezed.dart
+│           │   └── search_repos_result.g.dart
+│           └── repo_repository.dart       ドメイン層のインターフェースを実装したリポジトリの実体
+├── localizations                          多言語ファイル
+├── presentation                           プレゼンテーション層
+│   ├── components                         共通のコンポーネント、状態もここに含める
+│   └── pages                              ページ（画面）一式、機能毎にサブクラスを用意する
 │       └── repo
-│           ├── avatar_preview_page.dart
-│           ├── components                   機能毎のコンポーネント、状態もここに含める
-│           │   ├── avatar_preview_view.dart
-│           │   ├── query_histories_list_view.dart
-│           │   ├── readme_markdown.dart
-│           │   ├── repo_detail_view.dart
-│           │   ├── repo_full_name_text.dart
-│           │   ├── repo_language_label.dart
-│           │   ├── repo_list_view.dart
-│           │   ├── repo_list_view_state.dart
-│           │   ├── repo_list_view_state.freezed.dart
-│           │   ├── repo_sort_button.dart
-│           │   ├── search_repos_order_toggle_button.dart
-│           │   ├── search_repos_query.dart
-│           │   ├── search_repos_sort_selector_bottom_sheet.dart
-│           │   ├── search_repos_text_button.dart
-│           │   ├── search_repos_text_field.dart
-│           │   ├── selected_repo.dart
-│           │   └── selected_repo.freezed.dart
+│           ├── components                 機能毎のコンポーネント、状態もここに含める
 │           ├── repo_index_page.dart
 │           ├── repo_search_page.dart
 │           └── repo_view_page.dart
 └── utils                                    拡張機能、ロガーなどのユーティリティクラス
-    ├── assets
-    │   ├── assets.gen.dart
-    │   └── fonts.gen.dart
     ├── extensions.dart
     └── logger.dart
 ```
