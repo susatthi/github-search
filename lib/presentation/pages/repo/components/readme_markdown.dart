@@ -26,7 +26,7 @@ final readmeContentProviderFamily = StateNotifierProvider.family
       'defaultBranch = ${repo.defaultBranch}',
     );
     return ReadmeContentNotifier(
-      ref.read,
+      repository: ref.watch(repoRepositoryProvider),
       repo: repo,
     );
   },
@@ -34,23 +34,21 @@ final readmeContentProviderFamily = StateNotifierProvider.family
 
 /// READMEコンテンツNotifier
 class ReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
-  ReadmeContentNotifier(
-    Reader read, {
+  ReadmeContentNotifier({
+    required this.repository,
     required this.repo,
-  })  : _repoRepository = read(repoRepositoryProvider),
-        super(const AsyncValue.loading()) {
+  }) : super(const AsyncValue.loading()) {
     _get();
   }
 
-  final RepoRepository _repoRepository;
+  final RepoRepository repository;
 
   /// リポジトリEntity
   final Repo repo;
 
   Future<void> _get() async {
-    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      return _repoRepository.getReadme(
+      return repository.getReadme(
         repo: repo,
       );
     });

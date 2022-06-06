@@ -29,7 +29,7 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
       'sort = ${sort.name}, order = ${order.name}',
     );
     return RepoListViewNotifier(
-      ref.read,
+      repository: ref.watch(repoRepositoryProvider),
       queryString: queryString,
       sort: sort,
       order: order,
@@ -61,17 +61,16 @@ class RepoListViewState with _$RepoListViewState {
 /// リポジトリ一覧ViewNotifier
 class RepoListViewNotifier
     extends StateNotifier<AsyncValue<RepoListViewState>> {
-  RepoListViewNotifier(
-    Reader read, {
+  RepoListViewNotifier({
+    required this.repository,
     required this.queryString,
     required this.sort,
     required this.order,
-  })  : _repoRepository = read(repoRepositoryProvider),
-        super(const AsyncValue.loading()) {
+  }) : super(const AsyncValue.loading()) {
     _search();
   }
 
-  final RepoRepository _repoRepository;
+  final RepoRepository repository;
 
   /// 検索文字列
   final String queryString;
@@ -92,7 +91,7 @@ class RepoListViewNotifier
         return const RepoListViewState();
       }
 
-      final result = await _repoRepository.searchRepos(
+      final result = await repository.searchRepos(
         queryString: trimQueryString,
         sort: sort,
         order: order,
@@ -120,7 +119,7 @@ class RepoListViewNotifier
 
     // 次のページを取得する
     state = await AsyncValue.guard(() async {
-      final result = await _repoRepository.searchRepos(
+      final result = await repository.searchRepos(
         queryString: queryString,
         sort: sort,
         order: order,

@@ -21,35 +21,41 @@ final searchReposInitQueryStringProvider = Provider<String>(
 
 /// リポジトリ検索文字列プロバイダー
 final searchReposQueryStringProvider = StateProvider<String>(
-  (ref) => ref.read(searchReposInitQueryStringProvider),
+  (ref) => ref.watch(searchReposInitQueryStringProvider),
 );
 
 /// リポジトリ検索文字列更新メソッドプロバイダー
 final searchReposQueryStringUpdater = Provider(
-  (ref) => (String queryString) async {
-    ref.read(searchReposQueryStringProvider.notifier).state = queryString;
-    await ref.read(queryHistoryRepositoryProvider).add(
-          QueryHistoryInput(queryString: queryString),
-        );
+  (ref) {
+    final notifier = ref.watch(searchReposQueryStringProvider.notifier);
+    final repository = ref.watch(queryHistoryRepositoryProvider);
+    return (String queryString) async {
+      notifier.state = queryString;
+      await repository.add(
+        QueryHistoryInput(queryString: queryString),
+      );
+    };
   },
 );
 
 /// 入力中のリポジトリ検索文字列プロバイダー
 final searchReposEnteringQueryStringProvider = StateProvider<String>(
-  (ref) => ref.read(searchReposQueryStringProvider),
+  (ref) => ref.watch(searchReposQueryStringProvider),
 );
 
 /// 入力中のリポジトリ検索文字列更新メソッドプロバイダー
 final searchReposEnteringQueryStringUpdater = Provider(
-  (ref) => (String queryString) async {
-    // もし現在の文字列と同じ場合は更新しない
-    final current = ref.read(searchReposEnteringQueryStringProvider);
-    if (current != queryString) {
-      logger.v(
-        'Update searchReposEnteringQueryString: queryString = $queryString',
-      );
-      ref.read(searchReposEnteringQueryStringProvider.notifier).state =
-          queryString;
-    }
+  (ref) {
+    final notifier = ref.watch(searchReposEnteringQueryStringProvider.notifier);
+    return (String queryString) async {
+      // もし現在の文字列と同じ場合は更新しない
+      final current = ref.read(searchReposEnteringQueryStringProvider);
+      if (current != queryString) {
+        logger.v(
+          'Update searchReposEnteringQueryString: queryString = $queryString',
+        );
+        notifier.state = queryString;
+      }
+    };
   },
 );

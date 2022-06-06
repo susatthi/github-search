@@ -15,7 +15,7 @@ final queryHistoriesProvider = StateNotifierProvider.autoDispose<
     QueryHistoriesNotifier, AsyncValue<List<QueryHistory>>>(
   (ref) {
     final notifier = QueryHistoriesNotifier(
-      ref.read,
+      repository: ref.watch(queryHistoryRepositoryProvider),
       queryString: ref.watch(searchReposEnteringQueryStringProvider),
     );
     ref.onDispose(() {
@@ -29,22 +29,21 @@ final queryHistoriesProvider = StateNotifierProvider.autoDispose<
 /// 検索履歴一覧Notifier
 class QueryHistoriesNotifier
     extends StateNotifier<AsyncValue<List<QueryHistory>>> {
-  QueryHistoriesNotifier(
-    this._read, {
+  QueryHistoriesNotifier({
+    required this.repository,
     required this.queryString,
   }) : super(const AsyncValue.loading()) {
     _load();
   }
 
-  final Reader _read;
+  final QueryHistoryRepository repository;
 
   /// 検索文字列
   final String queryString;
 
   Future<void> _load() async {
     final asyncValue = await AsyncValue.guard(() async {
-      return _read(queryHistoryRepositoryProvider)
-          .findByQueryString(queryString);
+      return repository.findByQueryString(queryString);
     });
     if (mounted) {
       // 検索文字列を高速で入力されると、検索履歴を検索中に本Notifierが破棄されること
@@ -67,7 +66,7 @@ class QueryHistoriesNotifier
   /// 検索履歴を削除する
   Future<void> delete(QueryHistory query) async {
     state = const AsyncValue.loading();
-    await _read(queryHistoryRepositoryProvider).delete(query);
+    await repository.delete(query);
     await _load();
   }
 

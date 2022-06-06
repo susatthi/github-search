@@ -14,19 +14,19 @@ import 'repo_list_view_state.dart';
 /// リポジトリ検索用オーダー値プロバイダー
 final searchReposOrderProvider = StateProvider<SearchReposOrder>(
   (ref) {
-    final appDataRepository = ref.read(appDataRepositoryProvider);
-    return appDataRepository.getSearchReposOrder();
+    final repository = ref.watch(appDataRepositoryProvider);
+    return repository.getSearchReposOrder();
   },
 );
 
 /// リポジトリ検索用オーダー値更新メソッドプロバイダー
 final searchReposOrderUpdater = Provider(
   (ref) {
-    final notifier = ref.read(searchReposOrderProvider.notifier);
-    final appDataRepository = ref.read(appDataRepositoryProvider);
+    final notifier = ref.watch(searchReposOrderProvider.notifier);
+    final repository = ref.watch(appDataRepositoryProvider);
     return (SearchReposOrder order) {
-      appDataRepository.setSearchReposOrder(order);
-      notifier.state = appDataRepository.getSearchReposOrder();
+      repository.setSearchReposOrder(order);
+      notifier.state = repository.getSearchReposOrder();
     };
   },
 );

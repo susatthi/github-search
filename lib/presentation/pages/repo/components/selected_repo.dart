@@ -25,7 +25,7 @@ final selectedRepoProviderFamily = StateNotifierProvider.family
   (ref, parameter) {
     logger.i('Create SelectedRepoNotifier: parameter = $parameter');
     return SelectedRepoNotifier(
-      ref.read,
+      repository: ref.watch(repoRepositoryProvider),
       parameter: parameter,
     );
   },
@@ -56,11 +56,10 @@ class SelectedRepoParameter with _$SelectedRepoParameter {
 
 /// 選択中のリポジトリNotifier
 class SelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
-  SelectedRepoNotifier(
-    Reader read, {
+  SelectedRepoNotifier({
+    required this.repository,
     required this.parameter,
-  })  : _repoRepository = read(repoRepositoryProvider),
-        super(const AsyncValue.loading()) {
+  }) : super(const AsyncValue.loading()) {
     final value = parameter.extra;
     if (value != null) {
       // extra があればそのまま使う
@@ -71,15 +70,14 @@ class SelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
     }
   }
 
-  final RepoRepository _repoRepository;
+  final RepoRepository repository;
 
   /// パラメータ
   final SelectedRepoParameter parameter;
 
   Future<void> _get() async {
-    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      return _repoRepository.getRepo(
+      return repository.getRepo(
         ownerName: parameter.ownerName,
         repoName: parameter.repoName,
       );
