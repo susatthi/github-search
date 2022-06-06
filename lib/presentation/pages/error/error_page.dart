@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../localizations/strings.g.dart';
-import 'components/error_view.dart';
+import '../../components/error_view.dart';
 
 /// エラー画面
 class ErrorPage extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/repo.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
-import 'package:github_search/presentation/pages/error/components/error_view.dart';
+import 'package:github_search/presentation/components/error_view.dart';
 import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';

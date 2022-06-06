@@ -5,10 +5,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/error/components/error_view.dart';
+import 'package:github_search/presentation/components/error_view.dart';
 
-import '../../../../test_utils/logger.dart';
-import '../../../../test_utils/test_agent.dart';
+import '../../test_utils/logger.dart';
+import '../../test_utils/test_agent.dart';
 
 void main() {
   final agent = TestAgent();
