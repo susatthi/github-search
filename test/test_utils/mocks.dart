@@ -2,8 +2,16 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
+// ignore_for_file: depend_on_referenced_packages
 
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:file/local.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
@@ -11,16 +19,10 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:path/path.dart' as path;
-// ignore: depend_on_referenced_packages
-import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
-// ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-// ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'logger.dart';
-import 'test_agent.dart';
 import 'utils.dart';
 
 /// モック版のHTTPクライアント
@@ -173,56 +175,149 @@ class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
   }
 }
 
-/// モック版のPathProviderPlatform
-class MockPathProviderPlatform extends Mock
-    with MockPlatformInterfaceMixin
-    implements PathProviderPlatform {
-  final rootDir = Directory(
-    path.join(
-      TestDirectory.rootDir.path,
-      'path_provider',
-    ),
+/// モック版のCacheManager
+class MockCacheManager extends Mock implements DefaultCacheManager {
+  static const fileSystem = LocalFileSystem();
+
+  @override
+  Stream<FileResponse> getImageFile(
+    String url, {
+    String? key,
+    Map<String, String>? headers,
+    bool withProgress = false,
+    int? maxHeight,
+    int? maxWidth,
+  }) async* {
+    if (url.isNotEmpty) {
+      // URLが空でなければダミー画像を返す
+      yield FileInfo(
+        fileSystem.file('./test/test_utils/assets/github/13707135.png'),
+        FileSource.Cache,
+        DateTime(2050),
+        url,
+      );
+      return;
+    }
+
+    // URLが空ならエラーを投げる
+    throw Exception('Not found');
+  }
+}
+
+/// 常にエラーを返すCacheManager
+class MockCacheManagerError extends Mock implements DefaultCacheManager {
+  @override
+  Stream<FileResponse> getImageFile(
+    String url, {
+    String? key,
+    Map<String, String>? headers,
+    bool withProgress = false,
+    int? maxHeight,
+    int? maxWidth,
+  }) async* {
+    // 常にエラーを投げる
+    throw Exception('Not found');
+  }
+}
+
+class FakeSvgHttpClient extends Fake implements HttpClient {
+  FakeSvgHttpClient(this.request);
+
+  FakeSvgHttpClientRequest request;
+
+  @override
+  Future<HttpClientRequest> getUrl(Uri url) async => request;
+}
+
+class FakeHttpHeaders extends Fake implements HttpHeaders {
+  final Map<String, String?> values = <String, String?>{};
+
+  @override
+  void add(String name, Object value, {bool preserveHeaderCase = false}) {
+    values[name] = value.toString();
+  }
+
+  @override
+  List<String>? operator [](String key) {
+    return <String>[values[key]!];
+  }
+}
+
+class FakeSvgHttpClientRequest extends Fake implements HttpClientRequest {
+  FakeSvgHttpClientRequest(this.response);
+
+  FakeSvgHttpClientResponse response;
+
+  @override
+  final HttpHeaders headers = FakeHttpHeaders();
+
+  @override
+  Future<HttpClientResponse> close() async => response;
+}
+
+class FakeSvgHttpClientResponse extends Fake implements HttpClientResponse {
+  @override
+  int statusCode = 200;
+
+  @override
+  int contentLength = svgStr.length;
+
+  @override
+  HttpClientResponseCompressionState get compressionState =>
+      HttpClientResponseCompressionState.notCompressed;
+
+  @override
+  StreamSubscription<List<int>> listen(
+    void Function(List<int> event)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) {
+    return Stream<Uint8List>.fromIterable(<Uint8List>[svgBytes]).listen(
+      onData,
+      onDone: onDone,
+      onError: onError,
+      cancelOnError: cancelOnError,
+    );
+  }
+}
+
+const String svgStr = '''
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 166 202">
+  <defs>
+      <linearGradient id="triangleGradient">
+          <stop offset="20%" stop-color="#000000" stop-opacity=".55" />
+          <stop offset="85%" stop-color="#616161" stop-opacity=".01" />
+      </linearGradient>
+      <linearGradient id="rectangleGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+          <stop offset="20%" stop-color="#000000" stop-opacity=".15" />
+          <stop offset="85%" stop-color="#616161" stop-opacity=".01" />
+      </linearGradient>
+  </defs>
+  <path fill="#42A5F5" fill-opacity=".8" d="M37.7 128.9 9.8 101 100.4 10.4 156.2 10.4"/>
+  <path fill="#42A5F5" fill-opacity=".8" d="M156.2 94 100.4 94 79.5 114.9 107.4 142.8"/>
+  <path fill="#0D47A1" d="M79.5 170.7 100.4 191.6 156.2 191.6 156.2 191.6 107.4 142.8"/>
+  <g transform="matrix(0.7071, -0.7071, 0.7071, 0.7071, -77.667, 98.057)">
+      <rect width="39.4" height="39.4" x="59.8" y="123.1" fill="#42A5F5" />
+      <rect width="39.4" height="5.5" x="59.8" y="162.5" fill="url(#rectangleGradient)" />
+  </g>
+  <path d="M79.5 170.7 120.9 156.4 107.4 142.8" fill="url(#triangleGradient)" />
+</svg>
+''';
+
+final Uint8List svgBytes = utf8.encode(svgStr) as Uint8List;
+
+Future<void> fakeSvg(Future<void> Function() body) async {
+  PictureProvider.cache.clear();
+  svg.cacheColorFilterOverride = null;
+  final fakeResponse = FakeSvgHttpClientResponse();
+  final fakeRequest = FakeSvgHttpClientRequest(fakeResponse);
+  final fakeHttpClient = FakeSvgHttpClient(fakeRequest);
+  await HttpOverrides.runZoned(
+    () async {
+      await body();
+      await fakeRequest.close();
+    },
+    createHttpClient: (SecurityContext? c) => fakeHttpClient,
   );
-
-  @override
-  Future<String> getTemporaryPath() async {
-    return Directory(path.join(rootDir.path, 'temporary')).path;
-  }
-
-  @override
-  Future<String> getApplicationSupportPath() async {
-    return Directory(path.join(rootDir.path, 'application_support')).path;
-  }
-
-  @override
-  Future<String> getLibraryPath() async {
-    return Directory(path.join(rootDir.path, 'library')).path;
-  }
-
-  @override
-  Future<String> getApplicationDocumentsPath() async {
-    return Directory(path.join(rootDir.path, 'application_documents')).path;
-  }
-
-  @override
-  Future<String> getExternalStoragePath() async {
-    return Directory(path.join(rootDir.path, 'external_storage')).path;
-  }
-
-  @override
-  Future<List<String>> getExternalCachePaths() async {
-    return [Directory(path.join(rootDir.path, 'external_cache')).path];
-  }
-
-  @override
-  Future<List<String>?> getExternalStoragePaths({
-    StorageDirectory? type,
-  }) async {
-    return [Directory(path.join(rootDir.path, 'external_storage')).path];
-  }
-
-  @override
-  Future<String> getDownloadsPath() async {
-    return Directory(path.join(rootDir.path, 'downloads')).path;
-  }
 }

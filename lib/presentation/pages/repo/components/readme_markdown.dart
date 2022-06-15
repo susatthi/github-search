@@ -17,6 +17,11 @@ import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/launch_url_state.dart';
 
+/// ReadmeMarkdownのキャッシュマネージャープロバイダー
+final readmeMarkdownCacheManagerProvider = Provider<BaseCacheManager?>(
+  (ref) => null,
+);
+
 /// READMEコンテンツプロバイダー（Family）
 final readmeContentProviderFamily = StateNotifierProvider.family
     .autoDispose<ReadmeContentNotifier, AsyncValue<String>, Repo>(
@@ -60,23 +65,10 @@ class ReadmeMarkdown extends ConsumerWidget {
   const ReadmeMarkdown({
     super.key,
     required this.repo,
-    this.cacheManager,
   });
 
   /// 選択中のリポジトリデータ
   final Repo repo;
-
-  /// CacheManager
-  final CacheManager? cacheManager;
-
-  /// CacheManager
-  CacheManager get _defaultCacheManager => CacheManager(
-        Config(
-          'ReadmeMarkdown',
-          stalePeriod: const Duration(days: 1),
-          maxNrOfCacheObjects: 200,
-        ),
-      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,7 +76,6 @@ class ReadmeMarkdown extends ConsumerWidget {
     return asyncValue.when(
       data: (content) => ReadmeMarkdownInternal(
         content: content,
-        cacheManager: cacheManager ?? _defaultCacheManager,
       ),
       error: (_, __) => const SizedBox(),
       loading: () => const _LoadingIndicator(),
@@ -97,17 +88,23 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
   const ReadmeMarkdownInternal({
     super.key,
     required this.content,
-    required this.cacheManager,
   });
 
   /// Markdown　文字列
   final String content;
 
   /// CacheManager
-  final CacheManager cacheManager;
+  CacheManager get _defaultCacheManager => CacheManager(
+        Config(
+          'ReadmeMarkdownKey',
+          stalePeriod: const Duration(days: 1),
+          maxNrOfCacheObjects: 200,
+        ),
+      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cacheManager = ref.watch(readmeMarkdownCacheManagerProvider);
     return MarkdownBody(
       data: content,
       selectable: true,
@@ -129,7 +126,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       // 参考サイト: https://github.com/Baseflow/flutter_cached_network_image/issues/383
       imageBuilder: (uri, _, __) => CachedNetworkImage(
         imageUrl: uri.toString(),
-        cacheManager: cacheManager,
+        cacheManager: cacheManager ?? _defaultCacheManager,
         errorWidget: (_, url, dynamic __) => SvgPicture.network(url),
       ),
     );

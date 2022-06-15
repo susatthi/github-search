@@ -4,12 +4,9 @@
 
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,94 +21,6 @@ import 'package:mocktail/mocktail.dart';
 import '../../../../test_utils/mocks.dart';
 import '../../../../test_utils/test_agent.dart';
 import '../../../../test_utils/utils.dart';
-import '../../../components/cached_circle_avatar_test.dart';
-
-class FakeHttpClient extends Fake implements HttpClient {
-  FakeHttpClient(this.request);
-
-  FakeHttpClientRequest request;
-
-  @override
-  Future<HttpClientRequest> getUrl(Uri url) async => request;
-}
-
-class FakeHttpHeaders extends Fake implements HttpHeaders {
-  final Map<String, String?> values = <String, String?>{};
-
-  @override
-  void add(String name, Object value, {bool preserveHeaderCase = false}) {
-    values[name] = value.toString();
-  }
-
-  @override
-  List<String>? operator [](String key) {
-    return <String>[values[key]!];
-  }
-}
-
-class FakeHttpClientRequest extends Fake implements HttpClientRequest {
-  FakeHttpClientRequest(this.response);
-
-  FakeHttpClientResponse response;
-
-  @override
-  final HttpHeaders headers = FakeHttpHeaders();
-
-  @override
-  Future<HttpClientResponse> close() async => response;
-}
-
-class FakeHttpClientResponse extends Fake implements HttpClientResponse {
-  @override
-  int statusCode = 200;
-
-  @override
-  int contentLength = svgStr.length;
-
-  @override
-  HttpClientResponseCompressionState get compressionState =>
-      HttpClientResponseCompressionState.notCompressed;
-
-  @override
-  StreamSubscription<List<int>> listen(
-    void Function(List<int> event)? onData, {
-    Function? onError,
-    void Function()? onDone,
-    bool? cancelOnError,
-  }) {
-    return Stream<Uint8List>.fromIterable(<Uint8List>[svgBytes]).listen(
-      onData,
-      onDone: onDone,
-      onError: onError,
-      cancelOnError: cancelOnError,
-    );
-  }
-}
-
-const String svgStr = '''
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 166 202">
-  <defs>
-      <linearGradient id="triangleGradient">
-          <stop offset="20%" stop-color="#000000" stop-opacity=".55" />
-          <stop offset="85%" stop-color="#616161" stop-opacity=".01" />
-      </linearGradient>
-      <linearGradient id="rectangleGradient" x1="0%" x2="0%" y1="0%" y2="100%">
-          <stop offset="20%" stop-color="#000000" stop-opacity=".15" />
-          <stop offset="85%" stop-color="#616161" stop-opacity=".01" />
-      </linearGradient>
-  </defs>
-  <path fill="#42A5F5" fill-opacity=".8" d="M37.7 128.9 9.8 101 100.4 10.4 156.2 10.4"/>
-  <path fill="#42A5F5" fill-opacity=".8" d="M156.2 94 100.4 94 79.5 114.9 107.4 142.8"/>
-  <path fill="#0D47A1" d="M79.5 170.7 100.4 191.6 156.2 191.6 156.2 191.6 107.4 142.8"/>
-  <g transform="matrix(0.7071, -0.7071, 0.7071, 0.7071, -77.667, 98.057)">
-      <rect width="39.4" height="39.4" x="59.8" y="123.1" fill="#42A5F5" />
-      <rect width="39.4" height="5.5" x="59.8" y="162.5" fill="url(#rectangleGradient)" />
-  </g>
-  <path d="M79.5 170.7 120.9 156.4 107.4 142.8" fill="url(#triangleGradient)" />
-</svg>
-''';
-
-final Uint8List svgBytes = utf8.encode(svgStr) as Uint8List;
 
 void main() {
   final repo = GitHubRepoRepository.repoBuilder(
@@ -123,7 +32,36 @@ void main() {
   final agent = TestAgent();
   setUp(agent.setUp);
   tearDown(agent.tearDown);
+  group('readmeMarkdownCacheManagerProvider', () {
+    test('初期値はnullのはず', () async {
+      final container = ProviderContainer();
+      final cacheManager = container.read(readmeMarkdownCacheManagerProvider);
+      expect(cacheManager, isNull);
+    });
+    testWidgets('nullだとデフォルトのCacheManagerが使われるはず', (tester) async {
+      await fakeSvg(() async {
+        await tester.pumpWidget(
+          agent.mockApp(
+            overrides: [
+              readmeMarkdownCacheManagerProvider.overrideWithValue(null),
+            ],
+            home: SingleChildScrollView(
+              child: ReadmeMarkdown(
+                repo: repo,
+              ),
+            ),
+          ),
+        );
 
+        await tester.pumpAndSettle();
+
+        final cachedNetworkImage = tester
+            .widget<CachedNetworkImage>(find.byType(CachedNetworkImage).last);
+        final cacheManager = cachedNetworkImage.cacheManager as CacheManager?;
+        expect(cacheManager?.store.storeKey, 'ReadmeMarkdownKey');
+      });
+    });
+  });
   group('repoReadmeContentProvider', () {
     test('正常にREADMEコンテンツが取得できるはず', () async {
       final notifier = agent
@@ -174,36 +112,23 @@ void main() {
           TestAssets.readJsonMap('github/get_repo_flutter_plugins.json')!,
         ),
       );
-      final mockCacheManager = MockDefaultCacheManager();
 
-      PictureProvider.cache.clear();
-      svg.cacheColorFilterOverride = null;
-      final fakeResponse = FakeHttpClientResponse();
-      final fakeRequest = FakeHttpClientRequest(fakeResponse);
-      final fakeHttpClient = FakeHttpClient(fakeRequest);
-
-      await HttpOverrides.runZoned(
-        () async {
-          await tester.pumpWidget(
-            agent.mockApp(
-              home: SingleChildScrollView(
-                child: ReadmeMarkdown(
-                  repo: repo,
-                  cacheManager: mockCacheManager,
-                ),
+      await fakeSvg(() async {
+        await tester.pumpWidget(
+          agent.mockApp(
+            home: SingleChildScrollView(
+              child: ReadmeMarkdown(
+                repo: repo,
               ),
             ),
-          );
+          ),
+        );
 
-          await tester.pumpAndSettle();
+        await tester.pumpAndSettle();
 
-          // SvgPictureがあるはず
-          expect(find.byType(SvgPicture), findsOneWidget);
-
-          await fakeRequest.close();
-        },
-        createHttpClient: (SecurityContext? c) => fakeHttpClient,
-      );
+        // SvgPictureがあるはず
+        expect(find.byType(SvgPicture), findsOneWidget);
+      });
     });
     testWidgets('必要なWidgetが表示されるはず', (tester) async {
       await tester.pumpWidget(

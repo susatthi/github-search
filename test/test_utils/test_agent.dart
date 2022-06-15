@@ -2,12 +2,13 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/config/app.dart';
@@ -20,17 +21,13 @@ import 'package:github_search/infrastructure/hive/app_data/app_data_repository.d
 import 'package:github_search/infrastructure/isar/query_history/collections/query_history.dart';
 import 'package:github_search/infrastructure/isar/query_history/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
+import 'package:github_search/presentation/components/cached_circle_avatar.dart';
+import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
-// ignore: unused_import
 import 'package:isar/src/version.dart';
 import 'package:path/path.dart' as path;
-// ignore: depend_on_referenced_packages
-import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
-// ignore: depend_on_referenced_packages
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-// ignore: depend_on_referenced_packages
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'mocks.dart';
@@ -58,6 +55,12 @@ class TestAgent {
     httpClientProvider.overrideWithValue(mockHttpClient),
     // リポジトリ検索文字列の初期値を設定する
     searchReposInitQueryStringProvider.overrideWithValue('flutter'),
+    // モック版のキャッシュマネージャーを使う
+    cachedCircleAvatarCacheManagerProvider
+        .overrideWithValue(MockCacheManager()),
+    // 常にエラーを返すキャッシュマネージャーを使う
+    readmeMarkdownCacheManagerProvider
+        .overrideWithValue(MockCacheManagerError()),
   ];
 
   List<Override>? addOverrides;
@@ -77,30 +80,6 @@ class TestAgent {
 
     // dart-define で与えられた言語情報を設定する
     LocaleSettings.setLocaleRaw(locale);
-
-    // 一部テストで下記エラーがでるのでPathProviderをモック化
-    // The following MissingPluginException was thrown running a test (but after
-    // the test had completed):MissingPluginException(No implementation found
-    // for method getTemporaryDirectory on channel plugins.flutter.io/path_provider_macos)
-    // see: https://qiita.com/teriyaki398_/items/642be2f0ed1e87d8ae38
-    // see: https://stackoverflow.com/questions/62597011/mock-getexternalstoragedirectory-on-flutter
-    PathProviderPlatform.instance = MockPathProviderPlatform();
-
-    const MethodChannel('com.tekartik.sqflite').setMockMethodCallHandler(
-      (MethodCall methodCall) async {
-        if (methodCall.method == 'getDatabasesPath') {
-          return path.join(
-            TestDirectory.rootDir.path,
-            'sqflite',
-            'dummy.db',
-          );
-        }
-        if (methodCall.method == 'openDatabase') {
-          final args = methodCall.arguments as Map<dynamic, dynamic>;
-          return databaseFactoryFfi.openDatabase(args['path'] as String);
-        }
-      },
-    );
 
     // Hive のセットアップ
     await hiveTestAgent.setUp();
