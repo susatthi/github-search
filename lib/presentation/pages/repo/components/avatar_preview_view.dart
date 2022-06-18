@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
+import '../../../components/cached_circle_avatar.dart';
 import 'selected_repo.dart';
 
 /// アバター画像プレビューView
@@ -37,10 +38,14 @@ class _AvatarPreviewView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cacheManager = ref.watch(cachedCircleAvatarCacheManagerProvider);
     return Hero(
       tag: 'avatar-${repo.fullName}',
       child: PhotoView(
-        imageProvider: CachedNetworkImageProvider(repo.avatarUrl),
+        imageProvider: CachedNetworkImageProvider(
+          repo.avatarUrl,
+          cacheManager: cacheManager,
+        ),
         backgroundDecoration: const BoxDecoration(),
       ),
     );

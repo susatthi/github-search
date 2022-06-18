@@ -207,7 +207,7 @@ void main() {
         ),
       ).called(1);
     });
-    testDeviceGoldens('画面表示', (tester) async {
+    testDeviceGoldens('ゴールデン', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpDeviceBuilder(
           DeviceBuilder()

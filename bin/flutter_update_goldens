@@ -6,5 +6,3 @@
 
 # ゴールデンファイルを再生成する
 fvm flutter test --update-goldens --tags=golden
-# rm -rf test/golden_tests/goldens
-# fvm flutter test --update-goldens test/golden_tests/
