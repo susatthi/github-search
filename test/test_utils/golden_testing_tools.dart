@@ -53,6 +53,9 @@ void testDeviceGoldens(
             textScale: 2,
           ),
         ],
+        // precacheImage() の処理が永遠に終わらない問題があるので何もしない
+        // 1件のテストを実行するときは問題ないが全体を実行すると発生する謎
+        primeAssets: (tester) async {},
       ),
     );
   });

@@ -19,6 +19,7 @@ import 'package:lottie/lottie.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
+import '../../../../test_utils/logger.dart';
 import '../../../../test_utils/mocks.dart';
 import '../../../../test_utils/test_agent.dart';
 import '../../../../test_utils/utils.dart';
@@ -221,6 +222,7 @@ void main() {
     testDeviceGoldens('ゴールデン', (tester) async {
       await fakeSvg(() async {
         await tester.runAsync(() async {
+          testLogger.i('Start pumpDeviceBuilder');
           await tester.pumpDeviceBuilder(
             DeviceBuilder()
               ..addScenario(
@@ -238,10 +240,12 @@ void main() {
               ),
             ),
           );
-          await Future<void>.delayed(const Duration(seconds: 1));
           await tester.pump();
+          testLogger.i('End pump');
         });
+        testLogger.i('Start screenMatchesGolden');
         await screenMatchesGolden(tester, 'readme_markdown');
+        testLogger.i('End screenMatchesGolden');
       });
     });
   });

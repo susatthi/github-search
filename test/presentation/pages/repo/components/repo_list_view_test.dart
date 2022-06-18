@@ -96,6 +96,10 @@ void main() {
 
       await tester.runAsync(() async {
         await tester.pump();
+
+        // 500ミリ秒後に透過処理があるので余裕を見て1秒遅延させる
+        await Future<void>.delayed(const Duration(seconds: 1));
+        await tester.pump();
       });
 
       // RepoPromptSearchViewを表示しているはず
@@ -220,7 +224,6 @@ void main() {
             ),
           ),
         );
-        await Future<void>.delayed(const Duration(seconds: 1));
         await tester.pump();
       });
       await screenMatchesGolden(tester, 'repo_list_view');

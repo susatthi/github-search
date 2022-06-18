@@ -17,7 +17,7 @@ echo 'Removed coverage dir'
 
 # テストを実行する
 echo 'Testing github-search...'
-fvm flutter test --no-test-assets --coverage --machine > test-report.log
+fvm flutter test --coverage --machine > test-report.log
 if [ $? -gt 0 ]; then
   # flutter test でエラーがあれば結果を表示して処理終了
   fvm flutter pub global run dart_dot_reporter test-report.log --show-message

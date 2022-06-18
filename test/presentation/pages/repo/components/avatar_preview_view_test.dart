@@ -90,7 +90,6 @@ void main() {
             ),
           ),
         );
-        await Future<void>.delayed(const Duration(seconds: 1));
         await tester.pump();
       });
       await screenMatchesGolden(

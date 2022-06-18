@@ -71,7 +71,7 @@ jobs:
 
       # テストを実行（英語）
       - name: Run Flutter Test (locale=en)
-        run: flutter test --no-test-assets --machine > test-report.log
+        run: flutter test --machine > test-report.log
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test (locale=en)
@@ -85,7 +85,7 @@ jobs:
       # テストを実行（日本語）
       - name: Run Flutter Test (locale=ja)
         run: |
-          flutter test --no-test-assets --coverage --machine --dart-define=locale=ja > test-report.log
+          flutter test --coverage --machine --dart-define=locale=ja > test-report.log
           sudo apt-get install -y lcov
           lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' 'lib/infrastructure/isar/**/collections/*' -o coverage/lcov.info
 
@@ -154,7 +154,7 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets --machine > test-report.log
+        run: flutter test --machine > test-report.log
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test
@@ -213,7 +213,7 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --no-test-assets --machine > test-report.log
+        run: flutter test --machine > test-report.log
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test

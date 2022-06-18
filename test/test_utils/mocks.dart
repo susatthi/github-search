@@ -197,7 +197,7 @@ class MockCacheManager extends Mock implements DefaultCacheManager {
         DateTime(2050),
         url,
       );
-      testLogger.v('Returned image file');
+      testLogger.v('Returned image file: url = $url');
       return;
     }
 
@@ -229,7 +229,7 @@ class MockCacheManagerSmall extends Mock implements DefaultCacheManager {
         DateTime(2050),
         url,
       );
-      testLogger.v('Returned image file');
+      testLogger.v('Returned image file: url = $url');
       return;
     }
 
