@@ -15,6 +15,7 @@ import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
+import '../../../test_utils/golden_testing_tools.dart';
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/test_agent.dart';
@@ -269,6 +270,26 @@ void main() {
 
       // 一覧画面に戻ってきて折り畳んでいる状態のままのはず
       expect(state.isFilled, false);
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.pumpDeviceBuilder(
+        DeviceBuilder()
+          ..addScenario(
+            widget: const RepoIndexPage(),
+          ),
+        wrapper: (child) => agent.mockApp(
+          home: Material(
+            child: child,
+          ),
+        ),
+      );
+      await screenMatchesGolden(
+        tester,
+        'repo_index_page',
+        customPump: (tester) async {
+          await tester.pump();
+        },
+      );
     });
   });
 }
