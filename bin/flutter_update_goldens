@@ -6,3 +6,4 @@
 
 # ゴールデンファイルを再生成する
 fvm flutter test --update-goldens --tags=golden
+fvm flutter test --update-goldens --tags=golden --dart-define=locale=ja

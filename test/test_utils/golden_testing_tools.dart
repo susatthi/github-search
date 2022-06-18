@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:github_search/localizations/strings.g.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 export 'package:golden_toolkit/golden_toolkit.dart';
@@ -53,10 +54,26 @@ void testDeviceGoldens(
             textScale: 2,
           ),
         ],
-        // precacheImage() の処理が永遠に終わらない問題があるので何もしない
-        // 1件のテストを実行するときは問題ないが全体を実行すると発生する謎
-        primeAssets: (tester) async {},
+        primeAssets: _primeAssets,
+        fileNameFactory: _fileNameFactory,
+        deviceFileNameFactory: _deviceFileNameFactory,
       ),
     );
   });
+}
+
+/// precacheImage() の処理が永遠に終わらない問題があるので何もしない
+/// 1件のテストを実行するときは問題ないが全体を実行すると発生する謎
+Future<void> _primeAssets(WidgetTester tester) async {}
+
+/// ファイル名に言語情報を付与する
+String _fileNameFactory(String name) {
+  final locale = LocaleSettings.currentLocale;
+  return 'goldens/$name.${locale.name}.png';
+}
+
+/// ファイル名に言語情報を付与する
+String _deviceFileNameFactory(String name, Device device) {
+  final locale = LocaleSettings.currentLocale;
+  return 'goldens/$name.${device.name}.${locale.name}.png';
 }
