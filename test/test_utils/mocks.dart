@@ -207,6 +207,38 @@ class MockCacheManager extends Mock implements DefaultCacheManager {
   }
 }
 
+/// 常に小さい画像を返すモック版のCacheManager
+class MockCacheManagerSmall extends Mock implements DefaultCacheManager {
+  static const fileSystem = LocalFileSystem();
+
+  @override
+  Stream<FileResponse> getImageFile(
+    String url, {
+    String? key,
+    Map<String, String>? headers,
+    bool withProgress = false,
+    int? maxHeight,
+    int? maxWidth,
+  }) async* {
+    testLogger.v('Requested image: url = $url');
+    if (url.isNotEmpty) {
+      // URLが空でなければダミー画像を返す
+      yield FileInfo(
+        fileSystem.file('./test/test_utils/assets/github/small.png'),
+        FileSource.Cache,
+        DateTime(2050),
+        url,
+      );
+      testLogger.v('Returned image file');
+      return;
+    }
+
+    // URLが空ならエラーを投げる
+    testLogger.v('Throw not found');
+    throw Exception('Not found');
+  }
+}
+
 /// 常にエラーを返すCacheManager
 class MockCacheManagerError extends Mock implements DefaultCacheManager {
   @override

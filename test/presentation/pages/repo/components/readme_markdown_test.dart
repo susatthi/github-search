@@ -18,6 +18,7 @@ import 'package:github_search/presentation/pages/repo/components/readme_markdown
 import 'package:lottie/lottie.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/mocks.dart';
 import '../../../../test_utils/test_agent.dart';
 import '../../../../test_utils/utils.dart';
@@ -216,6 +217,32 @@ void main() {
           headers: {},
         ),
       ).called(1);
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await fakeSvg(() async {
+        await tester.runAsync(() async {
+          await tester.pumpDeviceBuilder(
+            DeviceBuilder()
+              ..addScenario(
+                widget: SingleChildScrollView(
+                  child: ReadmeMarkdown(repo: repo),
+                ),
+              ),
+            wrapper: (child) => agent.mockApp(
+              overrides: [
+                readmeMarkdownCacheManagerProvider
+                    .overrideWithValue(MockCacheManagerSmall()),
+              ],
+              home: Material(
+                child: child,
+              ),
+            ),
+          );
+          await Future<void>.delayed(const Duration(seconds: 1));
+          await tester.pump();
+        });
+        await screenMatchesGolden(tester, 'readme_markdown');
+      });
     });
   });
 }
