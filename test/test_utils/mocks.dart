@@ -220,7 +220,7 @@ class MockCacheManagerSmall extends Mock implements DefaultCacheManager {
     int? maxHeight,
     int? maxWidth,
   }) async* {
-    testLogger.v('Requested image: url = $url');
+    testLogger.v('[Small] Requested image: url = $url');
     if (url.isNotEmpty) {
       // URLが空でなければダミー画像を返す
       yield FileInfo(
@@ -229,12 +229,12 @@ class MockCacheManagerSmall extends Mock implements DefaultCacheManager {
         DateTime(2050),
         url,
       );
-      testLogger.v('Returned image file: url = $url');
+      testLogger.v('[Small] Returned image file: url = $url');
       return;
     }
 
     // URLが空ならエラーを投げる
-    testLogger.v('Throw not found');
+    testLogger.v('[Small] Throw not found');
     throw Exception('Not found');
   }
 }
@@ -251,7 +251,7 @@ class MockCacheManagerError extends Mock implements DefaultCacheManager {
     int? maxWidth,
   }) async* {
     // 常にエラーを投げる
-    throw Exception('Not found');
+    throw Exception('[Error] Not found');
   }
 }
 

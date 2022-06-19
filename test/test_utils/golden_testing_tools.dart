@@ -13,6 +13,20 @@ import 'logger.dart';
 
 export 'package:golden_toolkit/golden_toolkit.dart';
 
+/// ゴールデンテストをするテキストスケールのリスト
+const _textScales = [
+  0.85,
+  1.3,
+];
+
+/// ゴールデンテストをするデバイスのリスト
+const _devices = [
+  Device.phone,
+  Device.iphone11,
+  Device.tabletPortrait,
+  Device.tabletLandscape,
+];
+
 /// [GoldenToolkit]を使用して、複数デバイスでゴールデンテストを実行する。
 @isTest
 void testDeviceGoldens(
@@ -27,42 +41,25 @@ void testDeviceGoldens(
       return;
     }
 
+    final goldenDevices = <Device>[];
+    for (final device in _devices) {
+      for (final textScale in _textScales) {
+        goldenDevices.add(
+          device.copyWith(
+            name: '${device.name}-$textScale',
+            textScale: textScale,
+          ),
+        );
+      }
+    }
+
     return GoldenToolkit.runWithConfiguration(
       () async {
         await loadAppFonts();
         await body(tester);
       },
       config: GoldenToolkitConfiguration(
-        defaultDevices: [
-          Device.phone.copyWith(
-            name: 'phone-1',
-          ),
-          Device.phone.copyWith(
-            name: 'phone-2',
-            textScale: 2,
-          ),
-          Device.iphone11.copyWith(
-            name: 'iphone11-1',
-          ),
-          Device.iphone11.copyWith(
-            name: 'iphone11-2',
-            textScale: 2,
-          ),
-          Device.tabletPortrait.copyWith(
-            name: 'tablet-portrait-1',
-          ),
-          Device.tabletPortrait.copyWith(
-            name: 'tablet-portrait-2',
-            textScale: 2,
-          ),
-          Device.tabletLandscape.copyWith(
-            name: 'tablet-landscape-1',
-          ),
-          Device.tabletLandscape.copyWith(
-            name: 'tablet-landscape-2',
-            textScale: 2,
-          ),
-        ],
+        defaultDevices: goldenDevices,
         primeAssets: _primeAssets,
         fileNameFactory: _fileNameFactory,
         deviceFileNameFactory: _deviceFileNameFactory,

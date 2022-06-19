@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
+import 'package:github_search/presentation/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
@@ -211,6 +212,34 @@ void main() {
       // 降順になったはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
     });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpDeviceBuilder(
+          DeviceBuilder()
+            ..addScenario(
+              widget: const RepoIndexPage(),
+            ),
+          wrapper: (child) => agent.mockApp(
+            overrides: [
+              cachedCircleAvatarCacheManagerProvider
+                  .overrideWithValue(MockCacheManagerError()),
+            ],
+            home: Material(
+              child: child,
+            ),
+          ),
+        );
+        await Future<void>.delayed(const Duration(seconds: 1));
+        await tester.pump();
+      });
+      await screenMatchesGolden(
+        tester,
+        'repo_index_page',
+        customPump: (tester) async {
+          await tester.pump();
+        },
+      );
+    });
   });
   group('AnimatedAppBarBackground', () {
     testWidgets('リポジトリ一覧画面から検索画面の画面遷移時にアニメーションするはず', (tester) async {
@@ -270,26 +299,6 @@ void main() {
 
       // 一覧画面に戻ってきて折り畳んでいる状態のままのはず
       expect(state.isFilled, false);
-    });
-    testDeviceGoldens('ゴールデン', (tester) async {
-      await tester.pumpDeviceBuilder(
-        DeviceBuilder()
-          ..addScenario(
-            widget: const RepoIndexPage(),
-          ),
-        wrapper: (child) => agent.mockApp(
-          home: Material(
-            child: child,
-          ),
-        ),
-      );
-      await screenMatchesGolden(
-        tester,
-        'repo_index_page',
-        customPump: (tester) async {
-          await tester.pump();
-        },
-      );
     });
   });
 }
