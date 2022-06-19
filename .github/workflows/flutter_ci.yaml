@@ -71,7 +71,8 @@ jobs:
 
       # テストを実行（英語）
       - name: Run Flutter Test (locale=en)
-        run: flutter test --machine > test-report.log
+        run: flutter test -v
+        # run: flutter test --machine > test-report.log
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test (locale=en)
