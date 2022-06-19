@@ -22,7 +22,7 @@ void testDeviceGoldens(
   return testGoldens(description, (tester) async {
     // ゴールデンテストは macOS 環境のみで行うことにする
     // see: https://qiita.com/Umigishi-Aoi/items/db3e81372085e196dc10
-    if (isMacOS) {
+    if (!isMacOS) {
       testLogger.i('Skip "$description" test becase platform is not macOS');
       return;
     }
