@@ -9,6 +9,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
+import 'logger.dart';
+
 export 'package:golden_toolkit/golden_toolkit.dart';
 
 /// [GoldenToolkit]を使用して、複数デバイスでゴールデンテストを実行する。
@@ -18,6 +20,13 @@ void testDeviceGoldens(
   FutureOr<void> Function(WidgetTester tester) body,
 ) {
   return testGoldens(description, (tester) async {
+    // ゴールデンテストは macOS 環境のみで行うことにする
+    // see: https://qiita.com/Umigishi-Aoi/items/db3e81372085e196dc10
+    if (isMacOS) {
+      testLogger.i('Skip "$description" test becase platform is not macOS');
+      return;
+    }
+
     return GoldenToolkit.runWithConfiguration(
       () async {
         await loadAppFonts();
