@@ -82,11 +82,11 @@ jobs:
           path: test-report.log
           reporter: flutter-json
 
-  # テストジョブ（macos-latest）の定義
-  flutter_test_macos:
+  # テストジョブ（macos-latest-en）の定義
+  flutter_test_macos_en:
 
     # ジョブの表示名
-    name: Flutter Test (macos-latest)
+    name: Flutter Test (macos-latest-en)
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -136,9 +136,54 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report (macos-latest / en)
+          name: Flutter Test Report (macos-latest-en)
           path: test-report.log
           reporter: flutter-json
+
+  # テストジョブ（macos-latest-ja）の定義
+  flutter_test_macos_ja:
+
+    # ジョブの表示名
+    name: Flutter Test (macos-latest-ja)
+
+    # ジョブを実行するOS
+    runs-on: macos-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # fvm のバージョンとチャネルを環境変数に設定する
+      - name: Check fvm
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # Flutter SDK の設定
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # flutter pub get を実行
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 環境変数ファイル（env.dart）を作成
+      - name: Create env.dart
+        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
 
       # テストを実行（日本語）
       - name: Run Flutter Test (locale=ja)
@@ -152,7 +197,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report (macos-latest / ja)
+          name: Flutter Test Report (macos-latest-ja)
           path: test-report.log
           reporter: flutter-json
 
@@ -551,7 +596,8 @@ jobs:
     # すべてのジョブが終了したら実行する
     needs:
       - flutter_test_ubuntu
-      - flutter_test_macos
+      - flutter_test_macos_en
+      - flutter_test_macos_ja
       - flutter_test_windows
       - flutter_build_android
       - flutter_build_ios
@@ -588,12 +634,20 @@ jobs:
           SLACK_TITLE: FAILURE TEST (ubuntu-latest) ...
           SLACK_COLOR: danger
 
-      # macos テストに失敗したとき
+      # macos-en テストに失敗したとき
       - name: Notify Failure Test for macos-latest
-        if: ${{ needs.flutter_test_macos.result == 'failure' }}
+        if: ${{ needs.flutter_test_macos_en.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_TITLE: FAILURE TEST (macos-latest) ...
+          SLACK_TITLE: FAILURE TEST (macos-latest-en) ...
+          SLACK_COLOR: danger
+
+      # macos-ja テストに失敗したとき
+      - name: Notify Failure Test for macos-latest
+        if: ${{ needs.flutter_test_macos_ja.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE TEST (macos-latest-ja) ...
           SLACK_COLOR: danger
 
       # windows テストに失敗したとき
