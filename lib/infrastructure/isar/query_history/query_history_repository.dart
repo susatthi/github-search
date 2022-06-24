@@ -46,7 +46,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
     final queryString = input.queryString.trim();
     logger.v('START TRANSACTION add(): queryString = $queryString');
     return isar.writeTxn(
-      (isar) async {
+      () async {
         final id = await isar.queryHistoryCollections.put(
           QueryHistoryCollection()
             ..queryString = queryString
@@ -62,7 +62,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
   Future<void> delete(QueryHistory query) async {
     logger.v('START TRANSACTION delete(): queryString = ${query.queryString}');
     return isar.writeTxn(
-      (isar) async {
+      () async {
         final count = await isar.queryHistoryCollections
             .filter()
             .queryStringEqualTo(query.queryString)
