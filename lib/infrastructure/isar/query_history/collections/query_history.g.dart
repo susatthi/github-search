@@ -68,7 +68,7 @@ void _queryHistoryCollectionSerializeNative(
     AdapterAlloc alloc) {
   final queryString$Bytes =
       IsarBinaryWriter.utf8Encoder.convert(object.queryString);
-  final size = staticSize + (queryString$Bytes.length);
+  final size = staticSize + int.parse(queryString$Bytes.length);
   cObj.buffer = alloc(size);
   cObj.buffer_length = size;
 
