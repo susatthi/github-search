@@ -40,7 +40,7 @@ dependencies:
   photo_view: ^0.14.0
   roggle: ^0.2.1+1
   shimmer: ^2.0.0
-  url_launcher: ^6.1.2
+  url_launcher: ^6.1.4
   visibility_detector: ^0.3.3
 
 dev_dependencies:
@@ -54,6 +54,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.0.3+1
+  golden_toolkit: ^0.13.0
   isar_generator: ^3.0.0-dev.0
   json_serializable: ^6.2.0
   mocktail: ^0.3.0
