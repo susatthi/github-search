@@ -63,6 +63,7 @@ Configurations を選択してビルドしてください。
 - [fast_i18n](https://pub.dev/packages/fast_i18n) を使った多言語対応（日本語/英語）
 - カスタムフォント対応
 - [mocktail](https://pub.dev/packages/mocktail) を使った Unit / Widget テスト
+- [golden_toolkit](https://pub.dev/packages/golden_toolkit) を使った Golden テスト
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) を使ったアプリアイコン
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
 - [GitHub Actions](https://github.co.jp/features/actions) によるCI(自動テストと自動ビルド)
@@ -73,7 +74,6 @@ Configurations を選択してビルドしてください。
 
 - デスクトップ UI
 - ダークモード対応
-- Golden テスト
 - Integration テスト
 
 ### 対応しないこと
@@ -349,7 +349,8 @@ bin/dartdoc
 %%{init:{'theme':'base','themeVariables':{'primaryColor':'#f0f0f0','primaryTextColor':'#2f2f2f', 'lineColor':'#2f2f2f','textColor':'#2f2f2f','fontSize':'16px','nodeBorder':'0px'}}}%%
 flowchart LR
     Start((開始)) --> AnalyzeUbuntu(Ubuntu静的解析)
-    Start --> AnalyzeMacos(macOS静的解析)
+    Start --> AnalyzeMacosEn(macOS英語静的解析)
+    Start --> AnalyzeMacosJp(macOS日本語静的解析)
     Start --> AnalyzeWindows(Windows静的解析)
     Start --> BuildAndroid(Androidビルド)
     Start --> BuildiOS(iOSビルド)
@@ -357,12 +358,14 @@ flowchart LR
     Start --> BuildMacOS(macOSビルド)
     Start --> BuildWindows(Windowsビルド)
 
-    AnalyzeUbuntu --> TestUbuntu(Ubuntu単体テスト)
-    TestUbuntu --> UploadCoverageUbuntu(Codecovに結果を送信)
-    AnalyzeMacos ---> TestMacos(macOS単体テスト)
+    AnalyzeUbuntu ---> TestUbuntu(Ubuntu単体テスト)
+    AnalyzeMacosEn ---> TestMacosEn(macOS英語単体テスト)
+    AnalyzeMacosJp --> TestMacosJp(macOS日本語単体テスト)
+    TestMacosJp --> UploadCoverageMacosJp(Codecovに結果を送信)
     AnalyzeWindows ---> TestWindows(Windows単体テスト)
-    UploadCoverageUbuntu --> NotifySlack(Slackに結果を送信)
-    TestMacos --> NotifySlack
+    UploadCoverageMacosJp --> NotifySlack(Slackに結果を送信)
+    TestUbuntu --> NotifySlack
+    TestMacosEn --> NotifySlack
     TestWindows --> NotifySlack
     BuildAndroid ----> NotifySlack
     BuildiOS ----> NotifySlack
@@ -376,7 +379,7 @@ flowchart LR
     classDef buildJob fill:#d32f2f, color:#ffffff;
     classDef reportJob fill:#437C40, color:#ffffff;
     %% class Start,End anchor;
-    class AnalyzeUbuntu,TestUbuntu,UploadCoverageUbuntu,AnalyzeMacos,TestMacos,AnalyzeWindows,TestWindows testJob;
+    class AnalyzeUbuntu,TestUbuntu,UploadCoverageMacosJp,AnalyzeMacosEn,AnalyzeMacosJp,TestMacosEn,TestMacosJp,AnalyzeWindows,TestWindows testJob;
     class BuildAndroid,BuildiOS,BuildWeb,BuildMacOS,BuildWindows,CreateApiDoc,DeployGitHubPages buildJob;
     class NotifySlack reportJob;
 ```
