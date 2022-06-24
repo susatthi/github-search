@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Copyright 2022 susatthi All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
+# ゴールデンファイルを再生成する
+fvm flutter test --update-goldens --tags=golden
+fvm flutter test --update-goldens --tags=golden --dart-define=locale=ja

@@ -16,6 +16,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/mocks.dart';
 import '../../../../test_utils/test_agent.dart';
 
@@ -94,6 +95,10 @@ void main() {
       expect(find.byType(RepoPromptSearchView), findsNothing);
 
       await tester.runAsync(() async {
+        await tester.pump();
+
+        // 500ミリ秒後に透過処理があるので余裕を見て1秒遅延させる
+        await Future<void>.delayed(const Duration(seconds: 1));
         await tester.pump();
       });
 
@@ -205,6 +210,23 @@ void main() {
           extra: data,
         ),
       ).called(1);
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpDeviceBuilder(
+          DeviceBuilder()
+            ..addScenario(
+              widget: const _MockPage(),
+            ),
+          wrapper: (child) => agent.mockApp(
+            home: Material(
+              child: child,
+            ),
+          ),
+        );
+        await tester.pump();
+      });
+      await screenMatchesGolden(tester, 'repo_list_view');
     });
   });
 }

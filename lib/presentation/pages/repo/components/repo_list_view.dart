@@ -273,8 +273,11 @@ class _RepoPromptSearchViewState extends State<RepoPromptSearchView> {
 
     // 検索フィールドの×ボタン押下して検索文字列をクリアしてから検索画面に遷移するときに
     // 本Viewが表示されてちらついているように見えるため、500ミリ秒遅延させる
-    Future<void>.delayed(const Duration(milliseconds: 500))
-        .then((value) => setState(() => _opacity = 1));
+    Future<void>.delayed(const Duration(milliseconds: 500)).then((value) {
+      if (mounted) {
+        setState(() => _opacity = 1);
+      }
+    });
   }
 
   @override
