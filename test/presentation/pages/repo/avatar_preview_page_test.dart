@@ -5,8 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
+import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
+import '../../../test_utils/golden_testing_tools.dart';
 import '../../../test_utils/mocks.dart';
 import '../../../test_utils/test_agent.dart';
 
@@ -46,6 +48,39 @@ void main() {
         // アバタープレビュー画面が閉じるはず
         expect(find.byType(AvatarPreviewPage), findsNothing);
       });
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpDeviceBuilder(
+          DeviceBuilder()
+            ..addScenario(
+              widget: const AvatarPreviewPage(),
+            ),
+          wrapper: (child) => agent.mockApp(
+            overrides: [
+              selectedRepoProvider.overrideWithProvider(
+                selectedRepoProviderFamily(
+                  const SelectedRepoParameter(
+                    ownerName: 'flutter',
+                    repoName: 'plugins',
+                  ),
+                ),
+              ),
+            ],
+            home: Material(
+              child: child,
+            ),
+          ),
+        );
+        await tester.pump();
+      });
+      await screenMatchesGolden(
+        tester,
+        'avatar_preview_page',
+        customPump: (tester) async {
+          await tester.pump();
+        },
+      );
     });
   });
 }

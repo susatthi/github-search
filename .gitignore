@@ -48,6 +48,9 @@ app.*.map.json
 # Test related
 /coverage/
 
+# don't check in golden failure output
+**/failures/*.png
+
 # Fvm related (ローカルパスのシンボリックリンクなのでコミットは不適切)
 .fvm/flutter_sdk
 

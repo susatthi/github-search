@@ -12,6 +12,7 @@ import 'package:github_search/domain/repositories/query_history/query_history_re
 import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 
+import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/logger.dart';
 import '../../../../test_utils/mocks.dart';
 import '../../../../test_utils/test_agent.dart';
@@ -226,6 +227,57 @@ void main() {
         // 検索履歴が0件になるはず
         expect(find.byType(SliverList), findsNothing);
       });
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.runAsync(() async {
+        // 4件の検索履歴を追加する
+        final repository =
+            agent.mockContainer().read(queryHistoryRepositoryProvider);
+        await Future.wait(
+          [
+            repository.add(
+              QueryHistoryInput(
+                queryString: 'flutterflutterflutterflutterflutter1',
+              ),
+            ),
+            repository.add(
+              QueryHistoryInput(
+                queryString: 'flutterflutterflutterflutterflutter2',
+              ),
+            ),
+            repository.add(
+              QueryHistoryInput(
+                queryString: 'flutterflutterflutterflutterflutter3',
+              ),
+            ),
+            repository.add(
+              QueryHistoryInput(
+                queryString: 'flutterflutterflutterflutterflutter4',
+              ),
+            ),
+          ],
+        );
+
+        // 入力中の検索文字列を更新して検索履歴一覧を更新する
+        await Future.wait([
+          agent.mockContainer().read(searchReposEnteringQueryStringUpdater)('')
+        ]);
+
+        await tester.pumpDeviceBuilder(
+          DeviceBuilder()
+            ..addScenario(
+              widget: const _MockPage(),
+            ),
+          wrapper: (child) => agent.mockApp(
+            home: Material(
+              child: child,
+            ),
+          ),
+        );
+        await Future<void>.delayed(const Duration(seconds: 1));
+        await tester.pump();
+      });
+      await screenMatchesGolden(tester, 'query_histories_list_view');
     });
   });
 }

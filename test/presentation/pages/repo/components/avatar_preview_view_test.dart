@@ -2,11 +2,13 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
+import 'package:github_search/presentation/pages/repo/components/avatar_preview_view.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 import 'package:photo_view/photo_view.dart';
 
+import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/test_agent.dart';
 
 void main() {
@@ -14,7 +16,7 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('RepoAvatarPreviewView', () {
+  group('AvatarPreviewView', () {
     testWidgets('PhotoViewが表示されるはず', (tester) async {
       await tester.pumpWidget(
         agent.mockApp(
@@ -28,7 +30,7 @@ void main() {
               ),
             ),
           ],
-          home: const AvatarPreviewPage(),
+          home: const AvatarPreviewView(),
         ),
       );
 
@@ -53,7 +55,7 @@ void main() {
               ),
             ),
           ],
-          home: const AvatarPreviewPage(),
+          home: const AvatarPreviewView(),
         ),
       );
 
@@ -64,6 +66,39 @@ void main() {
 
       // PhotoView を表示していないはず
       expect(find.byType(PhotoView), findsNothing);
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpDeviceBuilder(
+          DeviceBuilder()
+            ..addScenario(
+              widget: const AvatarPreviewView(),
+            ),
+          wrapper: (child) => agent.mockApp(
+            overrides: [
+              selectedRepoProvider.overrideWithProvider(
+                selectedRepoProviderFamily(
+                  const SelectedRepoParameter(
+                    ownerName: 'flutter',
+                    repoName: 'plugins',
+                  ),
+                ),
+              ),
+            ],
+            home: Material(
+              child: child,
+            ),
+          ),
+        );
+        await tester.pump();
+      });
+      await screenMatchesGolden(
+        tester,
+        'avatar_preview_view',
+        customPump: (tester) async {
+          await tester.pump();
+        },
+      );
     });
   });
 }
