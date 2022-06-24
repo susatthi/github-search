@@ -46,6 +46,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -86,6 +88,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -126,6 +130,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -178,6 +184,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -218,6 +226,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Android Release Build
       - name: Build for Android
@@ -245,6 +255,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -286,6 +298,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -329,6 +343,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Windows Release Build
       - name: Build for Windows
@@ -358,6 +374,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Web Release Build
       - name: Build for Web
@@ -387,6 +405,8 @@ jobs:
       # セットアップ
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # dartdoc を実行
       - name: Run Dartdoc

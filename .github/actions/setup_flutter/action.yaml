@@ -8,6 +8,11 @@ name: Setup Flutter
 # アクションの説明
 description: Setup Flutter
 
+# インプット情報
+inputs:
+  GITHUB_ACCESS_TOKEN:
+    required: true
+
 # 実行する内容を定義する
 runs:
 
@@ -32,9 +37,19 @@ runs:
         cache-path: ${{ runner.tool_cache }}/flutter
 
     # flutter pub get を実行
-    - name: Install Flutter dependencies
-      run: flutter pub get
+    - name: Cache Pub
+      uses: actions/cache@v2
+      id: pub-cache
+      with:
+        path: |
+          ${{ env.FLUTTER_HOME }}/.pub-cache
+          **/.packages
+          **/.flutter-plugins
+          **/.flutter-plugin-dependencies
+          **/.dart_tool/package_config.json
+        key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: build-pubspec-
 
     # 環境変数ファイル（env.dart）を作成
     - name: Create env.dart
-      run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      run: bin/flutter_env -g ${{ inputs.GITHUB_ACCESS_TOKEN }}
