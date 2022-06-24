@@ -15,6 +15,7 @@ import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/test_agent.dart';
 
 class _MockPage extends StatelessWidget {
@@ -273,6 +274,36 @@ void main() {
           extra: data,
         ),
       ).called(1);
+    });
+    testDeviceGoldens('ゴールデン', (tester) async {
+      await tester.pumpDeviceBuilder(
+        DeviceBuilder()
+          ..addScenario(
+            widget: const _MockPage(),
+          ),
+        wrapper: (child) => agent.mockApp(
+          overrides: [
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                const SelectedRepoParameter(
+                  ownerName: 'flutter',
+                  repoName: 'plugins',
+                ),
+              ),
+            ),
+          ],
+          home: Material(
+            child: child,
+          ),
+        ),
+      );
+      await screenMatchesGolden(
+        tester,
+        'repo_detail_view',
+        customPump: (tester) async {
+          await tester.pump();
+        },
+      );
     });
   });
 }
