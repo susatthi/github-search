@@ -43,27 +43,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -101,27 +83,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -159,27 +123,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -229,28 +175,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
-        shell: bash
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -288,27 +215,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # Android Release Build
       - name: Build for Android
@@ -333,27 +242,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -392,27 +283,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -453,28 +326,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
-        shell: bash
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # Windows Release Build
       - name: Build for Windows
@@ -501,27 +355,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # Web Release Build
       - name: Build for Web
