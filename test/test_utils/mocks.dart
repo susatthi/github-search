@@ -155,7 +155,19 @@ class MockGoRouter extends Mock implements GoRouter {}
 /// モック版のUrlLauncherPlatform
 class MockUrlLauncherPlatform extends Mock
     with MockPlatformInterfaceMixin
-    implements UrlLauncherPlatform {}
+    implements UrlLauncherPlatform {
+  /// launchUrl()メソッドが呼ばれたURLのリスト
+  final calledUrls = <String>[];
+
+  /// launchUrl()メソッドの戻り値
+  bool launchUrlReturnValue = true;
+
+  @override
+  Future<bool> launchUrl(String url, LaunchOptions options) async {
+    calledUrls.add(url);
+    return launchUrlReturnValue;
+  }
+}
 
 /// 常にエラーを返すモック版のQueryHistoryRepository
 class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
