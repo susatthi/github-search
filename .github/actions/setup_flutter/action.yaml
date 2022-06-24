@@ -53,3 +53,4 @@ runs:
     # 環境変数ファイル（env.dart）を作成
     - name: Create env.dart
       run: bin/flutter_env -g ${{ inputs.GITHUB_ACCESS_TOKEN }}
+      shell: bash
