@@ -384,19 +384,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
 
       # dartdoc を実行
       - name: Run Dartdoc
