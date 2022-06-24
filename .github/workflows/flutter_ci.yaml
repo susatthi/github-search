@@ -383,52 +383,52 @@ jobs:
           flutter config --enable-web
           flutter build web -t lib/main.dart --web-renderer html
 
-  # API ドキュメント作成ジョブの定義
-  flutter_api_doc:
+  # # API ドキュメント作成ジョブの定義
+  # flutter_api_doc:
 
-    # ジョブの表示名
-    name: Flutter API doc
+  #   # ジョブの表示名
+  #   name: Flutter API doc
 
-    # ジョブを実行するOS
-    runs-on: ubuntu-latest
+  #   # ジョブを実行するOS
+  #   runs-on: ubuntu-latest
 
-    # タイムアウト時間（分）
-    timeout-minutes: 15
+  #   # タイムアウト時間（分）
+  #   timeout-minutes: 15
 
-    # ジョブの手順
-    steps:
+  #   # ジョブの手順
+  #   steps:
 
-      # ソースコードをチェックアウト
-      - name: Checkout
-        uses: actions/checkout@v3
+  #     # ソースコードをチェックアウト
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      # セットアップ
-      - name: Setup Flutter
-        uses: ./.github/actions/setup_flutter
-        with:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+  #     # セットアップ
+  #     - name: Setup Flutter
+  #       uses: ./.github/actions/setup_flutter
+  #       with:
+  #         GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
-      # dartdoc を実行
-      - name: Run Dartdoc
-        run: |
-          dart pub global activate dartdoc
-          dartdoc
+  #     # dartdoc を実行
+  #     - name: Run Dartdoc
+  #       run: |
+  #         dart pub global activate dartdoc
+  #         dartdoc
 
-      # API ドキュメントを artifacts にアップロード
-      - name: Upload API doc to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: api-doc
-          path: doc/api
+  #     # API ドキュメントを artifacts にアップロード
+  #     - name: Upload API doc to Artifacts
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: api-doc
+  #         path: doc/api
 
-      # main ブランチのときだけ API ドキュメントを GitHub Pages にデプロイ
-      - name: Deploy API doc to GitHub Pages
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: doc/api
-          publish_branch: gh-pages  # default: gh-pages
+  #     # main ブランチのときだけ API ドキュメントを GitHub Pages にデプロイ
+  #     - name: Deploy API doc to GitHub Pages
+  #       if: ${{ github.ref == 'refs/heads/main' }}
+  #       uses: peaceiris/actions-gh-pages@v3
+  #       with:
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         publish_dir: doc/api
+  #         publish_branch: gh-pages  # default: gh-pages
 
   # Slack通知ジョブの定義
   notify_slack:
@@ -450,7 +450,7 @@ jobs:
       - flutter_build_web
       - flutter_build_macos
       - flutter_build_windows
-      - flutter_api_doc
+      # - flutter_api_doc
 
     # ジョブを実行するOS
     runs-on: ubuntu-latest
@@ -544,10 +544,10 @@ jobs:
           SLACK_TITLE: FAILURE BUILD WINDOWS ...
           SLACK_COLOR: danger
 
-      # API doc 作成に失敗したとき
-      - name: Notify Failure API doc
-        if: ${{ needs.flutter_api_doc.result == 'failure' }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_TITLE: FAILURE API DOC ...
-          SLACK_COLOR: danger
+      # # API doc 作成に失敗したとき
+      # - name: Notify Failure API doc
+      #   if: ${{ needs.flutter_api_doc.result == 'failure' }}
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_TITLE: FAILURE API DOC ...
+      #     SLACK_COLOR: danger
