@@ -35,7 +35,7 @@ fi
 echo 'Tests done!'
 
 # カバレッジから不要な結果を削除する
-lcov --remove coverage/lcov.info 'lib/utils/assets/*' 'lib/localizations/*' 'lib/infrastructure/isar/**/collections/*' -o coverage/lcov.info
+sh bin/scripts/lcov_remove.sh
 
 # カバレッジ結果のHTMLを出力する
 genhtml coverage/lcov.info -o coverage/html
