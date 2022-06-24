@@ -16,7 +16,6 @@ import 'package:github_search/infrastructure/github/repo/json_objects/repo.dart'
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/logger.dart';
@@ -176,17 +175,11 @@ void main() {
     });
     testWidgets('リンクをタップしてブラウザを開けるはず', (tester) async {
       const urlString = 'https://keyber.jp/';
-      when(
-        () => agent.mockUrlLauncherPlatform.launch(
-          urlString,
-          useSafariVC: true,
-          useWebView: true,
-          enableJavaScript: true,
-          enableDomStorage: true,
-          universalLinksOnly: false,
-          headers: {},
-        ),
-      ).thenAnswer((_) async => true);
+
+      expect(
+        agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
+        false,
+      );
 
       final repo = GitHubRepoRepository.repoBuilder(
         RepoJsonObject.fromJson(
@@ -207,17 +200,10 @@ void main() {
       await tester.tap(find.text('リンク'));
       await tester.pump();
 
-      verify(
-        () => agent.mockUrlLauncherPlatform.launch(
-          urlString,
-          useSafariVC: true,
-          useWebView: true,
-          enableJavaScript: true,
-          enableDomStorage: true,
-          universalLinksOnly: false,
-          headers: {},
-        ),
-      ).called(1);
+      expect(
+        agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
+        true,
+      );
     });
     testDeviceGoldens('ゴールデン', (tester) async {
       await fakeSvg(() async {

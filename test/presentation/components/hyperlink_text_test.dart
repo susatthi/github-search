@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/components/hyperlink_text.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../test_utils/test_agent.dart';
 
@@ -37,17 +36,10 @@ void main() {
     testWidgets('タップでURL起動ができるはず', (tester) async {
       const urlString = 'https://github.com';
 
-      when(
-        () => agent.mockUrlLauncherPlatform.launch(
-          urlString,
-          useSafariVC: true,
-          useWebView: true,
-          enableJavaScript: true,
-          enableDomStorage: true,
-          universalLinksOnly: false,
-          headers: {},
-        ),
-      ).thenAnswer((_) async => true);
+      expect(
+        agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
+        false,
+      );
 
       await tester.pumpWidget(
         agent.mockApp(
@@ -65,33 +57,21 @@ void main() {
       await tester.pump();
 
       // URL起動出来ているはず
-      verify(
-        () => agent.mockUrlLauncherPlatform.launch(
-          urlString,
-          useSafariVC: true,
-          useWebView: true,
-          enableJavaScript: true,
-          enableDomStorage: true,
-          universalLinksOnly: false,
-          headers: {},
-        ),
-      ).called(1);
+      expect(
+        agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
+        true,
+      );
     });
     testWidgets('不正なURLならSnackBarが表示されるはず', (tester) async {
       const urlString = 'https://999.168.0.1/';
 
       // URL起動失敗を返す
-      when(
-        () => agent.mockUrlLauncherPlatform.launch(
-          urlString,
-          useSafariVC: true,
-          useWebView: true,
-          enableJavaScript: true,
-          enableDomStorage: true,
-          universalLinksOnly: false,
-          headers: {},
-        ),
-      ).thenAnswer((_) async => false);
+      agent.mockUrlLauncherPlatform.launchUrlReturnValue = false;
+
+      expect(
+        agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
+        false,
+      );
 
       await tester.pumpWidget(
         agent.mockApp(
@@ -112,17 +92,10 @@ void main() {
       await tester.pump();
 
       // URL起動を試みているはず
-      verify(
-        () => agent.mockUrlLauncherPlatform.launch(
-          urlString,
-          useSafariVC: true,
-          useWebView: true,
-          enableJavaScript: true,
-          enableDomStorage: true,
-          universalLinksOnly: false,
-          headers: {},
-        ),
-      ).called(1);
+      expect(
+        agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
+        true,
+      );
 
       // SnackBarがいるはず
       expect(find.byType(SnackBar), findsOneWidget);

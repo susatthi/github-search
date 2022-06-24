@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/repo.dart';
@@ -70,33 +72,19 @@ void main() {
     final data = repoDetailViewInternal.repo;
     final url = urlSelector(data);
 
-    when(
-      () => agent.mockUrlLauncherPlatform.launch(
-        url,
-        useSafariVC: true,
-        useWebView: true,
-        enableJavaScript: true,
-        enableDomStorage: true,
-        universalLinksOnly: false,
-        headers: {},
-      ),
-    ).thenAnswer((_) async => true);
+    expect(
+      agent.mockUrlLauncherPlatform.calledUrls.contains(url),
+      false,
+    );
 
     // ターゲットをタップする
     await tester.tap(tapTarget);
     await tester.pump();
 
-    verify(
-      () => agent.mockUrlLauncherPlatform.launch(
-        url,
-        useSafariVC: true,
-        useWebView: true,
-        enableJavaScript: true,
-        enableDomStorage: true,
-        universalLinksOnly: false,
-        headers: {},
-      ),
-    ).called(1);
+    expect(
+      agent.mockUrlLauncherPlatform.calledUrls.contains(url),
+      true,
+    );
   }
 
   group('RepoDetailView', () {
