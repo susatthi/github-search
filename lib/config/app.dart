@@ -84,8 +84,9 @@ class _GitHubSearchApp extends ConsumerWidget {
     return MaterialApp.router(
       scaffoldMessengerKey: scaffoldMessengerKey,
       debugShowCheckedModeBanner: false,
-      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: LocaleSettings.supportedLocales,
       locale: TranslationProvider.of(context).flutterLocale,
