@@ -310,32 +310,6 @@ class TransitionPage extends CustomTransitionPage<void> {
         transitionsBuilder: _fadeTransitionsBuilder,
       );
 
-  factory TransitionPage.slide({
-    required Widget child,
-    required String name,
-  }) =>
-      TransitionPage(
-        name: name,
-        child: child,
-        transitionsBuilder: _slideTransitionsBuilder,
-      );
-
-  static Widget _slideTransitionsBuilder(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child,
-  ) =>
-      SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1, 0),
-          end: Offset.zero,
-        ).animate(
-          CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn),
-        ),
-        child: child,
-      );
-
   static Widget _fadeTransitionsBuilder(
     BuildContext context,
     Animation<double> animation,
