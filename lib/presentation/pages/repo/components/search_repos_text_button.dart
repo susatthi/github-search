@@ -4,9 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import '../repo_search_page.dart';
+import '../../../../config/router.dart';
 import 'search_repos_query.dart';
 import 'search_repos_text_field.dart';
 
@@ -46,12 +45,12 @@ class SearchReposTextButton extends ConsumerWidget {
           ),
           onTap: () {
             // リポジトリ検索画面に遷移する
-            context.goNamed(RepoSearchPage.name);
+            const RepoSearchRoute().go(context);
           },
           onTappedDelete: () {
             // 検索文字列をクリアしてリポジトリ検索画面に遷移する
             ref.read(searchReposQueryStringUpdater)('');
-            context.goNamed(RepoSearchPage.name);
+            const RepoSearchRoute().go(context);
           },
         ),
       ),

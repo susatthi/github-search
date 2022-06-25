@@ -150,7 +150,15 @@ final mockHttpClientError = MockClient(
 );
 
 /// モック版のGoRouter
-class MockGoRouter extends Mock implements GoRouter {}
+class MockGoRouter extends Mock implements GoRouter {
+  /// go()メソッドが呼ばれたURLのリスト
+  final calledLocations = <String>[];
+
+  @override
+  void go(String location, {Object? extra}) {
+    calledLocations.add(location);
+  }
+}
 
 /// モック版のUrlLauncherPlatform
 class MockUrlLauncherPlatform extends Mock

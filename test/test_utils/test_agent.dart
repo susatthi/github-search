@@ -129,6 +129,8 @@ class TestAgent {
       ];
 
   Future<void> tearDown() async {
+    mockUrlLauncherPlatform.calledUrls.clear();
+    mockGoRouter.calledLocations.clear();
     await hiveTestAgent.tearDown();
     await isarTestAgent.tearDown();
     providerContainerTestAgent.tearDown();

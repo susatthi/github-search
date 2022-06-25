@@ -12,9 +12,6 @@ import 'components/avatar_preview_view.dart';
 class AvatarPreviewPage extends StatelessWidget {
   const AvatarPreviewPage({super.key});
 
-  static const name = 'avatar-preview';
-  static const path = 'avatar-preview';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

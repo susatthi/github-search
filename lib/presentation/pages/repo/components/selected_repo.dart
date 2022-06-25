@@ -4,12 +4,10 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/logger.dart';
-import '../repo_view_page.dart';
 
 part 'selected_repo.freezed.dart';
 
@@ -45,13 +43,6 @@ class SelectedRepoParameter with _$SelectedRepoParameter {
     /// 詳細画面で再読込した場合などは null になる場合がある
     Repo? extra,
   }) = _SelectedRepoParameter;
-
-  factory SelectedRepoParameter.from(GoRouterState state) =>
-      SelectedRepoParameter(
-        ownerName: state.params[pageParamKeyOwnerName]!,
-        repoName: state.params[pageParamKeyRepoName]!,
-        extra: state.extra as Repo?,
-      );
 }
 
 /// 選択中のリポジトリNotifier

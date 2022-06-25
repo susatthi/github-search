@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../domain/repositories/repo/entities/repo.dart';
 import '../presentation/pages/error/error_page.dart';
 import '../presentation/pages/repo/avatar_preview_page.dart';
 import '../presentation/pages/repo/components/selected_repo.dart';
@@ -14,75 +15,165 @@ import '../presentation/pages/repo/repo_index_page.dart';
 import '../presentation/pages/repo/repo_search_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';
 
+part 'router.g.dart';
+
+/// ルーティングテーブル
+@TypedGoRoute<RepoIndexRoute>(
+  path: '/repos',
+  routes: [
+    TypedGoRoute<RepoSearchRoute>(
+      path: 'search',
+    ),
+    TypedGoRoute<RepoViewRoute>(
+      path: ':ownerName/:repoName',
+      routes: [
+        TypedGoRoute<AvatarPreviewRoute>(
+          path: 'avatar',
+        ),
+      ],
+    ),
+  ],
+)
+
+/// リポジトリ一覧画面
+class RepoIndexRoute extends GoRouteData {
+  const RepoIndexRoute();
+
+  static const name = 'repo-index';
+
+  @override
+  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+        name: name,
+        child: const RepoIndexPage(),
+      );
+}
+
+/// リポジトリ検索画面
+class RepoSearchRoute extends GoRouteData {
+  const RepoSearchRoute();
+
+  static const name = 'repo-search';
+
+  @override
+  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+        name: name,
+        child: const RepoSearchPage(),
+      );
+}
+
+/// リポジトリ詳細画面
+///
+/// 下記の go_router_builder のバグ？があるため、$extra でキャッシュされた Repo
+/// を受け取るのをやめている。バグが直ったら元に戻したい。
+///
+/// ＜バグの内容＞
+/// $extra を含むルートがネストしていて、ネストしたページを開いたときにエラーが発生する。
+/// アバター画面表示時に $extra に AvatarPreviewRoute インスタンスがきて
+/// 型不一致でエラーになってしまう。
+///
+/// ＜回避方法＞
+/// $extra をやめること。
+class RepoViewRoute extends GoRouteData {
+  const RepoViewRoute(
+    this.ownerName,
+    this.repoName,
+  );
+
+  factory RepoViewRoute.from(Repo repo) => RepoViewRoute(
+        repo.ownerName,
+        repo.repoName,
+      );
+
+  final String ownerName;
+  final String repoName;
+
+  static const name = 'repo-view';
+
+  @override
+  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+        name: name,
+        child: ProviderScope(
+          overrides: [
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                SelectedRepoParameter(
+                  ownerName: ownerName,
+                  repoName: repoName,
+                ),
+              ),
+            ),
+          ],
+          child: const RepoViewPage(),
+        ),
+      );
+}
+
+/// アバタープレビュー画面
+class AvatarPreviewRoute extends GoRouteData {
+  const AvatarPreviewRoute(
+    this.ownerName,
+    this.repoName, {
+    this.$extra,
+  });
+
+  factory AvatarPreviewRoute.from(Repo repo) => AvatarPreviewRoute(
+        repo.ownerName,
+        repo.repoName,
+        $extra: repo,
+      );
+
+  final String ownerName;
+  final String repoName;
+  final Repo? $extra;
+
+  static const name = 'avatar';
+
+  @override
+  Page<void> buildPage(BuildContext context) => TransitionPage.none(
+        name: name,
+        child: ProviderScope(
+          overrides: [
+            selectedRepoProvider.overrideWithProvider(
+              selectedRepoProviderFamily(
+                SelectedRepoParameter(
+                  ownerName: ownerName,
+                  repoName: repoName,
+                  extra: $extra,
+                ),
+              ),
+            ),
+          ],
+          child: const AvatarPreviewPage(),
+        ),
+      );
+}
+
+/// エラー画面
+class ErrorRoute extends GoRouteData {
+  const ErrorRoute(
+    this.error,
+  );
+
+  final Exception? error;
+
+  static const name = 'error';
+
+  @override
+  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+        name: name,
+        child: ErrorPage(error: error),
+      );
+}
+
 /// 画面遷移の定義Provider
 final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
-    initialLocation: RepoIndexPage.path,
-    routes: [
-      // リポジトリ一覧画面
-      GoRoute(
-        path: RepoIndexPage.path,
-        name: RepoIndexPage.name,
-        pageBuilder: (context, state) => DefaultTransitionPage(
-          state: state,
-          child: const RepoIndexPage(),
-        ),
-        routes: [
-          // リポジトリ検索画面
-          GoRoute(
-            path: RepoSearchPage.path,
-            name: RepoSearchPage.name,
-            pageBuilder: (context, state) => DefaultTransitionPage(
-              state: state,
-              child: const RepoSearchPage(),
-            ),
-          ),
-          // リポジトリ詳細画面
-          GoRoute(
-            path: RepoViewPage.path,
-            name: RepoViewPage.name,
-            pageBuilder: (context, state) => DefaultTransitionPage(
-              state: state,
-              child: ProviderScope(
-                overrides: [
-                  selectedRepoProvider.overrideWithProvider(
-                    selectedRepoProviderFamily(
-                      SelectedRepoParameter.from(state),
-                    ),
-                  ),
-                ],
-                child: const RepoViewPage(),
-              ),
-            ),
-            routes: [
-              // アバタープレビュー画面
-              GoRoute(
-                path: AvatarPreviewPage.path,
-                name: AvatarPreviewPage.name,
-                pageBuilder: (context, state) => DefaultTransitionPage(
-                  state: state,
-                  opaque: false,
-                  child: ProviderScope(
-                    overrides: [
-                      selectedRepoProvider.overrideWithProvider(
-                        selectedRepoProviderFamily(
-                          SelectedRepoParameter.from(state),
-                        ),
-                      ),
-                    ],
-                    child: const AvatarPreviewPage(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
+    initialLocation: '/repos',
+    routes: $appRoutes,
+
     // エラー画面
-    errorBuilder: (context, state) => ErrorPage(
-      error: state.error,
-    ),
+    errorPageBuilder: (context, state) =>
+        ErrorRoute(state.error).buildPage(context),
     observers: [pageRouteObserver],
     debugLogDiagnostics: !kReleaseMode,
 
@@ -180,17 +271,11 @@ abstract class PageRouteAware {
 }
 
 /// デフォルトのTransitionPage
-class DefaultTransitionPage extends CustomTransitionPage<void> {
-  DefaultTransitionPage({
-    required GoRouterState state,
+class TransitionPage extends CustomTransitionPage<void> {
+  const TransitionPage({
+    required String name,
     required super.child,
-    Widget Function(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-    )?
-        transitionsBuilder,
+    required super.transitionsBuilder,
     super.transitionDuration,
     super.maintainState,
     super.fullscreenDialog,
@@ -198,21 +283,46 @@ class DefaultTransitionPage extends CustomTransitionPage<void> {
     super.barrierDismissible,
     super.barrierColor,
     super.barrierLabel,
-    LocalKey? key,
-    String? name,
+    super.key,
     super.arguments,
     super.restorationId,
   }) : super(
-          transitionsBuilder: transitionsBuilder ?? _transitionsBuilder,
-          key: key ?? state.pageKey,
-          name: name ?? state.name,
+          name: name,
         );
 
-  static Widget _transitionsBuilder(
+  factory TransitionPage.none({
+    required Widget child,
+    required String name,
+  }) =>
+      TransitionPage(
+        name: name,
+        child: child,
+        transitionsBuilder: _noneTransitionsBuilder,
+      );
+
+  factory TransitionPage.fade({
+    required Widget child,
+    required String name,
+  }) =>
+      TransitionPage(
+        name: name,
+        child: child,
+        transitionsBuilder: _fadeTransitionsBuilder,
+      );
+
+  static Widget _fadeTransitionsBuilder(
     BuildContext context,
     Animation<double> animation,
     Animation<double> secondaryAnimation,
     Widget child,
   ) =>
       FadeTransition(opacity: animation, child: child);
+
+  static Widget _noneTransitionsBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
+      child;
 }

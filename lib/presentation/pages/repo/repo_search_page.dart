@@ -13,9 +13,6 @@ import 'components/search_repos_text_field.dart';
 class RepoSearchPage extends StatelessWidget {
   const RepoSearchPage({super.key});
 
-  static const name = 'repo-search';
-  static const path = 'search';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
