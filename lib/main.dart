@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'config/app.dart';
 import 'domain/repositories/app_data/app_data_repository.dart';
@@ -29,9 +30,13 @@ Future<void> main() async {
   await Hive.openBox<dynamic>(hiveBoxNameAppData);
 
   // isar の初期化
-  final dir = await getApplicationSupportDirectory();
+  var path = '';
+  if (!UniversalPlatform.isWeb) {
+    final dir = await getApplicationSupportDirectory();
+    path = dir.path;
+  }
   final isar = await Isar.open(
-    directory: dir.path,
+    directory: path,
     schemas: [
       QueryHistoryCollectionSchema,
     ],
