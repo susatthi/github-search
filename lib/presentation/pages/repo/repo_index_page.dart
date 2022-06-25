@@ -10,14 +10,10 @@ import '../../components/search_app_bar.dart';
 import 'components/repo_list_view.dart';
 import 'components/repo_sort_button.dart';
 import 'components/search_repos_text_button.dart';
-import 'repo_search_page.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatefulWidget {
   const RepoIndexPage({super.key});
-
-  static const name = 'repo-index';
-  static const path = '/repo';
 
   @override
   RepoIndexPageState createState() => RepoIndexPageState();
@@ -77,7 +73,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   @override
   void didPushNext(Route<dynamic> nextRoute) {
     // 遷移先がリポジトリ検索画面の時だけアニメーションする
-    if (nextRoute.settings.name == RepoSearchPage.name) {
+    if (nextRoute.settings.name == RepoSearchRoute.name) {
       _animatedBackgroundKey.currentState?.fill();
     }
   }
@@ -86,7 +82,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   @override
   void didPopNext(Route<dynamic> nextRoute) {
     // 遷移元がリポジトリ検索画面の時だけアニメーションする
-    if (nextRoute.settings.name == RepoSearchPage.name) {
+    if (nextRoute.settings.name == RepoSearchRoute.name) {
       _animatedBackgroundKey.currentState?.collapse();
     }
   }

@@ -6,16 +6,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/config/router.dart';
 import 'package:github_search/domain/repositories/repo/entities/repo.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/components/error_view.dart';
-import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
-import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/test_agent.dart';
@@ -235,33 +233,16 @@ void main() {
       final detailView =
           tester.widget(find.byType(SliverRepoDetailViewInternal))
               as SliverRepoDetailViewInternal;
-      final data = detailView.repo;
+      final repo = detailView.repo;
 
-      verifyNever(
-        () => agent.mockGoRouter.goNamed(
-          AvatarPreviewPage.name,
-          params: RepoViewPage.params(
-            ownerName: 'flutter',
-            repoName: 'plugins',
-          ),
-          extra: data,
-        ),
-      );
+      final location = AvatarPreviewRoute.from(repo).location;
+      expect(agent.mockGoRouter.calledLocations.contains(location), false);
 
       // アバター画像をタップする
       await tester.tap(find.byType(CachedCircleAvatar));
 
       // プレビュー画面に画面遷移するはず
-      verify(
-        () => agent.mockGoRouter.goNamed(
-          AvatarPreviewPage.name,
-          params: RepoViewPage.params(
-            ownerName: 'flutter',
-            repoName: 'plugins',
-          ),
-          extra: data,
-        ),
-      ).called(1);
+      expect(agent.mockGoRouter.calledLocations.contains(location), true);
     });
     testDeviceGoldens('ゴールデン', (tester) async {
       await tester.pumpDeviceBuilder(

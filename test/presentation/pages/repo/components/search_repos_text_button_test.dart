@@ -4,12 +4,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/config/router.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_text_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
-import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../../../test_utils/test_agent.dart';
 
@@ -43,11 +42,12 @@ void main() {
         ),
       );
 
-      verifyNever(() => agent.mockGoRouter.goNamed(RepoSearchPage.name));
+      final location = const RepoSearchRoute().location;
+      expect(agent.mockGoRouter.calledLocations.contains(location), false);
 
       // タップするとリポジトリ検索画面に遷移するはず
       await tester.tap(find.byType(SearchReposTextButton));
-      verify(() => agent.mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
+      expect(agent.mockGoRouter.calledLocations.contains(location), true);
     });
     testWidgets('削除ボタンをタップすると検索文字列をクリアしてリポジトリ検索画面に遷移するはず', (tester) async {
       const initQuery = 'foooooo';
@@ -66,7 +66,8 @@ void main() {
         ),
       );
 
-      verifyNever(() => agent.mockGoRouter.goNamed(RepoSearchPage.name));
+      final location = const RepoSearchRoute().location;
+      expect(agent.mockGoRouter.calledLocations.contains(location), false);
 
       // 検索文字列が初期値になっているはず
       final state = tester.state(find.byType(SearchReposTextField))
@@ -81,7 +82,7 @@ void main() {
       expect(state.controller.text, '');
 
       // リポジトリ検索画面に遷移するはず
-      verify(() => agent.mockGoRouter.goNamed(RepoSearchPage.name)).called(1);
+      expect(agent.mockGoRouter.calledLocations.contains(location), true);
     });
   });
 }

@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../../../config/router.dart';
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/entities/values/repo_count.dart';
 import '../../../../utils/logger.dart';
@@ -14,8 +14,6 @@ import '../../../components/error_view.dart';
 import '../../../components/hyperlink_text.dart';
 import '../../../components/icon_label.dart';
 import '../../../components/launch_url_state.dart';
-import '../avatar_preview_page.dart';
-import '../repo_view_page.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';
 import 'selected_repo.dart';
@@ -98,14 +96,7 @@ class _AvatarRow extends StatelessWidget {
             logger.i('Tapped avatar: url = ${repo.avatarUrl}');
 
             // アバタープレビュー画面に遷移する
-            context.goNamed(
-              AvatarPreviewPage.name,
-              params: RepoViewPage.params(
-                ownerName: repo.ownerName,
-                repoName: repo.repoName,
-              ),
-              extra: repo,
-            );
+            AvatarPreviewRoute.from(repo).go(context);
           },
           child: Padding(
             padding: const EdgeInsets.all(_verticalPadding),

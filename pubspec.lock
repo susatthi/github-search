@@ -9,7 +9,7 @@ packages:
     source: hosted
     version: "40.0.0"
   analyzer:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
@@ -380,6 +380,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
+  go_router_builder:
+    dependency: "direct dev"
+    description:
+      name: go_router_builder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   golden_toolkit:
     dependency: "direct dev"
     description:
@@ -681,6 +688,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+  path_to_regexp:
+    dependency: transitive
+    description:
+      name: path_to_regexp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   pedantic:
     dependency: transitive
     description:
