@@ -2,9 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:roggle/roggle.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 final logger = Roggle(
   printer: SinglePrettyPrinter(
@@ -12,7 +11,7 @@ final logger = Roggle(
     // warning 以上のときはスタックトレースを出力する
     stackTraceLevel: Level.warning,
     // iOS はカラー非対応
-    colors: !Platform.isIOS,
+    colors: !UniversalPlatform.isIOS,
     // ログが長くなるので非表示
     printCaller: false,
   ),
