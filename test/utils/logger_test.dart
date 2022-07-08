@@ -4,6 +4,7 @@
 
 // ignore_for_file: cascade_invocations
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/utils/logger.dart';
 
@@ -118,6 +119,32 @@ void main() {
         },
         throwsAssertionError,
       );
+    });
+  });
+  group('ProviderLogger', () {
+    test('各種ログが出力されても問題ないはず', () {
+      final container = ProviderContainer(
+        observers: [
+          ProviderLogger(),
+        ],
+      );
+
+      final textProvider = StateProvider.autoDispose<String>(
+        (ref) => 'hoge',
+        name: 'textProvider',
+      );
+      container.read(textProvider);
+      container.read(textProvider.notifier).state = 'foo';
+
+      final errorProvider = Provider(
+        (ref) => throw Exception(),
+        name: 'errorProvider',
+      );
+      try {
+        container.read(errorProvider);
+      } on Exception catch (_) {
+        // do nothing
+      }
     });
   });
 }
