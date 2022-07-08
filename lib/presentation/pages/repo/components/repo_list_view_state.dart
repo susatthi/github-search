@@ -24,10 +24,6 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     final queryString = ref.watch(searchReposQueryStringProvider);
     final sort = ref.watch(searchReposSortProvider);
     final order = ref.watch(searchReposOrderProvider);
-    logger.i(
-      'Create RepoListViewNotifier: queryString = $queryString, '
-      'sort = ${sort.name}, order = ${order.name}',
-    );
     return RepoListViewNotifier(
       repository: ref.watch(repoRepositoryProvider),
       queryString: queryString,
@@ -35,6 +31,7 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
       order: order,
     );
   },
+  name: 'repoListViewStateProvider',
 );
 
 /// リポジトリ一覧View状態

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'launch_url_state.dart';
+part of 'url_launcher.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,32 +15,32 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$LaunchUrlState {
+mixin _$UrlLauncherState {
   String? get urlString => throw _privateConstructorUsedError;
   LaunchMode get mode => throw _privateConstructorUsedError;
-  LaunchUrlStatus get status => throw _privateConstructorUsedError;
+  UrlLauncherStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LaunchUrlStateCopyWith<LaunchUrlState> get copyWith =>
+  $UrlLauncherStateCopyWith<UrlLauncherState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LaunchUrlStateCopyWith<$Res> {
-  factory $LaunchUrlStateCopyWith(
-          LaunchUrlState value, $Res Function(LaunchUrlState) then) =
-      _$LaunchUrlStateCopyWithImpl<$Res>;
-  $Res call({String? urlString, LaunchMode mode, LaunchUrlStatus status});
+abstract class $UrlLauncherStateCopyWith<$Res> {
+  factory $UrlLauncherStateCopyWith(
+          UrlLauncherState value, $Res Function(UrlLauncherState) then) =
+      _$UrlLauncherStateCopyWithImpl<$Res>;
+  $Res call({String? urlString, LaunchMode mode, UrlLauncherStatus status});
 }
 
 /// @nodoc
-class _$LaunchUrlStateCopyWithImpl<$Res>
-    implements $LaunchUrlStateCopyWith<$Res> {
-  _$LaunchUrlStateCopyWithImpl(this._value, this._then);
+class _$UrlLauncherStateCopyWithImpl<$Res>
+    implements $UrlLauncherStateCopyWith<$Res> {
+  _$UrlLauncherStateCopyWithImpl(this._value, this._then);
 
-  final LaunchUrlState _value;
+  final UrlLauncherState _value;
   // ignore: unused_field
-  final $Res Function(LaunchUrlState) _then;
+  final $Res Function(UrlLauncherState) _then;
 
   @override
   $Res call({
@@ -60,31 +60,31 @@ class _$LaunchUrlStateCopyWithImpl<$Res>
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as LaunchUrlStatus,
+              as UrlLauncherStatus,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$$_LaunchUrlStateCopyWith<$Res>
-    implements $LaunchUrlStateCopyWith<$Res> {
-  factory _$$_LaunchUrlStateCopyWith(
-          _$_LaunchUrlState value, $Res Function(_$_LaunchUrlState) then) =
-      __$$_LaunchUrlStateCopyWithImpl<$Res>;
+abstract class _$$_UrlLauncherStateCopyWith<$Res>
+    implements $UrlLauncherStateCopyWith<$Res> {
+  factory _$$_UrlLauncherStateCopyWith(
+          _$_UrlLauncherState value, $Res Function(_$_UrlLauncherState) then) =
+      __$$_UrlLauncherStateCopyWithImpl<$Res>;
   @override
-  $Res call({String? urlString, LaunchMode mode, LaunchUrlStatus status});
+  $Res call({String? urlString, LaunchMode mode, UrlLauncherStatus status});
 }
 
 /// @nodoc
-class __$$_LaunchUrlStateCopyWithImpl<$Res>
-    extends _$LaunchUrlStateCopyWithImpl<$Res>
-    implements _$$_LaunchUrlStateCopyWith<$Res> {
-  __$$_LaunchUrlStateCopyWithImpl(
-      _$_LaunchUrlState _value, $Res Function(_$_LaunchUrlState) _then)
-      : super(_value, (v) => _then(v as _$_LaunchUrlState));
+class __$$_UrlLauncherStateCopyWithImpl<$Res>
+    extends _$UrlLauncherStateCopyWithImpl<$Res>
+    implements _$$_UrlLauncherStateCopyWith<$Res> {
+  __$$_UrlLauncherStateCopyWithImpl(
+      _$_UrlLauncherState _value, $Res Function(_$_UrlLauncherState) _then)
+      : super(_value, (v) => _then(v as _$_UrlLauncherState));
 
   @override
-  _$_LaunchUrlState get _value => super._value as _$_LaunchUrlState;
+  _$_UrlLauncherState get _value => super._value as _$_UrlLauncherState;
 
   @override
   $Res call({
@@ -92,7 +92,7 @@ class __$$_LaunchUrlStateCopyWithImpl<$Res>
     Object? mode = freezed,
     Object? status = freezed,
   }) {
-    return _then(_$_LaunchUrlState(
+    return _then(_$_UrlLauncherState(
       urlString: urlString == freezed
           ? _value.urlString
           : urlString // ignore: cast_nullable_to_non_nullable
@@ -104,18 +104,18 @@ class __$$_LaunchUrlStateCopyWithImpl<$Res>
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as LaunchUrlStatus,
+              as UrlLauncherStatus,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_LaunchUrlState implements _LaunchUrlState {
-  const _$_LaunchUrlState(
+class _$_UrlLauncherState implements _UrlLauncherState {
+  const _$_UrlLauncherState(
       {this.urlString,
       this.mode = LaunchMode.platformDefault,
-      this.status = LaunchUrlStatus.wating});
+      this.status = UrlLauncherStatus.waiting});
 
   @override
   final String? urlString;
@@ -124,18 +124,18 @@ class _$_LaunchUrlState implements _LaunchUrlState {
   final LaunchMode mode;
   @override
   @JsonKey()
-  final LaunchUrlStatus status;
+  final UrlLauncherStatus status;
 
   @override
   String toString() {
-    return 'LaunchUrlState(urlString: $urlString, mode: $mode, status: $status)';
+    return 'UrlLauncherState(urlString: $urlString, mode: $mode, status: $status)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LaunchUrlState &&
+            other is _$_UrlLauncherState &&
             const DeepCollectionEquality().equals(other.urlString, urlString) &&
             const DeepCollectionEquality().equals(other.mode, mode) &&
             const DeepCollectionEquality().equals(other.status, status));
@@ -150,24 +150,24 @@ class _$_LaunchUrlState implements _LaunchUrlState {
 
   @JsonKey(ignore: true)
   @override
-  _$$_LaunchUrlStateCopyWith<_$_LaunchUrlState> get copyWith =>
-      __$$_LaunchUrlStateCopyWithImpl<_$_LaunchUrlState>(this, _$identity);
+  _$$_UrlLauncherStateCopyWith<_$_UrlLauncherState> get copyWith =>
+      __$$_UrlLauncherStateCopyWithImpl<_$_UrlLauncherState>(this, _$identity);
 }
 
-abstract class _LaunchUrlState implements LaunchUrlState {
-  const factory _LaunchUrlState(
+abstract class _UrlLauncherState implements UrlLauncherState {
+  const factory _UrlLauncherState(
       {final String? urlString,
       final LaunchMode mode,
-      final LaunchUrlStatus status}) = _$_LaunchUrlState;
+      final UrlLauncherStatus status}) = _$_UrlLauncherState;
 
   @override
   String? get urlString => throw _privateConstructorUsedError;
   @override
   LaunchMode get mode => throw _privateConstructorUsedError;
   @override
-  LaunchUrlStatus get status => throw _privateConstructorUsedError;
+  UrlLauncherStatus get status => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_LaunchUrlStateCopyWith<_$_LaunchUrlState> get copyWith =>
+  _$$_UrlLauncherStateCopyWith<_$_UrlLauncherState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -65,26 +65,33 @@ void main() {
   });
   group('repoReadmeContentProvider', () {
     test('正常にREADMEコンテンツが取得できるはず', () async {
-      final notifier = agent
+      // 初期値はAsyncLoading
+      var asyncValue = agent
           .mockContainer()
           .listen(
-            readmeContentProviderFamily(repo).notifier,
+            readmeContentProviderFamily(repo),
             (previous, next) {},
           )
           .read();
-      // 初期値はAsyncLoading
-      expect(notifier.state is AsyncLoading, true);
-      expect(notifier.state.value, isNull);
+      expect(asyncValue is AsyncLoading, true);
+      expect(asyncValue.value, isNull);
 
       // データを取り終わるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // データが取得できているはず
-      expect(notifier.state is AsyncData, true);
-      expect(notifier.state.value, isNotNull);
+      asyncValue = agent
+          .mockContainer()
+          .listen(
+            readmeContentProviderFamily(repo),
+            (previous, next) {},
+          )
+          .read();
+      expect(asyncValue is AsyncData, true);
+      expect(asyncValue.value, isNotNull);
     });
     test('通信エラー時はAsyncErrorのはず', () async {
-      final notifier = agent
+      var asyncValue = agent
           .mockContainer(
             overrides: [
               // 常にエラーを返すHTTPクライアントを使う
@@ -92,7 +99,7 @@ void main() {
             ],
           )
           .listen(
-            readmeContentProviderFamily(repo).notifier,
+            readmeContentProviderFamily(repo),
             (previous, next) {},
           )
           .read();
@@ -101,7 +108,19 @@ void main() {
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // AsyncErrorのはず
-      expect(notifier.state is AsyncError, true);
+      asyncValue = agent
+          .mockContainer(
+            overrides: [
+              // 常にエラーを返すHTTPクライアントを使う
+              httpClientProvider.overrideWithValue(mockHttpClientError),
+            ],
+          )
+          .listen(
+            readmeContentProviderFamily(repo),
+            (previous, next) {},
+          )
+          .read();
+      expect(asyncValue is AsyncError, true);
     });
   });
   group('ReadmeMarkdown', () {

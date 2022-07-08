@@ -377,7 +377,7 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Repo implements _Repo {
+class _$_Repo extends _Repo {
   const _$_Repo(
       {required this.ownerName,
       required this.avatarUrl,
@@ -395,7 +395,8 @@ class _$_Repo implements _Repo {
       this.stargazersUrl,
       this.watchersUrl,
       this.forksUrl,
-      this.issuesUrl});
+      this.issuesUrl})
+      : super._();
 
   /// オーナー名
   @override
@@ -466,11 +467,6 @@ class _$_Repo implements _Repo {
   final String? issuesUrl;
 
   @override
-  String toString() {
-    return 'Repo(ownerName: $ownerName, avatarUrl: $avatarUrl, ownerUrl: $ownerUrl, repoName: $repoName, fullName: $fullName, description: $description, stargazersCount: $stargazersCount, watchersCount: $watchersCount, language: $language, forksCount: $forksCount, openIssuesCount: $openIssuesCount, defaultBranch: $defaultBranch, repoUrl: $repoUrl, stargazersUrl: $stargazersUrl, watchersUrl: $watchersUrl, forksUrl: $forksUrl, issuesUrl: $issuesUrl)';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -529,7 +525,7 @@ class _$_Repo implements _Repo {
       __$$_RepoCopyWithImpl<_$_Repo>(this, _$identity);
 }
 
-abstract class _Repo implements Repo {
+abstract class _Repo extends Repo {
   const factory _Repo(
       {required final String ownerName,
       required final String avatarUrl,
@@ -548,6 +544,7 @@ abstract class _Repo implements Repo {
       final String? watchersUrl,
       final String? forksUrl,
       final String? issuesUrl}) = _$_Repo;
+  const _Repo._() : super._();
 
   @override
 

@@ -22,15 +22,16 @@ final searchReposInitQueryStringProvider = Provider<String>(
 /// リポジトリ検索文字列プロバイダー
 final searchReposQueryStringProvider = StateProvider<String>(
   (ref) => ref.watch(searchReposInitQueryStringProvider),
+  name: 'searchReposQueryStringProvider',
 );
 
 /// リポジトリ検索文字列更新メソッドプロバイダー
 final searchReposQueryStringUpdater = Provider(
   (ref) {
-    final notifier = ref.watch(searchReposQueryStringProvider.notifier);
-    final repository = ref.watch(queryHistoryRepositoryProvider);
+    final read = ref.read;
     return (String queryString) async {
-      notifier.state = queryString;
+      read(searchReposQueryStringProvider.notifier).state = queryString;
+      final repository = read(queryHistoryRepositoryProvider);
       await repository.add(
         QueryHistoryInput(queryString: queryString),
       );
@@ -46,8 +47,9 @@ final searchReposEnteringQueryStringProvider = StateProvider<String>(
 /// 入力中のリポジトリ検索文字列更新メソッドプロバイダー
 final searchReposEnteringQueryStringUpdater = Provider(
   (ref) {
-    final notifier = ref.watch(searchReposEnteringQueryStringProvider.notifier);
+    final read = ref.read;
     return (String queryString) async {
+      final notifier = read(searchReposEnteringQueryStringProvider.notifier);
       // もし現在の文字列と同じ場合は更新しない
       final current = ref.read(searchReposEnteringQueryStringProvider);
       if (current != queryString) {

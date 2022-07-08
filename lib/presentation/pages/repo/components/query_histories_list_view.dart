@@ -13,17 +13,11 @@ import 'search_repos_query.dart';
 /// 検索履歴一覧プロバイダー
 final queryHistoriesProvider = StateNotifierProvider.autoDispose<
     QueryHistoriesNotifier, AsyncValue<List<QueryHistory>>>(
-  (ref) {
-    final notifier = QueryHistoriesNotifier(
-      repository: ref.watch(queryHistoryRepositoryProvider),
-      queryString: ref.watch(searchReposEnteringQueryStringProvider),
-    );
-    ref.onDispose(() {
-      logger.v('Disposed notifier: $notifier');
-    });
-    logger.v('Created notifier: $notifier');
-    return notifier;
-  },
+  (ref) => QueryHistoriesNotifier(
+    repository: ref.watch(queryHistoryRepositoryProvider),
+    queryString: ref.watch(searchReposEnteringQueryStringProvider),
+  ),
+  name: 'queryHistoriesProvider',
 );
 
 /// 検索履歴一覧Notifier

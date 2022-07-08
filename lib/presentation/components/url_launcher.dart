@@ -9,37 +9,39 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/logger.dart';
 
-part 'launch_url_state.freezed.dart';
+part 'url_launcher.freezed.dart';
 
 /// URL起動のステータス
-enum LaunchUrlStatus {
+enum UrlLauncherStatus {
   /// 起動前
-  wating,
+  waiting,
 
   /// 起動できた
   success,
 
   /// 起動できなかった
-  error;
+  error,
+  ;
 }
 
 /// URL起動状態
 ///
 /// URL起動に成功したかどうかのステータスを持つ
 @freezed
-class LaunchUrlState with _$LaunchUrlState {
-  const factory LaunchUrlState({
+class UrlLauncherState with _$UrlLauncherState {
+  const factory UrlLauncherState({
     String? urlString,
     @Default(LaunchMode.platformDefault) LaunchMode mode,
-    @Default(LaunchUrlStatus.wating) LaunchUrlStatus status,
-  }) = _LaunchUrlState;
+    @Default(UrlLauncherStatus.waiting) UrlLauncherStatus status,
+  }) = _UrlLauncherState;
 }
 
 /// URL起動状態のプロバイダー
 ///
 /// `ref.listen` することでURL起動状態を監視できる
-final launchUrlStateProvider = StateProvider<LaunchUrlState>(
-  (ref) => const LaunchUrlState(),
+final urlLauncherStateProvider = StateProvider<UrlLauncherState>(
+  (ref) => const UrlLauncherState(),
+  name: 'urlLauncherStateProvider',
 );
 
 /// URL起動モードプロバイダー
@@ -50,13 +52,15 @@ final launchModeProvider = Provider(
 /// URL起動メソッドプロバイダー
 ///
 /// UI側でこのメソッドを使ってURL起動をする
-final launcher = Provider(
+final urlLauncher = Provider(
   (ref) {
-    final notifier = ref.read(launchUrlStateProvider.notifier);
-    final mode = ref.read(launchModeProvider);
+    final read = ref.read;
     return (String urlString) async {
+      final notifier = read(urlLauncherStateProvider.notifier);
+      final mode = read(launchModeProvider);
+
       // 状態を起動前に更新する
-      notifier.state = LaunchUrlState(
+      notifier.state = UrlLauncherState(
         urlString: urlString,
         mode: mode,
       );
@@ -73,21 +77,22 @@ final launcher = Provider(
         // 結果に応じて状態を更新する
         notifier.update(
           (state) => state.copyWith(
-            status: result ? LaunchUrlStatus.success : LaunchUrlStatus.error,
+            status:
+                result ? UrlLauncherStatus.success : UrlLauncherStatus.error,
           ),
         );
       } on FormatException catch (e, s) {
         logger.e('Can\'t parse url: url = $urlString', e, s);
         notifier.update(
           (state) => state.copyWith(
-            status: LaunchUrlStatus.error,
+            status: UrlLauncherStatus.error,
           ),
         );
       } on PlatformException catch (e, s) {
         logger.w('Failure launch: url = $urlString', e, s);
         notifier.update(
           (state) => state.copyWith(
-            status: LaunchUrlStatus.error,
+            status: UrlLauncherStatus.error,
           ),
         );
         // ignore: avoid_catching_errors
@@ -95,7 +100,7 @@ final launcher = Provider(
         logger.w('Failure launch: url = $urlString', e, s);
         notifier.update(
           (state) => state.copyWith(
-            status: LaunchUrlStatus.error,
+            status: UrlLauncherStatus.error,
           ),
         );
       }
