@@ -64,4 +64,12 @@ class Repo with _$Repo {
     /// Issue数URL
     String? issuesUrl,
   }) = _Repo;
+
+  // ignore: unused_element
+  const Repo._();
+
+  @override
+  String toString() {
+    return 'Repo($fullName)';
+  }
 }
