@@ -7,7 +7,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
-import '../../../../utils/logger.dart';
 
 part 'selected_repo.freezed.dart';
 
@@ -20,13 +19,11 @@ final selectedRepoProvider =
 /// 選択中のリポジトリプロバイダー（Family）
 final selectedRepoProviderFamily = StateNotifierProvider.family
     .autoDispose<SelectedRepoNotifier, AsyncValue<Repo>, SelectedRepoParameter>(
-  (ref, parameter) {
-    logger.i('Create SelectedRepoNotifier: parameter = $parameter');
-    return SelectedRepoNotifier(
-      repository: ref.watch(repoRepositoryProvider),
-      parameter: parameter,
-    );
-  },
+  (ref, parameter) => SelectedRepoNotifier(
+    repository: ref.watch(repoRepositoryProvider),
+    parameter: parameter,
+  ),
+  name: 'selectedRepoProvider',
 );
 
 /// 選択中のリポジトリ用パラメータ

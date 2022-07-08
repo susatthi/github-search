@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'launch_url_state.dart';
+import 'url_launcher.dart';
 
 /// ハイパーリンク表示するテキスト
 class HyperlinkText extends ConsumerWidget {
@@ -43,7 +43,7 @@ class HyperlinkText extends ConsumerWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: InkWell(
-        onTap: () => ref.read(launcher)(url!),
+        onTap: () => ref.read(urlLauncher)(url!),
         child: DefaultTextStyle.merge(
           style: const TextStyle(
             color: anchorColor,

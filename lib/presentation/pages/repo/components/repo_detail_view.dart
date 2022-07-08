@@ -13,7 +13,7 @@ import '../../../components/cached_circle_avatar.dart';
 import '../../../components/error_view.dart';
 import '../../../components/hyperlink_text.dart';
 import '../../../components/icon_label.dart';
-import '../../../components/launch_url_state.dart';
+import '../../../components/url_launcher.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';
 import 'selected_repo.dart';
@@ -318,7 +318,7 @@ class _IconLabel extends ConsumerWidget {
         icon: icon,
         text: text,
         padding: padding,
-        onTap: url != null ? () => ref.read(launcher)(url!) : null,
+        onTap: url != null ? () => ref.read(urlLauncher)(url!) : null,
       ),
     );
   }

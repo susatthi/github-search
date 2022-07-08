@@ -18,6 +18,7 @@ import 'infrastructure/hive/app_data/app_data_repository.dart';
 import 'infrastructure/isar/query_history/collections/query_history.dart';
 import 'infrastructure/isar/query_history/query_history_repository.dart';
 import 'localizations/strings.g.dart';
+import 'utils/logger.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,9 @@ Future<void> main() async {
 
   runApp(
     ProviderScope(
+      observers: [
+        ProviderLogger(),
+      ],
       overrides: [
         // DataSources
         isarProvider.overrideWithValue(isar),

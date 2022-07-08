@@ -4,7 +4,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/launch_url_state.dart';
+import 'package:github_search/presentation/components/url_launcher.dart';
 import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -39,7 +39,7 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(launcher)(urlString);
+      await agent.mockContainer().read(urlLauncher)(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -54,7 +54,7 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(launcher)(urlString);
+      await agent.mockContainer().read(urlLauncher)(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -69,7 +69,7 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(launcher)(urlString);
+      await agent.mockContainer().read(urlLauncher)(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -85,7 +85,7 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(launcher)(urlString);
+      await agent.mockContainer().read(urlLauncher)(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -100,7 +100,7 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(launcher)(urlString);
+      await agent.mockContainer().read(urlLauncher)(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -111,10 +111,10 @@ void main() {
       const urlString = 'https://github.com';
       String? stateUrlString;
       LaunchMode? stateMode;
-      LaunchUrlStatus? stateStatus;
+      UrlLauncherStatus? stateStatus;
 
-      agent.mockContainer().listen<LaunchUrlState>(
-        launchUrlStateProvider,
+      agent.mockContainer().listen<UrlLauncherState>(
+        urlLauncherStateProvider,
         (previous, next) {
           testLogger.i(next, null, StackTrace.current);
           stateUrlString = next.urlString;
@@ -125,29 +125,29 @@ void main() {
 
       final evacuation = UrlLauncherPlatform.instance;
       UrlLauncherPlatform.instance = ErrorkUrlLauncherPlatform();
-      final future = agent.mockContainer().read(launcher)(urlString);
+      final future = agent.mockContainer().read(urlLauncher)(urlString);
       UrlLauncherPlatform.instance = evacuation;
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
-      expect(stateStatus, LaunchUrlStatus.wating);
+      expect(stateStatus, UrlLauncherStatus.waiting);
 
       await Future.wait([future]);
 
       // URL起動に失敗したはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
-      expect(stateStatus, LaunchUrlStatus.error);
+      expect(stateStatus, UrlLauncherStatus.error);
     });
     test('URL起動できることを監視できるはず', () async {
       const urlString = 'https://github.com';
       String? stateUrlString;
       LaunchMode? stateMode;
-      LaunchUrlStatus? stateStatus;
+      UrlLauncherStatus? stateStatus;
 
-      agent.mockContainer().listen<LaunchUrlState>(
-        launchUrlStateProvider,
+      agent.mockContainer().listen<UrlLauncherState>(
+        urlLauncherStateProvider,
         (previous, next) {
           testLogger.i(next, null, StackTrace.current);
           stateUrlString = next.urlString;
@@ -156,31 +156,31 @@ void main() {
         },
       );
 
-      final future = agent.mockContainer().read(launcher)(urlString);
+      final future = agent.mockContainer().read(urlLauncher)(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
-      expect(stateStatus, LaunchUrlStatus.wating);
+      expect(stateStatus, UrlLauncherStatus.waiting);
 
       await Future.wait([future]);
 
       // URL起動に成功したはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
-      expect(stateStatus, LaunchUrlStatus.success);
+      expect(stateStatus, UrlLauncherStatus.success);
     });
     test('URL起動できないことを監視できるはず', () async {
       const urlString = 'https://999.168.0.1/';
 
       String? stateUrlString;
       LaunchMode? stateMode;
-      LaunchUrlStatus? stateStatus;
+      UrlLauncherStatus? stateStatus;
 
       agent.mockUrlLauncherPlatform.launchUrlReturnValue = false;
 
-      agent.mockContainer().listen<LaunchUrlState>(
-        launchUrlStateProvider,
+      agent.mockContainer().listen<UrlLauncherState>(
+        urlLauncherStateProvider,
         (previous, next) {
           stateUrlString = next.urlString;
           stateMode = next.mode;
@@ -188,19 +188,19 @@ void main() {
         },
       );
 
-      final future = agent.mockContainer().read(launcher)(urlString);
+      final future = agent.mockContainer().read(urlLauncher)(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
-      expect(stateStatus, LaunchUrlStatus.wating);
+      expect(stateStatus, UrlLauncherStatus.waiting);
 
       await Future.wait([future]);
 
       // URL起動に失敗したはず
       expect(stateUrlString, urlString);
       expect(stateMode, LaunchMode.inAppWebView);
-      expect(stateStatus, LaunchUrlStatus.error);
+      expect(stateStatus, UrlLauncherStatus.error);
     });
   });
 }

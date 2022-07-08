@@ -15,7 +15,7 @@ import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
-import '../../../components/launch_url_state.dart';
+import '../../../components/url_launcher.dart';
 
 /// ReadmeMarkdownのキャッシュマネージャープロバイダー
 final readmeMarkdownCacheManagerProvider = Provider<BaseCacheManager?>(
@@ -23,42 +23,13 @@ final readmeMarkdownCacheManagerProvider = Provider<BaseCacheManager?>(
 );
 
 /// READMEコンテンツプロバイダー（Family）
-final readmeContentProviderFamily = StateNotifierProvider.family
-    .autoDispose<ReadmeContentNotifier, AsyncValue<String>, Repo>(
-  (ref, repo) {
-    logger.i(
-      'Create ReadmeContentNotifier: fullName = ${repo.fullName}, '
-      'defaultBranch = ${repo.defaultBranch}',
-    );
-    return ReadmeContentNotifier(
-      repository: ref.watch(repoRepositoryProvider),
-      repo: repo,
-    );
-  },
-);
-
-/// READMEコンテンツNotifier
-class ReadmeContentNotifier extends StateNotifier<AsyncValue<String>> {
-  ReadmeContentNotifier({
-    required this.repository,
-    required this.repo,
-  }) : super(const AsyncValue.loading()) {
-    _get();
-  }
-
-  final RepoRepository repository;
-
-  /// リポジトリEntity
-  final Repo repo;
-
-  Future<void> _get() async {
-    state = await AsyncValue.guard(() async {
-      return repository.getReadme(
+final readmeContentProviderFamily =
+    FutureProvider.family.autoDispose<String, Repo>(
+  (ref, repo) => ref.watch(repoRepositoryProvider).getReadme(
         repo: repo,
-      );
-    });
-  }
-}
+      ),
+  name: 'readmeContentProviderFamily',
+);
 
 /// READMEのMarkdown表示
 class ReadmeMarkdown extends ConsumerWidget {
@@ -111,7 +82,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(launcher)(href);
+          await ref.read(urlLauncher)(href);
         }
       },
       extensionSet: ExtensionSet(
