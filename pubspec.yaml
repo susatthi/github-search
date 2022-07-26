@@ -31,7 +31,7 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   isar: ^3.0.0-dev.2
-  isar_flutter_libs: ^3.0.0-dev.2
+  isar_flutter_libs: ^3.0.0-dev.8
   json_annotation: ^4.5.0
   lottie: ^1.3.0
   markdown: ^5.0.0
@@ -55,7 +55,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.0.3+1
-  go_router_builder: ^1.0.6
+  go_router_builder: ^1.0.7
   golden_toolkit: ^0.13.0
   isar_generator: ^3.0.0-dev.2
   json_serializable: ^6.2.0
