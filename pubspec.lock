@@ -313,7 +313,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.3+1"
+    version: "2.2.6"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -386,7 +386,7 @@ packages:
       name: go_router_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.7"
   golden_toolkit:
     dependency: "direct dev"
     description:
