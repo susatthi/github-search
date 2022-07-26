@@ -386,7 +386,7 @@ packages:
       name: go_router_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.7"
   golden_toolkit:
     dependency: "direct dev"
     description:
