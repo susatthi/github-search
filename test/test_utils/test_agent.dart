@@ -259,10 +259,10 @@ class IsarTestAgent {
     HttpOverrides.global = evacuation;
 
     _isar = await Isar.open(
-      directory: testDir.dir.path,
-      schemas: [
+      [
         QueryHistoryCollectionSchema,
       ],
+      directory: testDir.dir.path,
     );
   }
 

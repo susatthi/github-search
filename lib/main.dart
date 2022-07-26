@@ -37,10 +37,10 @@ Future<void> main() async {
     path = dir.path;
   }
   final isar = await Isar.open(
-    directory: path,
-    schemas: [
+    [
       QueryHistoryCollectionSchema,
     ],
+    directory: path,
   );
 
   runApp(
