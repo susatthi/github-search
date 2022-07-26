@@ -7,27 +7,23 @@ part of 'query_history.dart';
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names,
-// constant_identifier_names, invalid_use_of_protected_member,
-// unnecessary_cast, unused_local_variable,
-// no_leading_underscores_for_local_identifiers,
-// inference_failure_on_function_invocation, prefer_const_constructors
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings
 
 extension GetQueryHistoryCollectionCollection on Isar {
   IsarCollection<QueryHistoryCollection> get queryHistoryCollections =>
-      getCollection();
+      collection();
 }
 
 const QueryHistoryCollectionSchema = CollectionSchema(
-  name: 'QueryHistoryCollection',
+  name: r'QueryHistoryCollection',
   schema:
-      '{"name":"QueryHistoryCollection","idName":"id","properties":[{"name":"queryString","type":"String"},{"name":"searchedAt","type":"Long"}],"indexes":[{"name":"searchedAt","unique":false,"replace":false,"properties":[{"name":"searchedAt","type":"Value","caseSensitive":false}]}],"links":[]}',
-  idName: 'id',
-  propertyIds: {'queryString': 0, 'searchedAt': 1},
+      r'{"name":"QueryHistoryCollection","idName":"id","properties":[{"name":"queryString","type":"String"},{"name":"searchedAt","type":"Long"}],"indexes":[{"name":"searchedAt","unique":false,"replace":false,"properties":[{"name":"searchedAt","type":"Value","caseSensitive":false}]}],"links":[]}',
+  idName: r'id',
+  propertyIds: {r'queryString': 0, r'searchedAt': 1},
   listProperties: {},
-  indexIds: {'searchedAt': 0},
+  indexIds: {r'searchedAt': 0},
   indexValueTypes: {
-    'searchedAt': [
+    r'searchedAt': [
       IndexValueType.long,
     ]
   },
@@ -72,13 +68,14 @@ void _queryHistoryCollectionSerializeNative(
     AdapterAlloc alloc) {
   final queryString$Bytes =
       IsarBinaryWriter.utf8Encoder.convert(object.queryString);
-  final size = (staticSize + (queryString$Bytes.length)) as int;
+  final size = (staticSize + 3 + (queryString$Bytes.length)) as int;
   cObj.buffer = alloc(size);
   cObj.buffer_length = size;
 
   final buffer = IsarNative.bufAsBytes(cObj.buffer, size);
   final writer = IsarBinaryWriter(buffer, staticSize);
-  writer.writeBytes(offsets[0], queryString$Bytes);
+  writer.writeHeader();
+  writer.writeByteList(offsets[0], queryString$Bytes);
   writer.writeDateTime(offsets[1], object.searchedAt);
 }
 
@@ -104,7 +101,7 @@ P _queryHistoryCollectionDeserializePropNative<P>(
     case 1:
       return (reader.readDateTime(offset)) as P;
     default:
-      throw 'Illegal propertyIndex';
+      throw IsarError('Illegal propertyIndex');
   }
 }
 
@@ -112,22 +109,21 @@ Object _queryHistoryCollectionSerializeWeb(
     IsarCollection<QueryHistoryCollection> collection,
     QueryHistoryCollection object) {
   final jsObj = IsarNative.newJsObject();
-  IsarNative.jsObjectSet(jsObj, 'id', object.id);
-  IsarNative.jsObjectSet(jsObj, 'queryString', object.queryString);
+  IsarNative.jsObjectSet(jsObj, r'id', object.id);
+  IsarNative.jsObjectSet(jsObj, r'queryString', object.queryString);
   IsarNative.jsObjectSet(
-      jsObj, 'searchedAt', object.searchedAt.toUtc().millisecondsSinceEpoch);
+      jsObj, r'searchedAt', object.searchedAt.toUtc().millisecondsSinceEpoch);
   return jsObj;
 }
 
 QueryHistoryCollection _queryHistoryCollectionDeserializeWeb(
     IsarCollection<QueryHistoryCollection> collection, Object jsObj) {
   final object = QueryHistoryCollection();
-  object.id =
-      IsarNative.jsObjectGet(jsObj, 'id') ?? (double.negativeInfinity as int);
-  object.queryString = IsarNative.jsObjectGet(jsObj, 'queryString') ?? '';
-  object.searchedAt = IsarNative.jsObjectGet(jsObj, 'searchedAt') != null
+  object.id = IsarNative.jsObjectGet(jsObj, r'id');
+  object.queryString = IsarNative.jsObjectGet(jsObj, r'queryString') ?? '';
+  object.searchedAt = IsarNative.jsObjectGet(jsObj, r'searchedAt') != null
       ? DateTime.fromMillisecondsSinceEpoch(
-              IsarNative.jsObjectGet(jsObj, 'searchedAt') as int,
+              IsarNative.jsObjectGet(jsObj, r'searchedAt') as int,
               isUtc: true)
           .toLocal()
       : DateTime.fromMillisecondsSinceEpoch(0);
@@ -137,20 +133,19 @@ QueryHistoryCollection _queryHistoryCollectionDeserializeWeb(
 P _queryHistoryCollectionDeserializePropWeb<P>(
     Object jsObj, String propertyName) {
   switch (propertyName) {
-    case 'id':
-      return (IsarNative.jsObjectGet(jsObj, 'id') ??
-          (double.negativeInfinity as int)) as P;
-    case 'queryString':
-      return (IsarNative.jsObjectGet(jsObj, 'queryString') ?? '') as P;
-    case 'searchedAt':
-      return (IsarNative.jsObjectGet(jsObj, 'searchedAt') != null
+    case r'id':
+      return (IsarNative.jsObjectGet(jsObj, r'id')) as P;
+    case r'queryString':
+      return (IsarNative.jsObjectGet(jsObj, r'queryString') ?? '') as P;
+    case r'searchedAt':
+      return (IsarNative.jsObjectGet(jsObj, r'searchedAt') != null
           ? DateTime.fromMillisecondsSinceEpoch(
-                  IsarNative.jsObjectGet(jsObj, 'searchedAt') as int,
+                  IsarNative.jsObjectGet(jsObj, r'searchedAt') as int,
                   isUtc: true)
               .toLocal()
           : DateTime.fromMillisecondsSinceEpoch(0)) as P;
     default:
-      throw 'Illegal propertyName';
+      throw IsarError('Illegal propertyName');
   }
 }
 
@@ -170,7 +165,7 @@ extension QueryHistoryCollectionQueryWhereSort
       anySearchedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        const IndexWhereClause.any(indexName: 'searchedAt'),
+        const IndexWhereClause.any(indexName: r'searchedAt'),
       );
     });
   }
@@ -183,9 +178,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
-        includeLower: true,
         upper: id,
-        includeUpper: true,
       ));
     });
   }
@@ -252,7 +245,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
       QAfterWhereClause> searchedAtEqualTo(DateTime searchedAt) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: 'searchedAt',
+        indexName: r'searchedAt',
         value: [searchedAt],
       ));
     });
@@ -264,32 +257,28 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(IndexWhereClause.between(
-              indexName: 'searchedAt',
+              indexName: r'searchedAt',
               lower: [],
-              includeLower: true,
               upper: [searchedAt],
               includeUpper: false,
             ))
             .addWhereClause(IndexWhereClause.between(
-              indexName: 'searchedAt',
+              indexName: r'searchedAt',
               lower: [searchedAt],
               includeLower: false,
               upper: [],
-              includeUpper: true,
             ));
       } else {
         return query
             .addWhereClause(IndexWhereClause.between(
-              indexName: 'searchedAt',
+              indexName: r'searchedAt',
               lower: [searchedAt],
               includeLower: false,
               upper: [],
-              includeUpper: true,
             ))
             .addWhereClause(IndexWhereClause.between(
-              indexName: 'searchedAt',
+              indexName: r'searchedAt',
               lower: [],
-              includeLower: true,
               upper: [searchedAt],
               includeUpper: false,
             ));
@@ -304,11 +293,10 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.between(
-        indexName: 'searchedAt',
+        indexName: r'searchedAt',
         lower: [searchedAt],
         includeLower: include,
         upper: [],
-        includeUpper: true,
       ));
     });
   }
@@ -320,9 +308,8 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.between(
-        indexName: 'searchedAt',
+        indexName: r'searchedAt',
         lower: [],
-        includeLower: true,
         upper: [searchedAt],
         includeUpper: include,
       ));
@@ -338,7 +325,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.between(
-        indexName: 'searchedAt',
+        indexName: r'searchedAt',
         lower: [lowerSearchedAt],
         includeLower: includeLower,
         upper: [upperSearchedAt],
@@ -354,7 +341,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
       QAfterFilterCondition> idEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: 'id',
+        property: r'id',
         value: value,
       ));
     });
@@ -368,7 +355,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: 'id',
+        property: r'id',
         value: value,
       ));
     });
@@ -382,7 +369,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: 'id',
+        property: r'id',
         value: value,
       ));
     });
@@ -397,7 +384,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: 'id',
+        property: r'id',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -413,7 +400,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: 'queryString',
+        property: r'queryString',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -429,7 +416,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: 'queryString',
+        property: r'queryString',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -445,7 +432,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: 'queryString',
+        property: r'queryString',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -462,7 +449,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: 'queryString',
+        property: r'queryString',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -479,7 +466,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: 'queryString',
+        property: r'queryString',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -493,7 +480,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: 'queryString',
+        property: r'queryString',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -505,7 +492,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
       queryStringContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: 'queryString',
+        property: r'queryString',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -517,7 +504,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
       queryStringMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: 'queryString',
+        property: r'queryString',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -528,7 +515,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
       QAfterFilterCondition> searchedAtEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: 'searchedAt',
+        property: r'searchedAt',
         value: value,
       ));
     });
@@ -542,7 +529,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: 'searchedAt',
+        property: r'searchedAt',
         value: value,
       ));
     });
@@ -556,7 +543,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: 'searchedAt',
+        property: r'searchedAt',
         value: value,
       ));
     });
@@ -571,7 +558,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: 'searchedAt',
+        property: r'searchedAt',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -589,28 +576,28 @@ extension QueryHistoryCollectionQueryWhereSortBy
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       sortByQueryString() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('queryString', Sort.asc);
+      return query.addSortBy(r'queryString', Sort.asc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       sortByQueryStringDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('queryString', Sort.desc);
+      return query.addSortBy(r'queryString', Sort.desc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       sortBySearchedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('searchedAt', Sort.asc);
+      return query.addSortBy(r'searchedAt', Sort.asc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       sortBySearchedAtDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('searchedAt', Sort.desc);
+      return query.addSortBy(r'searchedAt', Sort.desc);
     });
   }
 }
@@ -620,42 +607,42 @@ extension QueryHistoryCollectionQueryWhereSortThenBy on QueryBuilder<
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('id', Sort.asc);
+      return query.addSortBy(r'id', Sort.asc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('id', Sort.desc);
+      return query.addSortBy(r'id', Sort.desc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenByQueryString() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('queryString', Sort.asc);
+      return query.addSortBy(r'queryString', Sort.asc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenByQueryStringDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('queryString', Sort.desc);
+      return query.addSortBy(r'queryString', Sort.desc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenBySearchedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('searchedAt', Sort.asc);
+      return query.addSortBy(r'searchedAt', Sort.asc);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenBySearchedAtDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy('searchedAt', Sort.desc);
+      return query.addSortBy(r'searchedAt', Sort.desc);
     });
   }
 }
@@ -665,14 +652,14 @@ extension QueryHistoryCollectionQueryWhereDistinct
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QDistinct>
       distinctByQueryString({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy('queryString', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'queryString', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QDistinct>
       distinctBySearchedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy('searchedAt');
+      return query.addDistinctBy(r'searchedAt');
     });
   }
 }
@@ -681,21 +668,21 @@ extension QueryHistoryCollectionQueryProperty on QueryBuilder<
     QueryHistoryCollection, QueryHistoryCollection, QQueryProperty> {
   QueryBuilder<QueryHistoryCollection, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName('id');
+      return query.addPropertyName(r'id');
     });
   }
 
   QueryBuilder<QueryHistoryCollection, String, QQueryOperations>
       queryStringProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName('queryString');
+      return query.addPropertyName(r'queryString');
     });
   }
 
   QueryBuilder<QueryHistoryCollection, DateTime, QQueryOperations>
       searchedAtProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName('searchedAt');
+      return query.addPropertyName(r'searchedAt');
     });
   }
 }

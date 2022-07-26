@@ -130,7 +130,7 @@ abstract class _QueryHistoryInput extends QueryHistoryInput {
   @override
 
   /// 検索文字列
-  String get queryString => throw _privateConstructorUsedError;
+  String get queryString;
   @override
   @JsonKey(ignore: true)
   _$$_QueryHistoryInputCopyWith<_$_QueryHistoryInput> get copyWith =>

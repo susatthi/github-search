@@ -164,7 +164,9 @@ class _$_SearchReposResultJsonObject implements _SearchReposResultJsonObject {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SearchReposResultJsonObjectToJson(this);
+    return _$$_SearchReposResultJsonObjectToJson(
+      this,
+    );
   }
 }
 
@@ -180,9 +182,9 @@ abstract class _SearchReposResultJsonObject
 
   @override
   @JsonKey(name: 'total_count')
-  int get totalCount => throw _privateConstructorUsedError;
+  int get totalCount;
   @override
-  List<RepoJsonObject> get items => throw _privateConstructorUsedError;
+  List<RepoJsonObject> get items;
   @override
   @JsonKey(ignore: true)
   _$$_SearchReposResultJsonObjectCopyWith<_$_SearchReposResultJsonObject>

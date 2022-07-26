@@ -416,7 +416,9 @@ class _$_RepoJsonObject implements _RepoJsonObject {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RepoJsonObjectToJson(this);
+    return _$$_RepoJsonObjectToJson(
+      this,
+    );
   }
 }
 
@@ -442,41 +444,41 @@ abstract class _RepoJsonObject implements RepoJsonObject {
       _$_RepoJsonObject.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(name: 'full_name')
-  String get fullName => throw _privateConstructorUsedError;
+  String get fullName;
   @override
-  OwnerJsonObject get owner => throw _privateConstructorUsedError;
+  OwnerJsonObject get owner;
   @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
   @JsonKey(name: 'stargazers_count')
-  int get stargazersCount => throw _privateConstructorUsedError;
+  int get stargazersCount;
   @override
   @JsonKey(name: 'watchers_count')
-  int get watchersCount => throw _privateConstructorUsedError;
+  int get watchersCount;
   @override
-  String? get language => throw _privateConstructorUsedError;
+  String? get language;
   @override
   @JsonKey(name: 'forks_count')
-  int get forksCount => throw _privateConstructorUsedError;
+  int get forksCount;
   @override
   @JsonKey(name: 'open_issues_count')
-  int get openIssuesCount => throw _privateConstructorUsedError;
+  int get openIssuesCount;
   @override
   @JsonKey(name: 'default_branch')
-  String get defaultBranch => throw _privateConstructorUsedError;
+  String get defaultBranch;
   @override
-  String? get repoUrl => throw _privateConstructorUsedError;
+  String? get repoUrl;
   @override
-  String? get stargazersUrl => throw _privateConstructorUsedError;
+  String? get stargazersUrl;
   @override
-  String? get watchersUrl => throw _privateConstructorUsedError;
+  String? get watchersUrl;
   @override
-  String? get forksUrl => throw _privateConstructorUsedError;
+  String? get forksUrl;
   @override
-  String? get issuesUrl => throw _privateConstructorUsedError;
+  String? get issuesUrl;
   @override
   @JsonKey(ignore: true)
   _$$_RepoJsonObjectCopyWith<_$_RepoJsonObject> get copyWith =>

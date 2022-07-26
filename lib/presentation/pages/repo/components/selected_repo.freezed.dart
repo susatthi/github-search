@@ -189,16 +189,16 @@ abstract class _SelectedRepoParameter implements SelectedRepoParameter {
   @override
 
   /// オーナー名
-  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerName;
   @override
 
   /// リポジトリ名
-  String get repoName => throw _privateConstructorUsedError;
+  String get repoName;
   @override
 
   /// 一覧画面から渡されるリポジトリデータ
   /// 詳細画面で再読込した場合などは null になる場合がある
-  Repo? get extra => throw _privateConstructorUsedError;
+  Repo? get extra;
   @override
   @JsonKey(ignore: true)
   _$$_SelectedRepoParameterCopyWith<_$_SelectedRepoParameter> get copyWith =>

@@ -217,15 +217,15 @@ abstract class _RepoListViewState implements RepoListViewState {
       final String queryString}) = _$_RepoListViewState;
 
   @override
-  int get totalCount => throw _privateConstructorUsedError;
+  int get totalCount;
   @override
-  List<Repo> get items => throw _privateConstructorUsedError;
+  List<Repo> get items;
   @override
-  bool get hasNext => throw _privateConstructorUsedError;
+  bool get hasNext;
   @override
-  int get page => throw _privateConstructorUsedError;
+  int get page;
   @override
-  String get queryString => throw _privateConstructorUsedError;
+  String get queryString;
   @override
   @JsonKey(ignore: true)
   _$$_RepoListViewStateCopyWith<_$_RepoListViewState> get copyWith =>

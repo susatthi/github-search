@@ -127,7 +127,7 @@ abstract class _QueryHistory implements QueryHistory {
   @override
 
   /// 検索文字列
-  String get queryString => throw _privateConstructorUsedError;
+  String get queryString;
   @override
   @JsonKey(ignore: true)
   _$$_QueryHistoryCopyWith<_$_QueryHistory> get copyWith =>

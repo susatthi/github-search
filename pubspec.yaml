@@ -64,10 +64,6 @@ dev_dependencies:
   pedantic_mono: ^1.19.2
   sqflite_common_ffi: ^2.1.1
 
-dependency_overrides:
-  # isar_generator vs go_router_builder
-  analyzer: ^4.1.0
-
 flutter:
   assets:
     - assets/images/

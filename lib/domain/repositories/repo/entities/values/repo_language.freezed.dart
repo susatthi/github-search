@@ -121,7 +121,7 @@ abstract class _RepoLanguage implements RepoLanguage {
   const factory _RepoLanguage([final String? value]) = _$_RepoLanguage;
 
   @override
-  String? get value => throw _privateConstructorUsedError;
+  String? get value;
   @override
   @JsonKey(ignore: true)
   _$$_RepoLanguageCopyWith<_$_RepoLanguage> get copyWith =>
