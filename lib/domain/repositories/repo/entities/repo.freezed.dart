@@ -549,71 +549,71 @@ abstract class _Repo extends Repo {
   @override
 
   /// オーナー名
-  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerName;
   @override
 
   /// アバターURL
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String get avatarUrl;
   @override
 
   /// オーナーURL
-  String? get ownerUrl => throw _privateConstructorUsedError;
+  String? get ownerUrl;
   @override
 
   /// リポジトリ名
-  String get repoName => throw _privateConstructorUsedError;
+  String get repoName;
   @override
 
   /// リポジトリ名（フル）
-  String get fullName => throw _privateConstructorUsedError;
+  String get fullName;
   @override
 
   /// 説明
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
 
   /// スター数
-  RepoCount get stargazersCount => throw _privateConstructorUsedError;
+  RepoCount get stargazersCount;
   @override
 
   /// ウォッチャー数
-  RepoCount get watchersCount => throw _privateConstructorUsedError;
+  RepoCount get watchersCount;
   @override
 
   /// プロジェクト言語
-  RepoLanguage get language => throw _privateConstructorUsedError;
+  RepoLanguage get language;
   @override
 
   /// フォーク数
-  RepoCount get forksCount => throw _privateConstructorUsedError;
+  RepoCount get forksCount;
   @override
 
   /// Issue数
-  RepoCount get openIssuesCount => throw _privateConstructorUsedError;
+  RepoCount get openIssuesCount;
   @override
 
   /// デフォルトブランチ
-  String get defaultBranch => throw _privateConstructorUsedError;
+  String get defaultBranch;
   @override
 
   /// リポジトリURL
-  String? get repoUrl => throw _privateConstructorUsedError;
+  String? get repoUrl;
   @override
 
   /// スター数URL
-  String? get stargazersUrl => throw _privateConstructorUsedError;
+  String? get stargazersUrl;
   @override
 
   /// ウォッチャー数URL
-  String? get watchersUrl => throw _privateConstructorUsedError;
+  String? get watchersUrl;
   @override
 
   /// フォーク数URL
-  String? get forksUrl => throw _privateConstructorUsedError;
+  String? get forksUrl;
   @override
 
   /// Issue数URL
-  String? get issuesUrl => throw _privateConstructorUsedError;
+  String? get issuesUrl;
   @override
   @JsonKey(ignore: true)
   _$$_RepoCopyWith<_$_Repo> get copyWith => throw _privateConstructorUsedError;

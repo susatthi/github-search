@@ -172,7 +172,9 @@ class _$_OwnerJsonObject implements _OwnerJsonObject {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OwnerJsonObjectToJson(this);
+    return _$$_OwnerJsonObjectToJson(
+      this,
+    );
   }
 }
 
@@ -187,12 +189,12 @@ abstract class _OwnerJsonObject implements OwnerJsonObject {
 
   @override
   @JsonKey(name: 'login')
-  String get login => throw _privateConstructorUsedError;
+  String get login;
   @override
   @JsonKey(name: 'avatar_url')
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String get avatarUrl;
   @override
-  String? get ownerUrl => throw _privateConstructorUsedError;
+  String? get ownerUrl;
   @override
   @JsonKey(ignore: true)
   _$$_OwnerJsonObjectCopyWith<_$_OwnerJsonObject> get copyWith =>

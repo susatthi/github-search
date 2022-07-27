@@ -118,7 +118,7 @@ abstract class _RepoCount implements RepoCount {
   const factory _RepoCount(final int value) = _$_RepoCount;
 
   @override
-  int get value => throw _privateConstructorUsedError;
+  int get value;
   @override
   @JsonKey(ignore: true)
   _$$_RepoCountCopyWith<_$_RepoCount> get copyWith =>

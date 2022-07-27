@@ -161,11 +161,11 @@ abstract class _UrlLauncherState implements UrlLauncherState {
       final UrlLauncherStatus status}) = _$_UrlLauncherState;
 
   @override
-  String? get urlString => throw _privateConstructorUsedError;
+  String? get urlString;
   @override
-  LaunchMode get mode => throw _privateConstructorUsedError;
+  LaunchMode get mode;
   @override
-  UrlLauncherStatus get status => throw _privateConstructorUsedError;
+  UrlLauncherStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$_UrlLauncherStateCopyWith<_$_UrlLauncherState> get copyWith =>

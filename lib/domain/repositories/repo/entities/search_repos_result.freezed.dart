@@ -181,15 +181,15 @@ abstract class _SearchReposResult implements SearchReposResult {
   @override
 
   /// 検索結果トータル件数
-  int get totalCount => throw _privateConstructorUsedError;
+  int get totalCount;
   @override
 
   /// 検索文字列
-  String get queryString => throw _privateConstructorUsedError;
+  String get queryString;
   @override
 
   /// リポジトリEntityのリスト
-  List<Repo> get items => throw _privateConstructorUsedError;
+  List<Repo> get items;
   @override
   @JsonKey(ignore: true)
   _$$_SearchReposResultCopyWith<_$_SearchReposResult> get copyWith =>
