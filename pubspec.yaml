@@ -17,21 +17,21 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: ^0.6.10+1
+  flutter_markdown: ^0.6.10+3
   flutter_riverpod: ^2.0.0-dev.9
   flutter_state_notifier: ^0.7.1
   flutter_svg: ^1.1.1+1
   flutter_web_plugins:
     sdk: flutter
   freezed_annotation: ^2.1.0
-  go_router: ^4.0.2
+  go_router: ^4.2.2
   hexcolor: ^2.0.7
-  hive: ^2.2.2
+  hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^0.13.4
   intl: ^0.17.0
-  isar: ^3.0.0-dev.8
-  isar_flutter_libs: ^3.0.0-dev.8
+  isar: ^3.0.0-dev.5
+  isar_flutter_libs: ^3.0.0-dev.5
   json_annotation: ^4.6.0
   lottie: ^1.3.0
   markdown: ^5.0.0
@@ -41,7 +41,7 @@ dependencies:
   roggle: ^0.2.1+1
   shimmer: ^2.0.0
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.1.4
+  url_launcher: ^6.1.5
   visibility_detector: ^0.3.3
 
 dev_dependencies:
@@ -57,12 +57,12 @@ dev_dependencies:
   freezed: ^2.1.0+1
   go_router_builder: ^1.0.7
   golden_toolkit: ^0.13.0
-  isar_generator: ^3.0.0-dev.8
+  isar_generator: ^3.0.0-dev.5
   json_serializable: ^6.3.1
   mocktail: ^0.3.0
   path: ^1.8.1
   pedantic_mono: ^1.19.2
-  sqflite_common_ffi: ^2.1.1
+  sqflite_common_ffi: ^2.1.1+1
 
 flutter:
   assets:

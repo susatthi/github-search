@@ -11,7 +11,7 @@ part of 'query_history.dart';
 
 extension GetQueryHistoryCollectionCollection on Isar {
   IsarCollection<QueryHistoryCollection> get queryHistoryCollections =>
-      collection();
+      getCollection();
 }
 
 const QueryHistoryCollectionSchema = CollectionSchema(
@@ -68,14 +68,14 @@ void _queryHistoryCollectionSerializeNative(
     AdapterAlloc alloc) {
   final queryString$Bytes =
       IsarBinaryWriter.utf8Encoder.convert(object.queryString);
-  final size = (staticSize + 3 + (queryString$Bytes.length)) as int;
+  final size = (staticSize + (queryString$Bytes.length)) as int;
   cObj.buffer = alloc(size);
   cObj.buffer_length = size;
 
   final buffer = IsarNative.bufAsBytes(cObj.buffer, size);
   final writer = IsarBinaryWriter(buffer, staticSize);
   writer.writeHeader();
-  writer.writeByteList(offsets[0], queryString$Bytes);
+  writer.writeBytes(offsets[0], queryString$Bytes);
   writer.writeDateTime(offsets[1], object.searchedAt);
 }
 
@@ -119,7 +119,8 @@ Object _queryHistoryCollectionSerializeWeb(
 QueryHistoryCollection _queryHistoryCollectionDeserializeWeb(
     IsarCollection<QueryHistoryCollection> collection, Object jsObj) {
   final object = QueryHistoryCollection();
-  object.id = IsarNative.jsObjectGet(jsObj, r'id');
+  object.id =
+      IsarNative.jsObjectGet(jsObj, r'id') ?? (double.negativeInfinity as int);
   object.queryString = IsarNative.jsObjectGet(jsObj, r'queryString') ?? '';
   object.searchedAt = IsarNative.jsObjectGet(jsObj, r'searchedAt') != null
       ? DateTime.fromMillisecondsSinceEpoch(
@@ -134,7 +135,8 @@ P _queryHistoryCollectionDeserializePropWeb<P>(
     Object jsObj, String propertyName) {
   switch (propertyName) {
     case r'id':
-      return (IsarNative.jsObjectGet(jsObj, r'id')) as P;
+      return (IsarNative.jsObjectGet(jsObj, r'id') ??
+          (double.negativeInfinity as int)) as P;
     case r'queryString':
       return (IsarNative.jsObjectGet(jsObj, r'queryString') ?? '') as P;
     case r'searchedAt':

@@ -8,7 +8,7 @@ part 'query_history.g.dart';
 
 @Collection()
 class QueryHistoryCollection {
-  Id id = Isar.autoIncrement;
+  int id = Isar.autoIncrement;
 
   /// 検索文字列
   late String queryString;
