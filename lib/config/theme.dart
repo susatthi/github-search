@@ -7,10 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../utils/assets/fonts.gen.dart';
 
-/// テーマProvider
-final themeProvider = Provider<ThemeData>(
-  (ref) => ThemeData(
+/// テーマプロバイダー
+final themeProvider = Provider.family<ThemeData, Brightness>(
+  (ref, brightness) => ThemeData(
     colorScheme: ColorScheme.fromSwatch(
+      brightness: brightness,
       primarySwatch: Colors.grey,
     ),
     fontFamily: FontFamily.murecho,
