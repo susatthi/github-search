@@ -23,6 +23,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // Shimmer Widget を使っているはず
       expect(find.byType(Shimmer), findsOneWidget);
@@ -52,6 +53,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // CircleAvatarのradiusが正しいはず
       final avatar =
@@ -69,6 +71,8 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
+
       expect(key.currentWidget.runtimeType.toString(), 'ListLoader');
     });
   });
@@ -82,6 +86,8 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
+
       expect(key.currentWidget.runtimeType.toString(), 'LoaderBone');
     });
   });

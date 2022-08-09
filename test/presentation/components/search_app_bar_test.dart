@@ -28,6 +28,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       expect(find.byType(SliverAppBar), findsOneWidget);
       final sliverAppBar =

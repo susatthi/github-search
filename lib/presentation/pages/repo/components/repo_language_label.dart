@@ -23,7 +23,7 @@ class RepoLanguageLabel extends StatelessWidget {
       return const SizedBox();
     }
 
-    return Row(
+    return Wrap(
       children: [
         Icon(
           Icons.circle,

@@ -77,6 +77,8 @@ class _GitHubSearchApp extends ConsumerWidget {
         onGenerateTitle: (context) => i18n.appName,
         theme: theme,
         home: home,
+        builder: (context, child) =>
+            responsiveWrapperBuilder(context, child, ref.read),
       );
     }
 

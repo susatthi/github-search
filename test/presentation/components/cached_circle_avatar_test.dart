@@ -36,6 +36,7 @@ void main() {
             ),
           ),
         );
+        await tester.pump();
 
         final cachedNetworkImage =
             tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
@@ -54,6 +55,7 @@ void main() {
             ),
           ),
         );
+        await tester.pump();
 
         final state = tester
             .state<CachedCircleAvatarState>(find.byType(CachedCircleAvatar));
@@ -88,6 +90,7 @@ void main() {
             ),
           ),
         );
+        await tester.pump();
 
         final state = tester
             .state<CachedCircleAvatarState>(find.byType(CachedCircleAvatar));
@@ -115,6 +118,7 @@ void main() {
             ),
           ),
         );
+        await tester.pump();
 
         // ローディングが表示されるはず
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -130,6 +134,7 @@ void main() {
             ),
           ),
         );
+        await tester.pump();
 
         // ローディングが表示されないはず
         expect(find.byType(CircularProgressIndicator), findsNothing);

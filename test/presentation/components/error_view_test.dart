@@ -133,6 +133,7 @@ Future<void> _wrapTest(
       ),
     ),
   );
+  await tester.pump();
   testLogger.i(expectedMessage);
   expect(find.text(expectedMessage), findsOneWidget);
 }

@@ -26,6 +26,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // テキストが表示されるはず
       expect(find.text(expectedText), findsOneWidget);
@@ -51,6 +52,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // タップする
       await tester.tap(find.byType(HyperlinkText));
@@ -83,6 +85,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // SnackBarはいないはず
       expect(find.byType(SnackBar), findsNothing);
@@ -111,6 +114,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // テキストが表示されるはず
       expect(find.text(expectedText), findsOneWidget);

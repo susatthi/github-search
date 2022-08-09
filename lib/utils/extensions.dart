@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:responsive_framework/responsive_framework.dart';
+
 extension IterableEx<E> on Iterable<E> {
   /// for Null Safety [firstWhere]
   E? firstWhereOrNull(bool Function(E element) test) {
@@ -28,4 +30,15 @@ extension IterableEx<E> on Iterable<E> {
     }
     return null;
   }
+}
+
+extension ResponsiveWrapperDataEx on ResponsiveWrapperData {
+  /// Breakpoint の name を返す
+  String? get name => isDesktop
+      ? DESKTOP
+      : isMobile
+          ? MOBILE
+          : isTablet
+              ? TABLET
+              : null;
 }

@@ -226,7 +226,7 @@ class _IconLabelsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding / 2),
-      child: Row(
+      child: Wrap(
         children: [
           _IconLabel(
             padding: const EdgeInsets.symmetric(

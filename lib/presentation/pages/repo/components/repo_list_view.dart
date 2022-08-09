@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:number_display/number_display.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../config/router.dart';
@@ -177,44 +178,129 @@ class _RepoListTile extends StatelessWidget {
               loading: false,
             ),
           ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                repo.fullName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              if (description != null)
-                Text(
-                  description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall,
+          title: ResponsiveValue<Widget>(
+            context,
+            defaultValue: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _FullNameText(fullName: repo.fullName),
+                if (description != null)
+                  _DescriptionText(description: description),
+                _LabelsRow(repo: repo),
+              ],
+            ),
+            valueWhen: [
+              Condition.largerThan(
+                name: MOBILE,
+                value: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _FullNameText(fullName: repo.fullName),
+                          if (description != null)
+                            _DescriptionText(description: description),
+                        ],
+                      ),
+                    ),
+                    _LabelsRow(repo: repo),
+                  ],
                 ),
-            ],
-          ),
-          subtitle: Row(
-            children: [
-              SizedBox(
-                width: 80,
-                child: IconLabel(
-                  icon: Icons.star_outline,
-                  text: repo.stargazersCount.display,
+              ),
+              Condition.largerThan(
+                name: TABLET,
+                value: Row(
+                  children: [
+                    SizedBox(
+                      width: 360,
+                      child: _FullNameText(fullName: repo.fullName),
+                    ),
+                    Expanded(
+                      child: description != null
+                          ? _DescriptionText(description: description)
+                          : const SizedBox(),
+                    ),
+                    _LabelsRow(repo: repo),
+                  ],
                 ),
               ),
-              RepoLanguageLabel(
-                language: repo.language,
-              ),
             ],
-          ),
+          ).value,
           onTap: () {
             // リポジトリ詳細画面に遷移する
             RepoViewRoute.from(repo).go(context);
           },
         ),
         const Divider(),
+      ],
+    );
+  }
+}
+
+class _FullNameText extends StatelessWidget {
+  const _FullNameText({
+    required this.fullName,
+  });
+
+  final String fullName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      fullName,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: Theme.of(context).textTheme.bodyLarge,
+    );
+  }
+}
+
+class _DescriptionText extends StatelessWidget {
+  const _DescriptionText({
+    required this.description,
+  });
+
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      description,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: Theme.of(context).textTheme.bodySmall,
+    );
+  }
+}
+
+class _LabelsRow extends StatelessWidget {
+  const _LabelsRow({
+    required this.repo,
+  });
+
+  final Repo repo;
+
+  @override
+  Widget build(BuildContext context) {
+    final iconLabel = IconLabel(
+      icon: Icons.star_outline,
+      text: repo.stargazersCount.display,
+    );
+
+    if (repo.language.value == null) {
+      return iconLabel;
+    }
+
+    return Wrap(
+      children: [
+        SizedBox(
+          width: 80,
+          child: iconLabel,
+        ),
+        RepoLanguageLabel(
+          language: repo.language,
+        ),
       ],
     );
   }

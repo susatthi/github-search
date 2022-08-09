@@ -22,24 +22,6 @@ void main() {
   tearDown(agent.tearDown);
 
   group('RepoSearchPage', () {
-    testWidgets('画面が表示され必要なWidgetが存在するはず', (tester) async {
-      await tester.runAsync(() async {
-        await tester.pumpWidget(
-          agent.mockApp(
-            home: const RepoSearchPage(),
-          ),
-        );
-      });
-
-      expect(find.byType(SearchReposTextField), findsOneWidget);
-      expect(find.byType(RepoSortButton), findsOneWidget);
-      expect(find.byType(SliverQueryHistoriesListView), findsOneWidget);
-
-      // RepoSearchTextに自動でフォーカスが当たるはず
-      final state = tester.firstState(find.byType(SearchReposTextField))
-          as SearchReposTextFieldState;
-      expect(state.focusNode.hasFocus, true);
-    });
     testWidgets('ソートボタン押下でボトムシートが表示されるはず', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(
@@ -48,6 +30,15 @@ void main() {
           ),
         );
         await tester.pump();
+
+        expect(find.byType(SearchReposTextField), findsOneWidget);
+        expect(find.byType(RepoSortButton), findsOneWidget);
+        expect(find.byType(SliverQueryHistoriesListView), findsOneWidget);
+
+        // RepoSearchTextに自動でフォーカスが当たるはず
+        final state = tester.firstState(find.byType(SearchReposTextField))
+            as SearchReposTextFieldState;
+        expect(state.focusNode.hasFocus, true);
 
         // ソートボタンをタップ
         await tester.tap(find.byType(RepoSortButton));

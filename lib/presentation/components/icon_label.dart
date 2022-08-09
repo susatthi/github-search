@@ -23,7 +23,7 @@ class IconLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = Padding(
       padding: padding,
-      child: Row(
+      child: Wrap(
         children: [
           Icon(
             icon,
@@ -31,9 +31,7 @@ class IconLabel extends StatelessWidget {
             size: 20,
           ),
           const SizedBox(width: 4),
-          Expanded(
-            child: Text(text),
-          ),
+          Text(text),
         ],
       ),
     );

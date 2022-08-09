@@ -34,15 +34,14 @@ void main() {
           home: const RepoFullNameText(),
         ),
       );
+      await tester.pump();
 
       // 最初はローディング含めて何も表示していないはず
-      expect(find.byType(SizedBox), findsOneWidget);
       expect(find.text('flutter/plugins'), findsNothing);
 
       await tester.pump();
 
       // リポジトリのフルネームを表示するはず
-      expect(find.byType(SizedBox), findsNothing);
       expect(find.text('flutter/plugins'), findsOneWidget);
     });
     testWidgets('エラー時は何も表示しないはず', (tester) async {
@@ -63,15 +62,14 @@ void main() {
           home: const RepoFullNameText(),
         ),
       );
+      await tester.pump();
 
       // 最初はローディング含めて何も表示していないはず
-      expect(find.byType(SizedBox), findsOneWidget);
       expect(find.text('flutter/plugins'), findsNothing);
 
       await tester.pump();
 
       // エラー時は何も表示しないはず
-      expect(find.byType(SizedBox), findsOneWidget);
       expect(find.text('flutter/plugins'), findsNothing);
     });
     testDeviceGoldens('ゴールデン', (tester) async {

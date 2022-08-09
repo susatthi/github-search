@@ -47,6 +47,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
+      await tester.pump();
 
       // ローディングを表示しているはず
       expect(find.byType(ListLoader), findsOneWidget);
@@ -67,6 +68,8 @@ void main() {
         ),
       );
 
+      await tester.pump();
+
       // まだエラー画面は表示していないはず
       expect(find.byType(ErrorView), findsNothing);
 
@@ -85,6 +88,8 @@ void main() {
           home: const _MockPage(),
         ),
       );
+
+      await tester.pump();
 
       // 初期状態はloadingを表示しているはず
       expect(find.byType(SliverFillRemaining), findsOneWidget);
@@ -114,6 +119,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
+      await tester.pump();
 
       // まだRepoEmptyItemsViewは表示していないはず
       expect(find.byType(RepoEmptyItemsView), findsNothing);
@@ -129,7 +135,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect(
         find.text(
@@ -144,7 +150,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // 1ページ目の項目が表示されているはず
       expect(find.text('flutter/flutter'), findsOneWidget);
@@ -176,7 +182,7 @@ void main() {
         ),
       );
 
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       final listView = tester.widget(find.byType(SliverRepoListViewInternal))
           as SliverRepoListViewInternal;

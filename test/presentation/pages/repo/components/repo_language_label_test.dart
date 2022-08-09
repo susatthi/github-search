@@ -25,6 +25,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // アイコンが表示されるはず
       expect(find.byIcon(Icons.circle), findsOneWidget);

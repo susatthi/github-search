@@ -56,7 +56,7 @@ void main() {
           ),
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // 最初は降順のはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
@@ -90,6 +90,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // ローディング中は無効化になるはず
       expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);
@@ -155,6 +156,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 初期状態は無効化になるはず
       expect(find.byType(SearchReposOrderToggleButtonInternal), findsOneWidget);

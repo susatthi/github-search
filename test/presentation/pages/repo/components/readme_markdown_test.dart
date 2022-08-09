@@ -158,6 +158,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 最初はローディングを表示するはず
       expect(find.byType(LottieBuilder), findsOneWidget);
@@ -181,6 +182,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 最初はローディングを表示するはず
       expect(find.byType(LottieBuilder), findsOneWidget);
@@ -213,6 +215,7 @@ void main() {
         ),
       );
 
+      await tester.pump();
       await tester.pump();
 
       // リンクをタップする
