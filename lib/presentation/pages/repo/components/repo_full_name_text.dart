@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../domain/repositories/repo/entities/repo.dart';
+import '../../../components/async_value_handler.dart';
 import 'selected_repo.dart';
 
 /// リポジトリ名を表示するText
@@ -13,11 +15,9 @@ class RepoFullNameText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(selectedRepoProvider);
-    return asyncValue.when(
-      data: (repo) => Text(repo.fullName),
-      error: (_, __) => const SizedBox(),
-      loading: () => const SizedBox(),
+    return AsyncValueHandler<Repo>(
+      value: ref.watch(selectedRepoProvider),
+      builder: (repo) => Text(repo.fullName),
     );
   }
 }

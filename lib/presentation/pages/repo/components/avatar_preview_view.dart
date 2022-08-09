@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
+import '../../../components/async_value_handler.dart';
 import '../../../components/cached_circle_avatar.dart';
 import 'selected_repo.dart';
 
@@ -17,13 +18,9 @@ class AvatarPreviewView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(selectedRepoProvider);
-    return asyncValue.when(
-      data: (repo) => _AvatarPreviewView(repo: repo),
-      // ほぼ失敗しないしすぐに元に戻れるのでエラー表示はしない
-      error: (_, __) => const SizedBox(),
-      // 取得時間は短いと思うのでローディング表示はしない
-      loading: () => const SizedBox(),
+    return AsyncValueHandler<Repo>(
+      value: ref.watch(selectedRepoProvider),
+      builder: (repo) => _AvatarPreviewView(repo: repo),
     );
   }
 }
