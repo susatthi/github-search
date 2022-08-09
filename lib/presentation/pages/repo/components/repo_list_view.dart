@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:number_display/number_display.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -376,7 +377,7 @@ class _RepoPromptSearchViewState extends State<RepoPromptSearchView> {
               i18n.canSearchRepos,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const SizedBox(height: 40),
+            const Gap(40),
           ],
         ),
       ),
@@ -400,12 +401,12 @@ class RepoEmptyItemsView extends StatelessWidget {
             Assets.lottie.emptyState,
             width: 200,
           ),
-          const SizedBox(height: 24),
+          const Gap(24),
           Text(
             i18n.notFoundRepos,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          const SizedBox(height: 40),
+          const Gap(40),
         ],
       ),
     );

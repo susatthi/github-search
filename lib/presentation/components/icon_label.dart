@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 /// アイコン＋ラベル
 class IconLabel extends StatelessWidget {
@@ -30,7 +31,7 @@ class IconLabel extends StatelessWidget {
             color: Theme.of(context).textTheme.caption!.color,
             size: 20,
           ),
-          const SizedBox(width: 4),
+          const Gap(4),
           Text(text),
         ],
       ),
