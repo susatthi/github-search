@@ -31,6 +31,7 @@ void main() {
           home: const RepoIndexPage(),
         ),
       );
+      await tester.pump();
 
       expect(find.byType(SearchReposTextField), findsOneWidget);
       expect(find.byType(RepoSortButton), findsOneWidget);
@@ -45,6 +46,7 @@ void main() {
           home: const RepoIndexPage(),
         ),
       );
+      await tester.pump();
       await tester.pump();
 
       // エラー画面が表示されるはず
@@ -113,7 +115,7 @@ void main() {
     });
     testWidgets('リポジトリListTileをタップして詳細画面に遷移するはず', (tester) async {
       await tester.pumpWidget(agent.mockApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect(find.text('flutter/flutter'), findsOneWidget);
 
@@ -131,7 +133,7 @@ void main() {
           home: const RepoIndexPage(),
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect(find.text('flutter/flutter'), findsOneWidget);
       expect(find.text('flutter/plugins'), findsOneWidget);

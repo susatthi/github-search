@@ -21,7 +21,7 @@ void main() {
     testWidgets('表示してタップで閉じるはず', (tester) async {
       await fakeSvg(() async {
         await tester.pumpWidget(agent.mockApp());
-        await tester.pump();
+        await tester.pumpAndSettle();
 
         expect(find.text('flutter/plugins'), findsOneWidget);
 

@@ -181,30 +181,37 @@ final routerProvider = Provider<GoRouter>(
 
     // URLの#を除去する
     urlPathStrategy: UrlPathStrategy.path,
-    navigatorBuilder: (context, state, child) {
-      return ResponsiveWrapper.builder(
-        child,
-        //    0 ----- AUTOSCALE ----- 320
-        //  320 -----   RESIZE  ----- 768(MOBILE)
-        //  768 -----   RESIZE  ----- 1024(TABLET)
-        // 1024 -----   RESIZE  ----- ∞(DESKTOP)
-        breakpoints: [
-          const ResponsiveBreakpoint.resize(320, name: MOBILE),
-          const ResponsiveBreakpoint.resize(768, name: TABLET),
-          const ResponsiveBreakpoint.resize(1024, name: DESKTOP),
-        ],
-        minWidth: 320,
-        maxWidth: 1600,
-        defaultScale: true,
-        // ignore: use_colored_box
-        background: Container(
-          color: ref.watch(themeProvider).colorScheme.background,
-        ),
-        debugLog: !kReleaseMode,
-      );
-    },
+    navigatorBuilder: (context, state, child) =>
+        responsiveWrapperBuilder(context, child, ref.read),
   ),
 );
+
+Widget responsiveWrapperBuilder(
+  BuildContext context,
+  Widget? child,
+  Reader read,
+) {
+  return ResponsiveWrapper.builder(
+    child,
+    //    0 ----- AUTOSCALE ----- 320
+    //  320 -----   RESIZE  ----- 768(MOBILE)
+    //  768 -----   RESIZE  ----- 1024(TABLET)
+    // 1024 -----   RESIZE  ----- ∞(DESKTOP)
+    breakpoints: [
+      const ResponsiveBreakpoint.resize(320, name: MOBILE),
+      const ResponsiveBreakpoint.resize(768, name: TABLET),
+      const ResponsiveBreakpoint.resize(1024, name: DESKTOP),
+    ],
+    minWidth: 320,
+    maxWidth: 1600,
+    defaultScale: true,
+    // ignore: use_colored_box
+    background: Container(
+      color: read(themeProvider).colorScheme.background,
+    ),
+    debugLog: !kReleaseMode,
+  );
+}
 
 /// ルートオブザーバー
 ///

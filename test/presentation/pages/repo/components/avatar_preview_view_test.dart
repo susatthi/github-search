@@ -33,6 +33,7 @@ void main() {
           home: const AvatarPreviewView(),
         ),
       );
+      await tester.pump();
 
       // まだ PhotoView は表示していないはず
       expect(find.byType(PhotoView), findsNothing);
@@ -58,6 +59,7 @@ void main() {
           home: const AvatarPreviewView(),
         ),
       );
+      await tester.pump();
 
       // まだ PhotoView は表示していないはず
       expect(find.byType(PhotoView), findsNothing);

@@ -152,6 +152,7 @@ void main() {
             home: const _MockPage(),
           ),
         );
+        await tester.pump();
 
         // 何も表示していないはず
         expect(find.byType(SliverFillRemaining), findsOneWidget);
@@ -179,6 +180,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
+      await tester.pump();
 
       // 何も表示していないはず
       expect(find.byType(SliverFillRemaining), findsOneWidget);

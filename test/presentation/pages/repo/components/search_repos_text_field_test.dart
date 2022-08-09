@@ -31,6 +31,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 最初は入力中の検索文字列を表示するはず
       expect(controller.text, expectedQuery);
@@ -74,6 +75,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 最初は入力中の検索文字列を表示するはず
       expect(controller1.text, expectedQuery);
@@ -108,6 +110,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 検索文字列があるので削除ボタンが表示されているので押せるはず
       expect(tappedDeleteButton, false);
@@ -159,6 +162,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // 任意の文字列を入力しても読み取り専用なので変更できないはず
       await tester.enterText(find.byType(TextField), 'kboy');
@@ -187,6 +191,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // prefixIconを設定できるはず
       expect(find.byIcon(expectedIcon), findsOneWidget);

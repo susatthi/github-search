@@ -22,6 +22,8 @@ void main() {
           home: const ErrorPage(),
         ),
       );
+      await tester.pump();
+
       expect(find.text(i18n.errorOccurred), findsOneWidget);
     });
     testWidgets('errorがある場合でも問題ないはず', (tester) async {
@@ -33,6 +35,8 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
+
       expect(find.text(error.toString()), findsOneWidget);
     });
     testDeviceGoldens('ゴールデン', (tester) async {

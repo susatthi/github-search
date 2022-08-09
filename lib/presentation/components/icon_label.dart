@@ -23,7 +23,7 @@ class IconLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = Padding(
       padding: padding,
-      child: Row(
+      child: Wrap(
         children: [
           Icon(
             icon,

@@ -62,6 +62,7 @@ void main() {
     );
 
     await tester.pump();
+    await tester.pump();
 
     // ブラウザで表示するURLを決定する
     final repoDetailViewInternal =
@@ -102,6 +103,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
+      await tester.pump();
 
       // まだオーナー名は表示していないはず
       expect(find.text('flutter'), findsNothing);
@@ -157,6 +159,7 @@ void main() {
           home: const _MockPage(),
         ),
       );
+      await tester.pump();
 
       // まだエラー画面は表示していないはず
       expect(find.byType(ErrorView), findsNothing);
@@ -228,6 +231,7 @@ void main() {
         ),
       );
 
+      await tester.pump();
       await tester.pump();
 
       final detailView =

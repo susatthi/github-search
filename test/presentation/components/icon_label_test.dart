@@ -25,6 +25,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // アイコンが表示されるはず
       expect(find.byIcon(expectedIcon), findsOneWidget);
@@ -45,6 +46,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // タップする
       await tester.tap(find.byType(IconLabel));

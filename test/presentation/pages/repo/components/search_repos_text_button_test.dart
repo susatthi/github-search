@@ -26,6 +26,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       // prefixIconが表示されるはず
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -41,6 +42,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       final location = const RepoSearchRoute().location;
       expect(agent.mockGoRouter.calledLocations.contains(location), false);
@@ -65,6 +67,7 @@ void main() {
           ),
         ),
       );
+      await tester.pump();
 
       final location = const RepoSearchRoute().location;
       expect(agent.mockGoRouter.calledLocations.contains(location), false);
