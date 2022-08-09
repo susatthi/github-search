@@ -29,8 +29,8 @@ class ListLoader extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
+        baseColor: Theme.of(context).colorScheme.primaryContainer.withAlpha(50),
+        highlightColor: Theme.of(context).colorScheme.background,
         period: const Duration(milliseconds: 2000),
         child: ListView.separated(
           shrinkWrap: true,

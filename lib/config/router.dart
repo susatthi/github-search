@@ -15,7 +15,6 @@ import '../presentation/pages/repo/components/selected_repo.dart';
 import '../presentation/pages/repo/repo_index_page.dart';
 import '../presentation/pages/repo/repo_search_page.dart';
 import '../presentation/pages/repo/repo_view_page.dart';
-import 'theme.dart';
 
 part 'router.g.dart';
 
@@ -182,14 +181,13 @@ final routerProvider = Provider<GoRouter>(
     // URLの#を除去する
     urlPathStrategy: UrlPathStrategy.path,
     navigatorBuilder: (context, state, child) =>
-        responsiveWrapperBuilder(context, child, ref.read),
+        responsiveWrapperBuilder(context, child),
   ),
 );
 
 Widget responsiveWrapperBuilder(
   BuildContext context,
   Widget? child,
-  Reader read,
 ) {
   return ResponsiveWrapper.builder(
     child,
@@ -207,7 +205,7 @@ Widget responsiveWrapperBuilder(
     defaultScale: true,
     // ignore: use_colored_box
     background: Container(
-      color: read(themeProvider).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
     ),
     debugLog: !kReleaseMode,
   );

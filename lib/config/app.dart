@@ -64,7 +64,8 @@ class _GitHubSearchApp extends ConsumerWidget {
       },
     );
 
-    final theme = ref.watch(themeProvider);
+    final lightTheme = ref.watch(themeProvider(Brightness.light));
+    final darkTheme = ref.watch(themeProvider(Brightness.dark));
     if (home != null) {
       // テスト用
       return MaterialApp(
@@ -75,10 +76,10 @@ class _GitHubSearchApp extends ConsumerWidget {
         locale: TranslationProvider.of(context).flutterLocale,
         title: 'GitHubSearchTest',
         onGenerateTitle: (context) => i18n.appName,
-        theme: theme,
+        theme: lightTheme,
+        darkTheme: darkTheme,
         home: home,
-        builder: (context, child) =>
-            responsiveWrapperBuilder(context, child, ref.read),
+        builder: responsiveWrapperBuilder,
       );
     }
 
@@ -94,7 +95,9 @@ class _GitHubSearchApp extends ConsumerWidget {
       locale: TranslationProvider.of(context).flutterLocale,
       title: 'GitHubSearch',
       onGenerateTitle: (context) => i18n.appName,
-      theme: theme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      // themeMode: ThemeMode.light,
     );
   }
 }
