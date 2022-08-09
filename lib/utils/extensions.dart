@@ -36,9 +36,9 @@ extension ResponsiveWrapperDataEx on ResponsiveWrapperData {
   /// Breakpoint の name を返す
   String? get name => isDesktop
       ? DESKTOP
-      : isTablet
-          ? TABLET
-          : isMobile
-              ? MOBILE
+      : isMobile
+          ? MOBILE
+          : isTablet
+              ? TABLET
               : null;
 }

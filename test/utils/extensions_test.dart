@@ -2,9 +2,11 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/repo/json_objects/owner.dart';
 import 'package:github_search/utils/extensions.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../test_utils/test_agent.dart';
 
@@ -118,6 +120,29 @@ void main() {
         owners.lastWhereOrNull((element) => element.login == 'foo')?.avatarUrl,
         null,
       );
+    });
+  });
+
+  group('ResponsiveWrapperDataEx#name', () {
+    testWidgets('現在のメディアクエリ名が取得できるはず', (tester) async {
+      String? name;
+      await tester.pumpWidget(
+        agent.mockApp(
+          home: Builder(
+            builder: (context) {
+              final responsive = ResponsiveWrapper.of(context);
+              name = responsive.name;
+              return Scaffold(
+                body: Container(),
+              );
+            },
+          ),
+        ),
+      );
+
+      expect(name, isNull);
+      await tester.pump();
+      expect(name, TABLET);
     });
   });
 }
