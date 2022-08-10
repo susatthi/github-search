@@ -28,6 +28,10 @@
         "--debug",
         "--web-renderer",
         "canvaskit",
+        "--web-hostname",
+        "localhost",
+        "--web-port",
+        "5000",
       ]
     },
     {
