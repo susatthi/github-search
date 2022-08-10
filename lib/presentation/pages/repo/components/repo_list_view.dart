@@ -293,12 +293,9 @@ class _LabelsRow extends StatelessWidget {
       return iconLabel;
     }
 
-    return Wrap(
+    return Row(
       children: [
-        SizedBox(
-          width: 80,
-          child: iconLabel,
-        ),
+        iconLabel,
         RepoLanguageLabel(
           language: repo.language,
         ),
