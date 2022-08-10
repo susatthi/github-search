@@ -4,34 +4,27 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../config/constants.dart';
-import '../../../localizations/strings.g.dart';
-import '../../components/repo/repo_detail_view.dart';
+import '../../components/search_app_bar.dart';
+import 'components/repo_detail_view.dart';
+import 'components/repo_full_name_text.dart';
 
 /// リポジトリ詳細画面
 class RepoViewPage extends StatelessWidget {
-  const RepoViewPage({Key? key}) : super(key: key);
-
-  static const name = 'repo_view';
-  static const path = ':$pageParamKeyOwnerName/:$pageParamKeyRepoName';
-
-  /// 画面遷移用のパラメータを返す
-  static Map<String, String> params({
-    required String ownerName,
-    required String repoName,
-  }) =>
-      {
-        pageParamKeyOwnerName: ownerName,
-        pageParamKeyRepoName: repoName,
-      };
+  const RepoViewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.repo),
+      body: CustomScrollView(
+        slivers: [
+          SearchAppBar(
+            title: const RepoFullNameText(),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            floating: true,
+          ),
+          const SliverRepoDetailView(),
+        ],
       ),
-      body: const RepoDetailView(),
     );
   }
 }

@@ -14,9 +14,10 @@ linter:
 # see: https://github.com/rrousselGit/freezed/issues/488#issuecomment-894358980
 analyzer:
   exclude:
-    - '**/*.g.dart'
     - '**/*.freezed.dart'
     - '**/localizations/*.dart'
     - '**/generated_plugin_registrant.dart'
+    - '**/riverpod_graph.dart'
+    - '**/utils/assets/*.gen.dart'
   errors:
     invalid_annotation_target: ignore

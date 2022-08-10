@@ -2,10 +2,13 @@
 # Use of this source code is governed by a MIT license that can be
 # found in the LICENSE file.
 
+# ワークフローの表示名
 name: Flutter CI
 
+# ワークフローの起動条件を定義する
 on:
-  # プルリクエストが作成or更新された時
+
+  # プルリクエストが作成 or 更新された時
   pull_request:
     types:
       - opened
@@ -17,46 +20,34 @@ on:
       - main
       - develop
 
+# 複数のジョブを定義する
+# 各ジョブはそれぞれまったく別々の環境で実行される
 jobs:
-  # テストジョブ
-  # 最初に実行する
-  flutter_test:
-    name: Flutter Test
+
+  # テストジョブ（ubuntu-latest）の定義
+  flutter_test_ubuntu:
+
+    # ジョブの表示名
+    name: Flutter Test (ubuntu-latest)
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
         with:
-          fetch-depth: 1
-
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # Flutter SDK のバージョン確認
-      - name: Check Flutter SDK version
-        run: flutter --version
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # 静的解析を実行
       - name: Run Flutter Analyze
@@ -64,17 +55,101 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: |
-          flutter test --no-test-assets --coverage --machine > test-report.log
-          sudo apt-get install -y lcov
-          lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+        run: flutter test --machine > test-report.log
 
       # テスト結果を GitHub Actions に表示する
       - name: Report Test
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Flutter Test Report
+          name: Flutter Test Report (ubuntu-latest)
+          path: test-report.log
+          reporter: flutter-json
+
+  # テストジョブ（macos-latest-en）の定義
+  flutter_test_macos_en:
+
+    # ジョブの表示名
+    name: Flutter Test (macos-latest-en)
+
+    # ジョブを実行するOS
+    runs-on: macos-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      # テストを実行（英語）
+      - name: Run Flutter Test (locale=en)
+        run: flutter test --machine > test-report.log
+
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test (locale=en)
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Flutter Test Report (macos-latest-en)
+          path: test-report.log
+          reporter: flutter-json
+
+  # テストジョブ（macos-latest-ja）の定義
+  flutter_test_macos_ja:
+
+    # ジョブの表示名
+    name: Flutter Test (macos-latest-ja)
+
+    # ジョブを実行するOS
+    runs-on: macos-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      # テストを実行（日本語）
+      - name: Run Flutter Test (locale=ja)
+        run: |
+          flutter test --coverage --machine --dart-define=locale=ja > test-report.log
+          brew install lcov
+          sh bin/scripts/lcov_remove.sh
+
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test (locale=ja)
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Flutter Test Report (macos-latest-ja)
           path: test-report.log
           reporter: flutter-json
 
@@ -87,85 +162,101 @@ jobs:
           flags: unittests
           verbose: true
 
-  # Android ビルドジョブ
-  # テストジョブが成功したら実行する
-  flutter_build_android:
-    name: Flutter Build for Android
-    needs:
-      - flutter_test
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  # テストジョブ（windows-latest）の定義
+  flutter_test_windows:
+
+    # ジョブの表示名
+    name: Flutter Test (windows-latest)
+
+    # ジョブを実行するOS
+    runs-on: windows-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
         with:
-          fetch-depth: 1
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
 
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
+      # テストを実行
+      - name: Run Flutter Test
+        run: flutter test --machine > test-report.log
+
+      # テスト結果を GitHub Actions に表示する
+      - name: Report Test
+        uses: dorny/test-reporter@v1
+        if: always()
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
+          name: Flutter Test Report (windows-latest)
+          path: test-report.log
+          reporter: flutter-json
 
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
+  # Android ビルドジョブの定義
+  flutter_build_android:
 
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+    # ジョブの表示名
+    name: Flutter Build for Android
+
+    # ジョブを実行するOS
+    runs-on: ubuntu-latest
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
+        with:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Android Release Build
       - name: Build for Android
         run: flutter build appbundle -t lib/main.dart --release
 
-  # iOS ビルドジョブ
-  # テストジョブが成功したら実行する
+  # iOS ビルドジョブの定義
   flutter_build_ios:
+
+    # ジョブの表示名
     name: Flutter Build for iOS
-    needs:
-      - flutter_test
+
+    # ジョブを実行するOS
     runs-on: macos-latest
-    timeout-minutes: 10
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
         with:
-          fetch-depth: 1
-
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -185,43 +276,30 @@ jobs:
       - name: Build for iOS
         run: flutter build ipa -t lib/main.dart --release
 
-  # macOS ビルドジョブ
-  # テストジョブが成功したら実行する
+  # macOS ビルドジョブの定義
   flutter_build_macos:
+
+    # ジョブの表示名
     name: Flutter Build for macOS
-    needs:
-      - flutter_test
+
+    # ジョブを実行するOS
     runs-on: macos-latest
-    timeout-minutes: 10
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
         with:
-          fetch-depth: 1
-
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # プロビジョニングファイルの取り込み
       - name: Import Provisioning Profile
@@ -243,44 +321,30 @@ jobs:
           flutter config --enable-macos-desktop
           flutter build macos -t lib/main.dart --release
 
-  # Windows ビルドジョブ
-  # テストジョブが成功したら実行する
+  # Windows ビルドジョブの定義
   flutter_build_windows:
+
+    # ジョブの表示名
     name: Flutter Build for Windows
-    needs:
-      - flutter_test
+
+    # ジョブを実行するOS
     runs-on: windows-latest
-    timeout-minutes: 10
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
         with:
-          fetch-depth: 1
-
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
-        shell: bash
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Windows Release Build
       - name: Build for Windows
@@ -288,43 +352,30 @@ jobs:
           flutter config --enable-windows-desktop
           flutter build windows -t lib/main.dart --release
 
-  # Web ビルドジョブ
-  # テストジョブが成功したら実行する
+  # Web ビルドジョブの定義
   flutter_build_web:
+
+    # ジョブの表示名
     name: Flutter Build for Web
-    needs:
-      - flutter_test
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+
+    # ジョブの手順
     steps:
 
       # ソースコードをチェックアウト
       - name: Checkout
         uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: ./.github/actions/setup_flutter
         with:
-          fetch-depth: 1
-
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
-
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # flutter pub get を実行
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      # 環境変数ファイル（env.dart）を作成
-      - name: Create env.dart
-        run: bin/flutter_env -g ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
       # Web Release Build
       - name: Build for Web
@@ -332,93 +383,125 @@ jobs:
           flutter config --enable-web
           flutter build web -t lib/main.dart --web-renderer html
 
-  # API ドキュメント作成ジョブ
-  # テストジョブが成功したら実行する
-  flutter_api_doc:
-    name: Flutter API doc
-    needs:
-      - flutter_test
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
+  # # API ドキュメント作成ジョブの定義
+  # flutter_api_doc:
 
-      # ソースコードをチェックアウト
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
+  #   # ジョブの表示名
+  #   name: Flutter API doc
 
-      # fvm を確認して Flutter バージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@v1
+  #   # ジョブを実行するOS
+  #   runs-on: ubuntu-latest
 
-      # Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
+  #   # タイムアウト時間（分）
+  #   timeout-minutes: 15
 
-      # dartdoc を実行
-      - name: Run Dartdoc
-        run: |
-          dart pub global activate dartdoc
-          dartdoc
+  #   # ジョブの手順
+  #   steps:
 
-      # API ドキュメントを artifacts にアップロード
-      - name: Upload API doc to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: api-doc
-          path: doc/api
+  #     # ソースコードをチェックアウト
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      # main ブランチのときだけ API ドキュメントを GitHub Pages にデプロイ
-      - name: Deploy API doc to GitHub Pages
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: doc/api
-          publish_branch: gh-pages  # default: gh-pages
+  #     # セットアップ
+  #     - name: Setup Flutter
+  #       uses: ./.github/actions/setup_flutter
+  #       with:
+  #         GITHUB_ACCESS_TOKEN: ${{ secrets.ENV_GITHUB_ACCESS_TOKEN }}
 
-  # Slack通知ジョブ
-  # すべてのジョブが終了したら実行する
+  #     # dartdoc を実行
+  #     - name: Run Dartdoc
+  #       run: |
+  #         dart pub global activate dartdoc
+  #         dartdoc
+
+  #     # API ドキュメントを artifacts にアップロード
+  #     - name: Upload API doc to Artifacts
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: api-doc
+  #         path: doc/api
+
+  #     # main ブランチのときだけ API ドキュメントを GitHub Pages にデプロイ
+  #     - name: Deploy API doc to GitHub Pages
+  #       if: ${{ github.ref == 'refs/heads/main' }}
+  #       uses: peaceiris/actions-gh-pages@v3
+  #       with:
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         publish_dir: doc/api
+  #         publish_branch: gh-pages  # default: gh-pages
+
+  # Slack通知ジョブの定義
   notify_slack:
+
+    # ジョブの表示名
     name: Notify to Slack
-    if: ${{ always() }}
+
+    # 常に実行する
+    if: always()
+
+    # すべてのジョブが終了したら実行する
     needs:
-      - flutter_test
+      - flutter_test_ubuntu
+      - flutter_test_macos_en
+      - flutter_test_macos_ja
+      - flutter_test_windows
       - flutter_build_android
       - flutter_build_ios
       - flutter_build_web
       - flutter_build_macos
       - flutter_build_windows
-      - flutter_api_doc
+      # - flutter_api_doc
+
+    # ジョブを実行するOS
     runs-on: ubuntu-latest
+
+    # 環境変数の定義
     env:
-      SLACK_CHANNEL: 個人開発_すさ_github_search
       SLACK_USERNAME: GitHub Actions
       SLACK_ICON: https://raw.githubusercontent.com/github/explore/2c7e603b797535e5ad8b4beb575ab3b7354666e1/topics/actions/actions.png
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    # ジョブの手順
     steps:
 
       # すべて成功したとき
       - name: Notify Succeed
-        if: ${{ !contains(needs.*.result, 'failure') }}
+        if: ${{ !cancelled() && !contains(needs.*.result, 'failure') }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: SUCCESSED TEST AND BUILD!
           SLACK_COLOR: good
 
-      # テストに失敗したとき
-      - name: Notify Failure Test
-        if: ${{ needs.flutter_test.result == 'failure' }}
+      # ubuntu テストに失敗したとき
+      - name: Notify Failure Test for ubuntu-latest
+        if: ${{ needs.flutter_test_ubuntu.result == 'failure' }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_TITLE: FAILURE TEST ...
+          SLACK_TITLE: FAILURE TEST (ubuntu-latest) ...
+          SLACK_COLOR: danger
+
+      # macos-en テストに失敗したとき
+      - name: Notify Failure Test for macos-latest
+        if: ${{ needs.flutter_test_macos_en.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE TEST (macos-latest-en) ...
+          SLACK_COLOR: danger
+
+      # macos-ja テストに失敗したとき
+      - name: Notify Failure Test for macos-latest
+        if: ${{ needs.flutter_test_macos_ja.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE TEST (macos-latest-ja) ...
+          SLACK_COLOR: danger
+
+      # windows テストに失敗したとき
+      - name: Notify Failure Test for windows-latest
+        if: ${{ needs.flutter_test_windows.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: FAILURE TEST (windows-latest) ...
           SLACK_COLOR: danger
 
       # Android ビルドに失敗したとき
@@ -461,10 +544,10 @@ jobs:
           SLACK_TITLE: FAILURE BUILD WINDOWS ...
           SLACK_COLOR: danger
 
-      # API doc 作成に失敗したとき
-      - name: Notify Failure API doc
-        if: ${{ needs.flutter_api_doc.result == 'failure' }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_TITLE: FAILURE API DOC ...
-          SLACK_COLOR: danger
+      # # API doc 作成に失敗したとき
+      # - name: Notify Failure API doc
+      #   if: ${{ needs.flutter_api_doc.result == 'failure' }}
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_TITLE: FAILURE API DOC ...
+      #     SLACK_COLOR: danger

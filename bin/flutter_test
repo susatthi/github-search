@@ -4,6 +4,14 @@
 # Use of this source code is governed by a MIT license that can be
 # found in the LICENSE file.
 
+# 言語情報を設定する
+LOCALE=$1
+if [ $# -ne 1 ]; then
+  # デフォルトは英語
+  LOCALE=en
+fi
+echo 'Locale is '$LOCALE
+
 # 静的解析を実行する
 fvm flutter analyze
 if [ $? -gt 0 ]; then
@@ -11,24 +19,29 @@ if [ $? -gt 0 ]; then
   exit 1
 fi
 
+# 前回のテスト結果を削除する
+rm -rf coverage
+echo 'Removed coverage dir'
+
 # テストを実行する
 echo 'Testing github-search...'
-fvm flutter test --no-test-assets --coverage --machine > test-report.log
+
+fvm flutter test --coverage --machine --dart-define=locale=$LOCALE > test-report.log
 if [ $? -gt 0 ]; then
   # flutter test でエラーがあれば結果を表示して処理終了
-  flutter pub global run dart_dot_reporter test-report.log --show-message
+  fvm flutter pub global run dart_dot_reporter test-report.log --show-message
   exit 1
 fi
 echo 'Tests done!'
 
 # カバレッジから不要な結果を削除する
-lcov --remove coverage/lcov.info 'lib/assets/*' 'lib/localizations/*' -o coverage/lcov.info
+sh bin/scripts/lcov_remove.sh
 
 # カバレッジ結果のHTMLを出力する
 genhtml coverage/lcov.info -o coverage/html
 
 # テスト結果をコンソールに表示する
-flutter pub global run dart_dot_reporter test-report.log --show-message
+fvm flutter pub global run dart_dot_reporter test-report.log --show-message
 
 # カバレッジ結果を表示する
 open coverage/html/index.html

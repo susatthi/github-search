@@ -2,22 +2,25 @@
   "appName": "GitHubSearch",
   "asc": "Asc",
   "bestMatch": "Best match",
+  "canSearchRepos": "You can search repositories",
+  "cantLaunchUrl": "Can't launch $url",
   "desc": "Desc",
   "error": "Error",
-  "errorOccurred": "An error has occurred.",
+  "errorOccurred": "An error has occurred",
   "forksCount": "Forks count",
-  "gitHubExceptionMessage": {
-    "badRequest": "Illegal request sent. (400)",
-    "badCredentials": "Illegal request sent. (401)",
-    "maximumNumberOfLoginAttemptsExceeded": "Please wait a while and try again. (403)",
-    "notFound": "No data found. (404)",
-    "validationFailed": "Illegal request sent. (422)",
-    "serviceUnavailable": "Please wait a while and try again.  (503)",
-    "unknown": "An unknown error has occurred. (-1)",
-    "noInternetConnection": "Please try again in a good communication environment. (-2)"
-  },
   "helpWantedIssuesCount": "Help wanted @:issuesCount",
   "issuesCount": "Issues count",
+  "networkExceptionMessage": {
+    "badRequest": "Illegal request sent (400)",
+    "badCredentials": "Illegal request sent (401)",
+    "maximumNumberOfLoginAttemptsExceeded": "Please wait a while and try again (403)",
+    "notFound": "No data found (404)",
+    "validationFailed": "Illegal request sent (422)",
+    "serviceUnavailable": "Please wait a while and try again (503)",
+    "unknown": "An unknown error has occurred (-1)",
+    "noInternetConnection": "Please try again in a good communication environment (-2)"
+  },
+  "notFoundRepos": "We couldn't find any repositories",
   "ownerName": "Owner name",
   "projectLanguage": "Project language",
   "repo": "Repository",
@@ -25,5 +28,6 @@
   "starsCount": "Stars count",
   "searchRepos": "Search repositories",
   "sort": "Sort",
+  "totalCountResult": "$totalCount repository results",
   "watchersCount": "Watchers count"
 }

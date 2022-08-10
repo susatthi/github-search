@@ -2,12 +2,12 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'package:github_search/utils/logger.dart';
-import 'package:logger/logger.dart';
+import 'package:roggle/roggle.dart';
 
-final testLogger = Logger(
+final testLogger = Roggle(
   printer: SinglePrettyPrinter(
     loggerName: '[TEST]',
     colors: false,
+    printCaller: false,
   ),
 );

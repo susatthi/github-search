@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "app-debug",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--debug",
+      ]
+    },
+    {
+      "name": "app-release",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--release",
+      ]
+    },
+    {
+      "name": "web-debug",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--debug",
+        "--web-renderer",
+        "canvaskit",
+        "--web-hostname",
+        "localhost",
+        "--web-port",
+        "5000",
+      ]
+    },
+    {
+      "name": "Golden",
+      "request": "launch",
+      "type": "dart",
+      "codeLens": {
+        "for": [
+          "run-test",
+          "run-test-file"
+        ]
+      },
+      "args": [
+        "--update-goldens"
+      ]
+    }
+  ]
+}

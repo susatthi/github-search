@@ -3,7 +3,7 @@
  * Generated file. Do not edit.
  *
  * Locales: 2
- * Strings: 50 (25.0 per locale)
+ * Strings: 58 (29.0 per locale)
  */
 
 import 'package:flutter/widgets.dart';
@@ -74,10 +74,8 @@ class LocaleSettings {
 		_currLocale = locale;
 		_i18n = _currLocale.translations;
 
-		if (WidgetsBinding.instance != null) {
-			// force rebuild if TranslationProvider is used
-			_translationProviderKey.currentState?.setLocale(_currLocale);
-		}
+		// force rebuild if TranslationProvider is used
+		_translationProviderKey.currentState?.setLocale(_currLocale);
 
 		return _currLocale;
 	}
@@ -122,7 +120,7 @@ class AppLocaleUtils {
 	/// Returns the locale of the device as the enum type.
 	/// Fallbacks to base locale.
 	static AppLocale findDeviceLocale() {
-		final String? deviceLocale = WidgetsBinding.instance?.window.locale.toLanguageTag();
+		final String? deviceLocale = WidgetsBinding.instance.window.locale.toLanguageTag();
 		if (deviceLocale != null) {
 			final typedLocale = _selectLocale(deviceLocale);
 			if (typedLocale != null) {
@@ -297,20 +295,22 @@ class _StringsEn {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsEn.build();
 
-	// ignore: unused_field
-	late final _StringsEn _root = this;
+	late final _StringsEn _root = this; // ignore: unused_field
 
 	// Translations
 	String get appName => 'GitHubSearch';
 	String get asc => 'Asc';
 	String get bestMatch => 'Best match';
+	String get canSearchRepos => 'You can search repositories';
+	String cantLaunchUrl({required Object url}) => 'Can\'t launch $url';
 	String get desc => 'Desc';
 	String get error => 'Error';
-	String get errorOccurred => 'An error has occurred.';
+	String get errorOccurred => 'An error has occurred';
 	String get forksCount => 'Forks count';
-	late final _StringsGitHubExceptionMessageEn gitHubExceptionMessage = _StringsGitHubExceptionMessageEn._(_root);
 	String get helpWantedIssuesCount => 'Help wanted ${_root.issuesCount}';
 	String get issuesCount => 'Issues count';
+	late final _StringsNetworkExceptionMessageEn networkExceptionMessage = _StringsNetworkExceptionMessageEn._(_root);
+	String get notFoundRepos => 'We couldn\'t find any repositories';
 	String get ownerName => 'Owner name';
 	String get projectLanguage => 'Project language';
 	String get repo => 'Repository';
@@ -318,25 +318,25 @@ class _StringsEn {
 	String get starsCount => 'Stars count';
 	String get searchRepos => 'Search repositories';
 	String get sort => 'Sort';
+	String totalCountResult({required Object totalCount}) => '$totalCount repository results';
 	String get watchersCount => 'Watchers count';
 }
 
-// Path: gitHubExceptionMessage
-class _StringsGitHubExceptionMessageEn {
-	_StringsGitHubExceptionMessageEn._(this._root);
+// Path: networkExceptionMessage
+class _StringsNetworkExceptionMessageEn {
+	_StringsNetworkExceptionMessageEn._(this._root);
 
-	// ignore: unused_field
-	final _StringsEn _root;
+	final _StringsEn _root; // ignore: unused_field
 
 	// Translations
-	String get badRequest => 'Illegal request sent. (400)';
-	String get badCredentials => 'Illegal request sent. (401)';
-	String get maximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again. (403)';
-	String get notFound => 'No data found. (404)';
-	String get validationFailed => 'Illegal request sent. (422)';
-	String get serviceUnavailable => 'Please wait a while and try again.  (503)';
-	String get unknown => 'An unknown error has occurred. (-1)';
-	String get noInternetConnection => 'Please try again in a good communication environment. (-2)';
+	String get badRequest => 'Illegal request sent (400)';
+	String get badCredentials => 'Illegal request sent (401)';
+	String get maximumNumberOfLoginAttemptsExceeded => 'Please wait a while and try again (403)';
+	String get notFound => 'No data found (404)';
+	String get validationFailed => 'Illegal request sent (422)';
+	String get serviceUnavailable => 'Please wait a while and try again (503)';
+	String get unknown => 'An unknown error has occurred (-1)';
+	String get noInternetConnection => 'Please try again in a good communication environment (-2)';
 }
 
 // Path: <root>
@@ -346,20 +346,22 @@ class _StringsJa implements _StringsEn {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsJa.build();
 
-	// ignore: unused_field
-	@override late final _StringsJa _root = this;
+	@override late final _StringsJa _root = this; // ignore: unused_field
 
 	// Translations
 	@override String get appName => 'GitHubSearch';
 	@override String get asc => '昇順';
 	@override String get bestMatch => 'ベストマッチ';
+	@override String get canSearchRepos => 'リポジトリを検索できます';
+	@override String cantLaunchUrl({required Object url}) => '$url を開くことができませんでした';
 	@override String get desc => '降順';
 	@override String get error => 'エラー';
-	@override String get errorOccurred => 'エラーが発生しました。';
+	@override String get errorOccurred => 'エラーが発生しました';
 	@override String get forksCount => 'Fork数';
-	@override late final _StringsGitHubExceptionMessageJa gitHubExceptionMessage = _StringsGitHubExceptionMessageJa._(_root);
 	@override String get helpWantedIssuesCount => '助けを求めている${_root.issuesCount}';
 	@override String get issuesCount => 'Issue数';
+	@override late final _StringsNetworkExceptionMessageJa networkExceptionMessage = _StringsNetworkExceptionMessageJa._(_root);
+	@override String get notFoundRepos => 'リポジトリが見つかりませんでした';
 	@override String get ownerName => 'オーナー名';
 	@override String get projectLanguage => 'プロジェクト言語';
 	@override String get repo => 'リポジトリ';
@@ -367,23 +369,23 @@ class _StringsJa implements _StringsEn {
 	@override String get starsCount => 'Star数';
 	@override String get searchRepos => 'リポジトリを検索';
 	@override String get sort => '並び替え';
+	@override String totalCountResult({required Object totalCount}) => '$totalCount 件';
 	@override String get watchersCount => 'Watcher数';
 }
 
-// Path: gitHubExceptionMessage
-class _StringsGitHubExceptionMessageJa implements _StringsGitHubExceptionMessageEn {
-	_StringsGitHubExceptionMessageJa._(this._root);
+// Path: networkExceptionMessage
+class _StringsNetworkExceptionMessageJa implements _StringsNetworkExceptionMessageEn {
+	_StringsNetworkExceptionMessageJa._(this._root);
 
-	// ignore: unused_field
-	@override final _StringsJa _root;
+	@override final _StringsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get badRequest => '不正なリクエストが送信されました。(400)';
-	@override String get badCredentials => '不正なリクエストが送信されました。(401)';
-	@override String get maximumNumberOfLoginAttemptsExceeded => 'しばらく時間をおいてから再度お試しください。(403)';
-	@override String get notFound => 'データが見つかりませんでした。(404)';
-	@override String get validationFailed => '不正なリクエストが送信されました。(422)';
-	@override String get serviceUnavailable => 'しばらく時間をおいてから再度お試しください。(503)';
-	@override String get unknown => '不明なエラーが発生しました。(-1)';
-	@override String get noInternetConnection => '通信環境の良いところで再度お試しください。(-2)';
+	@override String get badRequest => '不正なリクエストが送信されました (400)';
+	@override String get badCredentials => '不正なリクエストが送信されました (401)';
+	@override String get maximumNumberOfLoginAttemptsExceeded => 'しばらく時間をおいてから再度お試しください (403)';
+	@override String get notFound => 'データが見つかりませんでした (404)';
+	@override String get validationFailed => '不正なリクエストが送信されました (422)';
+	@override String get serviceUnavailable => 'しばらく時間をおいてから再度お試しください (503)';
+	@override String get unknown => '不明なエラーが発生しました (-1)';
+	@override String get noInternetConnection => '通信環境の良いところで再度お試しください (-2)';
 }

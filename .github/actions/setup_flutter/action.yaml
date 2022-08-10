@@ -1,0 +1,56 @@
+# Copyright 2022 susatthi All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
+# アクション名
+name: Setup Flutter
+
+# アクションの説明
+description: Setup Flutter
+
+# インプット情報
+inputs:
+  GITHUB_ACCESS_TOKEN:
+    required: true
+
+# 実行する内容を定義する
+runs:
+
+  # composit action の定義
+  using: composite
+
+  # ジョブの手順
+  steps:
+
+    # fvm のバージョンとチャネルを環境変数に設定する
+    - name: Check fvm
+      uses: kuhnroyal/flutter-fvm-config-action@v1
+
+    # Flutter SDK の設定
+    - name: Setup Flutter SDK
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ env.FLUTTER_VERSION }}
+        channel: ${{ env.FLUTTER_CHANNEL }}
+        cache: true
+        cache-key: flutter
+        cache-path: ${{ runner.tool_cache }}/flutter
+
+    # flutter pub get を実行
+    - name: Cache Pub
+      uses: actions/cache@v2
+      id: pub-cache
+      with:
+        path: |
+          ${{ env.FLUTTER_HOME }}/.pub-cache
+          **/.packages
+          **/.flutter-plugins
+          **/.flutter-plugin-dependencies
+          **/.dart_tool/package_config.json
+        key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: build-pubspec-
+
+    # 環境変数ファイル（env.dart）を作成
+    - name: Create env.dart
+      run: bin/flutter_env -g ${{ inputs.GITHUB_ACCESS_TOKEN }}
+      shell: bash

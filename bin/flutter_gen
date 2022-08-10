@@ -4,5 +4,4 @@
 # Use of this source code is governed by a MIT license that can be
 # found in the LICENSE file.
 
-fvm flutter pub get
 fvm flutter pub run build_runner build --delete-conflicting-outputs
