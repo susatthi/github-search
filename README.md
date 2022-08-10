@@ -14,7 +14,21 @@
 > **:warning: 注意**  
 > このアプリは `GitHub API` を利用するために GitHub の `アクセストークン` をアプリの内部でハードコーディングして保持する構成になっています。このアプリを公開すると悪意のある者に `アクセストークン` を抜き取られ悪用される恐れがありますのでお控え下さい。もちろん、手元でビルドして動かすことは問題ありません。
 
+一覧(Light)|一覧(Dark)
+--|--
+![index-light](https://user-images.githubusercontent.com/13707135/183786156-c6506906-9eb1-419f-8466-fdbe907934f7.png)|![index-dark](https://user-images.githubusercontent.com/13707135/183786212-11334663-f095-4a22-a98a-13a4b5dde6c1.png)
+
+デスクトップ|タブレット
+--|--
+![desktop](https://user-images.githubusercontent.com/13707135/183787423-b404c9d3-e1e6-4c57-bd96-4e4c5c06703a.png)|![tablet](https://user-images.githubusercontent.com/13707135/183787582-86eabebc-7d99-4961-ad6c-70c75f299725.png)
+
+
+詳細|0件|エラー
+--|--|--
+![view](https://user-images.githubusercontent.com/13707135/183786405-5f925803-83ad-4066-a01e-f903d2b45148.png)|![empty](https://user-images.githubusercontent.com/13707135/183786643-bca0977e-f6e6-4a8c-a651-2a150163de07.png)|![error](https://user-images.githubusercontent.com/13707135/183786950-221a389c-8613-4b1d-8755-726f9b71654f.png)
+
 ![github_search_0_9_0_demo](https://user-images.githubusercontent.com/13707135/172117146-22d5f5b2-5e90-4d09-8060-8c1976b2b42a.gif)
+
 
 ## ビルド方法
 
