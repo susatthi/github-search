@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 /// アイコン＋ラベル
 class IconLabel extends StatelessWidget {
@@ -21,18 +22,23 @@ class IconLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = Padding(
-      padding: padding,
-      child: Wrap(
-        children: [
-          Icon(
-            icon,
-            color: Theme.of(context).textTheme.caption!.color,
-            size: 20,
-          ),
-          const SizedBox(width: 4),
-          Text(text),
-        ],
+    final child = ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 72,
+      ),
+      child: Padding(
+        padding: padding,
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Theme.of(context).textTheme.caption!.color,
+              size: 20,
+            ),
+            const Gap(4),
+            Text(text),
+          ],
+        ),
       ),
     );
 

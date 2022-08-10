@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../domain/exceptions.dart';
@@ -35,12 +36,12 @@ class ErrorView extends StatelessWidget {
             Assets.lottie.error,
             width: 200,
           ),
-          const SizedBox(height: 8),
+          const Gap(8),
           Text(
             error.errorMessage,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          const SizedBox(height: 40),
+          const Gap(40),
         ],
       ),
     );

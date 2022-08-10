@@ -16,9 +16,10 @@ class RepoIndexPage extends StatefulWidget {
   const RepoIndexPage({super.key});
 
   @override
-  RepoIndexPageState createState() => RepoIndexPageState();
+  State<RepoIndexPage> createState() => RepoIndexPageState();
 }
 
+@visibleForTesting
 class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   final _animatedBackgroundKey = GlobalKey<AnimatedAppBarBackgroundState>();
   final _scrollController = ScrollController();

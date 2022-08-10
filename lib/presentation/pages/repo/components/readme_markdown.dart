@@ -15,6 +15,7 @@ import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
+import '../../../components/async_value_handler.dart';
 import '../../../components/url_launcher.dart';
 
 /// ReadmeMarkdownのキャッシュマネージャープロバイダー
@@ -43,12 +44,11 @@ class ReadmeMarkdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(readmeContentProviderFamily(repo));
-    return asyncValue.when(
-      data: (content) => ReadmeMarkdownInternal(
+    return AsyncValueHandler<String>(
+      value: ref.watch(readmeContentProviderFamily(repo)),
+      builder: (content) => ReadmeMarkdownInternal(
         content: content,
       ),
-      error: (_, __) => const SizedBox(),
       loading: () => const _LoadingIndicator(),
     );
   }

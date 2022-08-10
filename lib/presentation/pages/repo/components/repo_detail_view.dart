@@ -226,7 +226,7 @@ class _IconLabelsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding / 2),
-      child: Wrap(
+      child: Row(
         children: [
           _IconLabel(
             padding: const EdgeInsets.symmetric(
@@ -307,19 +307,13 @@ class _IconLabel extends ConsumerWidget {
   final IconData icon;
   final String text;
 
-  /// アイコンラベルの幅
-  static const _iconLabelWidth = 80.0;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: _iconLabelWidth,
-      child: IconLabel(
-        icon: icon,
-        text: text,
-        padding: padding,
-        onTap: url != null ? () => ref.read(urlLauncher)(url!) : null,
-      ),
+    return IconLabel(
+      icon: icon,
+      text: text,
+      padding: padding,
+      onTap: url != null ? () => ref.read(urlLauncher)(url!) : null,
     );
   }
 }

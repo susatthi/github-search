@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../domain/repositories/repo/entities/values/repo_language.dart';
 
@@ -23,14 +24,14 @@ class RepoLanguageLabel extends StatelessWidget {
       return const SizedBox();
     }
 
-    return Wrap(
+    return Row(
       children: [
         Icon(
           Icons.circle,
           color: language.color,
           size: 20,
         ),
-        const SizedBox(width: 4),
+        const Gap(4),
         Text(language.display),
       ],
     );
