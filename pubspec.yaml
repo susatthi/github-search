@@ -3,9 +3,9 @@
 # found in the LICENSE file.
 
 name: github_search
-description: Search GitHub repositories.
+description: GitHub API を利用して GitHub のリポジトリを検索するアプリです。株式会社ゆめみのFlutterエンジニアコードチェックの要件を満たすよう実装しています。
 publish_to: 'none'
-version: 0.1.1+2
+version: 0.9.0+4
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
