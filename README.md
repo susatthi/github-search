@@ -58,22 +58,21 @@ Configurations を選択してビルドしてください。
   - 検索結果の並び替えと [hive](https://pub.dev/packages/hive) を使ったデータの永続化
   - Sliver を使った無限スクロール対応
   - [isar](https://isar.dev/) を使った検索履歴の保存とサジェスト
-- [go_router](https://pub.dev/packages/go_router) を使ったルーティング
+- [go_router](https://pub.dev/packages/go_router) と [go_router_builder](https://pub.dev/packages/go_router_builder) を使ったルーティング
 - [http](https://pub.dev/packages/http) を使った REST API の実装
 - [fast_i18n](https://pub.dev/packages/fast_i18n) を使った多言語対応（日本語/英語）
 - カスタムフォント対応
 - [mocktail](https://pub.dev/packages/mocktail) を使った Unit / Widget テスト
-- [golden_toolkit](https://pub.dev/packages/golden_toolkit) を使った Golden テスト
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) を使ったアプリアイコン
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) を使ったスプラッシュ画面
+- [responsive_framework](https://pub.dev/packages/responsive_framework) を使ったレスポンシブ対応
 - [GitHub Actions](https://github.co.jp/features/actions) によるCI(自動テストと自動ビルド)
+- ダークモード対応
 - サポートするプラットフォーム
   - iOS / Android / Web / macOS / Windows
 
 ### 今後対応予定
 
-- デスクトップ UI
-- ダークモード対応
 - Integration テスト
 
 ### 対応しないこと
@@ -151,16 +150,17 @@ flowchart TB
   searchReposEnteringQueryStringUpdater -.-> _MockPage;
   _GitHubSearchApp((_GitHubSearchApp));
   themeProvider ==> _GitHubSearchApp;
+  themeProvider ==> _GitHubSearchApp;
   routerProvider ==> _GitHubSearchApp;
-  launchUrlStateProvider --> _GitHubSearchApp;
+  urlLauncherStateProvider --> _GitHubSearchApp;
   HyperlinkText((HyperlinkText));
-  launcher -.-> HyperlinkText;
+  urlLauncher -.-> HyperlinkText;
   SearchReposTextButton((SearchReposTextButton));
   searchReposQueryStringUpdater -.-> SearchReposTextButton;
   SliverRepoDetailView((SliverRepoDetailView));
   selectedRepoProvider ==> SliverRepoDetailView;
   _IconLabel((_IconLabel));
-  launcher -.-> _IconLabel;
+  urlLauncher -.-> _IconLabel;
   SearchReposSortSelectorBottomSheet((SearchReposSortSelectorBottomSheet));
   searchReposSortProvider ==> SearchReposSortSelectorBottomSheet;
   searchReposSortUpdater -.-> SearchReposSortSelectorBottomSheet;
@@ -170,6 +170,8 @@ flowchart TB
   repoListViewStateProvider -.-> _LastIndicator;
   AvatarPreviewView((AvatarPreviewView));
   selectedRepoProvider ==> AvatarPreviewView;
+  _AvatarPreviewView((_AvatarPreviewView));
+  cachedCircleAvatarCacheManagerProvider ==> _AvatarPreviewView;
   RepoFullNameText((RepoFullNameText));
   selectedRepoProvider ==> RepoFullNameText;
   SearchReposOrderToggleButton((SearchReposOrderToggleButton));
@@ -185,14 +187,12 @@ flowchart TB
   ReadmeMarkdown((ReadmeMarkdown));
   readmeContentProviderFamily ==> ReadmeMarkdown;
   ReadmeMarkdownInternal((ReadmeMarkdownInternal));
-  launcher -.-> ReadmeMarkdownInternal;
+  readmeMarkdownCacheManagerProvider ==> ReadmeMarkdownInternal;
+  urlLauncher -.-> ReadmeMarkdownInternal;
   searchReposQueryStringUpdater[[searchReposQueryStringUpdater]];
-  searchReposQueryStringProvider ==> searchReposQueryStringUpdater;
-  queryHistoryRepositoryProvider ==> searchReposQueryStringUpdater;
   searchReposEnteringQueryStringUpdater[[searchReposEnteringQueryStringUpdater]];
-  searchReposEnteringQueryStringProvider ==> searchReposEnteringQueryStringUpdater;
   searchReposEnteringQueryStringProvider -.-> searchReposEnteringQueryStringUpdater;
-  launchUrlStateProvider[[launchUrlStateProvider]];
+  urlLauncherStateProvider[[urlLauncherStateProvider]];
   themeProvider[[themeProvider]];
   routerProvider[[routerProvider]];
   isarQueryHistoryRepositoryProvider[[isarQueryHistoryRepositoryProvider]];
@@ -207,21 +207,15 @@ flowchart TB
   githubApiProvider ==> githubRepoRepositoryProvider;
   githubHttpClientProvider ==> githubRepoRepositoryProvider;
   githubApiProvider[[githubApiProvider]];
-  launcher[[launcher]];
-  launchUrlStateProvider -.-> launcher;
-  launchModeProvider -.-> launcher;
-  launchModeProvider[[launchModeProvider]];
+  urlLauncher[[urlLauncher]];
   selectedRepoProvider[[selectedRepoProvider]];
   searchReposSortProvider[[searchReposSortProvider]];
   appDataRepositoryProvider ==> searchReposSortProvider;
   searchReposSortUpdater[[searchReposSortUpdater]];
-  searchReposSortProvider ==> searchReposSortUpdater;
-  appDataRepositoryProvider ==> searchReposSortUpdater;
   appDataRepositoryProvider[[appDataRepositoryProvider]];
   searchReposQueryStringProvider[[searchReposQueryStringProvider]];
   searchReposInitQueryStringProvider ==> searchReposQueryStringProvider;
   searchReposInitQueryStringProvider[[searchReposInitQueryStringProvider]];
-  queryHistoryRepositoryProvider[[queryHistoryRepositoryProvider]];
   searchReposEnteringQueryStringProvider[[searchReposEnteringQueryStringProvider]];
   searchReposQueryStringProvider ==> searchReposEnteringQueryStringProvider;
   repoListViewStateProvider[[repoListViewStateProvider]];
@@ -232,77 +226,49 @@ flowchart TB
   selectedRepoProviderFamily[[selectedRepoProviderFamily]];
   repoRepositoryProvider ==> selectedRepoProviderFamily;
   repoRepositoryProvider[[repoRepositoryProvider]];
+  cachedCircleAvatarCacheManagerProvider[[cachedCircleAvatarCacheManagerProvider]];
   searchReposOrderProvider[[searchReposOrderProvider]];
   appDataRepositoryProvider ==> searchReposOrderProvider;
   searchReposOrderUpdater[[searchReposOrderUpdater]];
-  searchReposOrderProvider ==> searchReposOrderUpdater;
-  appDataRepositoryProvider ==> searchReposOrderUpdater;
   queryHistoriesProvider[[queryHistoriesProvider]];
   queryHistoryRepositoryProvider ==> queryHistoriesProvider;
   searchReposEnteringQueryStringProvider ==> queryHistoriesProvider;
+  queryHistoryRepositoryProvider[[queryHistoryRepositoryProvider]];
   readmeContentProviderFamily[[readmeContentProviderFamily]];
   repoRepositoryProvider ==> readmeContentProviderFamily;
+  readmeMarkdownCacheManagerProvider[[readmeMarkdownCacheManagerProvider]];
 ```
 
 ## フォルダ構成
 
-```
-├── config                                 アプリケーション、ルーター、テーマ、環境変数等の設定値
-├── domain                                 ドメイン層
-│   ├── entities                           ドメイン層で共通のエンティティクラス
-│   │   └── input.dart
-│   ├── exceptions.dart                    例外クラス
-│   └── repositories
-│       └── repo
-│           ├── entities                   エンティティクラス
-│           │   ├── repo.dart
-│           │   ├── repo.freezed.dart
-│           │   ├── search_repos_order.dart
-│           │   ├── search_repos_result.dart
-│           │   ├── search_repos_result.freezed.dart
-│           │   ├── search_repos_sort.dart
-│           │   └── values                 値オブジェクトクラス
-│           │       ├── repo_count.dart
-│           │       ├── repo_count.freezed.dart
-│           │       ├── repo_language.dart
-│           │       └── repo_language.freezed.dart
-│           └── repo_repository.dart       リポジトリのインターフェース
-├── infrastructure                         インフラストラクチャ層
-│   └── github                             データソース毎にサブクラスを用意する
-│       ├── api.dart
-│       ├── http_client.dart
-│       └── repo                           関心事毎にサブクラスを用意する
-│           ├── json_objects               データソース内でのみ使うエンティティなど
-│           │   ├── owner.dart
-│           │   ├── owner.freezed.dart
-│           │   ├── owner.g.dart
-│           │   ├── repo.dart
-│           │   ├── repo.freezed.dart
-│           │   ├── repo.g.dart
-│           │   ├── search_repos_result.dart
-│           │   ├── search_repos_result.freezed.dart
-│           │   └── search_repos_result.g.dart
-│           └── repo_repository.dart       ドメイン層のインターフェースを実装したリポジトリの実体
-├── localizations                          多言語ファイル
-├── presentation                           プレゼンテーション層
-│   ├── components                         共通のコンポーネント、状態もここに含める
-│   └── pages                              ページ（画面）一式、機能毎にサブクラスを用意する
-│       └── repo
-│           ├── components                 機能毎のコンポーネント、状態もここに含める
-│           ├── repo_index_page.dart
-│           ├── repo_search_page.dart
-│           └── repo_view_page.dart
+```  
+├── config                                   アプリケーション、ルーター、テーマ、環境変数等の設定値
+├── domain                                   ドメイン層
+│   ├── entities                             ドメイン層で共通のエンティティクラス
+│   ├── exceptions.dart                      例外クラス
+│   └── repositories                         リポジトリ
+│       └── <feature>                        機能
+│           ├── entities                     機能単位のエンティティ
+│           └── <feature>_repository.dart    リポジトリのインターフェースクラス
+├── infrastructure                           インフラストラクチャ層
+│   └── <data_sources>                       データソース毎のディレクトリ
+│       └── <feature>                        機能
+│           └── <feature>_repository.dart    リポジトリの実装
+├── presentation                             プレゼンテーション層
+│   ├── components                           プレゼンテーション層で共通の Widget、Controller、状態
+│   └── pages                                画面
+│       └── <feature>
+│           ├── components                   画面単位のコンポーネント
+│           └── <feature>_<curd>_page.dart   画面Widget
 └── utils                                    拡張機能、ロガーなどのユーティリティクラス
-    ├── extensions.dart
-    └── logger.dart
 ```
 
 ## 環境
 
 |                | Version                          |
 |----------------|----------------------------------|
-| Flutter        | 3.0.1                            |
-| Dart           | 2.17.1                           |
+| Flutter        | 3.0.5                            |
+| Dart           | 2.17.6                           |
 
 ### コードの自動生成
 
