@@ -2,11 +2,10 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../../../../../utils/extensions.dart';
 
 part 'repo_language.freezed.dart';
 
