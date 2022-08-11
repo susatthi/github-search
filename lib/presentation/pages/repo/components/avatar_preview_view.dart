@@ -43,7 +43,7 @@ class _AvatarPreviewView extends ConsumerWidget {
           repo.avatarUrl,
           cacheManager: cacheManager,
         ),
-        maxScale: 1,
+        maxScale: 1.0,
         backgroundDecoration: const BoxDecoration(),
       ),
     );
