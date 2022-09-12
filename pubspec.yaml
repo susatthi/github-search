@@ -33,7 +33,7 @@ dependencies:
   http: ^0.13.5
   intl: ^0.17.0
   isar: ^3.0.0-dev.5
-  isar_flutter_libs: ^3.0.0-dev.5
+  isar_flutter_libs: ^3.0.0-dev.14
   json_annotation: ^4.6.0
   lottie: ^1.4.2
   markdown: ^5.0.0
