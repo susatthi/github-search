@@ -386,14 +386,14 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.0"
+    version: "4.5.0"
   go_router_builder:
     dependency: "direct dev"
     description:
       name: go_router_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.9"
+    version: "1.0.12"
   golden_toolkit:
     dependency: "direct dev"
     description:
