@@ -26,7 +26,6 @@ import 'package:github_search/presentation/pages/repo/components/readme_markdown
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
-import 'package:isar/src/version.dart';
 import 'package:path/path.dart' as path;
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
@@ -241,7 +240,7 @@ class IsarTestAgent {
       path.join(
         TestDirectory.rootDir.path,
         'isar_core_library',
-        isarCoreVersion,
+        Isar.version,
       ),
     );
     if (!libraryDir.existsSync()) {

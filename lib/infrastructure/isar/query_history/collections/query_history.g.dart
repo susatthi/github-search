@@ -9,83 +9,82 @@ part of 'query_history.dart';
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
 
 extension GetQueryHistoryCollectionCollection on Isar {
   IsarCollection<QueryHistoryCollection> get queryHistoryCollections =>
-      getCollection();
+      this.collection();
 }
 
 const QueryHistoryCollectionSchema = CollectionSchema(
   name: r'QueryHistoryCollection',
-  schema:
-      r'{"name":"QueryHistoryCollection","idName":"id","properties":[{"name":"queryString","type":"String"},{"name":"searchedAt","type":"Long"}],"indexes":[{"name":"searchedAt","unique":false,"replace":false,"properties":[{"name":"searchedAt","type":"Value","caseSensitive":false}]}],"links":[]}',
-  idName: r'id',
-  propertyIds: {r'queryString': 0, r'searchedAt': 1},
-  listProperties: {},
-  indexIds: {r'searchedAt': 0},
-  indexValueTypes: {
-    r'searchedAt': [
-      IndexValueType.long,
-    ]
+  id: -7581912548881788597,
+  properties: {
+    r'queryString': PropertySchema(
+      id: 0,
+      name: r'queryString',
+      type: IsarType.string,
+    ),
+    r'searchedAt': PropertySchema(
+      id: 1,
+      name: r'searchedAt',
+      type: IsarType.dateTime,
+    )
   },
-  linkIds: {},
-  backlinkLinkNames: {},
+  estimateSize: _queryHistoryCollectionEstimateSize,
+  serialize: _queryHistoryCollectionSerialize,
+  deserialize: _queryHistoryCollectionDeserialize,
+  deserializeProp: _queryHistoryCollectionDeserializeProp,
+  idName: r'id',
+  indexes: {
+    r'searchedAt': IndexSchema(
+      id: 4437879492455379665,
+      name: r'searchedAt',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'searchedAt',
+          type: IndexType.value,
+          caseSensitive: false,
+        )
+      ],
+    )
+  },
+  links: {},
+  embeddedSchemas: {},
   getId: _queryHistoryCollectionGetId,
-  setId: _queryHistoryCollectionSetId,
   getLinks: _queryHistoryCollectionGetLinks,
-  attachLinks: _queryHistoryCollectionAttachLinks,
-  serializeNative: _queryHistoryCollectionSerializeNative,
-  deserializeNative: _queryHistoryCollectionDeserializeNative,
-  deserializePropNative: _queryHistoryCollectionDeserializePropNative,
-  serializeWeb: _queryHistoryCollectionSerializeWeb,
-  deserializeWeb: _queryHistoryCollectionDeserializeWeb,
-  deserializePropWeb: _queryHistoryCollectionDeserializePropWeb,
-  version: 4,
+  attach: _queryHistoryCollectionAttach,
+  version: '3.0.0',
 );
 
-int? _queryHistoryCollectionGetId(QueryHistoryCollection object) {
-  if (object.id == Isar.autoIncrement) {
-    return null;
-  } else {
-    return object.id;
-  }
+int _queryHistoryCollectionEstimateSize(
+  QueryHistoryCollection object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  bytesCount += 3 + object.queryString.length * 3;
+  return bytesCount;
 }
 
-void _queryHistoryCollectionSetId(QueryHistoryCollection object, int id) {
-  object.id = id;
-}
-
-List<IsarLinkBase<dynamic>> _queryHistoryCollectionGetLinks(
-    QueryHistoryCollection object) {
-  return [];
-}
-
-void _queryHistoryCollectionSerializeNative(
-    IsarCollection<QueryHistoryCollection> collection,
-    IsarCObject cObj,
-    QueryHistoryCollection object,
-    int staticSize,
-    List<int> offsets,
-    AdapterAlloc alloc) {
-  final queryString$Bytes =
-      IsarBinaryWriter.utf8Encoder.convert(object.queryString);
-  final size = (staticSize + (queryString$Bytes.length)) as int;
-  cObj.buffer = alloc(size);
-  cObj.buffer_length = size;
-
-  final buffer = IsarNative.bufAsBytes(cObj.buffer, size);
-  final writer = IsarBinaryWriter(buffer, staticSize);
-  writer.writeHeader();
-  writer.writeBytes(offsets[0], queryString$Bytes);
+void _queryHistoryCollectionSerialize(
+  QueryHistoryCollection object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeString(offsets[0], object.queryString);
   writer.writeDateTime(offsets[1], object.searchedAt);
 }
 
-QueryHistoryCollection _queryHistoryCollectionDeserializeNative(
-    IsarCollection<QueryHistoryCollection> collection,
-    int id,
-    IsarBinaryReader reader,
-    List<int> offsets) {
+QueryHistoryCollection _queryHistoryCollectionDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
   final object = QueryHistoryCollection();
   object.id = id;
   object.queryString = reader.readString(offsets[0]);
@@ -93,68 +92,35 @@ QueryHistoryCollection _queryHistoryCollectionDeserializeNative(
   return object;
 }
 
-P _queryHistoryCollectionDeserializePropNative<P>(
-    int id, IsarBinaryReader reader, int propertyIndex, int offset) {
-  switch (propertyIndex) {
-    case -1:
-      return id as P;
+P _queryHistoryCollectionDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
       return (reader.readDateTime(offset)) as P;
     default:
-      throw IsarError('Illegal propertyIndex');
+      throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Object _queryHistoryCollectionSerializeWeb(
-    IsarCollection<QueryHistoryCollection> collection,
+Id _queryHistoryCollectionGetId(QueryHistoryCollection object) {
+  return object.id;
+}
+
+List<IsarLinkBase<dynamic>> _queryHistoryCollectionGetLinks(
     QueryHistoryCollection object) {
-  final jsObj = IsarNative.newJsObject();
-  IsarNative.jsObjectSet(jsObj, r'id', object.id);
-  IsarNative.jsObjectSet(jsObj, r'queryString', object.queryString);
-  IsarNative.jsObjectSet(
-      jsObj, r'searchedAt', object.searchedAt.toUtc().millisecondsSinceEpoch);
-  return jsObj;
+  return [];
 }
 
-QueryHistoryCollection _queryHistoryCollectionDeserializeWeb(
-    IsarCollection<QueryHistoryCollection> collection, Object jsObj) {
-  final object = QueryHistoryCollection();
-  object.id =
-      IsarNative.jsObjectGet(jsObj, r'id') ?? (double.negativeInfinity as int);
-  object.queryString = IsarNative.jsObjectGet(jsObj, r'queryString') ?? '';
-  object.searchedAt = IsarNative.jsObjectGet(jsObj, r'searchedAt') != null
-      ? DateTime.fromMillisecondsSinceEpoch(
-              IsarNative.jsObjectGet(jsObj, r'searchedAt') as int,
-              isUtc: true)
-          .toLocal()
-      : DateTime.fromMillisecondsSinceEpoch(0);
-  return object;
+void _queryHistoryCollectionAttach(
+    IsarCollection<dynamic> col, Id id, QueryHistoryCollection object) {
+  object.id = id;
 }
-
-P _queryHistoryCollectionDeserializePropWeb<P>(
-    Object jsObj, String propertyName) {
-  switch (propertyName) {
-    case r'id':
-      return (IsarNative.jsObjectGet(jsObj, r'id') ??
-          (double.negativeInfinity as int)) as P;
-    case r'queryString':
-      return (IsarNative.jsObjectGet(jsObj, r'queryString') ?? '') as P;
-    case r'searchedAt':
-      return (IsarNative.jsObjectGet(jsObj, r'searchedAt') != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-                  IsarNative.jsObjectGet(jsObj, r'searchedAt') as int,
-                  isUtc: true)
-              .toLocal()
-          : DateTime.fromMillisecondsSinceEpoch(0)) as P;
-    default:
-      throw IsarError('Illegal propertyName');
-  }
-}
-
-void _queryHistoryCollectionAttachLinks(
-    IsarCollection<dynamic> col, int id, QueryHistoryCollection object) {}
 
 extension QueryHistoryCollectionQueryWhereSort
     on QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QWhere> {
@@ -178,7 +144,7 @@ extension QueryHistoryCollectionQueryWhereSort
 extension QueryHistoryCollectionQueryWhere on QueryBuilder<
     QueryHistoryCollection, QueryHistoryCollection, QWhereClause> {
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
-      QAfterWhereClause> idEqualTo(int id) {
+      QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -188,7 +154,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
-      QAfterWhereClause> idNotEqualTo(int id) {
+      QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -211,7 +177,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
-      QAfterWhereClause> idGreaterThan(int id, {bool include = false}) {
+      QAfterWhereClause> idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -220,7 +186,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
-      QAfterWhereClause> idLessThan(int id, {bool include = false}) {
+      QAfterWhereClause> idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -230,8 +196,8 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterWhereClause> idBetween(
-    int lowerId,
-    int upperId, {
+    Id lowerId,
+    Id upperId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -342,7 +308,7 @@ extension QueryHistoryCollectionQueryWhere on QueryBuilder<
 extension QueryHistoryCollectionQueryFilter on QueryBuilder<
     QueryHistoryCollection, QueryHistoryCollection, QFilterCondition> {
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
-      QAfterFilterCondition> idEqualTo(int value) {
+      QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -353,7 +319,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterFilterCondition> idGreaterThan(
-    int value, {
+    Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -367,7 +333,7 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterFilterCondition> idLessThan(
-    int value, {
+    Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -381,8 +347,8 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterFilterCondition> idBetween(
-    int lower,
-    int upper, {
+    Id lower,
+    Id upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -414,8 +380,8 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterFilterCondition> queryStringGreaterThan(
     String value, {
-    bool caseSensitive = true,
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -430,8 +396,8 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterFilterCondition> queryStringLessThan(
     String value, {
-    bool caseSensitive = true,
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
@@ -447,9 +413,9 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
       QAfterFilterCondition> queryStringBetween(
     String lower,
     String upper, {
-    bool caseSensitive = true,
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -516,6 +482,26 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }
 
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
+      QAfterFilterCondition> queryStringIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'queryString',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
+      QAfterFilterCondition> queryStringIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'queryString',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<QueryHistoryCollection, QueryHistoryCollection,
       QAfterFilterCondition> searchedAtEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -572,10 +558,13 @@ extension QueryHistoryCollectionQueryFilter on QueryBuilder<
   }
 }
 
+extension QueryHistoryCollectionQueryObject on QueryBuilder<
+    QueryHistoryCollection, QueryHistoryCollection, QFilterCondition> {}
+
 extension QueryHistoryCollectionQueryLinks on QueryBuilder<
     QueryHistoryCollection, QueryHistoryCollection, QFilterCondition> {}
 
-extension QueryHistoryCollectionQueryWhereSortBy
+extension QueryHistoryCollectionQuerySortBy
     on QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QSortBy> {
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       sortByQueryString() {
@@ -606,7 +595,7 @@ extension QueryHistoryCollectionQueryWhereSortBy
   }
 }
 
-extension QueryHistoryCollectionQueryWhereSortThenBy on QueryBuilder<
+extension QueryHistoryCollectionQuerySortThenBy on QueryBuilder<
     QueryHistoryCollection, QueryHistoryCollection, QSortThenBy> {
   QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterSortBy>
       thenById() {
