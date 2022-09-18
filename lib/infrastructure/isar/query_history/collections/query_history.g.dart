@@ -18,7 +18,7 @@ extension GetQueryHistoryCollectionCollection on Isar {
 
 const QueryHistoryCollectionSchema = CollectionSchema(
   name: r'QueryHistoryCollection',
-  id: -7581912548881788597,
+  id: -7581912548881788928,
   properties: {
     r'queryString': PropertySchema(
       id: 0,
@@ -38,7 +38,7 @@ const QueryHistoryCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'searchedAt': IndexSchema(
-      id: 4437879492455379665,
+      id: 4437879492455379456,
       name: r'searchedAt',
       unique: false,
       replace: false,
