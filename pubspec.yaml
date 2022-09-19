@@ -64,7 +64,7 @@ dev_dependencies:
   json_serializable: ^6.3.1
   mocktail: ^0.3.0
   path: ^1.8.1
-  pedantic_mono: ^1.19.2
+  pedantic_mono: ^1.20.0
   sqflite_common_ffi: ^2.1.1+1
 
 flutter:
