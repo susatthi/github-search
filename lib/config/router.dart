@@ -68,6 +68,7 @@ class RepoSearchRoute extends GoRouteData {
 /// を受け取るのをやめている。バグが直ったら元に戻したい。
 ///
 /// ＜バグの内容＞
+/// https://github.com/flutter/flutter/issues/106121
 /// $extra を含むルートがネストしていて、ネストしたページを開いたときにエラーが発生する。
 /// アバター画面表示時に $extra に AvatarPreviewRoute インスタンスがきて
 /// 型不一致でエラーになってしまう。

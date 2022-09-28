@@ -74,9 +74,9 @@ class SearchReposTextFieldState extends ConsumerState<SearchReposTextField> {
     ref.listen(searchReposQueryStringProvider, (previous, next) {
       logger.v(
         'Update query: current = ${controller.text}, '
-        'next = ${next.toString()}',
+        'next = $next',
       );
-      controller.text = next.toString();
+      controller.text = next;
     });
 
     return TextField(

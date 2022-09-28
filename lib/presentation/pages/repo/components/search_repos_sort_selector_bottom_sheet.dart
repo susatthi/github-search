@@ -54,24 +54,22 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
             ),
             trailing: const SearchReposOrderToggleButton(),
           ),
-          ..._items.entries
-              .map(
-                (e) => ListTile(
-                  leading: Visibility(
-                    visible: sort == e.value,
-                    child: const Icon(Icons.check),
-                  ),
-                  title: Text(e.key),
-                  onTap: () {
-                    logger.i('Changed: newSort = ${e.value.name}');
-                    ref.read(searchReposSortUpdater)(e.value);
-                    if (Navigator.of(context).canPop()) {
-                      Navigator.of(context).pop();
-                    }
-                  },
-                ),
-              )
-              .toList()
+          ..._items.entries.map(
+            (e) => ListTile(
+              leading: Visibility(
+                visible: sort == e.value,
+                child: const Icon(Icons.check),
+              ),
+              title: Text(e.key),
+              onTap: () {
+                logger.i('Changed: newSort = ${e.value.name}');
+                ref.read(searchReposSortUpdater)(e.value);
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          )
         ],
       ),
     );

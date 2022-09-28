@@ -26,7 +26,6 @@ import 'package:github_search/presentation/pages/repo/components/readme_markdown
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
-import 'package:isar/src/version.dart';
 import 'package:path/path.dart' as path;
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
@@ -232,31 +231,22 @@ class IsarTestAgent {
   Future<void> setUp() async {
     await testDir.open(prefix: 'isar');
 
-    // Isar.initializeIsarCore() 内部で Isar のライブラリを GitHub
-    // （例: https://github.com/isar/isar-core/releases/download/2.5.13/libisar_macos.dylib）
-    // からダウンロードしているため一時的にインターネットに出られるようにしている。
-    // ダウンロードしたライブラリファイルは ./dart_tool/ 配下に
-    // Isarコアバージョン毎にフォルダを作成して保存することにしている。
+    // Isar.initializeIsarCore() で 事前にダウンロードしておいた Isar
+    // のライブラリへのパスを指定している。
     final libraryDir = Directory(
       path.join(
-        TestDirectory.rootDir.path,
+        Directory.current.path,
+        'test',
+        'test_utils',
+        'assets',
         'isar_core_library',
-        isarCoreVersion,
       ),
     );
-    if (!libraryDir.existsSync()) {
-      await libraryDir.create(recursive: true);
-    }
-
-    final evacuation = HttpOverrides.current;
-    HttpOverrides.global = null;
     await Isar.initializeIsarCore(
       libraries: <Abi, String>{
-        Abi.current(): path.join(libraryDir.path, Abi.current().localName),
+        Abi.current(): path.join(libraryDir.path, Abi.current().remoteName),
       },
-      download: true,
     );
-    HttpOverrides.global = evacuation;
 
     _isar = await Isar.open(
       [
@@ -276,25 +266,18 @@ class IsarTestAgent {
 
 /// Copy from 'package:isar/src/native/isar_core.dart';
 extension on Abi {
-  String get localName {
+  String get remoteName {
     switch (Abi.current()) {
-      case Abi.androidArm:
-      case Abi.androidArm64:
-      case Abi.androidIA32:
-      case Abi.androidX64:
-        return 'libisar.so';
       case Abi.macosArm64:
       case Abi.macosX64:
-        return 'libisar.dylib';
+        return 'libisar_macos.dylib';
       case Abi.linuxX64:
-        return 'libisar.so';
+        return 'libisar_linux_x64.so';
       case Abi.windowsArm64:
+        return 'isar_windows_arm64.dll';
       case Abi.windowsX64:
-        return 'isar.dll';
-      default:
-        // ignore: only_throw_errors
-        throw 'Unsupported processor architecture "${Abi.current()}".'
-            'Please open an issue on GitHub to request it.';
+        return 'isar_windows_x64.dll';
     }
+    throw UnimplementedError();
   }
 }
