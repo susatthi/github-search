@@ -289,7 +289,7 @@ flowchart TB
 - `localizations/*.json` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は次のコマンドを実行してください。
 
 ```bash
-bin/flutter_gen
+make build-runner
 ```
 
 ### 単体テスト（UnitTest / WidgetTest）
@@ -317,7 +317,7 @@ bin/flutter_test
 - 生成する場合は次のコマンドを実行してください。
 
 ```bash
-bin/dartdoc
+make dartdoc
 ```
 
 ## CI
