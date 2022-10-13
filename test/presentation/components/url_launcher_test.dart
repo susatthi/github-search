@@ -39,7 +39,10 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(urlLauncher)(urlString);
+      await agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -54,7 +57,10 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(urlLauncher)(urlString);
+      await agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -69,7 +75,10 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(urlLauncher)(urlString);
+      await agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -85,7 +94,10 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(urlLauncher)(urlString);
+      await agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -100,7 +112,10 @@ void main() {
         false,
       );
 
-      await agent.mockContainer().read(urlLauncher)(urlString);
+      await agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -125,7 +140,10 @@ void main() {
 
       final evacuation = UrlLauncherPlatform.instance;
       UrlLauncherPlatform.instance = ErrorkUrlLauncherPlatform();
-      final future = agent.mockContainer().read(urlLauncher)(urlString);
+      final future = agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
       UrlLauncherPlatform.instance = evacuation;
 
       // URL起動前のはず
@@ -156,7 +174,10 @@ void main() {
         },
       );
 
-      final future = agent.mockContainer().read(urlLauncher)(urlString);
+      final future = agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
@@ -188,7 +209,10 @@ void main() {
         },
       );
 
-      final future = agent.mockContainer().read(urlLauncher)(urlString);
+      final future = agent
+          .mockContainer()
+          .read(urlLauncherStateProvider.notifier)
+          .launch(urlString);
 
       // URL起動前のはず
       expect(stateUrlString, urlString);

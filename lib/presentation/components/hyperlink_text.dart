@@ -43,7 +43,7 @@ class HyperlinkText extends ConsumerWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: InkWell(
-        onTap: () => ref.read(urlLauncher)(url!),
+        onTap: () => ref.read(urlLauncherStateProvider.notifier).launch(url!),
         child: DefaultTextStyle.merge(
           style: const TextStyle(
             color: anchorColor,

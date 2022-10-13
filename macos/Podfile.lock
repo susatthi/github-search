@@ -37,10 +37,10 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
 SPEC CHECKSUMS:
-  FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
+  FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  isar_flutter_libs: 1948109973b6c2e46d6196b1537688a36a6edeac
-  path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  isar_flutter_libs: a775292698f2a56059161ae9c011071ab7984d96
+  path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
   url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
 

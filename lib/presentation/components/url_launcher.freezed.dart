@@ -19,6 +19,7 @@ mixin _$UrlLauncherState {
   String? get urlString => throw _privateConstructorUsedError;
   LaunchMode get mode => throw _privateConstructorUsedError;
   UrlLauncherStatus get status => throw _privateConstructorUsedError;
+  dynamic get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UrlLauncherStateCopyWith<UrlLauncherState> get copyWith =>
@@ -30,7 +31,11 @@ abstract class $UrlLauncherStateCopyWith<$Res> {
   factory $UrlLauncherStateCopyWith(
           UrlLauncherState value, $Res Function(UrlLauncherState) then) =
       _$UrlLauncherStateCopyWithImpl<$Res>;
-  $Res call({String? urlString, LaunchMode mode, UrlLauncherStatus status});
+  $Res call(
+      {String? urlString,
+      LaunchMode mode,
+      UrlLauncherStatus status,
+      dynamic error});
 }
 
 /// @nodoc
@@ -47,6 +52,7 @@ class _$UrlLauncherStateCopyWithImpl<$Res>
     Object? urlString = freezed,
     Object? mode = freezed,
     Object? status = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       urlString: urlString == freezed
@@ -61,6 +67,10 @@ class _$UrlLauncherStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as UrlLauncherStatus,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -72,7 +82,11 @@ abstract class _$$_UrlLauncherStateCopyWith<$Res>
           _$_UrlLauncherState value, $Res Function(_$_UrlLauncherState) then) =
       __$$_UrlLauncherStateCopyWithImpl<$Res>;
   @override
-  $Res call({String? urlString, LaunchMode mode, UrlLauncherStatus status});
+  $Res call(
+      {String? urlString,
+      LaunchMode mode,
+      UrlLauncherStatus status,
+      dynamic error});
 }
 
 /// @nodoc
@@ -91,6 +105,7 @@ class __$$_UrlLauncherStateCopyWithImpl<$Res>
     Object? urlString = freezed,
     Object? mode = freezed,
     Object? status = freezed,
+    Object? error = freezed,
   }) {
     return _then(_$_UrlLauncherState(
       urlString: urlString == freezed
@@ -105,6 +120,10 @@ class __$$_UrlLauncherStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as UrlLauncherStatus,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -115,7 +134,8 @@ class _$_UrlLauncherState implements _UrlLauncherState {
   const _$_UrlLauncherState(
       {this.urlString,
       this.mode = LaunchMode.platformDefault,
-      this.status = UrlLauncherStatus.waiting});
+      this.status = UrlLauncherStatus.waiting,
+      this.error});
 
   @override
   final String? urlString;
@@ -125,10 +145,12 @@ class _$_UrlLauncherState implements _UrlLauncherState {
   @override
   @JsonKey()
   final UrlLauncherStatus status;
+  @override
+  final dynamic error;
 
   @override
   String toString() {
-    return 'UrlLauncherState(urlString: $urlString, mode: $mode, status: $status)';
+    return 'UrlLauncherState(urlString: $urlString, mode: $mode, status: $status, error: $error)';
   }
 
   @override
@@ -138,7 +160,8 @@ class _$_UrlLauncherState implements _UrlLauncherState {
             other is _$_UrlLauncherState &&
             const DeepCollectionEquality().equals(other.urlString, urlString) &&
             const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
@@ -146,7 +169,8 @@ class _$_UrlLauncherState implements _UrlLauncherState {
       runtimeType,
       const DeepCollectionEquality().hash(urlString),
       const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(status));
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -158,7 +182,8 @@ abstract class _UrlLauncherState implements UrlLauncherState {
   const factory _UrlLauncherState(
       {final String? urlString,
       final LaunchMode mode,
-      final UrlLauncherStatus status}) = _$_UrlLauncherState;
+      final UrlLauncherStatus status,
+      final dynamic error}) = _$_UrlLauncherState;
 
   @override
   String? get urlString;
@@ -166,6 +191,8 @@ abstract class _UrlLauncherState implements UrlLauncherState {
   LaunchMode get mode;
   @override
   UrlLauncherStatus get status;
+  @override
+  dynamic get error;
   @override
   @JsonKey(ignore: true)
   _$$_UrlLauncherStateCopyWith<_$_UrlLauncherState> get copyWith =>
