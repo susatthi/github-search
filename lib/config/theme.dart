@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../utils/assets/fonts.gen.dart';
 
-/// テーマプロバイダー
-final themeProvider = Provider.family<ThemeData, Brightness>(
+/// GitHubSearchのテーマプロバイダー
+final githubSearchThemeProvider = Provider.family<ThemeData, Brightness>(
   (ref, brightness) => ThemeData(
     colorScheme: ColorScheme.fromSwatch(
       brightness: brightness,
