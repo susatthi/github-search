@@ -8,17 +8,12 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-import '../../config/env.dart';
-import '../../config/env_define.dart';
 import '../../domain/exceptions.dart';
 import '../../utils/logger.dart';
 
 /// GitHubアクセストークンプロバイダー
 final githubAccessTokenProvider = Provider<String>(
-  (ref) => const String.fromEnvironment(
-    dartDefineKeyGitHubAccessToken,
-    defaultValue: Env.gitHubAccessToken,
-  ),
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// HTTPクライアントプロバイダー
