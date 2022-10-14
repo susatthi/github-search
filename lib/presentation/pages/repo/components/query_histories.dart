@@ -20,7 +20,7 @@ final queryHistoriesProvider = StateNotifierProvider.autoDispose<
   name: 'queryHistoriesProvider',
 );
 
-/// 検索履歴一覧Notifier
+/// 検索履歴一覧コントローラー
 class QueryHistoriesController
     extends StateNotifier<AsyncValue<List<QueryHistory>>> {
   QueryHistoriesController({
