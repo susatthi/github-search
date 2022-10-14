@@ -7,9 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/query_history/entities/query_history_input.dart';
 import '../../../../domain/repositories/query_history/query_history_repository.dart';
-import '../../../../localizations/strings.g.dart';
 import '../../../../utils/env/env.dart';
 import '../../../../utils/env/env_define.dart';
+import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/router.dart';
 

@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/repositories/app_data/app_data_repository.dart';
 import '../../../../domain/repositories/app_data/entities/app_data_key.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_order.dart';
-import '../../../../localizations/strings.g.dart';
+import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/app_data.dart';
 import 'search_repos.dart';

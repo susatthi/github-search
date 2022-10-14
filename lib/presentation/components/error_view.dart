@@ -7,9 +7,9 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../domain/exceptions.dart';
-import '../../../localizations/strings.g.dart';
 import '../../../utils/assets/assets.gen.dart';
 import '../../../utils/logger.dart';
+import '../../utils/localizations/strings.g.dart';
 
 /// エラーView
 ///

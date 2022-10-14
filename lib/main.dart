@@ -16,8 +16,8 @@ import 'infrastructure/hive/app_data/app_data_repository.dart';
 import 'infrastructure/hive/hive.dart';
 import 'infrastructure/isar/isar.dart';
 import 'infrastructure/isar/query_history/query_history_repository.dart';
-import 'localizations/strings.g.dart';
 import 'presentation/app.dart';
+import 'utils/localizations/strings.g.dart';
 import 'utils/logger.dart';
 
 Future<void> main() async {

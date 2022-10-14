@@ -12,8 +12,8 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/entities/values/repo_count.dart';
-import '../../../../localizations/strings.g.dart';
 import '../../../../utils/assets/assets.gen.dart';
+import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/cached_circle_avatar.dart';
 import '../../../components/error_view.dart';

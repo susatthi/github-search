@@ -20,11 +20,11 @@ import 'package:github_search/infrastructure/hive/app_data/app_data_repository.d
 import 'package:github_search/infrastructure/hive/hive.dart';
 import 'package:github_search/infrastructure/isar/isar.dart';
 import 'package:github_search/infrastructure/isar/query_history/query_history_repository.dart';
-import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/app.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
+import 'package:github_search/utils/localizations/strings.g.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
 import 'package:path/path.dart' as path;
