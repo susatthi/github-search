@@ -6,8 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../domain/repositories/app_data/app_data_repository.dart';
-import '../../../domain/repositories/repo/entities/search_repos_order.dart';
-import '../../../domain/repositories/repo/entities/search_repos_sort.dart';
+import '../../../domain/repositories/app_data/entities/app_data_key.dart';
 
 /// Hive の Box 名
 const hiveBoxNameAppData = 'appData';
@@ -28,44 +27,21 @@ class HiveAppDataRepository implements AppDataRepository {
   /// Hive Box
   final Box<dynamic> box;
 
-  /// デフォルト値を返す
-  /// キーが見つからない場合は IterableElementError.noElement() を投げる
-  T? _getDefaultValue<T>(AppDataKey key) =>
-      AppDataRepository.defaultValues.entries
-          .firstWhere((element) => element.key == key)
-          .value as T?;
-
   @override
-  void setSearchReposSort(SearchReposSort sort) {
-    box.put(AppDataKey.searchReposSort.name, sort.name);
+  void set<T extends Object?>(AppDataKey key, T value) {
+    box.put(key.name, value);
   }
 
   @override
-  SearchReposSort getSearchReposSort() {
-    final defaultValue = _getDefaultValue<SearchReposSort>(
-      AppDataKey.searchReposSort,
-    );
-    final name = box.get(
-      AppDataKey.searchReposSort.name,
-      defaultValue: defaultValue?.name,
-    ) as String;
-    return SearchReposSort.valueOf(name);
+  T get<T extends Object?>(AppDataKey key) {
+    return box.get(
+      key.name,
+      defaultValue: AppDataRepository.defaultValues[key] as T?,
+    ) as T;
   }
 
   @override
-  void setSearchReposOrder(SearchReposOrder order) {
-    box.put(AppDataKey.searchReposOrder.name, order.name);
-  }
-
-  @override
-  SearchReposOrder getSearchReposOrder() {
-    final defaultValue = _getDefaultValue<SearchReposOrder>(
-      AppDataKey.searchReposOrder,
-    );
-    final name = box.get(
-      AppDataKey.searchReposOrder.name,
-      defaultValue: defaultValue?.name,
-    ) as String;
-    return SearchReposOrder.valueOf(name);
+  Stream<T> listen<T extends Object?>(AppDataKey key) {
+    return box.watch(key: key.name).map<T>((event) => event.value as T);
   }
 }

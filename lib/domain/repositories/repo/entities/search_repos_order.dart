@@ -5,11 +5,12 @@
 /// リポジトリ検索用オーダー
 enum SearchReposOrder {
   desc,
-  asc;
+  asc,
+  ;
 
-  /// 文字列からオーダーを返す
+  /// name からオーダーを返す
   /// 見つからない場合は IterableElementError.noElement() を投げる
-  static SearchReposOrder valueOf(String name) {
+  static SearchReposOrder nameOf(String name) {
     return SearchReposOrder.values
         .firstWhere((element) => element.name == name);
   }

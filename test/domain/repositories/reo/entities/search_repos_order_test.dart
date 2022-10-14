@@ -9,7 +9,7 @@ void main() {
   group('SearchReposOrder', () {
     test('valueOf()でenum値が取れるはず', () async {
       expect(
-        SearchReposOrder.valueOf(
+        SearchReposOrder.nameOf(
           SearchReposOrder.asc.name,
         ),
         SearchReposOrder.asc,
@@ -18,7 +18,7 @@ void main() {
     test('valueOf()でExceptionがthrowされるはず', () async {
       expect(
         () {
-          SearchReposOrder.valueOf(
+          SearchReposOrder.nameOf(
             'unknown value',
           );
         },

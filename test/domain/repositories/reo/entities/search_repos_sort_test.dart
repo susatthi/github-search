@@ -9,7 +9,7 @@ void main() {
   group('SearchReposSort', () {
     test('valueOf()でenum値が取れるはず', () async {
       expect(
-        SearchReposSort.valueOf(
+        SearchReposSort.nameOf(
           SearchReposSort.bestMatch.name,
         ),
         SearchReposSort.bestMatch,
@@ -18,7 +18,7 @@ void main() {
     test('valueOf()でExceptionがthrowされるはず', () async {
       expect(
         () {
-          SearchReposSort.valueOf(
+          SearchReposSort.nameOf(
             'unknown value',
           );
         },

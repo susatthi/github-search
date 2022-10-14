@@ -26,10 +26,11 @@ void main() {
   });
   group('searchReposOrderUpdater', () {
     test('オーダー値を変更できるはず', () async {
-      final updater = agent.mockContainer().read(searchReposOrderUpdater);
+      final controller =
+          agent.mockContainer().read(searchReposOrderProvider.notifier);
 
       // 昇順に変更する
-      updater(SearchReposOrder.asc);
+      controller.update(SearchReposOrder.asc);
 
       // 昇順のはず
       expect(
@@ -38,7 +39,7 @@ void main() {
       );
 
       // 降順に変更する
-      updater(SearchReposOrder.desc);
+      controller.update(SearchReposOrder.desc);
 
       // 降順のはず
       expect(

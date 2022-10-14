@@ -11,18 +11,27 @@ import '../../../../domain/repositories/repo/repo_repository.dart';
 part 'selected_repo.freezed.dart';
 
 /// 選択中のリポジトリプロバイダー
-final selectedRepoProvider =
-    StateNotifierProvider.autoDispose<SelectedRepoNotifier, AsyncValue<Repo>>(
+final selectedRepoProvider = FutureProvider.autoDispose<Repo>(
   (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
-/// 選択中のリポジトリプロバイダー（Family）
-final selectedRepoProviderFamily = StateNotifierProvider.family
-    .autoDispose<SelectedRepoNotifier, AsyncValue<Repo>, SelectedRepoParameter>(
-  (ref, parameter) => SelectedRepoNotifier(
-    repository: ref.watch(repoRepositoryProvider),
-    parameter: parameter,
-  ),
+/// 選択中のリポジトリプロバイダーFamily
+final selectedRepoProviderFamily =
+    FutureProvider.family.autoDispose<Repo, SelectedRepoParameter>(
+  (ref, parameter) async {
+    final repo = parameter.extra;
+    if (repo != null) {
+      // extra があればそのまま使う
+      return repo;
+    }
+
+    // extra が無いので取得する
+    final repoRepository = ref.watch(repoRepositoryProvider);
+    return repoRepository.getRepo(
+      ownerName: parameter.ownerName,
+      repoName: parameter.repoName,
+    );
+  },
   name: 'selectedRepoProvider',
 );
 
@@ -40,35 +49,4 @@ class SelectedRepoParameter with _$SelectedRepoParameter {
     /// 詳細画面で再読込した場合などは null になる場合がある
     Repo? extra,
   }) = _SelectedRepoParameter;
-}
-
-/// 選択中のリポジトリNotifier
-class SelectedRepoNotifier extends StateNotifier<AsyncValue<Repo>> {
-  SelectedRepoNotifier({
-    required this.repository,
-    required this.parameter,
-  }) : super(const AsyncValue.loading()) {
-    final value = parameter.extra;
-    if (value != null) {
-      // extra があればそのまま使う
-      state = AsyncValue.data(value);
-    } else {
-      // extra が無いので取得する
-      _get();
-    }
-  }
-
-  final RepoRepository repository;
-
-  /// パラメータ
-  final SelectedRepoParameter parameter;
-
-  Future<void> _get() async {
-    state = await AsyncValue.guard(() async {
-      return repository.getRepo(
-        ownerName: parameter.ownerName,
-        repoName: parameter.repoName,
-      );
-    });
-  }
 }

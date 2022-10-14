@@ -43,10 +43,11 @@ void main() {
   });
   group('searchReposSortUpdater', () {
     test('ソート値を変更できるはず', () async {
-      final updater = agent.mockContainer().read(searchReposSortUpdater);
+      final controller =
+          agent.mockContainer().read(searchReposSortProvider.notifier);
 
       // スター数に変更する
-      updater(SearchReposSort.stars);
+      controller.update(SearchReposSort.stars);
 
       // スター数のはず
       expect(
@@ -55,7 +56,7 @@ void main() {
       );
 
       // フォーク数に変更する
-      updater(SearchReposSort.forks);
+      controller.update(SearchReposSort.forks);
 
       // フォーク数のはず
       expect(
@@ -64,7 +65,7 @@ void main() {
       );
 
       // ヘルプ数に変更する
-      updater(SearchReposSort.helpWantedIssues);
+      controller.update(SearchReposSort.helpWantedIssues);
 
       // ヘルプ数のはず
       expect(
@@ -73,7 +74,7 @@ void main() {
       );
 
       // ベストマッチに変更する
-      updater(SearchReposSort.bestMatch);
+      controller.update(SearchReposSort.bestMatch);
 
       // ベストマッチのはず
       expect(

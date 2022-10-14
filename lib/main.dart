@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -15,6 +14,7 @@ import 'domain/repositories/query_history/query_history_repository.dart';
 import 'domain/repositories/repo/repo_repository.dart';
 import 'infrastructure/github/repo/repo_repository.dart';
 import 'infrastructure/hive/app_data/app_data_repository.dart';
+import 'infrastructure/hive/hive.dart';
 import 'infrastructure/isar/query_history/collections/query_history.dart';
 import 'infrastructure/isar/query_history/query_history_repository.dart';
 import 'localizations/strings.g.dart';
@@ -27,8 +27,7 @@ Future<void> main() async {
   LocaleSettings.useDeviceLocale();
 
   // hive の初期化
-  await Hive.initFlutter();
-  await Hive.openBox<dynamic>(hiveBoxNameAppData);
+  await initHive();
 
   // isar の初期化
   var path = '';

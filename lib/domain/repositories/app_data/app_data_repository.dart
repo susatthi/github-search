@@ -4,8 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../repo/entities/search_repos_order.dart';
-import '../repo/entities/search_repos_sort.dart';
+import 'entities/app_data_key.dart';
 
 /// アプリデータRepositoryプロバイダー
 final appDataRepositoryProvider = Provider<AppDataRepository>(
@@ -14,30 +13,21 @@ final appDataRepositoryProvider = Provider<AppDataRepository>(
 
 /// アプリデータRepository
 abstract class AppDataRepository {
-  /// デフォルト値
-  static const defaultValues = <AppDataKey, Object?>{
-    AppDataKey.searchReposSort: SearchReposSort.bestMatch,
-    AppDataKey.searchReposOrder: SearchReposOrder.desc,
-  };
+  /// デフォルト値を返す
+  static Map<AppDataKey, Object?> defaultValues =
+      AppDataKey.values.asMap().map<AppDataKey, Object?>(
+            (index, key) => MapEntry(
+              key,
+              key.defaultValue,
+            ),
+          );
 
-  /// リポジトリ検索用ソート値を設定する
-  void setSearchReposSort(SearchReposSort sort);
+  /// 値を設定する
+  void set<T extends Object?>(AppDataKey key, T value);
 
-  /// リポジトリ検索用ソート値を返す
-  SearchReposSort getSearchReposSort();
+  /// 値を返す
+  T get<T extends Object?>(AppDataKey key);
 
-  /// リポジトリ検索用オーダー値を設定する
-  void setSearchReposOrder(SearchReposOrder order);
-
-  /// リポジトリ検索用オーダー値を返す
-  SearchReposOrder getSearchReposOrder();
-}
-
-/// アプリデータのキー名
-enum AppDataKey {
-  /// リポジトリ検索用ソート値
-  searchReposSort,
-
-  /// リポジトリ検索用オーダー値
-  searchReposOrder,
+  /// Stream を返す
+  Stream<T> listen<T extends Object?>(AppDataKey key);
 }

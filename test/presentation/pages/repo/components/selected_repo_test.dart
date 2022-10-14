@@ -46,7 +46,7 @@ void main() {
   });
   group('SelectedRepoNotifier', () {
     test('Notifierを生成するとリポジトリエンティティを取得するはず', () async {
-      final notifier = agent
+      final state = agent
           .mockContainer(
             overrides: [
               selectedRepoProvider.overrideWithProvider(
@@ -55,24 +55,22 @@ void main() {
             ],
           )
           .listen(
-            selectedRepoProvider.notifier,
+            selectedRepoProvider,
             (previous, next) {},
           )
           .read();
 
       // 初期値はAsyncLoading
-      // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(notifier.state is AsyncLoading, true);
+      expect(state is AsyncLoading, true);
 
       // データを取り終わるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // データが取得できているはず
-      // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(notifier.state is AsyncData, true);
+      expect(state is AsyncData, true);
     });
     test('extra がある場合はリポジトリエンティティを取得しないはず', () async {
-      final notifier = agent
+      final state = agent
           .mockContainer(
             overrides: [
               selectedRepoProvider.overrideWithProvider(
@@ -87,14 +85,13 @@ void main() {
             ],
           )
           .listen(
-            selectedRepoProvider.notifier,
+            selectedRepoProvider,
             (previous, next) {},
           )
           .read();
 
       // extra があるので初期値はAsyncData
-      // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(notifier.state is AsyncData, true);
+      expect(state is AsyncData, true);
     });
   });
 }
