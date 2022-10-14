@@ -19,7 +19,7 @@ import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
 import 'package:github_search/infrastructure/hive/hive.dart';
-import 'package:github_search/infrastructure/isar/query_history/collections/query_history.dart';
+import 'package:github_search/infrastructure/isar/isar.dart';
 import 'package:github_search/infrastructure/isar/query_history/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
@@ -251,10 +251,7 @@ class IsarTestAgent {
       },
     );
 
-    _isar = await Isar.open(
-      [
-        QueryHistoryCollectionSchema,
-      ],
+    _isar = await initIsar(
       directory: testDir.dir.path,
     );
   }
