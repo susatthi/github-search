@@ -86,7 +86,8 @@ void main() {
       );
     });
 
-    test('http or https 以外のスキームのURLなら開かないはず（ArgumentError）', () async {
+    test('inAppWebView で http or https 以外のスキームのURLなら開かないはず（ArgumentError）',
+        () async {
       const urlString = 'mailto:hoge@sample.com';
 
       expect(
@@ -97,14 +98,14 @@ void main() {
       await agent
           .mockContainer()
           .read(urlLauncherStateProvider.notifier)
-          .launch(urlString);
+          .launch(urlString, mode: LaunchMode.inAppWebView);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
         false,
       );
     });
-    test('空文字なら開かないはず（ArgumentError）', () async {
+    test('inAppWebView で空文字なら開かないはず（ArgumentError）', () async {
       const urlString = '';
 
       expect(
@@ -115,7 +116,7 @@ void main() {
       await agent
           .mockContainer()
           .read(urlLauncherStateProvider.notifier)
-          .launch(urlString);
+          .launch(urlString, mode: LaunchMode.inAppWebView);
 
       expect(
         agent.mockUrlLauncherPlatform.calledUrls.contains(urlString),
@@ -148,14 +149,14 @@ void main() {
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
-      expect(stateMode, LaunchMode.inAppWebView);
+      expect(stateMode, LaunchMode.platformDefault);
       expect(stateStatus, UrlLauncherStatus.waiting);
 
       await Future.wait([future]);
 
       // URL起動に失敗したはず
       expect(stateUrlString, urlString);
-      expect(stateMode, LaunchMode.inAppWebView);
+      expect(stateMode, LaunchMode.platformDefault);
       expect(stateStatus, UrlLauncherStatus.error);
     });
     test('URL起動できることを監視できるはず', () async {
@@ -181,14 +182,14 @@ void main() {
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
-      expect(stateMode, LaunchMode.inAppWebView);
+      expect(stateMode, LaunchMode.platformDefault);
       expect(stateStatus, UrlLauncherStatus.waiting);
 
       await Future.wait([future]);
 
       // URL起動に成功したはず
       expect(stateUrlString, urlString);
-      expect(stateMode, LaunchMode.inAppWebView);
+      expect(stateMode, LaunchMode.platformDefault);
       expect(stateStatus, UrlLauncherStatus.success);
     });
     test('URL起動できないことを監視できるはず', () async {
@@ -216,14 +217,14 @@ void main() {
 
       // URL起動前のはず
       expect(stateUrlString, urlString);
-      expect(stateMode, LaunchMode.inAppWebView);
+      expect(stateMode, LaunchMode.platformDefault);
       expect(stateStatus, UrlLauncherStatus.waiting);
 
       await Future.wait([future]);
 
       // URL起動に失敗したはず
       expect(stateUrlString, urlString);
-      expect(stateMode, LaunchMode.inAppWebView);
+      expect(stateMode, LaunchMode.platformDefault);
       expect(stateStatus, UrlLauncherStatus.error);
     });
   });

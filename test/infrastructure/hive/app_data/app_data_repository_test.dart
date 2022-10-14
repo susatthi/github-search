@@ -67,7 +67,7 @@ void main() {
       );
     });
     test('searchReposOrder', () async {
-      const key = AppDataKey.searchReposSort;
+      const key = AppDataKey.searchReposOrder;
 
       // 初期値は降順のはず
       expect(

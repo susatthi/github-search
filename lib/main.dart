@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -27,7 +28,10 @@ Future<void> main() async {
   LocaleSettings.useDeviceLocale();
 
   // hive の初期化
-  await initHive();
+  await Hive.initFlutter();
+  Hive.registerAdapters();
+  await Hive.openBox<dynamic>(hiveBoxNameAppData);
+  // await Hive.box<dynamic>(hiveBoxNameAppData).clear();
 
   // isar の初期化
   var path = '';

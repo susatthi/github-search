@@ -18,6 +18,7 @@ import 'package:github_search/domain/repositories/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
+import 'package:github_search/infrastructure/hive/hive.dart';
 import 'package:github_search/infrastructure/isar/query_history/collections/query_history.dart';
 import 'package:github_search/infrastructure/isar/query_history/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
@@ -210,6 +211,8 @@ class HiveTestAgent {
   Future<void> setUp() async {
     await testDir.open(prefix: 'hive');
     Hive.init(testDir.dir.path);
+    Hive.resetAdapters();
+    Hive.registerAdapters();
     final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
     await box.clear();
   }

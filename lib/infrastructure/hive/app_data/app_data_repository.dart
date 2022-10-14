@@ -36,7 +36,7 @@ class HiveAppDataRepository implements AppDataRepository {
   T get<T extends Object?>(AppDataKey key) {
     return box.get(
       key.name,
-      defaultValue: AppDataRepository.defaultValues[key] as T?,
+      defaultValue: AppDataRepository.defaultValues[key] as T,
     ) as T;
   }
 
