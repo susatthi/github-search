@@ -8,13 +8,13 @@ import 'package:universal_platform/universal_platform.dart';
 
 final logger = Roggle(
   printer: SinglePrettyPrinter(
-    loggerName: ' [APP]',
+    loggerName: '[APP]',
     // warning 以上のときはスタックトレースを出力する
     stackTraceLevel: Level.warning,
     // iOS はカラー非対応
     colors: !UniversalPlatform.isIOS,
     // ログが長くなるので非表示
-    printCaller: false,
+    printLocation: false,
   ),
   output: _AssertionOutput(),
 );

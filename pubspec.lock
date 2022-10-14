@@ -806,7 +806,7 @@ packages:
       name: roggle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1+1"
+    version: "0.3.0"
   rxdart:
     dependency: transitive
     description:
