@@ -58,9 +58,9 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('QueryHistoriesNotifier', () {
-    test('Notifierを生成すると検索履歴一覧を取得するはず', () async {
-      final notifier = agent
+  group('QueryHistoriesController', () {
+    test('コントローラーを生成すると検索履歴一覧を取得するはず', () async {
+      final controller = agent
           .mockContainer()
           .listen(
             queryHistoriesProvider.notifier,
@@ -69,13 +69,13 @@ void main() {
           .read();
 
       // 初期値はAsyncLoading
-      expect(notifier.state is AsyncLoading, true);
+      expect(controller.state is AsyncLoading, true);
 
       // 検索履歴一覧を取り終わるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // 検索履歴一覧が取得できているはず
-      expect(notifier.state is AsyncData, true);
+      expect(controller.state is AsyncData, true);
     });
     test('検索履歴を削除できるはず', () async {
       final repository =
@@ -92,7 +92,7 @@ void main() {
             .update('')
       ]);
 
-      final notifier = agent
+      final controller = agent
           .mockContainer()
           .listen(
             queryHistoriesProvider.notifier,
@@ -104,19 +104,19 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // 検索履歴が1件取得できているはず
-      expect(notifier.state is AsyncData, true);
-      expect(notifier.state.value!.length, 1);
+      expect(controller.state is AsyncData, true);
+      expect(controller.state.value!.length, 1);
 
       // 検索履歴を削除する
-      final query = notifier.state.value!.first;
-      await Future.wait([notifier.delete(query)]);
+      final query = controller.state.value!.first;
+      await Future.wait([controller.delete(query)]);
 
       // 検索履歴が削除されているはず
-      expect(notifier.state is AsyncData, true);
-      expect(notifier.state.value!.length, 0);
+      expect(controller.state is AsyncData, true);
+      expect(controller.state.value!.length, 0);
     });
-    test('Notifierを連続で生成してDisposeされても問題ないはず', () async {
-      QueryHistoriesController? currentNotifier;
+    test('コントローラーを連続で生成してDisposeされても問題ないはず', () async {
+      QueryHistoriesController? currentController;
       final container = agent.mockContainer(
         overrides: [
           // 検索文字列の初期値は空文字にしておく
@@ -126,31 +126,31 @@ void main() {
           queryHistoriesProvider.notifier,
           (previous, next) {
             testLogger.i(next);
-            currentNotifier = next;
+            currentController = next;
           },
         );
 
-      expect(currentNotifier, isNull);
+      expect(currentController, isNull);
 
       // fを入力
       await container
           .read(searchReposEnteringQueryProvider.notifier)
           .update('f');
 
-      // Notifierが更新されるまで待つ
+      // コントローラーが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      expect(currentNotifier?.queryString, 'f');
+      expect(currentController?.queryString, 'f');
 
       // flを入力
       await container
           .read(searchReposEnteringQueryProvider.notifier)
           .update('fl');
 
-      // Notifierが更新されるまで待つ
+      // コントローラーが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      expect(currentNotifier?.queryString, 'fl');
+      expect(currentController?.queryString, 'fl');
     });
   });
   group('SliverQueryHistoriesListView', () {

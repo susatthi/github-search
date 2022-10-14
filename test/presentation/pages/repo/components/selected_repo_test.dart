@@ -45,8 +45,8 @@ void main() {
       ).read(selectedRepoProvider.future);
     });
   });
-  group('SelectedRepoNotifier', () {
-    test('Notifierを生成するとリポジトリエンティティを取得するはず', () async {
+  group('selectedRepoProvider', () {
+    test('プロバイダーからリポジトリエンティティが取得できるはず', () async {
       AsyncValue<Repo>? state;
       agent.mockContainer(
         overrides: [
