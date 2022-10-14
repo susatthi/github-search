@@ -1,3 +1,7 @@
+// Copyright 2022 susatthi All rights reserved.
+// Use of this source code is governed by a MIT license that can be
+// found in the LICENSE file.
+
 import '../../repo/entities/search_repos_order.dart';
 import '../../repo/entities/search_repos_sort.dart';
 

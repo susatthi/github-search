@@ -1,3 +1,7 @@
+// Copyright 2022 susatthi All rights reserved.
+// Use of this source code is governed by a MIT license that can be
+// found in the LICENSE file.
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app_data/adapters/search_repos_order_adapter.dart';
