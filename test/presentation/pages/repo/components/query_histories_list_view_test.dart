@@ -29,7 +29,7 @@ class _MockPage extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref.read(searchReposQueryStringUpdater)('flutter');
+                  ref.read(searchReposQueryProvider.notifier).update('flutter');
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -115,7 +115,7 @@ void main() {
       final container = agent.mockContainer(
         overrides: [
           // 検索文字列の初期値は空文字にしておく
-          searchReposInitQueryStringProvider.overrideWithValue(''),
+          searchReposInitQueryProvider.overrideWithValue(''),
         ],
       )..listen<QueryHistoriesNotifier>(
           queryHistoriesProvider.notifier,

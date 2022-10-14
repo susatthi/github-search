@@ -57,7 +57,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            searchReposInitQueryStringProvider.overrideWithValue(initQuery),
+            searchReposInitQueryProvider.overrideWithValue(initQuery),
           ],
           home: InheritedGoRouter(
             goRouter: agent.mockGoRouter,

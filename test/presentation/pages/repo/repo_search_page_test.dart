@@ -9,7 +9,7 @@ import 'package:github_search/domain/repositories/query_history/query_history_re
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 

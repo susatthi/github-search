@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 
 import '../../../../test_utils/logger.dart';
@@ -156,7 +156,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
-            searchReposInitQueryStringProvider.overrideWithValue(''),
+            searchReposInitQueryProvider.overrideWithValue(''),
           ],
           home: const Scaffold(
             body: SearchReposOrderToggleButton(),

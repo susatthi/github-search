@@ -50,7 +50,7 @@ class SearchReposTextFieldState extends ConsumerState<SearchReposTextField> {
     super.initState();
     controller = widget.controller ?? TextEditingController();
 
-    final queryString = ref.read(searchReposQueryStringProvider);
+    final queryString = ref.read(searchReposQueryProvider);
     controller
       ..text = queryString
       // 使い勝手を良くするために表示されたときは全選択状態にする
@@ -71,7 +71,7 @@ class SearchReposTextFieldState extends ConsumerState<SearchReposTextField> {
   @override
   Widget build(BuildContext context) {
     // 検索文字列はアプリ内で1であるため、別で検索文字列が更新されたら同期する
-    ref.listen(searchReposQueryStringProvider, (previous, next) {
+    ref.listen(searchReposQueryProvider, (previous, next) {
       logger.v(
         'Update query: current = ${controller.text}, '
         'next = $next',
@@ -98,9 +98,8 @@ class SearchReposTextFieldState extends ConsumerState<SearchReposTextField> {
                   controller.clear();
 
                   // onChanged が呼ばれないので明示的に入力中検索文字列状態を空にする
-                  ref
-                      .read(searchReposEnteringQueryStringProvider.notifier)
-                      .state = '';
+                  ref.read(searchReposEnteringQueryProvider.notifier).state =
+                      '';
 
                   widget.onTappedDelete?.call();
                 },
@@ -138,7 +137,7 @@ class SearchReposTextFieldState extends ConsumerState<SearchReposTextField> {
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) {
         logger.i('Called onSubmitted(): text = $text');
-        ref.read(searchReposQueryStringUpdater)(text);
+        ref.read(searchReposQueryProvider.notifier).update(text);
         Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする

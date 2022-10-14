@@ -49,7 +49,7 @@ class SearchReposTextButton extends ConsumerWidget {
           },
           onTappedDelete: () {
             // 検索文字列をクリアしてリポジトリ検索画面に遷移する
-            ref.read(searchReposQueryStringUpdater)('');
+            ref.read(searchReposQueryProvider.notifier).update('');
             const RepoSearchRoute().go(context);
           },
         ),

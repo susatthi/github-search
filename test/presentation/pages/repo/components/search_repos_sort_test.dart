@@ -8,8 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 
 import '../../../../test_utils/logger.dart';
 import '../../../../test_utils/mocks.dart';

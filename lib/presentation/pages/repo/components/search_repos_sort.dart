@@ -11,7 +11,7 @@ import '../../../../domain/repositories/repo/entities/search_repos_sort.dart';
 import '../../../../localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/app_data.dart';
-import 'search_repos_order_toggle_button.dart';
+import 'search_repos_order.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
 final searchReposSortProvider =

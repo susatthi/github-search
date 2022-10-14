@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 
 import '../../../../test_utils/test_agent.dart';
 

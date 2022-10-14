@@ -14,18 +14,20 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('searchReposInitQueryStringProvider', () {
+  group('searchReposInitQueryProvider', () {
     test('初期値は環境変数の値と一致するはず', () async {
-      final query =
-          ProviderContainer().read(searchReposInitQueryStringProvider);
+      final query = ProviderContainer().read(searchReposInitQueryProvider);
       expect(query, Env.defaultSearchValue);
     });
   });
   group('searchReposQueryStringUpdater', () {
     test('検索文字列を変更できるはず', () async {
       // 検索文字列を変更する
-      await agent.mockContainer().read(searchReposQueryStringUpdater)('dummy');
-      final query = agent.mockContainer().read(searchReposQueryStringProvider);
+      await agent
+          .mockContainer()
+          .read(searchReposQueryProvider.notifier)
+          .update('dummy');
+      final query = agent.mockContainer().read(searchReposQueryProvider);
       expect(query, 'dummy');
     });
   });
@@ -36,7 +38,7 @@ void main() {
           .mockContainer()
           .read(searchReposEnteringQueryStringUpdater)('dummy');
       final query =
-          agent.mockContainer().read(searchReposEnteringQueryStringProvider);
+          agent.mockContainer().read(searchReposEnteringQueryProvider);
       expect(query, 'dummy');
     });
   });

@@ -22,7 +22,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            searchReposInitQueryStringProvider.overrideWithValue(expectedQuery),
+            searchReposInitQueryProvider.overrideWithValue(expectedQuery),
           ],
           home: Scaffold(
             body: SearchReposTextField(
@@ -58,7 +58,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            searchReposInitQueryStringProvider.overrideWithValue(expectedQuery),
+            searchReposInitQueryProvider.overrideWithValue(expectedQuery),
           ],
           home: Scaffold(
             body: Column(
@@ -98,7 +98,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            searchReposInitQueryStringProvider.overrideWithValue('some query'),
+            searchReposInitQueryProvider.overrideWithValue('some query'),
           ],
           home: Scaffold(
             body: SearchReposTextField(
@@ -146,7 +146,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を設定する
-            searchReposInitQueryStringProvider.overrideWithValue('some query'),
+            searchReposInitQueryProvider.overrideWithValue('some query'),
           ],
           home: Scaffold(
             body: SearchReposTextField(

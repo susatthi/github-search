@@ -83,7 +83,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
-            searchReposInitQueryStringProvider.overrideWithValue(''),
+            searchReposInitQueryProvider.overrideWithValue(''),
           ],
           home: const _MockPage(),
         ),
@@ -114,7 +114,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索結果0件になる検索文字列にする
-            searchReposInitQueryStringProvider.overrideWithValue('empty'),
+            searchReposInitQueryProvider.overrideWithValue('empty'),
           ],
           home: const _MockPage(),
         ),

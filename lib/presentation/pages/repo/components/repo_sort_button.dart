@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../localizations/strings.g.dart';
-import 'search_repos_sort_selector_bottom_sheet.dart';
+import 'search_repos_sort.dart';
 
 /// リポジトリ検索用ソートボタン
 class RepoSortButton extends StatelessWidget {

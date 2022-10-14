@@ -11,9 +11,9 @@ import '../../../../domain/repositories/repo/entities/search_repos_result.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_sort.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/logger.dart';
-import 'search_repos_order_toggle_button.dart';
+import 'search_repos_order.dart';
 import 'search_repos_query.dart';
-import 'search_repos_sort_selector_bottom_sheet.dart';
+import 'search_repos_sort.dart';
 
 part 'repo_list_view_state.freezed.dart';
 
@@ -21,7 +21,7 @@ part 'repo_list_view_state.freezed.dart';
 final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     RepoListViewNotifier, AsyncValue<RepoListViewState>>(
   (ref) {
-    final queryString = ref.watch(searchReposQueryStringProvider);
+    final queryString = ref.watch(searchReposQueryProvider);
     final sort = ref.watch(searchReposSortProvider);
     final order = ref.watch(searchReposOrderProvider);
     return RepoListViewNotifier(

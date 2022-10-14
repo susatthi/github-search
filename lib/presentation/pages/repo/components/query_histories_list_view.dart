@@ -15,7 +15,7 @@ final queryHistoriesProvider = StateNotifierProvider.autoDispose<
     QueryHistoriesNotifier, AsyncValue<List<QueryHistory>>>(
   (ref) => QueryHistoriesNotifier(
     repository: ref.watch(queryHistoryRepositoryProvider),
-    queryString: ref.watch(searchReposEnteringQueryStringProvider),
+    queryString: ref.watch(searchReposEnteringQueryProvider),
   ),
   name: 'queryHistoriesProvider',
 );
@@ -134,7 +134,7 @@ class _QueryHistoryListTile extends ConsumerWidget {
         icon: const Icon(Icons.close),
       ),
       onTap: () {
-        ref.read(searchReposQueryStringUpdater)(query.queryString);
+        ref.read(searchReposQueryProvider.notifier).update(query.queryString);
         Navigator.of(context).pop();
       },
     );

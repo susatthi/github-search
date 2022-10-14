@@ -11,7 +11,7 @@ import '../../../../domain/repositories/query_history/query_history_repository.d
 import '../../../../utils/logger.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
-final searchReposInitQueryStringProvider = Provider<String>(
+final searchReposInitQueryProvider = Provider<String>(
   (ref) => const String.fromEnvironment(
     dartDefineKeyDefaultSearchValue,
     //ignore: avoid_redundant_argument_values
@@ -20,28 +20,36 @@ final searchReposInitQueryStringProvider = Provider<String>(
 );
 
 /// リポジトリ検索文字列プロバイダー
-final searchReposQueryStringProvider = StateProvider<String>(
-  (ref) => ref.watch(searchReposInitQueryStringProvider),
-  name: 'searchReposQueryStringProvider',
+final searchReposQueryProvider =
+    StateNotifierProvider<SearchReposQueryController, String>(
+  (ref) => SearchReposQueryController(
+    queryHistoryRepository: ref.watch(queryHistoryRepositoryProvider),
+    initQuery: ref.watch(searchReposInitQueryProvider),
+  ),
+  name: 'searchReposQueryProvider',
 );
 
-/// リポジトリ検索文字列更新メソッドプロバイダー
-final searchReposQueryStringUpdater = Provider(
-  (ref) {
-    final read = ref.read;
-    return (String queryString) async {
-      read(searchReposQueryStringProvider.notifier).state = queryString;
-      final repository = read(queryHistoryRepositoryProvider);
-      await repository.add(
-        QueryHistoryInput(queryString: queryString),
-      );
-    };
-  },
-);
+/// リポジトリ検索文字列コントローラー
+class SearchReposQueryController extends StateNotifier<String> {
+  SearchReposQueryController({
+    required this.queryHistoryRepository,
+    required String initQuery,
+  }) : super(initQuery);
+
+  final QueryHistoryRepository queryHistoryRepository;
+
+  /// 更新する
+  Future<void> update(String queryString) async {
+    state = queryString;
+    await queryHistoryRepository.add(
+      QueryHistoryInput(queryString: queryString),
+    );
+  }
+}
 
 /// 入力中のリポジトリ検索文字列プロバイダー
-final searchReposEnteringQueryStringProvider = StateProvider<String>(
-  (ref) => ref.watch(searchReposQueryStringProvider),
+final searchReposEnteringQueryProvider = StateProvider<String>(
+  (ref) => ref.watch(searchReposQueryProvider),
 );
 
 /// 入力中のリポジトリ検索文字列更新メソッドプロバイダー
@@ -49,9 +57,9 @@ final searchReposEnteringQueryStringUpdater = Provider(
   (ref) {
     final read = ref.read;
     return (String queryString) async {
-      final notifier = read(searchReposEnteringQueryStringProvider.notifier);
+      final notifier = read(searchReposEnteringQueryProvider.notifier);
       // もし現在の文字列と同じ場合は更新しない
-      final current = ref.read(searchReposEnteringQueryStringProvider);
+      final current = ref.read(searchReposEnteringQueryProvider);
       if (current != queryString) {
         logger.v(
           'Update searchReposEnteringQueryString: queryString = $queryString',
