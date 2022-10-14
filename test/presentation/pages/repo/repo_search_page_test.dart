@@ -8,7 +8,6 @@ import 'package:github_search/domain/repositories/query_history/entities/query_h
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
-import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
@@ -32,7 +31,7 @@ void main() {
         await tester.pump();
 
         expect(find.byType(SearchReposQueryTextField), findsOneWidget);
-        expect(find.byType(RepoSortButton), findsOneWidget);
+        expect(find.byType(SearchReposSortButton), findsOneWidget);
         expect(find.byType(SliverQueryHistoriesListView), findsOneWidget);
 
         // RepoSearchTextに自動でフォーカスが当たるはず
@@ -41,7 +40,7 @@ void main() {
         expect(state.focusNode.hasFocus, true);
 
         // ソートボタンをタップ
-        await tester.tap(find.byType(RepoSortButton));
+        await tester.tap(find.byType(SearchReposSortButton));
         await tester.pumpAndSettle();
 
         // ソート選択ボトムシートが表示したはず

@@ -8,8 +8,8 @@ import '../../../config/router.dart';
 import '../../../utils/logger.dart';
 import '../../components/search_app_bar.dart';
 import 'components/repo_list_view.dart';
-import 'components/repo_sort_button.dart';
 import 'components/search_repos_query.dart';
+import 'components/search_repos_sort.dart';
 
 /// リポジトリ一覧画面
 class RepoIndexPage extends StatefulWidget {
@@ -33,7 +33,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
           SearchAppBar(
             title: const SearchReposQueryTextButton(),
             actions: const [
-              RepoSortButton(),
+              SearchReposSortButton(),
             ],
             flexibleSpace: SafeArea(
               child: Align(

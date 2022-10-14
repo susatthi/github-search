@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../../components/search_app_bar.dart';
 import 'components/query_histories_list_view.dart';
-import 'components/repo_sort_button.dart';
 import 'components/search_repos_query.dart';
+import 'components/search_repos_sort.dart';
 
 /// リポジトリ検索画面
 class RepoSearchPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class RepoSearchPage extends StatelessWidget {
           SearchAppBar(
             title: const SearchReposQueryTextField(),
             actions: const [
-              RepoSortButton(),
+              SearchReposSortButton(),
             ],
             backgroundColor: Theme.of(context).colorScheme.background,
             pinned: true,

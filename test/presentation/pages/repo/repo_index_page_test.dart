@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
@@ -33,7 +32,7 @@ void main() {
       await tester.pump();
 
       expect(find.byType(SearchReposQueryTextField), findsOneWidget);
-      expect(find.byType(RepoSortButton), findsOneWidget);
+      expect(find.byType(SearchReposSortButton), findsOneWidget);
     });
     testWidgets('エラーが発生したらエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(
@@ -142,7 +141,7 @@ void main() {
       expect(find.text('samarthagarwal/FlutterScreens'), findsOneWidget);
 
       // ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // ボトムシートが表示されたはず
@@ -174,7 +173,7 @@ void main() {
       await tester.pump();
 
       // ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // ボトムシートが表示されたはず
@@ -191,7 +190,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // 閉じてしまうので再度ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // 昇順になったはず
@@ -205,7 +204,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // 閉じてしまうので再度ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // 降順になったはず

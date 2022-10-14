@@ -75,3 +75,20 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
     );
   }
 }
+
+/// リポジトリ検索用ソートボタン
+class SearchReposSortButton extends StatelessWidget {
+  const SearchReposSortButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => showModalBottomSheet<void>(
+        context: context,
+        builder: (context) => const SearchReposSortSelectorBottomSheet(),
+      ),
+      icon: const Icon(Icons.sort),
+      tooltip: i18n.sort,
+    );
+  }
+}

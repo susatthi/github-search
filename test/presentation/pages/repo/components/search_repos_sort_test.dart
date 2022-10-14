@@ -238,6 +238,54 @@ void main() {
       expect(find.byIcon(Icons.arrow_upward), findsNothing);
     });
   });
+  group('RepoSortButton', () {
+    testWidgets('正しく表示できるはず', (tester) async {
+      await tester.pumpWidget(
+        agent.mockApp(
+          home: const Scaffold(
+            body: SearchReposSortButton(),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      // tooltipが正しいはず
+      final button = tester.widget(find.byType(IconButton)) as IconButton;
+      expect(button.tooltip, i18n.sort);
+
+      // アイコンが正しいはず
+      final icon = button.icon as Icon;
+      expect(icon.icon, Icons.sort);
+    });
+
+    testWidgets('ボタン押下でボトムシートを表示するはず', (tester) async {
+      await tester.pumpWidget(
+        agent.mockApp(
+          home: const Scaffold(
+            body: SearchReposSortButton(),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      // まだ表示されていないはず
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
+
+      // ボタンをタップ
+      await tester.tap(find.byType(SearchReposSortButton));
+      await tester.pumpAndSettle();
+
+      // 表示したはず
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsOneWidget);
+
+      // 適当なところをタップ
+      await tester.tapAt(const Offset(100, 100));
+      await tester.pumpAndSettle();
+
+      // 消えたはず
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
+    });
+  });
 }
 
 /// RepoSortSelectorDialog の項目にチェックがついているかどうかを検査する
