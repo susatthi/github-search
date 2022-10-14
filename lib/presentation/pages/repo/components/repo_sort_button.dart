@@ -16,12 +16,6 @@ class RepoSortButton extends StatelessWidget {
     return IconButton(
       onPressed: () => showModalBottomSheet<void>(
         context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-        ),
         builder: (context) => const SearchReposSortSelectorBottomSheet(),
       ),
       icon: const Icon(Icons.sort),
