@@ -38,7 +38,9 @@ class _MockPage extends ConsumerWidget {
                 width: 100,
                 child: TextField(
                   onChanged: (text) {
-                    ref.read(searchReposEnteringQueryStringUpdater)(text);
+                    ref
+                        .read(searchReposEnteringQueryProvider.notifier)
+                        .update(text);
                   },
                 ),
               ),
@@ -84,7 +86,10 @@ void main() {
 
       // 入力中の検索文字列を更新して検索履歴一覧を更新する
       await Future.wait([
-        agent.mockContainer().read(searchReposEnteringQueryStringUpdater)('')
+        agent
+            .mockContainer()
+            .read(searchReposEnteringQueryProvider.notifier)
+            .update('')
       ]);
 
       final notifier = agent
@@ -128,7 +133,9 @@ void main() {
       expect(currentNotifier, isNull);
 
       // fを入力
-      await container.read(searchReposEnteringQueryStringUpdater)('f');
+      await container
+          .read(searchReposEnteringQueryProvider.notifier)
+          .update('f');
 
       // Notifierが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -136,7 +143,9 @@ void main() {
       expect(currentNotifier?.queryString, 'f');
 
       // flを入力
-      await container.read(searchReposEnteringQueryStringUpdater)('fl');
+      await container
+          .read(searchReposEnteringQueryProvider.notifier)
+          .update('fl');
 
       // Notifierが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -262,7 +271,10 @@ void main() {
 
         // 入力中の検索文字列を更新して検索履歴一覧を更新する
         await Future.wait([
-          agent.mockContainer().read(searchReposEnteringQueryStringUpdater)('')
+          agent
+              .mockContainer()
+              .read(searchReposEnteringQueryProvider.notifier)
+              .update('')
         ]);
 
         await tester.pumpDeviceBuilder(

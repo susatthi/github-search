@@ -9,8 +9,8 @@ import 'package:github_search/domain/repositories/query_history/query_history_re
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 
 import '../../../test_utils/golden_testing_tools.dart';
@@ -31,13 +31,13 @@ void main() {
         );
         await tester.pump();
 
-        expect(find.byType(SearchReposTextField), findsOneWidget);
+        expect(find.byType(SearchReposQueryTextField), findsOneWidget);
         expect(find.byType(RepoSortButton), findsOneWidget);
         expect(find.byType(SliverQueryHistoriesListView), findsOneWidget);
 
         // RepoSearchTextに自動でフォーカスが当たるはず
-        final state = tester.firstState(find.byType(SearchReposTextField))
-            as SearchReposTextFieldState;
+        final state = tester.firstState(find.byType(SearchReposQueryTextField))
+            as SearchReposQueryTextFieldState;
         expect(state.focusNode.hasFocus, true);
 
         // ソートボタンをタップ

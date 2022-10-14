@@ -8,9 +8,8 @@ import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_text_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
@@ -33,7 +32,7 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byType(SearchReposTextField), findsOneWidget);
+      expect(find.byType(SearchReposQueryTextField), findsOneWidget);
       expect(find.byType(RepoSortButton), findsOneWidget);
     });
     testWidgets('エラーが発生したらエラー画面を表示するはず', (tester) async {
@@ -65,7 +64,7 @@ void main() {
 
         // 検索ボタン押下で検索ページに遷移する
         testLogger.d('Tapped SearchTextButton 1');
-        await tester.tap(find.byType(SearchReposTextButton));
+        await tester.tap(find.byType(SearchReposQueryTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移したはず
@@ -85,7 +84,7 @@ void main() {
 
         // もう一度検索ボタン押下で検索ページに遷移する
         testLogger.d('Tapped SearchTextButton 2');
-        await tester.tap(find.byType(SearchReposTextButton));
+        await tester.tap(find.byType(SearchReposQueryTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移したはず
@@ -255,14 +254,17 @@ void main() {
         expect(state.isFilled, false);
 
         // 検索ボタン押下で検索ページに遷移する
-        await tester.tap(find.byType(SearchReposTextButton));
+        await tester.tap(find.byType(SearchReposQueryTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移した後は広がっているはず
         expect(state.isFilled, true);
 
         // 検索文字列を入力して検索ボタン押下
-        await tester.enterText(find.byType(SearchReposTextField).last, 'kboy');
+        await tester.enterText(
+          find.byType(SearchReposQueryTextField).last,
+          'kboy',
+        );
         await tester.testTextInput.receiveAction(TextInputAction.done);
         await tester.pumpAndSettle();
 
