@@ -15,38 +15,33 @@ import 'search_repos_order.dart';
 import 'search_repos_query.dart';
 import 'search_repos_sort.dart';
 
-part 'repo_list_view_state.freezed.dart';
+part 'search_repos.freezed.dart';
 
-/// リポジトリ一覧View状態プロバイダー
-final repoListViewStateProvider = StateNotifierProvider.autoDispose<
-    RepoListViewNotifier, AsyncValue<RepoListViewState>>(
-  (ref) {
-    final queryString = ref.watch(searchReposQueryProvider);
-    final sort = ref.watch(searchReposSortProvider);
-    final order = ref.watch(searchReposOrderProvider);
-    return RepoListViewNotifier(
-      repoRepository: ref.watch(repoRepositoryProvider),
-      queryString: queryString,
-      sort: sort,
-      order: order,
-    );
-  },
-  name: 'repoListViewStateProvider',
+/// リポジトリ検索状態プロバイダー
+final searchReposStateProvider = StateNotifierProvider.autoDispose<
+    SearchReposController, AsyncValue<SearchReposState>>(
+  (ref) => SearchReposController(
+    repoRepository: ref.watch(repoRepositoryProvider),
+    queryString: ref.watch(searchReposQueryProvider),
+    sort: ref.watch(searchReposSortProvider),
+    order: ref.watch(searchReposOrderProvider),
+  ),
+  name: 'searchReposStateProvider',
 );
 
-/// リポジトリ一覧View状態
+/// リポジトリ検索状態
 @freezed
-class RepoListViewState with _$RepoListViewState {
-  const factory RepoListViewState({
+class SearchReposState with _$SearchReposState {
+  const factory SearchReposState({
     @Default(0) int totalCount,
     @Default(<Repo>[]) List<Repo> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
     @Default('') String queryString,
-  }) = _RepoListViewState;
+  }) = _SearchReposState;
 
-  factory RepoListViewState.from(SearchReposResult result) {
-    return RepoListViewState(
+  factory SearchReposState.from(SearchReposResult result) {
+    return SearchReposState(
       totalCount: result.totalCount,
       items: result.items,
       hasNext: result.items.length < result.totalCount,
@@ -55,10 +50,10 @@ class RepoListViewState with _$RepoListViewState {
   }
 }
 
-/// リポジトリ一覧ViewNotifier
-class RepoListViewNotifier
-    extends StateNotifier<AsyncValue<RepoListViewState>> {
-  RepoListViewNotifier({
+/// リポジトリ検索コントローラー
+class SearchReposController
+    extends StateNotifier<AsyncValue<SearchReposState>> {
+  SearchReposController({
     required this.repoRepository,
     required this.queryString,
     required this.sort,
@@ -69,7 +64,7 @@ class RepoListViewNotifier
       state = await AsyncValue.guard(() async {
         final trimQueryString = queryString.trim();
         if (trimQueryString.isEmpty) {
-          return const RepoListViewState();
+          return const SearchReposState();
         }
 
         final result = await repoRepository.searchRepos(
@@ -82,7 +77,7 @@ class RepoListViewNotifier
           'Search repos result: totalCount = ${result.totalCount}, '
           'fetchItems = ${result.items.length}',
         );
-        return RepoListViewState.from(result);
+        return SearchReposState.from(result);
       });
     }();
   }

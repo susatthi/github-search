@@ -11,7 +11,7 @@ import '../../../../domain/repositories/repo/entities/search_repos_order.dart';
 import '../../../../localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/app_data.dart';
-import 'repo_list_view_state.dart';
+import 'search_repos.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー
 final searchReposOrderProvider =
@@ -36,7 +36,7 @@ class SearchReposOrderToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // リポジトリ検索の実行中やエラー時はトグルボタンを無効化する
-    final asyncValue = ref.watch(repoListViewStateProvider);
+    final asyncValue = ref.watch(searchReposStateProvider);
     return SearchReposOrderToggleButtonInternal(
       enabled: asyncValue.when(
         data: (state) => true,
