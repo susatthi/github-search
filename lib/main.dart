@@ -8,7 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import 'config/app.dart';
 import 'config/router.dart';
 import 'config/theme.dart';
 import 'domain/repositories/app_data/app_data_repository.dart';
@@ -20,6 +19,7 @@ import 'infrastructure/hive/hive.dart';
 import 'infrastructure/isar/isar.dart';
 import 'infrastructure/isar/query_history/query_history_repository.dart';
 import 'localizations/strings.g.dart';
+import 'presentation/app.dart';
 import 'utils/logger.dart';
 
 Future<void> main() async {

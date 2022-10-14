@@ -7,10 +7,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../config/router.dart';
 import '../localizations/strings.g.dart';
-import '../presentation/components/url_launcher.dart';
 import '../utils/logger.dart';
-import 'router.dart';
+import 'components/url_launcher.dart';
 
 /// 画面遷移の定義プロバイダー
 final routerProvider = Provider<GoRouter>(
