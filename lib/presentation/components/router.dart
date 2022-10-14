@@ -8,18 +8,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../domain/repositories/repo/entities/repo.dart';
-import '../presentation/pages/error/error_page.dart';
-import '../presentation/pages/repo/avatar_preview_page.dart';
-import '../presentation/pages/repo/components/selected_repo.dart';
-import '../presentation/pages/repo/repo_index_page.dart';
-import '../presentation/pages/repo/repo_search_page.dart';
-import '../presentation/pages/repo/repo_view_page.dart';
+import '../../domain/repositories/repo/entities/repo.dart';
+import '../../presentation/pages/error/error_page.dart';
+import '../../presentation/pages/repo/avatar_preview_page.dart';
+import '../../presentation/pages/repo/components/selected_repo.dart';
+import '../../presentation/pages/repo/repo_index_page.dart';
+import '../../presentation/pages/repo/repo_search_page.dart';
+import '../../presentation/pages/repo/repo_view_page.dart';
 
 part 'router.g.dart';
 
-/// GitHubSearch の画面遷移の定義プロバイダー
-final githubSearchRouterProvider = Provider<GoRouter>(
+/// 画面遷移の定義プロバイダー
+final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
     initialLocation: '/repos',
     routes: $appRoutes,

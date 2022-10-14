@@ -5,22 +5,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import '../config/router.dart';
 import '../localizations/strings.g.dart';
 import '../utils/logger.dart';
+import 'components/router.dart';
+import 'components/theme.dart';
 import 'components/url_launcher.dart';
-
-/// 画面遷移の定義プロバイダー
-final routerProvider = Provider<GoRouter>(
-  (ref) => throw UnimplementedError('Provider was not initialized'),
-);
-
-/// テーマプロバイダー
-final themeProvider = Provider.family<ThemeData, Brightness>(
-  (ref, brightness) => throw UnimplementedError('Provider was not initialized'),
-);
 
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {

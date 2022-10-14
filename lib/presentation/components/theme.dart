@@ -5,10 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utils/assets/fonts.gen.dart';
+import '../../utils/assets/fonts.gen.dart';
 
-/// GitHubSearchのテーマプロバイダー
-final githubSearchThemeProvider = Provider.family<ThemeData, Brightness>(
+/// テーマプロバイダー
+final themeProvider = Provider.family<ThemeData, Brightness>(
   (ref, brightness) => ThemeData(
     colorScheme: ColorScheme.fromSwatch(
       brightness: brightness,

@@ -10,7 +10,6 @@ import 'package:number_display/number_display.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../config/router.dart';
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/entities/values/repo_count.dart';
 import '../../../../localizations/strings.g.dart';
@@ -20,6 +19,7 @@ import '../../../components/cached_circle_avatar.dart';
 import '../../../components/error_view.dart';
 import '../../../components/icon_label.dart';
 import '../../../components/list_loader.dart';
+import '../../../components/router.dart';
 import 'repo_language_label.dart';
 import 'search_repos.dart';
 

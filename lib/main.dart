@@ -8,8 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import 'config/router.dart';
-import 'config/theme.dart';
 import 'domain/repositories/app_data/app_data_repository.dart';
 import 'domain/repositories/query_history/query_history_repository.dart';
 import 'domain/repositories/repo/repo_repository.dart';
@@ -50,10 +48,6 @@ Future<void> main() async {
         ProviderLogger(),
       ],
       overrides: [
-        // Theme
-        themeProvider.overrideWithProvider(githubSearchThemeProvider),
-        // Router
-        routerProvider.overrideWithProvider(githubSearchRouterProvider),
         // DataSources
         isarProvider.overrideWithValue(isar),
         // Repositories

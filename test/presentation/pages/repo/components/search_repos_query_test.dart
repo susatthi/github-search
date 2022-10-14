@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/config/router.dart';
+import 'package:github_search/presentation/components/router.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/utils/env/env.dart';
 import 'package:go_router/go_router.dart';
