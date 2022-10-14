@@ -11,19 +11,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/config/app.dart';
 import 'package:github_search/domain/repositories/app_data/app_data_repository.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:github_search/domain/repositories/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
-import 'package:github_search/infrastructure/isar/query_history/collections/query_history.dart';
+import 'package:github_search/infrastructure/hive/hive.dart';
+import 'package:github_search/infrastructure/isar/isar.dart';
 import 'package:github_search/infrastructure/isar/query_history/query_history_repository.dart';
-import 'package:github_search/localizations/strings.g.dart';
+import 'package:github_search/presentation/app.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
+import 'package:github_search/utils/localizations/strings.g.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:isar/isar.dart';
 import 'package:path/path.dart' as path;
@@ -53,7 +54,7 @@ class TestAgent {
     // モック版のHTTPクライアントを使う
     httpClientProvider.overrideWithValue(mockHttpClient),
     // リポジトリ検索文字列の初期値を設定する
-    searchReposInitQueryStringProvider.overrideWithValue('flutter'),
+    searchReposInitQueryProvider.overrideWithValue('flutter'),
     // モック版のキャッシュマネージャーを使う
     cachedCircleAvatarCacheManagerProvider
         .overrideWithValue(MockCacheManager()),
@@ -210,6 +211,8 @@ class HiveTestAgent {
   Future<void> setUp() async {
     await testDir.open(prefix: 'hive');
     Hive.init(testDir.dir.path);
+    Hive.resetAdapters();
+    Hive.registerAdapters();
     final box = await Hive.openBox<dynamic>(hiveBoxNameAppData);
     await box.clear();
   }
@@ -248,10 +251,7 @@ class IsarTestAgent {
       },
     );
 
-    _isar = await Isar.open(
-      [
-        QueryHistoryCollectionSchema,
-      ],
+    _isar = await initIsar(
       directory: testDir.dir.path,
     );
   }

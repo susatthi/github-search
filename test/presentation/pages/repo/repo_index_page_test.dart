@@ -5,15 +5,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_text_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 import 'package:github_search/presentation/pages/repo/repo_index_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
+import 'package:github_search/utils/localizations/strings.g.dart';
 
 import '../../../test_utils/logger.dart';
 import '../../../test_utils/mocks.dart';
@@ -33,8 +31,8 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byType(SearchReposTextField), findsOneWidget);
-      expect(find.byType(RepoSortButton), findsOneWidget);
+      expect(find.byType(SearchReposQueryTextField), findsOneWidget);
+      expect(find.byType(SearchReposSortButton), findsOneWidget);
     });
     testWidgets('エラーが発生したらエラー画面を表示するはず', (tester) async {
       await tester.pumpWidget(
@@ -65,7 +63,7 @@ void main() {
 
         // 検索ボタン押下で検索ページに遷移する
         testLogger.d('Tapped SearchTextButton 1');
-        await tester.tap(find.byType(SearchReposTextButton));
+        await tester.tap(find.byType(SearchReposQueryTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移したはず
@@ -85,7 +83,7 @@ void main() {
 
         // もう一度検索ボタン押下で検索ページに遷移する
         testLogger.d('Tapped SearchTextButton 2');
-        await tester.tap(find.byType(SearchReposTextButton));
+        await tester.tap(find.byType(SearchReposQueryTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移したはず
@@ -143,7 +141,7 @@ void main() {
       expect(find.text('samarthagarwal/FlutterScreens'), findsOneWidget);
 
       // ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // ボトムシートが表示されたはず
@@ -175,7 +173,7 @@ void main() {
       await tester.pump();
 
       // ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // ボトムシートが表示されたはず
@@ -192,7 +190,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // 閉じてしまうので再度ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // 昇順になったはず
@@ -206,7 +204,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // 閉じてしまうので再度ソートボタンをタップ
-      await tester.tap(find.byType(RepoSortButton));
+      await tester.tap(find.byType(SearchReposSortButton));
       await tester.pumpAndSettle();
 
       // 降順になったはず
@@ -255,14 +253,17 @@ void main() {
         expect(state.isFilled, false);
 
         // 検索ボタン押下で検索ページに遷移する
-        await tester.tap(find.byType(SearchReposTextButton));
+        await tester.tap(find.byType(SearchReposQueryTextButton));
         await tester.pumpAndSettle();
 
         // 検索画面に遷移した後は広がっているはず
         expect(state.isFilled, true);
 
         // 検索文字列を入力して検索ボタン押下
-        await tester.enterText(find.byType(SearchReposTextField).last, 'kboy');
+        await tester.enterText(
+          find.byType(SearchReposQueryTextField).last,
+          'kboy',
+        );
         await tester.testTextInput.receiveAction(TextInputAction.done);
         await tester.pumpAndSettle();
 

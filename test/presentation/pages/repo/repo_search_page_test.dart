@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
-import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
-import 'package:github_search/presentation/pages/repo/components/repo_sort_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_text_field.dart';
+import 'package:github_search/presentation/pages/repo/components/query_histories.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
+import 'package:github_search/utils/localizations/strings.g.dart';
 
 import '../../../test_utils/golden_testing_tools.dart';
 import '../../../test_utils/test_agent.dart';
@@ -31,17 +30,17 @@ void main() {
         );
         await tester.pump();
 
-        expect(find.byType(SearchReposTextField), findsOneWidget);
-        expect(find.byType(RepoSortButton), findsOneWidget);
+        expect(find.byType(SearchReposQueryTextField), findsOneWidget);
+        expect(find.byType(SearchReposSortButton), findsOneWidget);
         expect(find.byType(SliverQueryHistoriesListView), findsOneWidget);
 
         // RepoSearchTextに自動でフォーカスが当たるはず
-        final state = tester.firstState(find.byType(SearchReposTextField))
-            as SearchReposTextFieldState;
+        final state = tester.firstState(find.byType(SearchReposQueryTextField))
+            as SearchReposQueryTextFieldState;
         expect(state.focusNode.hasFocus, true);
 
         // ソートボタンをタップ
-        await tester.tap(find.byType(RepoSortButton));
+        await tester.tap(find.byType(SearchReposSortButton));
         await tester.pumpAndSettle();
 
         // ソート選択ボトムシートが表示したはず

@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
-import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
+import 'package:github_search/presentation/pages/repo/components/query_histories.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
@@ -29,7 +29,7 @@ class _MockPage extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref.read(searchReposQueryStringUpdater)('flutter');
+                  ref.read(searchReposQueryProvider.notifier).update('flutter');
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -38,7 +38,9 @@ class _MockPage extends ConsumerWidget {
                 width: 100,
                 child: TextField(
                   onChanged: (text) {
-                    ref.read(searchReposEnteringQueryStringUpdater)(text);
+                    ref
+                        .read(searchReposEnteringQueryProvider.notifier)
+                        .update(text);
                   },
                 ),
               ),
@@ -56,9 +58,9 @@ void main() {
   setUp(agent.setUp);
   tearDown(agent.tearDown);
 
-  group('QueryHistoriesNotifier', () {
-    test('Notifierを生成すると検索履歴一覧を取得するはず', () async {
-      final notifier = agent
+  group('QueryHistoriesController', () {
+    test('コントローラーを生成すると検索履歴一覧を取得するはず', () async {
+      final controller = agent
           .mockContainer()
           .listen(
             queryHistoriesProvider.notifier,
@@ -67,13 +69,13 @@ void main() {
           .read();
 
       // 初期値はAsyncLoading
-      expect(notifier.state is AsyncLoading, true);
+      expect(controller.state is AsyncLoading, true);
 
       // 検索履歴一覧を取り終わるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // 検索履歴一覧が取得できているはず
-      expect(notifier.state is AsyncData, true);
+      expect(controller.state is AsyncData, true);
     });
     test('検索履歴を削除できるはず', () async {
       final repository =
@@ -84,10 +86,13 @@ void main() {
 
       // 入力中の検索文字列を更新して検索履歴一覧を更新する
       await Future.wait([
-        agent.mockContainer().read(searchReposEnteringQueryStringUpdater)('')
+        agent
+            .mockContainer()
+            .read(searchReposEnteringQueryProvider.notifier)
+            .update('')
       ]);
 
-      final notifier = agent
+      final controller = agent
           .mockContainer()
           .listen(
             queryHistoriesProvider.notifier,
@@ -99,49 +104,53 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // 検索履歴が1件取得できているはず
-      expect(notifier.state is AsyncData, true);
-      expect(notifier.state.value!.length, 1);
+      expect(controller.state is AsyncData, true);
+      expect(controller.state.value!.length, 1);
 
       // 検索履歴を削除する
-      final query = notifier.state.value!.first;
-      await Future.wait([notifier.delete(query)]);
+      final query = controller.state.value!.first;
+      await Future.wait([controller.delete(query)]);
 
       // 検索履歴が削除されているはず
-      expect(notifier.state is AsyncData, true);
-      expect(notifier.state.value!.length, 0);
+      expect(controller.state is AsyncData, true);
+      expect(controller.state.value!.length, 0);
     });
-    test('Notifierを連続で生成してDisposeされても問題ないはず', () async {
-      QueryHistoriesNotifier? currentNotifier;
+    test('コントローラーを連続で生成してDisposeされても問題ないはず', () async {
+      QueryHistoriesController? currentController;
       final container = agent.mockContainer(
         overrides: [
           // 検索文字列の初期値は空文字にしておく
-          searchReposInitQueryStringProvider.overrideWithValue(''),
+          searchReposInitQueryProvider.overrideWithValue(''),
         ],
-      )..listen<QueryHistoriesNotifier>(
+      )..listen<QueryHistoriesController>(
           queryHistoriesProvider.notifier,
           (previous, next) {
             testLogger.i(next);
-            currentNotifier = next;
+            currentController = next;
           },
         );
 
-      expect(currentNotifier, isNull);
+      expect(currentController, isNull);
 
       // fを入力
-      await container.read(searchReposEnteringQueryStringUpdater)('f');
+      await container
+          .read(searchReposEnteringQueryProvider.notifier)
+          .update('f');
 
-      // Notifierが更新されるまで待つ
+      // コントローラーが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      expect(currentNotifier?.queryString, 'f');
+      expect(currentController?.queryString, 'f');
 
       // flを入力
-      await container.read(searchReposEnteringQueryStringUpdater)('fl');
+      await container
+          .read(searchReposEnteringQueryProvider.notifier)
+          .update('fl');
 
-      // Notifierが更新されるまで待つ
+      // コントローラーが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      expect(currentNotifier?.queryString, 'fl');
+      expect(currentController?.queryString, 'fl');
     });
   });
   group('SliverQueryHistoriesListView', () {
@@ -262,7 +271,10 @@ void main() {
 
         // 入力中の検索文字列を更新して検索履歴一覧を更新する
         await Future.wait([
-          agent.mockContainer().read(searchReposEnteringQueryStringUpdater)('')
+          agent
+              .mockContainer()
+              .read(searchReposEnteringQueryProvider.notifier)
+              .update('')
         ]);
 
         await tester.pumpDeviceBuilder(

@@ -7,11 +7,12 @@ enum SearchReposSort {
   bestMatch,
   stars,
   forks,
-  helpWantedIssues;
+  helpWantedIssues,
+  ;
 
-  /// 文字列からソートを返す
+  /// name からソートを返す
   /// 見つからない場合は IterableElementError.noElement() を投げる
-  static SearchReposSort valueOf(String name) {
+  static SearchReposSort nameOf(String name) {
     return SearchReposSort.values.firstWhere((element) => element.name == name);
   }
 }

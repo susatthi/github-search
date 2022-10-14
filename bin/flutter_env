@@ -5,10 +5,10 @@
 # found in the LICENSE file.
 
 # デフォルトの環境変数ファイルへのパス
-ENV_DEFAULT_FILE_PATH=lib/config/env.default.dart
+ENV_DEFAULT_FILE_PATH=lib/utils/env/env.default.dart
 
 # 環境変数ファイルへのパス
-ENV_FILE_PATH=lib/config/env.dart
+ENV_FILE_PATH=lib/utils/env/env.dart
 
 # 作業中の環境変数ファイルへのパス
 ENV_TMP_FILE_PATH=tmp.dart

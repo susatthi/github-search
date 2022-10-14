@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 
 import '../../../../test_utils/logger.dart';
@@ -26,10 +26,14 @@ void main() {
   });
   group('searchReposOrderUpdater', () {
     test('オーダー値を変更できるはず', () async {
-      final updater = agent.mockContainer().read(searchReposOrderUpdater);
+      final controller =
+          agent.mockContainer().read(searchReposOrderProvider.notifier);
 
       // 昇順に変更する
-      updater(SearchReposOrder.asc);
+      controller.update(SearchReposOrder.asc);
+
+      // 値が反映されるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
 
       // 昇順のはず
       expect(
@@ -38,7 +42,10 @@ void main() {
       );
 
       // 降順に変更する
-      updater(SearchReposOrder.desc);
+      controller.update(SearchReposOrder.desc);
+
+      // 値が反映されるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
 
       // 降順のはず
       expect(
@@ -149,7 +156,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
-            searchReposInitQueryStringProvider.overrideWithValue(''),
+            searchReposInitQueryProvider.overrideWithValue(''),
           ],
           home: const Scaffold(
             body: SearchReposOrderToggleButton(),

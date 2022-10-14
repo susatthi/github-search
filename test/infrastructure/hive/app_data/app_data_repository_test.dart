@@ -4,6 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/app_data/app_data_repository.dart';
+import 'package:github_search/domain/repositories/app_data/entities/app_data_key.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
@@ -20,71 +21,75 @@ void main() {
   tearDown(agent.tearDown);
 
   group('HiveAppDataRepository', () {
-    test('setSearchReposSort() / getSearchReposSort()', () async {
+    test('searchReposSort', () async {
+      const key = AppDataKey.searchReposSort;
+
       // 初期値はベストマッチのはず
       expect(
-        repository.getSearchReposSort(),
+        repository.get<SearchReposSort>(key),
         SearchReposSort.bestMatch,
       );
 
       // スター数に変更する
-      repository.setSearchReposSort(SearchReposSort.stars);
+      repository.set<SearchReposSort>(key, SearchReposSort.stars);
 
       // スター数になるはず
       expect(
-        repository.getSearchReposSort(),
+        repository.get<SearchReposSort>(key),
         SearchReposSort.stars,
       );
 
       // フォーク数に変更する
-      repository.setSearchReposSort(SearchReposSort.forks);
+      repository.set<SearchReposSort>(key, SearchReposSort.forks);
 
       // フォーク数になるはず
       expect(
-        repository.getSearchReposSort(),
+        repository.get<SearchReposSort>(key),
         SearchReposSort.forks,
       );
 
       // ヘルプ数に変更する
-      repository.setSearchReposSort(SearchReposSort.helpWantedIssues);
+      repository.set<SearchReposSort>(key, SearchReposSort.helpWantedIssues);
 
       // ヘルプ数になるはず
       expect(
-        repository.getSearchReposSort(),
+        repository.get<SearchReposSort>(key),
         SearchReposSort.helpWantedIssues,
       );
 
       // ベストマッチに変更する
-      repository.setSearchReposSort(SearchReposSort.bestMatch);
+      repository.set<SearchReposSort>(key, SearchReposSort.bestMatch);
 
       // ベストマッチになるはず
       expect(
-        repository.getSearchReposSort(),
+        repository.get<SearchReposSort>(key),
         SearchReposSort.bestMatch,
       );
     });
-    test('setSearchReposOrder() / getSearchReposOrder()', () async {
+    test('searchReposOrder', () async {
+      const key = AppDataKey.searchReposOrder;
+
       // 初期値は降順のはず
       expect(
-        repository.getSearchReposOrder(),
+        repository.get<SearchReposOrder>(key),
         SearchReposOrder.desc,
       );
 
       // 昇順に変更する
-      repository.setSearchReposOrder(SearchReposOrder.asc);
+      repository.set<SearchReposOrder>(key, SearchReposOrder.asc);
 
       // 昇順になるはず
       expect(
-        repository.getSearchReposOrder(),
+        repository.get<SearchReposOrder>(key),
         SearchReposOrder.asc,
       );
 
       // 降順に変更する
-      repository.setSearchReposOrder(SearchReposOrder.desc);
+      repository.set<SearchReposOrder>(key, SearchReposOrder.desc);
 
       // 降順になるはず
       expect(
-        repository.getSearchReposOrder(),
+        repository.get<SearchReposOrder>(key),
         SearchReposOrder.desc,
       );
     });

@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order_toggle_button.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort_selector_bottom_sheet.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
+import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
+import 'package:github_search/utils/localizations/strings.g.dart';
 
 import '../../../../test_utils/logger.dart';
 import '../../../../test_utils/mocks.dart';
@@ -43,10 +43,14 @@ void main() {
   });
   group('searchReposSortUpdater', () {
     test('ソート値を変更できるはず', () async {
-      final updater = agent.mockContainer().read(searchReposSortUpdater);
+      final controller =
+          agent.mockContainer().read(searchReposSortProvider.notifier);
 
       // スター数に変更する
-      updater(SearchReposSort.stars);
+      controller.update(SearchReposSort.stars);
+
+      // 値が反映されるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
 
       // スター数のはず
       expect(
@@ -55,7 +59,10 @@ void main() {
       );
 
       // フォーク数に変更する
-      updater(SearchReposSort.forks);
+      controller.update(SearchReposSort.forks);
+
+      // 値が反映されるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
 
       // フォーク数のはず
       expect(
@@ -64,7 +71,10 @@ void main() {
       );
 
       // ヘルプ数に変更する
-      updater(SearchReposSort.helpWantedIssues);
+      controller.update(SearchReposSort.helpWantedIssues);
+
+      // 値が反映されるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
 
       // ヘルプ数のはず
       expect(
@@ -73,7 +83,10 @@ void main() {
       );
 
       // ベストマッチに変更する
-      updater(SearchReposSort.bestMatch);
+      controller.update(SearchReposSort.bestMatch);
+
+      // 値が反映されるまで待つ
+      await Future<void>.delayed(const Duration(microseconds: 500));
 
       // ベストマッチのはず
       expect(
@@ -223,6 +236,54 @@ void main() {
       // オーダー変更ボタンは昇順のままのはず
       expect(find.byIcon(Icons.arrow_downward), findsOneWidget);
       expect(find.byIcon(Icons.arrow_upward), findsNothing);
+    });
+  });
+  group('RepoSortButton', () {
+    testWidgets('正しく表示できるはず', (tester) async {
+      await tester.pumpWidget(
+        agent.mockApp(
+          home: const Scaffold(
+            body: SearchReposSortButton(),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      // tooltipが正しいはず
+      final button = tester.widget(find.byType(IconButton)) as IconButton;
+      expect(button.tooltip, i18n.sort);
+
+      // アイコンが正しいはず
+      final icon = button.icon as Icon;
+      expect(icon.icon, Icons.sort);
+    });
+
+    testWidgets('ボタン押下でボトムシートを表示するはず', (tester) async {
+      await tester.pumpWidget(
+        agent.mockApp(
+          home: const Scaffold(
+            body: SearchReposSortButton(),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      // まだ表示されていないはず
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
+
+      // ボタンをタップ
+      await tester.tap(find.byType(SearchReposSortButton));
+      await tester.pumpAndSettle();
+
+      // 表示したはず
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsOneWidget);
+
+      // 適当なところをタップ
+      await tester.tapAt(const Offset(100, 100));
+      await tester.pumpAndSettle();
+
+      // 消えたはず
+      expect(find.byType(SearchReposSortSelectorBottomSheet), findsNothing);
     });
   });
 }

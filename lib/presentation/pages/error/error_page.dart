@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../localizations/strings.g.dart';
+import '../../../utils/localizations/strings.g.dart';
 import '../../components/error_view.dart';
 
 /// エラー画面

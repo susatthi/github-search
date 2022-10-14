@@ -8,15 +8,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../domain/repositories/repo/entities/repo.dart';
-import '../presentation/pages/error/error_page.dart';
-import '../presentation/pages/repo/avatar_preview_page.dart';
-import '../presentation/pages/repo/components/selected_repo.dart';
-import '../presentation/pages/repo/repo_index_page.dart';
-import '../presentation/pages/repo/repo_search_page.dart';
-import '../presentation/pages/repo/repo_view_page.dart';
+import '../../domain/repositories/repo/entities/repo.dart';
+import '../../presentation/pages/error/error_page.dart';
+import '../../presentation/pages/repo/avatar_preview_page.dart';
+import '../../presentation/pages/repo/components/selected_repo.dart';
+import '../../presentation/pages/repo/repo_index_page.dart';
+import '../../presentation/pages/repo/repo_search_page.dart';
+import '../../presentation/pages/repo/repo_view_page.dart';
 
 part 'router.g.dart';
+
+/// 画面遷移の定義プロバイダー
+final routerProvider = Provider<GoRouter>(
+  (ref) => GoRouter(
+    initialLocation: '/repos',
+    routes: $appRoutes,
+
+    // エラー画面
+    errorPageBuilder: (context, state) =>
+        ErrorRoute(state.error).buildPage(context),
+    observers: [pageRouteObserver],
+    debugLogDiagnostics: !kReleaseMode,
+
+    // URLの#を除去する
+    urlPathStrategy: UrlPathStrategy.path,
+    navigatorBuilder: (context, state, child) =>
+        responsiveWrapperBuilder(context, child),
+  ),
+);
 
 /// ルーティングテーブル
 @TypedGoRoute<RepoIndexRoute>(
@@ -166,25 +185,6 @@ class ErrorRoute extends GoRouteData {
         child: ErrorPage(error: error),
       );
 }
-
-/// 画面遷移の定義Provider
-final routerProvider = Provider<GoRouter>(
-  (ref) => GoRouter(
-    initialLocation: '/repos',
-    routes: $appRoutes,
-
-    // エラー画面
-    errorPageBuilder: (context, state) =>
-        ErrorRoute(state.error).buildPage(context),
-    observers: [pageRouteObserver],
-    debugLogDiagnostics: !kReleaseMode,
-
-    // URLの#を除去する
-    urlPathStrategy: UrlPathStrategy.path,
-    navigatorBuilder: (context, state, child) =>
-        responsiveWrapperBuilder(context, child),
-  ),
-);
 
 Widget responsiveWrapperBuilder(
   BuildContext context,

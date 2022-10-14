@@ -10,6 +10,8 @@ linter:
     avoid_classes_with_only_static_members: false
     constant_identifier_names: true
     prefer_relative_imports: true
+    use_build_context_synchronously: false
+    cascade_invocations: false
 
 # see: https://github.com/rrousselGit/freezed/issues/488#issuecomment-894358980
 analyzer:

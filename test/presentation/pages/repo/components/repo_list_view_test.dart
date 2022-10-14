@@ -4,13 +4,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/config/router.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/localizations/strings.g.dart';
 import 'package:github_search/presentation/components/error_view.dart';
 import 'package:github_search/presentation/components/list_loader.dart';
+import 'package:github_search/presentation/components/router.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_list_view.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
+import 'package:github_search/utils/localizations/strings.g.dart';
 import 'package:go_router/go_router.dart';
 import 'package:number_display/number_display.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -83,7 +83,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索文字列を空文字にする
-            searchReposInitQueryStringProvider.overrideWithValue(''),
+            searchReposInitQueryProvider.overrideWithValue(''),
           ],
           home: const _MockPage(),
         ),
@@ -114,7 +114,7 @@ void main() {
         agent.mockApp(
           overrides: [
             // 検索結果0件になる検索文字列にする
-            searchReposInitQueryStringProvider.overrideWithValue('empty'),
+            searchReposInitQueryProvider.overrideWithValue('empty'),
           ],
           home: const _MockPage(),
         ),

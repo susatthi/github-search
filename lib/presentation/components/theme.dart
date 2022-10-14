@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utils/assets/fonts.gen.dart';
+import '../../utils/assets/fonts.gen.dart';
 
 /// テーマプロバイダー
 final themeProvider = Provider.family<ThemeData, Brightness>(
@@ -15,5 +15,13 @@ final themeProvider = Provider.family<ThemeData, Brightness>(
       primarySwatch: Colors.grey,
     ),
     fontFamily: FontFamily.murecho,
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+    ),
   ),
 );

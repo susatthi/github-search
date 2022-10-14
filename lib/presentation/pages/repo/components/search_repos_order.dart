@@ -6,29 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/app_data/app_data_repository.dart';
+import '../../../../domain/repositories/app_data/entities/app_data_key.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_order.dart';
-import '../../../../localizations/strings.g.dart';
+import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
-import 'repo_list_view_state.dart';
+import '../../../components/app_data.dart';
+import 'search_repos.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー
-final searchReposOrderProvider = StateProvider<SearchReposOrder>(
-  (ref) => ref.watch(appDataRepositoryProvider).getSearchReposOrder(),
+final searchReposOrderProvider =
+    StateNotifierProvider<SearchReposOrderController, SearchReposOrder>(
+  (ref) => SearchReposOrderController(
+    appDataRepository: ref.watch(appDataRepositoryProvider),
+  ),
   name: 'searchReposOrderProvider',
 );
 
-/// リポジトリ検索用オーダー値更新メソッドプロバイダー
-final searchReposOrderUpdater = Provider(
-  (ref) {
-    final read = ref.read;
-    return (SearchReposOrder order) {
-      final repository = read(appDataRepositoryProvider);
-      read(appDataRepositoryProvider).setSearchReposOrder(order);
-      read(searchReposOrderProvider.notifier).state =
-          repository.getSearchReposOrder();
-    };
-  },
-);
+/// リポジトリ検索用オーダー値コントローラー
+class SearchReposOrderController extends AppDataController<SearchReposOrder> {
+  SearchReposOrderController({
+    required super.appDataRepository,
+  }) : super(appDataKey: AppDataKey.searchReposOrder);
+}
 
 /// リポジトリ検索用オーダー値変更ボタン
 class SearchReposOrderToggleButton extends ConsumerWidget {
@@ -37,7 +36,7 @@ class SearchReposOrderToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // リポジトリ検索の実行中やエラー時はトグルボタンを無効化する
-    final asyncValue = ref.watch(repoListViewStateProvider);
+    final asyncValue = ref.watch(searchReposStateProvider);
     return SearchReposOrderToggleButtonInternal(
       enabled: asyncValue.when(
         data: (state) => true,
@@ -67,7 +66,7 @@ class SearchReposOrderToggleButtonInternal extends ConsumerWidget {
           ? () {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
-              ref.read(searchReposOrderUpdater)(newOrder);
+              ref.read(searchReposOrderProvider.notifier).update(newOrder);
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
               }

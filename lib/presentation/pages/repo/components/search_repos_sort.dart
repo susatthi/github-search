@@ -6,28 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/app_data/app_data_repository.dart';
+import '../../../../domain/repositories/app_data/entities/app_data_key.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_sort.dart';
-import '../../../../localizations/strings.g.dart';
+import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
-import 'search_repos_order_toggle_button.dart';
+import '../../../components/app_data.dart';
+import 'search_repos_order.dart';
 
 /// リポジトリ検索用ソート値プロバイダー
-final searchReposSortProvider = StateProvider<SearchReposSort>(
-  (ref) => ref.watch(appDataRepositoryProvider).getSearchReposSort(),
+final searchReposSortProvider =
+    StateNotifierProvider<SearchReposSortController, SearchReposSort>(
+  (ref) => SearchReposSortController(
+    appDataRepository: ref.watch(appDataRepositoryProvider),
+  ),
   name: 'searchReposSortProvider',
 );
 
-/// リポジトリ検索用ソート値更新メソッドプロバイダー
-final searchReposSortUpdater = Provider(
-  (ref) {
-    final read = ref.read;
-    return (SearchReposSort sort) {
-      read(appDataRepositoryProvider).setSearchReposSort(sort);
-      read(searchReposSortProvider.notifier).state =
-          read(appDataRepositoryProvider).getSearchReposSort();
-    };
-  },
-);
+/// リポジトリ検索用ソート値コントローラー
+class SearchReposSortController extends AppDataController<SearchReposSort> {
+  SearchReposSortController({
+    required super.appDataRepository,
+  }) : super(appDataKey: AppDataKey.searchReposSort);
+}
 
 /// リポジトリ検索用ソート選択ボトムシート
 class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
@@ -63,7 +63,7 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
               title: Text(e.key),
               onTap: () {
                 logger.i('Changed: newSort = ${e.value.name}');
-                ref.read(searchReposSortUpdater)(e.value);
+                ref.read(searchReposSortProvider.notifier).update(e.value);
                 if (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
                 }
@@ -72,6 +72,23 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+/// リポジトリ検索用ソートボタン
+class SearchReposSortButton extends StatelessWidget {
+  const SearchReposSortButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => showModalBottomSheet<void>(
+        context: context,
+        builder: (context) => const SearchReposSortSelectorBottomSheet(),
+      ),
+      icon: const Icon(Icons.sort),
+      tooltip: i18n.sort,
     );
   }
 }
