@@ -25,7 +25,7 @@ final repoListViewStateProvider = StateNotifierProvider.autoDispose<
     final sort = ref.watch(searchReposSortProvider);
     final order = ref.watch(searchReposOrderProvider);
     return RepoListViewNotifier(
-      repository: ref.watch(repoRepositoryProvider),
+      repoRepository: ref.watch(repoRepositoryProvider),
       queryString: queryString,
       sort: sort,
       order: order,
@@ -59,15 +59,35 @@ class RepoListViewState with _$RepoListViewState {
 class RepoListViewNotifier
     extends StateNotifier<AsyncValue<RepoListViewState>> {
   RepoListViewNotifier({
-    required this.repository,
+    required this.repoRepository,
     required this.queryString,
     required this.sort,
     required this.order,
   }) : super(const AsyncValue.loading()) {
-    _search();
+    // 検索を実行する
+    () async {
+      state = await AsyncValue.guard(() async {
+        final trimQueryString = queryString.trim();
+        if (trimQueryString.isEmpty) {
+          return const RepoListViewState();
+        }
+
+        final result = await repoRepository.searchRepos(
+          queryString: trimQueryString,
+          sort: sort,
+          order: order,
+          perPage: perPage,
+        );
+        logger.i(
+          'Search repos result: totalCount = ${result.totalCount}, '
+          'fetchItems = ${result.items.length}',
+        );
+        return RepoListViewState.from(result);
+      });
+    }();
   }
 
-  final RepoRepository repository;
+  final RepoRepository repoRepository;
 
   /// 検索文字列
   final String queryString;
@@ -80,27 +100,6 @@ class RepoListViewNotifier
 
   /// 1ページに取得するレポジトリの数
   static const perPage = 30;
-
-  Future<void> _search() async {
-    state = await AsyncValue.guard(() async {
-      final trimQueryString = queryString.trim();
-      if (trimQueryString.isEmpty) {
-        return const RepoListViewState();
-      }
-
-      final result = await repository.searchRepos(
-        queryString: trimQueryString,
-        sort: sort,
-        order: order,
-        perPage: perPage,
-      );
-      logger.i(
-        'Search repos result: totalCount = ${result.totalCount}, '
-        'fetchItems = ${result.items.length}',
-      );
-      return RepoListViewState.from(result);
-    });
-  }
 
   /// 次のページを取得する
   Future<void> fetchNextPage() async {
@@ -116,7 +115,7 @@ class RepoListViewNotifier
 
     // 次のページを取得する
     state = await AsyncValue.guard(() async {
-      final result = await repository.searchRepos(
+      final result = await repoRepository.searchRepos(
         queryString: queryString,
         sort: sort,
         order: order,
