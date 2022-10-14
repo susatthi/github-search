@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
-import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
+import 'package:github_search/presentation/pages/repo/components/query_histories.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
@@ -116,13 +116,13 @@ void main() {
       expect(notifier.state.value!.length, 0);
     });
     test('Notifierを連続で生成してDisposeされても問題ないはず', () async {
-      QueryHistoriesNotifier? currentNotifier;
+      QueryHistoriesController? currentNotifier;
       final container = agent.mockContainer(
         overrides: [
           // 検索文字列の初期値は空文字にしておく
           searchReposInitQueryProvider.overrideWithValue(''),
         ],
-      )..listen<QueryHistoriesNotifier>(
+      )..listen<QueryHistoriesController>(
           queryHistoriesProvider.notifier,
           (previous, next) {
             testLogger.i(next);

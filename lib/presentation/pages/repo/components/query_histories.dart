@@ -12,32 +12,32 @@ import 'search_repos_query.dart';
 
 /// 検索履歴一覧プロバイダー
 final queryHistoriesProvider = StateNotifierProvider.autoDispose<
-    QueryHistoriesNotifier, AsyncValue<List<QueryHistory>>>(
-  (ref) => QueryHistoriesNotifier(
-    repository: ref.watch(queryHistoryRepositoryProvider),
+    QueryHistoriesController, AsyncValue<List<QueryHistory>>>(
+  (ref) => QueryHistoriesController(
+    queryHistoryRepository: ref.watch(queryHistoryRepositoryProvider),
     queryString: ref.watch(searchReposEnteringQueryProvider),
   ),
   name: 'queryHistoriesProvider',
 );
 
 /// 検索履歴一覧Notifier
-class QueryHistoriesNotifier
+class QueryHistoriesController
     extends StateNotifier<AsyncValue<List<QueryHistory>>> {
-  QueryHistoriesNotifier({
-    required this.repository,
+  QueryHistoriesController({
+    required this.queryHistoryRepository,
     required this.queryString,
   }) : super(const AsyncValue.loading()) {
     _load();
   }
 
-  final QueryHistoryRepository repository;
+  final QueryHistoryRepository queryHistoryRepository;
 
   /// 検索文字列
   final String queryString;
 
   Future<void> _load() async {
     final asyncValue = await AsyncValue.guard(() async {
-      return repository.findByQueryString(queryString);
+      return queryHistoryRepository.findByQueryString(queryString);
     });
     if (mounted) {
       // 検索文字列を高速で入力されると、検索履歴を検索中に本Notifierが破棄されること
@@ -60,7 +60,7 @@ class QueryHistoriesNotifier
   /// 検索履歴を削除する
   Future<void> delete(QueryHistory query) async {
     state = const AsyncValue.loading();
-    await repository.delete(query);
+    await queryHistoryRepository.delete(query);
     await _load();
   }
 

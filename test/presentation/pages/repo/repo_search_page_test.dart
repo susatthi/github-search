@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:github_search/localizations/strings.g.dart';
-import 'package:github_search/presentation/pages/repo/components/query_histories_list_view.dart';
+import 'package:github_search/presentation/pages/repo/components/query_histories.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
 import 'package:github_search/presentation/pages/repo/repo_search_page.dart';
