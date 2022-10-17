@@ -273,6 +273,10 @@ flowchart TB
 └── utils                                    拡張機能、ロガー、言語ファイル、環境変数などのユーティリティクラス
 ```
 
+### ファイル分割の方針
+
+基本的に **関心事** 毎にファイルを分割しています。例えば、Controller と Widget を別々のファイルに分けることはしません。特に Presentation 層の components 配下は、ファイル名は **関心事.dart** となり、その中に Provider, Controller, State, Widget を含みます。
+
 ## 環境
 
 |                | Version                          |
