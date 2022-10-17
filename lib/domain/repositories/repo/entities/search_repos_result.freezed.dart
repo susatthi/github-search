@@ -116,12 +116,13 @@ class __$$_SearchReposResultCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SearchReposResult implements _SearchReposResult {
+class _$_SearchReposResult extends _SearchReposResult {
   const _$_SearchReposResult(
       {required this.totalCount,
       required this.queryString,
       required final List<Repo> items})
-      : _items = items;
+      : _items = items,
+        super._();
 
   /// 検索結果トータル件数
   @override
@@ -172,11 +173,12 @@ class _$_SearchReposResult implements _SearchReposResult {
           this, _$identity);
 }
 
-abstract class _SearchReposResult implements SearchReposResult {
+abstract class _SearchReposResult extends SearchReposResult {
   const factory _SearchReposResult(
       {required final int totalCount,
       required final String queryString,
       required final List<Repo> items}) = _$_SearchReposResult;
+  const _SearchReposResult._() : super._();
 
   @override
 

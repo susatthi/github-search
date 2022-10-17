@@ -6,8 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
 import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
-import 'package:github_search/domain/repositories/repo/entities/values/repo_count.dart';
-import 'package:github_search/domain/repositories/repo/entities/values/repo_language.dart';
 import 'package:github_search/domain/repositories/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/github/repo/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';

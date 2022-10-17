@@ -37,7 +37,7 @@ class QueryHistoriesController
 
   Future<void> _load() async {
     final asyncValue = await AsyncValue.guard(() async {
-      return queryHistoryRepository.findByQueryString(queryString);
+      return queryHistoryRepository.finds(queryString: queryString);
     });
     if (mounted) {
       // 検索文字列を高速で入力されると、検索履歴を検索中に本Notifierが破棄されること
@@ -58,9 +58,9 @@ class QueryHistoriesController
   }
 
   /// 検索履歴を削除する
-  Future<void> delete(QueryHistory query) async {
+  Future<void> delete(QueryHistory queryHistory) async {
     state = const AsyncValue.loading();
-    await queryHistoryRepository.delete(query);
+    await queryHistoryRepository.delete(queryHistory);
     await _load();
   }
 
@@ -105,7 +105,7 @@ class SliverQueryHistoriesListViewInternal extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => _QueryHistoryListTile(
-          query: queryHistories[index],
+          queryHistory: queryHistories[index],
         ),
         childCount: queryHistories.length,
       ),
@@ -116,25 +116,27 @@ class SliverQueryHistoriesListViewInternal extends StatelessWidget {
 /// サジェストする検索履歴ListTile
 class _QueryHistoryListTile extends ConsumerWidget {
   const _QueryHistoryListTile({
-    required this.query,
+    required this.queryHistory,
   });
 
   /// 検索履歴
-  final QueryHistory query;
+  final QueryHistory queryHistory;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       leading: const Icon(Icons.history),
-      title: Text(query.queryString),
+      title: Text(queryHistory.queryString.value),
       trailing: IconButton(
         onPressed: () {
-          ref.read(queryHistoriesProvider.notifier).delete(query);
+          ref.read(queryHistoriesProvider.notifier).delete(queryHistory);
         },
         icon: const Icon(Icons.close),
       ),
       onTap: () {
-        ref.read(searchReposQueryProvider.notifier).update(query.queryString);
+        ref.read(searchReposQueryProvider.notifier).update(
+              queryHistory.queryString.value,
+            );
         Navigator.of(context).pop();
       },
     );

@@ -88,8 +88,8 @@ class __$$_RepoLanguageCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RepoLanguage implements _RepoLanguage {
-  const _$_RepoLanguage([this.value]);
+class _$_RepoLanguage extends _RepoLanguage {
+  const _$_RepoLanguage([this.value]) : super._();
 
   @override
   final String? value;
@@ -117,8 +117,9 @@ class _$_RepoLanguage implements _RepoLanguage {
       __$$_RepoLanguageCopyWithImpl<_$_RepoLanguage>(this, _$identity);
 }
 
-abstract class _RepoLanguage implements RepoLanguage {
+abstract class _RepoLanguage extends RepoLanguage {
   const factory _RepoLanguage([final String? value]) = _$_RepoLanguage;
+  const _RepoLanguage._() : super._();
 
   @override
   String? get value;

@@ -15,9 +15,9 @@ class RepoLanguage with _$RepoLanguage {
   const factory RepoLanguage([
     String? value,
   ]) = _RepoLanguage;
-}
 
-extension RepoLanguageHelper on RepoLanguage {
+  const RepoLanguage._();
+
   /// 表示用
   String get display => value ?? '';
 

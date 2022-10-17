@@ -21,4 +21,6 @@ class SearchReposResult with _$SearchReposResult {
     /// リポジトリEntityのリスト
     required List<Repo> items,
   }) = _SearchReposResult;
+
+  const SearchReposResult._();
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'repo_count.dart';
+part of 'query_string.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,28 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$RepoCount {
-  int get value => throw _privateConstructorUsedError;
+mixin _$QueryString {
+  String get value => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $RepoCountCopyWith<RepoCount> get copyWith =>
+  $QueryStringCopyWith<QueryString> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RepoCountCopyWith<$Res> {
-  factory $RepoCountCopyWith(RepoCount value, $Res Function(RepoCount) then) =
-      _$RepoCountCopyWithImpl<$Res>;
-  $Res call({int value});
+abstract class $QueryStringCopyWith<$Res> {
+  factory $QueryStringCopyWith(
+          QueryString value, $Res Function(QueryString) then) =
+      _$QueryStringCopyWithImpl<$Res>;
+  $Res call({String value});
 }
 
 /// @nodoc
-class _$RepoCountCopyWithImpl<$Res> implements $RepoCountCopyWith<$Res> {
-  _$RepoCountCopyWithImpl(this._value, this._then);
+class _$QueryStringCopyWithImpl<$Res> implements $QueryStringCopyWith<$Res> {
+  _$QueryStringCopyWithImpl(this._value, this._then);
 
-  final RepoCount _value;
+  final QueryString _value;
   // ignore: unused_field
-  final $Res Function(RepoCount) _then;
+  final $Res Function(QueryString) _then;
 
   @override
   $Res call({
@@ -46,62 +47,63 @@ class _$RepoCountCopyWithImpl<$Res> implements $RepoCountCopyWith<$Res> {
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$$_RepoCountCopyWith<$Res> implements $RepoCountCopyWith<$Res> {
-  factory _$$_RepoCountCopyWith(
-          _$_RepoCount value, $Res Function(_$_RepoCount) then) =
-      __$$_RepoCountCopyWithImpl<$Res>;
+abstract class _$$_QueryStringCopyWith<$Res>
+    implements $QueryStringCopyWith<$Res> {
+  factory _$$_QueryStringCopyWith(
+          _$_QueryString value, $Res Function(_$_QueryString) then) =
+      __$$_QueryStringCopyWithImpl<$Res>;
   @override
-  $Res call({int value});
+  $Res call({String value});
 }
 
 /// @nodoc
-class __$$_RepoCountCopyWithImpl<$Res> extends _$RepoCountCopyWithImpl<$Res>
-    implements _$$_RepoCountCopyWith<$Res> {
-  __$$_RepoCountCopyWithImpl(
-      _$_RepoCount _value, $Res Function(_$_RepoCount) _then)
-      : super(_value, (v) => _then(v as _$_RepoCount));
+class __$$_QueryStringCopyWithImpl<$Res> extends _$QueryStringCopyWithImpl<$Res>
+    implements _$$_QueryStringCopyWith<$Res> {
+  __$$_QueryStringCopyWithImpl(
+      _$_QueryString _value, $Res Function(_$_QueryString) _then)
+      : super(_value, (v) => _then(v as _$_QueryString));
 
   @override
-  _$_RepoCount get _value => super._value as _$_RepoCount;
+  _$_QueryString get _value => super._value as _$_QueryString;
 
   @override
   $Res call({
     Object? value = freezed,
   }) {
-    return _then(_$_RepoCount(
+    return _then(_$_QueryString(
       value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_RepoCount extends _RepoCount {
-  const _$_RepoCount([this.value = 0]) : super._();
+class _$_QueryString extends _QueryString {
+  _$_QueryString([this.value = '']) : super._();
 
   @override
   @JsonKey()
-  final int value;
+  final String value;
 
   @override
   String toString() {
-    return 'RepoCount(value: $value)';
+    return 'QueryString(value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RepoCount &&
+            other is _$_QueryString &&
             const DeepCollectionEquality().equals(other.value, value));
   }
 
@@ -111,18 +113,18 @@ class _$_RepoCount extends _RepoCount {
 
   @JsonKey(ignore: true)
   @override
-  _$$_RepoCountCopyWith<_$_RepoCount> get copyWith =>
-      __$$_RepoCountCopyWithImpl<_$_RepoCount>(this, _$identity);
+  _$$_QueryStringCopyWith<_$_QueryString> get copyWith =>
+      __$$_QueryStringCopyWithImpl<_$_QueryString>(this, _$identity);
 }
 
-abstract class _RepoCount extends RepoCount {
-  const factory _RepoCount([final int value]) = _$_RepoCount;
-  const _RepoCount._() : super._();
+abstract class _QueryString extends QueryString {
+  factory _QueryString([final String value]) = _$_QueryString;
+  _QueryString._() : super._();
 
   @override
-  int get value;
+  String get value;
   @override
   @JsonKey(ignore: true)
-  _$$_RepoCountCopyWith<_$_RepoCount> get copyWith =>
+  _$$_QueryStringCopyWith<_$_QueryString> get copyWith =>
       throw _privateConstructorUsedError;
 }

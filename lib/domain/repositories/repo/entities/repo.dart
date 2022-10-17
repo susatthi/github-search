@@ -65,7 +65,6 @@ class Repo with _$Repo {
     String? issuesUrl,
   }) = _Repo;
 
-  // ignore: unused_element
   const Repo._();
 
   @override

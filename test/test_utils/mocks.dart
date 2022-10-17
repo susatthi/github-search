@@ -13,7 +13,6 @@ import 'package:file/local.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
-import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
@@ -180,17 +179,17 @@ class MockUrlLauncherPlatform extends Mock
 /// 常にエラーを返すモック版のQueryHistoryRepository
 class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
   @override
-  Future<void> add(QueryHistoryInput input) {
+  Future<void> add(QueryHistory queryHistory) {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> delete(QueryHistory query) {
+  Future<void> delete(QueryHistory queryHistory) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<QueryHistory>> findByQueryString(String queryString) {
+  Future<List<QueryHistory>> finds({required String queryString}) {
     throw UnimplementedError();
   }
 }

@@ -7,7 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
+import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:github_search/presentation/pages/repo/components/query_histories.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
@@ -81,7 +81,7 @@ void main() {
       final repository =
           agent.mockContainer().read(queryHistoryRepositoryProvider);
       await Future.wait(
-        [repository.add(QueryHistoryInput(queryString: 'flutter'))],
+        [repository.add(QueryHistory.create('flutter'))],
       );
 
       // 入力中の検索文字列を更新して検索履歴一覧を更新する
@@ -247,23 +247,23 @@ void main() {
         await Future.wait(
           [
             repository.add(
-              QueryHistoryInput(
-                queryString: 'flutterflutterflutterflutterflutter1',
+              QueryHistory.create(
+                'flutterflutterflutterflutterflutter1',
               ),
             ),
             repository.add(
-              QueryHistoryInput(
-                queryString: 'flutterflutterflutterflutterflutter2',
+              QueryHistory.create(
+                'flutterflutterflutterflutterflutter2',
               ),
             ),
             repository.add(
-              QueryHistoryInput(
-                queryString: 'flutterflutterflutterflutterflutter3',
+              QueryHistory.create(
+                'flutterflutterflutterflutterflutter3',
               ),
             ),
             repository.add(
-              QueryHistoryInput(
-                queryString: 'flutterflutterflutterflutterflutter4',
+              QueryHistory.create(
+                'flutterflutterflutterflutterflutter4',
               ),
             ),
           ],

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$QueryHistory {
   /// 検索文字列
-  String get queryString => throw _privateConstructorUsedError;
+  QueryString get queryString => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QueryHistoryCopyWith<QueryHistory> get copyWith =>
@@ -29,7 +29,9 @@ abstract class $QueryHistoryCopyWith<$Res> {
   factory $QueryHistoryCopyWith(
           QueryHistory value, $Res Function(QueryHistory) then) =
       _$QueryHistoryCopyWithImpl<$Res>;
-  $Res call({String queryString});
+  $Res call({QueryString queryString});
+
+  $QueryStringCopyWith<$Res> get queryString;
 }
 
 /// @nodoc
@@ -48,8 +50,15 @@ class _$QueryHistoryCopyWithImpl<$Res> implements $QueryHistoryCopyWith<$Res> {
       queryString: queryString == freezed
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
-              as String,
+              as QueryString,
     ));
+  }
+
+  @override
+  $QueryStringCopyWith<$Res> get queryString {
+    return $QueryStringCopyWith<$Res>(_value.queryString, (value) {
+      return _then(_value.copyWith(queryString: value));
+    });
   }
 }
 
@@ -60,7 +69,10 @@ abstract class _$$_QueryHistoryCopyWith<$Res>
           _$_QueryHistory value, $Res Function(_$_QueryHistory) then) =
       __$$_QueryHistoryCopyWithImpl<$Res>;
   @override
-  $Res call({String queryString});
+  $Res call({QueryString queryString});
+
+  @override
+  $QueryStringCopyWith<$Res> get queryString;
 }
 
 /// @nodoc
@@ -82,19 +94,19 @@ class __$$_QueryHistoryCopyWithImpl<$Res>
       queryString: queryString == freezed
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
-              as String,
+              as QueryString,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_QueryHistory implements _QueryHistory {
-  const _$_QueryHistory({required this.queryString});
+class _$_QueryHistory extends _QueryHistory {
+  const _$_QueryHistory({required this.queryString}) : super._();
 
   /// 検索文字列
   @override
-  final String queryString;
+  final QueryString queryString;
 
   @override
   String toString() {
@@ -120,14 +132,15 @@ class _$_QueryHistory implements _QueryHistory {
       __$$_QueryHistoryCopyWithImpl<_$_QueryHistory>(this, _$identity);
 }
 
-abstract class _QueryHistory implements QueryHistory {
-  const factory _QueryHistory({required final String queryString}) =
+abstract class _QueryHistory extends QueryHistory {
+  const factory _QueryHistory({required final QueryString queryString}) =
       _$_QueryHistory;
+  const _QueryHistory._() : super._();
 
   @override
 
   /// 検索文字列
-  String get queryString;
+  QueryString get queryString;
   @override
   @JsonKey(ignore: true)
   _$$_QueryHistoryCopyWith<_$_QueryHistory> get copyWith =>

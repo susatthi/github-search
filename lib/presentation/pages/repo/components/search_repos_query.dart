@@ -5,7 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../domain/repositories/query_history/entities/query_history_input.dart';
+import '../../../../domain/exceptions.dart';
+import '../../../../domain/repositories/query_history/entities/query_history.dart';
 import '../../../../domain/repositories/query_history/query_history_repository.dart';
 import '../../../../utils/env/env.dart';
 import '../../../../utils/env/env_define.dart';
@@ -44,9 +45,13 @@ class SearchReposQueryController extends StateNotifier<String> {
   /// 更新する
   Future<void> update(String queryString) async {
     state = queryString;
-    await queryHistoryRepository.add(
-      QueryHistoryInput(queryString: queryString),
-    );
+    try {
+      await queryHistoryRepository.add(
+        QueryHistory.create(queryString),
+      );
+    } on ValidatorException catch (e) {
+      logger.i(e);
+    }
   }
 }
 

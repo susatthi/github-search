@@ -4,6 +4,8 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'values/query_string.dart';
+
 part 'query_history.freezed.dart';
 
 /// 検索履歴Entity
@@ -11,6 +13,13 @@ part 'query_history.freezed.dart';
 class QueryHistory with _$QueryHistory {
   const factory QueryHistory({
     /// 検索文字列
-    required String queryString,
+    required QueryString queryString,
   }) = _QueryHistory;
+
+  const QueryHistory._();
+
+  factory QueryHistory.create(
+    String queryString,
+  ) =>
+      QueryHistory(queryString: QueryString(queryString));
 }

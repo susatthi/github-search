@@ -5,7 +5,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'entities/query_history.dart';
-import 'entities/query_history_input.dart';
 
 /// 検索履歴Repositoryプロバイダー
 final queryHistoryRepositoryProvider = Provider<QueryHistoryRepository>(
@@ -15,10 +14,10 @@ final queryHistoryRepositoryProvider = Provider<QueryHistoryRepository>(
 /// 検索履歴Repository
 abstract class QueryHistoryRepository {
   /// 検索履歴を登録する
-  Future<void> add(QueryHistoryInput input);
+  Future<void> add(QueryHistory queryHistory);
 
   /// 検索履歴を削除する
-  Future<void> delete(QueryHistory query);
+  Future<void> delete(QueryHistory queryHistory);
 
   /// 検索履歴一覧を検索する
   ///
@@ -28,5 +27,5 @@ abstract class QueryHistoryRepository {
   ///   - 検索日時の降順
   /// - 検索件数
   ///   - 20件
-  Future<List<QueryHistory>> findByQueryString(String queryString);
+  Future<List<QueryHistory>> finds({required String queryString});
 }

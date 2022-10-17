@@ -10,12 +10,12 @@ part 'repo_count.freezed.dart';
 /// カウント
 @freezed
 class RepoCount with _$RepoCount {
-  const factory RepoCount(
-    int value,
-  ) = _RepoCount;
-}
+  const factory RepoCount([
+    @Default(0) int value,
+  ]) = _RepoCount;
 
-extension RepoCountHelper on RepoCount {
+  const RepoCount._();
+
   /// 表示用（例：35432 => 35.4k）
   String get display => createDisplay(length: 4)(value);
 }

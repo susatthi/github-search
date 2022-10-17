@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/query_history/entities/query_history_input.dart';
+import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
 import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
 import 'package:github_search/presentation/pages/repo/components/query_histories.dart';
 import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
@@ -61,8 +61,8 @@ void main() {
             agent.mockContainer().read(queryHistoryRepositoryProvider);
         for (var i = 0; i < 30; i++) {
           await repository.add(
-            QueryHistoryInput(
-              queryString: 'flutterflutterflutterflutterflutter$i',
+            QueryHistory.create(
+              'flutterflutterflutterflutterflutter$i',
             ),
           );
         }

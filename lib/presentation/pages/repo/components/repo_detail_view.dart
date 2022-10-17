@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../../../../domain/repositories/repo/entities/values/repo_count.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/cached_circle_avatar.dart';
 import '../../../components/error_view.dart';

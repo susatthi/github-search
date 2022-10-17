@@ -11,7 +11,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../../../../domain/repositories/repo/entities/values/repo_count.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
