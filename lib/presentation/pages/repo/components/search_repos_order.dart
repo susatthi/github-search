@@ -66,7 +66,7 @@ class SearchReposOrderToggleButtonInternal extends ConsumerWidget {
           ? () {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
-              ref.read(searchReposOrderProvider.notifier).update(newOrder);
+              ref.read(searchReposOrderProvider.notifier).set(newOrder);
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
               }

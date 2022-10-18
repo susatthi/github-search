@@ -29,5 +29,5 @@ abstract class AppDataRepository {
   T get<T extends Object?>(AppDataKey key);
 
   /// Stream を返す
-  Stream<T> listen<T extends Object?>(AppDataKey key);
+  Stream<T> changes<T extends Object?>(AppDataKey key);
 }

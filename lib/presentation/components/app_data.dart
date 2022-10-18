@@ -12,7 +12,7 @@ abstract class AppDataController<T> extends StateNotifier<T> {
           appDataRepository.get<T>(appDataKey),
         ) {
     // Streamを監視して都度反映する
-    appDataRepository.listen<T>(appDataKey).listen(
+    appDataRepository.changes<T>(appDataKey).listen(
       (value) {
         state = value;
       },
@@ -22,8 +22,8 @@ abstract class AppDataController<T> extends StateNotifier<T> {
   final AppDataRepository appDataRepository;
   final AppDataKey appDataKey;
 
-  /// 更新する
-  void update(T value) {
+  /// 設定する
+  void set(T value) {
     appDataRepository.set<T>(appDataKey, value);
   }
 }

@@ -41,7 +41,7 @@ class HiveAppDataRepository implements AppDataRepository {
   }
 
   @override
-  Stream<T> listen<T extends Object?>(AppDataKey key) {
+  Stream<T> changes<T extends Object?>(AppDataKey key) {
     return box.watch(key: key.name).map<T>((event) => event.value as T);
   }
 }

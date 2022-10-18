@@ -47,7 +47,7 @@ void main() {
           agent.mockContainer().read(searchReposSortProvider.notifier);
 
       // スター数に変更する
-      controller.update(SearchReposSort.stars);
+      controller.set(SearchReposSort.stars);
 
       // 値が反映されるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
@@ -59,7 +59,7 @@ void main() {
       );
 
       // フォーク数に変更する
-      controller.update(SearchReposSort.forks);
+      controller.set(SearchReposSort.forks);
 
       // 値が反映されるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
@@ -71,7 +71,7 @@ void main() {
       );
 
       // ヘルプ数に変更する
-      controller.update(SearchReposSort.helpWantedIssues);
+      controller.set(SearchReposSort.helpWantedIssues);
 
       // 値が反映されるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
@@ -83,7 +83,7 @@ void main() {
       );
 
       // ベストマッチに変更する
-      controller.update(SearchReposSort.bestMatch);
+      controller.set(SearchReposSort.bestMatch);
 
       // 値が反映されるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));

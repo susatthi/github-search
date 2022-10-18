@@ -63,7 +63,7 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
               title: Text(e.key),
               onTap: () {
                 logger.i('Changed: newSort = ${e.value.name}');
-                ref.read(searchReposSortProvider.notifier).update(e.value);
+                ref.read(searchReposSortProvider.notifier).set(e.value);
                 if (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
                 }

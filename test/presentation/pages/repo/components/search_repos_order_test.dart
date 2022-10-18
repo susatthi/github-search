@@ -30,7 +30,7 @@ void main() {
           agent.mockContainer().read(searchReposOrderProvider.notifier);
 
       // 昇順に変更する
-      controller.update(SearchReposOrder.asc);
+      controller.set(SearchReposOrder.asc);
 
       // 値が反映されるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
@@ -42,7 +42,7 @@ void main() {
       );
 
       // 降順に変更する
-      controller.update(SearchReposOrder.desc);
+      controller.set(SearchReposOrder.desc);
 
       // 値が反映されるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
