@@ -12,7 +12,7 @@ import '../../../../utils/env/env.dart';
 import '../../../../utils/env/env_define.dart';
 import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
-import '../../../components/router.dart';
+import '../../../../utils/routing/router.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
 final searchReposInitQueryProvider = Provider<String>(

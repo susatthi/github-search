@@ -7,11 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../utils/logger.dart';
+import '../../../../utils/routing/router.dart';
 import '../../../components/cached_circle_avatar.dart';
 import '../../../components/error_view.dart';
 import '../../../components/hyperlink_text.dart';
 import '../../../components/icon_label.dart';
-import '../../../components/router.dart';
 import '../../../components/url_launcher.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';

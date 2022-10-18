@@ -9,10 +9,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repositories/repo/entities/repo.dart';
 import 'package:github_search/presentation/components/cached_circle_avatar.dart';
 import 'package:github_search/presentation/components/error_view.dart';
-import 'package:github_search/presentation/components/router.dart';
 import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';
 import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
+import 'package:github_search/utils/routing/router.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';

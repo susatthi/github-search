@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
-import 'components/router.dart';
+import '../utils/routing/router.dart';
 import 'components/theme.dart';
 import 'components/url_launcher.dart';
 

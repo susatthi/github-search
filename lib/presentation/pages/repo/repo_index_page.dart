@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/logger.dart';
-import '../../components/router.dart';
+import '../../../utils/routing/router.dart';
 import '../../components/search_app_bar.dart';
 import 'components/repo_list_view.dart';
 import 'components/search_repos_query.dart';
