@@ -136,119 +136,6 @@ Repository Interfaces の実体。Data Sources を利用してデータの永続
 
 様々なデータソース。API だったり、Hive だったり、SharedPreferences だったり、Isar だったりする。
 
-### Riverpod の依存関係図
-
-- [riverpod_graph](https://github.com/rrousselGit/riverpod/tree/master/packages/riverpod_graph) を使って Riverpod の依存関係図を出力してみました。
-
-```mermaid
-flowchart TB
-  subgraph Arrows
-    direction LR
-    start1[ ] -..->|read| stop1[ ]
-    style start1 height:0px;
-    style stop1 height:0px;
-    start2[ ] --->|listen| stop2[ ]
-    style start2 height:0px;
-    style stop2 height:0px; 
-    start3[ ] ===>|watch| stop3[ ]
-    style start3 height:0px;
-    style stop3 height:0px; 
-  end
-
-  subgraph Type
-    direction TB
-    ConsumerWidget((widget));
-    Provider[[provider]];
-  end
-  _MockPage((_MockPage));
-  searchReposQueryProvider -.-> _MockPage;
-  searchReposEnteringQueryProvider -.-> _MockPage;
-  HyperlinkText((HyperlinkText));
-  urlLauncherStateProvider -.-> HyperlinkText;
-  SliverRepoDetailView((SliverRepoDetailView));
-  selectedRepoProvider ==> SliverRepoDetailView;
-  _IconLabel((_IconLabel));
-  urlLauncherStateProvider -.-> _IconLabel;
-  SearchReposQueryTextButton((SearchReposQueryTextButton));
-  searchReposQueryProvider -.-> SearchReposQueryTextButton;
-  SliverRepoListView((SliverRepoListView));
-  searchReposStateProvider ==> SliverRepoListView;
-  _LastIndicator((_LastIndicator));
-  searchReposStateProvider -.-> _LastIndicator;
-  SearchReposSortSelectorBottomSheet((SearchReposSortSelectorBottomSheet));
-  searchReposSortProvider ==> SearchReposSortSelectorBottomSheet;
-  searchReposSortProvider -.-> SearchReposSortSelectorBottomSheet;
-  SearchReposOrderToggleButton((SearchReposOrderToggleButton));
-  searchReposStateProvider ==> SearchReposOrderToggleButton;
-  SearchReposOrderToggleButtonInternal((SearchReposOrderToggleButtonInternal));
-  searchReposOrderProvider ==> SearchReposOrderToggleButtonInternal;
-  searchReposOrderProvider -.-> SearchReposOrderToggleButtonInternal;
-  SliverQueryHistoriesListView((SliverQueryHistoriesListView));
-  queryHistoriesProvider ==> SliverQueryHistoriesListView;
-  _QueryHistoryListTile((_QueryHistoryListTile));
-  queryHistoriesProvider -.-> _QueryHistoryListTile;
-  searchReposQueryProvider -.-> _QueryHistoryListTile;
-  AvatarPreviewView((AvatarPreviewView));
-  selectedRepoProvider ==> AvatarPreviewView;
-  _AvatarPreviewView((_AvatarPreviewView));
-  cachedCircleAvatarCacheManagerProvider ==> _AvatarPreviewView;
-  RepoFullNameText((RepoFullNameText));
-  selectedRepoProvider ==> RepoFullNameText;
-  ReadmeMarkdown((ReadmeMarkdown));
-  readmeContentProviderFamily ==> ReadmeMarkdown;
-  ReadmeMarkdownInternal((ReadmeMarkdownInternal));
-  readmeMarkdownCacheManagerProvider ==> ReadmeMarkdownInternal;
-  urlLauncherStateProvider -.-> ReadmeMarkdownInternal;
-  _GitHubSearchApp((_GitHubSearchApp));
-  themeProvider ==> _GitHubSearchApp;
-  themeProvider ==> _GitHubSearchApp;
-  routerProvider ==> _GitHubSearchApp;
-  urlLauncherStateProvider --> _GitHubSearchApp;
-  searchReposQueryProvider[[searchReposQueryProvider]];
-  queryHistoryRepositoryProvider ==> searchReposQueryProvider;
-  searchReposInitQueryProvider ==> searchReposQueryProvider;
-  searchReposEnteringQueryProvider[[searchReposEnteringQueryProvider]];
-  searchReposQueryProvider ==> searchReposEnteringQueryProvider;
-  isarQueryHistoryRepositoryProvider[[isarQueryHistoryRepositoryProvider]];
-  isarProvider ==> isarQueryHistoryRepositoryProvider;
-  isarProvider[[isarProvider]];
-  githubHttpClientProvider[[githubHttpClientProvider]];
-  githubAccessTokenProvider ==> githubHttpClientProvider;
-  httpClientProvider ==> githubHttpClientProvider;
-  githubAccessTokenProvider[[githubAccessTokenProvider]];
-  httpClientProvider[[httpClientProvider]];
-  githubRepoRepositoryProvider[[githubRepoRepositoryProvider]];
-  githubApiProvider ==> githubRepoRepositoryProvider;
-  githubHttpClientProvider ==> githubRepoRepositoryProvider;
-  githubApiProvider[[githubApiProvider]];
-  urlLauncherStateProvider[[urlLauncherStateProvider]];
-  selectedRepoProvider[[selectedRepoProvider]];
-  queryHistoryRepositoryProvider[[queryHistoryRepositoryProvider]];
-  searchReposInitQueryProvider[[searchReposInitQueryProvider]];
-  searchReposStateProvider[[searchReposStateProvider]];
-  repoRepositoryProvider ==> searchReposStateProvider;
-  searchReposQueryProvider ==> searchReposStateProvider;
-  searchReposSortProvider ==> searchReposStateProvider;
-  searchReposOrderProvider ==> searchReposStateProvider;
-  selectedRepoProviderFamily[[selectedRepoProviderFamily]];
-  repoRepositoryProvider ==> selectedRepoProviderFamily;
-  repoRepositoryProvider[[repoRepositoryProvider]];
-  searchReposSortProvider[[searchReposSortProvider]];
-  appDataRepositoryProvider ==> searchReposSortProvider;
-  appDataRepositoryProvider[[appDataRepositoryProvider]];
-  searchReposOrderProvider[[searchReposOrderProvider]];
-  appDataRepositoryProvider ==> searchReposOrderProvider;
-  queryHistoriesProvider[[queryHistoriesProvider]];
-  queryHistoryRepositoryProvider ==> queryHistoriesProvider;
-  searchReposEnteringQueryProvider ==> queryHistoriesProvider;
-  cachedCircleAvatarCacheManagerProvider[[cachedCircleAvatarCacheManagerProvider]];
-  readmeContentProviderFamily[[readmeContentProviderFamily]];
-  repoRepositoryProvider ==> readmeContentProviderFamily;
-  readmeMarkdownCacheManagerProvider[[readmeMarkdownCacheManagerProvider]];
-  themeProvider[[themeProvider]];
-  routerProvider[[routerProvider]];
-```
-
 ## フォルダ構成
 
 ```  
@@ -270,7 +157,7 @@ flowchart TB
 │       └── <feature>
 │           ├── components                   画面単位の Widget、Controller、状態
 │           └── <feature>_<curd>_page.dart   画面Widget
-└── utils                                    拡張機能、ロガー、言語ファイル、環境変数などのユーティリティクラス
+└── utils                                    どの層からもアクセス可能なクラス、拡張機能、ロガー、言語ファイル、環境変数など
 ```
 
 ### ファイル分割の方針
