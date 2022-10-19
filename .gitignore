@@ -53,6 +53,3 @@ app.*.map.json
 
 # Fvm related (ローカルパスのシンボリックリンクなのでコミットは不適切)
 .fvm/flutter_sdk
-
-# VSCode related (SDKのパスなど人によって異なるためコミットは不適切)
-.vscode/settings.json
