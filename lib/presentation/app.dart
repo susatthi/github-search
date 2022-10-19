@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../domain/entities/url_launcher.dart';
 import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
 import '../utils/routing/router.dart';
 import 'components/theme.dart';
-import 'components/url_launcher.dart';
 
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
