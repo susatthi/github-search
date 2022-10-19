@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../application/url_launcher/url_launcher.dart';
+import '../../../../application/services/url_launcher/url_launcher.dart';
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
