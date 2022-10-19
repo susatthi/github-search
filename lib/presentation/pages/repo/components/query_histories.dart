@@ -11,61 +11,40 @@ import '../../../../utils/logger.dart';
 import 'search_repos_query.dart';
 
 /// 検索履歴一覧プロバイダー
-final queryHistoriesProvider = StateNotifierProvider.autoDispose<
-    QueryHistoriesController, AsyncValue<List<QueryHistory>>>(
-  (ref) => QueryHistoriesController(
-    queryHistoryRepository: ref.watch(queryHistoryRepositoryProvider),
-    queryString: ref.watch(searchReposEnteringQueryProvider),
-  ),
+final queryHistoriesProvider = FutureProvider.autoDispose<List<QueryHistory>>(
+  (ref) {
+    final enteringQueryString = ref.watch(searchReposEnteringQueryProvider);
+    ref.listen(
+      queryHistoriesStreamProviderFamily(enteringQueryString),
+      (previous, next) {
+        ref.state = next;
+      },
+    );
+    return ref
+        .watch(queryHistoriesFutureProviderFamily(enteringQueryString).future);
+  },
   name: 'queryHistoriesProvider',
 );
 
+// 検索履歴一覧コントローラープロバイダー
+final queryHistoriesControllerProvider = Provider<QueryHistoriesController>(
+  (ref) => QueryHistoriesController(
+    queryHistoryRepository: ref.watch(queryHistoryRepositoryProvider),
+  ),
+);
+
 /// 検索履歴一覧コントローラー
-class QueryHistoriesController
-    extends StateNotifier<AsyncValue<List<QueryHistory>>> {
+class QueryHistoriesController {
   QueryHistoriesController({
     required this.queryHistoryRepository,
-    required this.queryString,
-  }) : super(const AsyncValue.loading()) {
-    _load();
-  }
+  });
 
   final QueryHistoryRepository queryHistoryRepository;
 
-  /// 検索文字列
-  final String queryString;
-
-  Future<void> _load() async {
-    final asyncValue = await AsyncValue.guard(() async {
-      return queryHistoryRepository.finds(queryString: queryString);
-    });
-    if (mounted) {
-      // 検索文字列を高速で入力されると、検索履歴を検索中に本Notifierが破棄されること
-      // があるので、破棄されていないかをチェックする必要がある
-      state = asyncValue;
-      if (asyncValue is AsyncData) {
-        logger.v('Updated state: queries.length = ${asyncValue.value!.length}');
-      } else if (asyncValue is AsyncError) {
-        logger.v(
-          'Updated state: asyncError = ${asyncValue.asError?.error.toString()}',
-        );
-      }
-    } else {
-      logger.v(
-        'Unmounted state: asyncValue = $asyncValue',
-      );
-    }
-  }
-
   /// 検索履歴を削除する
   Future<void> delete(QueryHistory queryHistory) async {
-    state = const AsyncValue.loading();
     await queryHistoryRepository.delete(queryHistory);
-    await _load();
   }
-
-  @override
-  String toString() => '{queryString: $queryString, hashCode: $hashCode}';
 }
 
 /// Sliver版検索履歴一覧View
@@ -128,8 +107,8 @@ class _QueryHistoryListTile extends ConsumerWidget {
       leading: const Icon(Icons.history),
       title: Text(queryHistory.queryString.value),
       trailing: IconButton(
-        onPressed: () {
-          ref.read(queryHistoriesProvider.notifier).delete(queryHistory);
+        onPressed: () async {
+          await ref.read(queryHistoriesControllerProvider).delete(queryHistory);
         },
         icon: const Icon(Icons.close),
       ),

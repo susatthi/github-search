@@ -192,6 +192,11 @@ class MockQueryHistoryRepositoryError implements QueryHistoryRepository {
   Future<List<QueryHistory>> finds({required String queryString}) {
     throw UnimplementedError();
   }
+
+  @override
+  Stream<List<QueryHistory>> changes({required String queryString}) {
+    throw UnimplementedError();
+  }
 }
 
 /// モック版のCacheManager

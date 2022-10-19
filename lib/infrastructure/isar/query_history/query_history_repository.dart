@@ -71,13 +71,7 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
 
   @override
   Future<List<QueryHistory>> finds({required String queryString}) async {
-    final collections = await isar.queryHistoryCollections
-        .filter()
-        .queryStringStartsWith(queryString.trim(), caseSensitive: false)
-        .sortBySearchedAtDesc()
-        .distinctByQueryString()
-        .limit(20)
-        .findAll();
+    final collections = await _queryBuilder(queryString: queryString).findAll();
 
     final queries = collections
         .map(
@@ -86,9 +80,31 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
         .toList();
 
     logger.v(
-      'findByQueryString(): queryString = ${queryString.trim()}, '
+      'finds(): queryString = ${queryString.trim()}, '
       'count = ${queries.length}',
     );
     return queries;
   }
+
+  @override
+  Stream<List<QueryHistory>> changes({required String queryString}) {
+    logger.v('changes(): queryString = ${queryString.trim()}');
+    return _queryBuilder(queryString: queryString).watch().map(
+          (collections) => collections
+              .map((collection) => QueryHistory.create(collection.queryString))
+              .toList(),
+        );
+  }
+
+  /// 検索結果のクエリービルダーを帰す
+  QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterLimit>
+      _queryBuilder({
+    required String queryString,
+  }) =>
+          isar.queryHistoryCollections
+              .filter()
+              .queryStringStartsWith(queryString.trim(), caseSensitive: false)
+              .sortBySearchedAtDesc()
+              .distinctByQueryString()
+              .limit(20);
 }

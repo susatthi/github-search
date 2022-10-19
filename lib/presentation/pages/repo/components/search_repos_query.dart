@@ -69,15 +69,34 @@ class SearchReposEnteringQueryController extends StateNotifier<String> {
     required String initQuery,
   }) : super(initQuery);
 
+  /// 保留中の検索文字列
+  String? holdQueryString;
+
   /// 更新する
   Future<void> update(String queryString) async {
     // もし現在の文字列と同じ場合は更新しない
-    if (state != queryString) {
-      logger.v(
-        'Update searchReposEnteringQueryString: queryString = $queryString',
-      );
-      state = queryString;
+    if (state == queryString) {
+      return;
     }
+
+    holdQueryString = queryString;
+
+    // 連続で入力されると負荷があがるので一定時間待つ
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    if (!mounted) {
+      return;
+    }
+
+    // 保留中に次の検索文字列で上書きされたら更新しない
+    if (holdQueryString != queryString) {
+      return;
+    }
+
+    logger.v(
+      'Update searchReposEnteringQueryString: queryString = $queryString',
+    );
+    state = queryString;
+    holdQueryString = null;
   }
 }
 
