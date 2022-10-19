@@ -13,15 +13,6 @@ final appDataRepositoryProvider = Provider<AppDataRepository>(
 
 /// アプリデータRepository
 abstract class AppDataRepository {
-  /// デフォルト値を返す
-  static Map<AppDataKey, Object?> defaultValues =
-      AppDataKey.values.asMap().map<AppDataKey, Object?>(
-            (index, key) => MapEntry(
-              key,
-              key.defaultValue,
-            ),
-          );
-
   /// 値を設定する
   void set<T extends Object?>(AppDataKey key, T value);
 
