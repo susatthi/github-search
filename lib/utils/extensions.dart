@@ -9,6 +9,9 @@ extension AsyncValueEx<T> on AsyncValue<T> {
   void whenError(
     void Function(Object error, StackTrace? stackTrace) error,
   ) {
+    if (isLoading) {
+      return;
+    }
     return map<void>(
       data: (_) {},
       error: (e) => error(e.error, e.stackTrace),
