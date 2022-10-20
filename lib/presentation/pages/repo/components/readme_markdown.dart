@@ -16,7 +16,7 @@ import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/async_value_handler.dart';
-import '../../../controllers/url_launcher_controller.dart';
+import '../../../components/url_launcher.dart';
 
 /// ReadmeMarkdownのキャッシュマネージャープロバイダー
 final readmeMarkdownCacheManagerProvider = Provider<BaseCacheManager?>(
@@ -82,7 +82,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(urlLauncherControllerProvider).launch(href);
+          await ref.read(urlLauncherProvider.notifier).launch(href);
         }
       },
       extensionSet: ExtensionSet(

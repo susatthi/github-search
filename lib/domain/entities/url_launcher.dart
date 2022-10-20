@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,14 +10,6 @@ import '../../utils/logger.dart';
 import '../exceptions.dart';
 
 part 'url_launcher.freezed.dart';
-
-/// URL起動プロバイダー
-///
-/// `ref.listen` することでURL起動を監視できる
-final urlLauncherProvider = StateProvider<AsyncValue<UrlLauncher>>(
-  (ref) => const AsyncValue.loading(),
-  name: 'urlLauncherProvider',
-);
 
 /// URL起動
 @freezed

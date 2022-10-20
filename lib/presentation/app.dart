@@ -13,6 +13,7 @@ import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
 import '../utils/routing/router.dart';
 import 'components/theme.dart';
+import 'components/url_launcher.dart';
 
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
@@ -48,11 +49,11 @@ class _GitHubSearchApp extends ConsumerWidget {
 
     // URL起動状態を監視してエラーが起きたらSnackBarを表示する
     // どの画面でURL起動してもここで一括でエラーハンドリングできるようにしている
-    ref.listen<AsyncValue<UrlLauncher>?>(
+    ref.listen<AsyncValue<UrlLauncher>>(
       urlLauncherProvider,
       (previous, next) {
         logger.i('Updated UrlLauncher: $next');
-        next?.whenError((error, _) {
+        next.whenError((error, _) {
           if (error is! UrlLauncherException) {
             return;
           }
