@@ -13,6 +13,14 @@ final repoRepositoryProvider = Provider<RepoRepository>(
   (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
+/// READMEプロバイダー（Family）
+final readmeProviderFamily = FutureProvider.family.autoDispose<String, Repo>(
+  (ref, repo) => ref.watch(repoRepositoryProvider).getReadme(
+        repo: repo,
+      ),
+  name: 'readmeProviderFamily',
+);
+
 /// リポジトリRepository
 abstract class RepoRepository {
   /// リポジトリを検索する

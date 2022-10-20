@@ -23,15 +23,6 @@ final readmeMarkdownCacheManagerProvider = Provider<BaseCacheManager?>(
   (ref) => null,
 );
 
-/// READMEコンテンツプロバイダー（Family）
-final readmeContentProviderFamily =
-    FutureProvider.family.autoDispose<String, Repo>(
-  (ref, repo) => ref.watch(repoRepositoryProvider).getReadme(
-        repo: repo,
-      ),
-  name: 'readmeContentProviderFamily',
-);
-
 /// READMEのMarkdown表示
 class ReadmeMarkdown extends ConsumerWidget {
   const ReadmeMarkdown({
@@ -45,7 +36,7 @@ class ReadmeMarkdown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueHandler<String>(
-      value: ref.watch(readmeContentProviderFamily(repo)),
+      value: ref.watch(readmeProviderFamily(repo)),
       builder: (content) => ReadmeMarkdownInternal(
         content: content,
       ),

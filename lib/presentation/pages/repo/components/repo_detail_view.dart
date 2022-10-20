@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
+import '../../../controllers/selected_repo.dart';
 import '../../../controllers/url_launcher.dart';
 import '../../../widgets/cached_circle_avatar.dart';
 import '../../../widgets/error_view.dart';
@@ -15,7 +16,6 @@ import '../../../widgets/hyperlink_text.dart';
 import '../../../widgets/icon_label.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';
-import 'selected_repo.dart';
 
 /// 1行の縦方向のパディング
 const _verticalPadding = 8.0;

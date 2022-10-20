@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/presentation/controllers/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/avatar_preview_page.dart';
-import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/golden_testing_tools.dart';

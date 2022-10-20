@@ -15,12 +15,12 @@ import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
+import '../../../controllers/search_repos.dart';
 import '../../../widgets/cached_circle_avatar.dart';
 import '../../../widgets/error_view.dart';
 import '../../../widgets/icon_label.dart';
 import '../../../widgets/list_loader.dart';
 import 'repo_language_label.dart';
-import 'search_repos.dart';
 
 /// ListTileのleadingに表示するアバターのサイズ
 const _avatarSize = 40.0;

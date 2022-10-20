@@ -5,8 +5,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../../../../domain/repositories/repo/repo_repository.dart';
+import '../../domain/repositories/repo/entities/repo.dart';
+import '../../domain/repositories/repo/repo_repository.dart';
 
 part 'selected_repo.freezed.dart';
 

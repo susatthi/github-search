@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
+import 'package:github_search/presentation/controllers/selected_repo.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_full_name_text.dart';
-import 'package:github_search/presentation/pages/repo/components/selected_repo.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/mocks.dart';
