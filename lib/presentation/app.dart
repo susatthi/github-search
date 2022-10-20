@@ -7,6 +7,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/entities/url_launcher.dart';
+import '../domain/exceptions.dart';
+import '../utils/extensions.dart';
 import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
 import '../utils/routing/router.dart';
@@ -46,21 +48,24 @@ class _GitHubSearchApp extends ConsumerWidget {
 
     // URL起動状態を監視してエラーが起きたらSnackBarを表示する
     // どの画面でURL起動してもここで一括でエラーハンドリングできるようにしている
-    ref.listen<UrlLauncherState>(
-      urlLauncherStateProvider,
+    ref.listen<AsyncValue<UrlLauncher>?>(
+      urlLauncherProvider,
       (previous, next) {
-        logger.i(
-          'Changed LaunchUrlState: '
-          'status = ${next.status.name}, url = ${next.urlString}',
-        );
-        if (next.status == UrlLauncherStatus.error) {
+        logger.i('Updated UrlLauncher: $next');
+        next?.whenError((error, _) {
+          if (error is! UrlLauncherException) {
+            return;
+          }
+
           // エラーの場合はSnackBar表示をする
           scaffoldMessengerKey.currentState!.showSnackBar(
             SnackBar(
-              content: Text(i18n.cantLaunchUrl(url: next.urlString!)),
+              content: Text(
+                i18n.cantLaunchUrl(url: error.launcher.urlString),
+              ),
             ),
           );
-        }
+        });
       },
     );
 

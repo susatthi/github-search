@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'entities/url_launcher.dart';
+
 /// 基底ドメイン例外
 ///
 /// ドメイン層が定義する例外の基底クラス
@@ -118,4 +120,26 @@ class NetworkException extends DomainException {
 
   @override
   String toString() => 'NetworkException[$code]: $message';
+}
+
+/// ドメイン層で発生するURL起動例外
+class UrlLauncherException extends DomainException {
+  const UrlLauncherException(
+    this.launcher, [
+    this.details,
+    this.stacktrace,
+  ]) : super('UrlLauncher exception');
+
+  /// URL起動
+  final UrlLauncher launcher;
+
+  /// 例外
+  final dynamic details;
+
+  /// スタックトレース
+  final StackTrace? stacktrace;
+
+  @override
+  String toString() => 'UrlLauncherException: $message, '
+      '$launcher, details = $details';
 }

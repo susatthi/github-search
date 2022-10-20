@@ -2,42 +2,57 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../utils/logger.dart';
+import '../exceptions.dart';
+
 part 'url_launcher.freezed.dart';
 
-/// URL起動状態プロバイダー
+/// URL起動プロバイダー
 ///
-/// `ref.listen` することでURL起動状態を監視できる
-final urlLauncherStateProvider = StateProvider.autoDispose<UrlLauncherState>(
-  (ref) => const UrlLauncherState(),
-  name: 'urlLauncherStateProvider',
+/// `ref.listen` することでURL起動を監視できる
+final urlLauncherProvider = StateProvider<AsyncValue<UrlLauncher>>(
+  (ref) => const AsyncValue.loading(),
+  name: 'urlLauncherProvider',
 );
 
-/// URL起動状態
-///
-/// URL起動に成功したかどうかのステータスを持つ
+/// URL起動
 @freezed
-class UrlLauncherState with _$UrlLauncherState {
-  const factory UrlLauncherState({
-    String? urlString,
-    @Default(LaunchMode.platformDefault) LaunchMode mode,
-    @Default(UrlLauncherStatus.waiting) UrlLauncherStatus status,
-    dynamic error,
-  }) = _UrlLauncherState;
-}
+class UrlLauncher with _$UrlLauncher {
+  const factory UrlLauncher({
+    required String urlString,
+    required LaunchMode mode,
+  }) = _UrlLauncher;
 
-/// URL起動のステータス
-enum UrlLauncherStatus {
-  /// 起動前
-  waiting,
+  const UrlLauncher._();
 
-  /// 起動できた
-  success,
-
-  /// 起動できなかった
-  error,
-  ;
+  /// URLを起動する
+  ///
+  /// URLが起動できない場合は [UrlLauncherException] を投げる。
+  Future<UrlLauncher> launch() async {
+    try {
+      final url = Uri.parse(urlString);
+      final result = await launchUrl(url, mode: mode);
+      if (!result) {
+        logger.w('Failure launch: url = $urlString');
+        throw UrlLauncherException(this);
+      }
+      logger.i('Successful launch: url = $urlString');
+      return this;
+    } on FormatException catch (e, s) {
+      logger.e('Can\'t parse url: url = $urlString', e, s);
+      throw UrlLauncherException(this, e, s);
+    } on PlatformException catch (e, s) {
+      logger.w('Failure launch: url = $urlString', e, s);
+      throw UrlLauncherException(this, e, s);
+      // ignore: avoid_catching_errors
+    } on ArgumentError catch (e, s) {
+      logger.w('Failure launch: url = $urlString', e, s);
+      throw UrlLauncherException(this, e, s);
+    }
+  }
 }
