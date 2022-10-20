@@ -12,7 +12,7 @@ import '../../../components/cached_circle_avatar.dart';
 import '../../../components/error_view.dart';
 import '../../../components/hyperlink_text.dart';
 import '../../../components/icon_label.dart';
-import '../../../components/url_launcher.dart';
+import '../../../components/states/url_launcher.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';
 import 'selected_repo.dart';

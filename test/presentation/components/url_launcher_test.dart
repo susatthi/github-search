@@ -4,7 +4,6 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/url_launcher.dart';
 import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';

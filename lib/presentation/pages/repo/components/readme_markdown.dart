@@ -16,7 +16,7 @@ import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
 import '../../../components/async_value_handler.dart';
-import '../../../components/url_launcher.dart';
+import '../../../components/states/url_launcher.dart';
 
 /// ReadmeMarkdownのキャッシュマネージャープロバイダー
 final readmeMarkdownCacheManagerProvider = Provider<BaseCacheManager?>(
