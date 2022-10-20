@@ -22,7 +22,6 @@
   "dart.flutterSdkPath": ".fvm/flutter_sdk",
   "dart.debugSdkLibraries": true,
   "dart.showSkippedTests": false,
-  "dart.runPubGetOnPubspecChanges": "always",
   "search.exclude": {
     "**/.fvm": true,
     "**/*.freezed.dart": true,
