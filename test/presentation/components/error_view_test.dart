@@ -4,7 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/exceptions.dart';
-import 'package:github_search/presentation/components/error_view.dart';
+import 'package:github_search/presentation/widgets/error_view.dart';
 import 'package:github_search/utils/localizations/strings.g.dart';
 
 import '../../test_utils/logger.dart';

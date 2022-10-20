@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/cached_circle_avatar.dart';
+import 'package:github_search/presentation/widgets/cached_circle_avatar.dart';
 
 import '../../test_utils/test_agent.dart';
 

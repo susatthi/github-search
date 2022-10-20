@@ -10,7 +10,7 @@ import '../../../../domain/repositories/app_data/entities/app_data_key.dart';
 import '../../../../domain/repositories/repo/entities/search_repos_order.dart';
 import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
-import '../../../components/app_data.dart';
+import '../../../controllers/app_data.dart';
 import 'search_repos.dart';
 
 /// リポジトリ検索用オーダー値プロバイダー

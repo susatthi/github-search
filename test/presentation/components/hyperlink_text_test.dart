@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/hyperlink_text.dart';
+import 'package:github_search/presentation/widgets/hyperlink_text.dart';
 
 import '../../test_utils/test_agent.dart';
 

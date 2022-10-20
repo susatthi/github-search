@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../components/search_app_bar.dart';
+import '../../widgets/search_app_bar.dart';
 import 'components/query_histories.dart';
 import 'components/search_repos_query.dart';
 import 'components/search_repos_sort.dart';

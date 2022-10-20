@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../../../components/async_value_handler.dart';
-import '../../../components/cached_circle_avatar.dart';
+import '../../../widgets/async_value_handler.dart';
+import '../../../widgets/cached_circle_avatar.dart';
 import 'selected_repo.dart';
 
 /// アバター画像プレビューView
