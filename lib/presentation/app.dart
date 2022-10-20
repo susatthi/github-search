@@ -13,7 +13,7 @@ import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
 import '../utils/routing/router.dart';
 import 'controllers/url_launcher.dart';
-import 'widgets/theme.dart';
+import 'theme.dart';
 
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
