@@ -8,6 +8,8 @@ import '../../../../domain/repositories/query_history/entities/query_history.dar
 import '../../../../domain/repositories/query_history/query_history_repository.dart';
 import '../../../../utils/env/env.dart';
 import '../../../../utils/env/env_define.dart';
+import '../../domain/exceptions.dart';
+import '../../utils/logger.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
 final searchReposInitQueryProvider = Provider<String>(
@@ -89,10 +91,15 @@ class SearchReposQueryController {
   /// リポジトリ検索文字列を確定する
   Future<void> done(String queryString) async {
     ref.read(searchReposQueryProvider.notifier).state = queryString;
-    // TODO: try-catchしていないが問題ないか
-    await ref.read(queryHistoryRepositoryProvider).add(
-          QueryHistory.create(queryString),
-        );
+
+    try {
+      await ref.read(queryHistoryRepositoryProvider).add(
+            QueryHistory.create(queryString.trim()),
+          );
+    } on ValidatorException catch (e) {
+      // エラーが起きても何もしない
+      logger.v(e);
+    }
   }
 
   /// リポジトリ検索履歴を選択する
