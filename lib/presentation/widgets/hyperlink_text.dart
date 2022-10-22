@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../controllers/url_launcher.dart';
+import '../controllers/url_launcher_controller.dart';
 
 /// ハイパーリンク表示するテキスト
 class HyperlinkText extends ConsumerWidget {

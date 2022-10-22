@@ -9,7 +9,7 @@ import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
 import '../../../controllers/selected_repo.dart';
-import '../../../controllers/url_launcher.dart';
+import '../../../controllers/url_launcher_controller.dart';
 import '../../../widgets/cached_circle_avatar.dart';
 import '../../../widgets/error_view.dart';
 import '../../../widgets/hyperlink_text.dart';
