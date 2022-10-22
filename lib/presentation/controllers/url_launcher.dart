@@ -7,33 +7,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/repositories/url_launcher/entities/url_launch_data.dart';
 import '../../domain/repositories/url_launcher/url_launcher_repository.dart';
 
-/// URL起動プロバイダー
-final urlLaunchProvider =
-    StateNotifierProvider<UrlLauncherController, AsyncValue<UrlLaunchData>>(
-  (ref) => UrlLauncherController(
-    urlLauncherRepository: ref.watch(urlLauncherRepositoryProvider),
-  ),
+/// URL起動コントローラープロバイダー
+final urlLauncherControllerProvider = Provider<UrlLaunchController>(
+  UrlLaunchController.new,
 );
 
 /// URL起動コントローラー
-class UrlLauncherController extends StateNotifier<AsyncValue<UrlLaunchData>> {
-  UrlLauncherController({
-    required this.urlLauncherRepository,
-  }) : super(const AsyncValue.loading());
+class UrlLaunchController {
+  UrlLaunchController(this.ref);
 
-  final UrlLauncherRepository urlLauncherRepository;
+  final Ref ref;
 
   /// URLを起動する
   Future<void> launch(
     String urlString, {
     UrlLauncheMode mode = UrlLauncheMode.platformDefault,
   }) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final data = UrlLaunchData(urlString: urlString, mode: mode);
-      final repository = urlLauncherRepository;
-      await repository.launch(data);
-      return data;
-    });
+    await ref
+        .read(urlLaunchDataProvider.notifier)
+        .launch(urlString, mode: mode);
   }
 }

@@ -20,3 +20,33 @@ abstract class UrlLauncherRepository {
   /// URLが起動できない場合は [UrlLauncherException] を投げる。
   Future<void> launch(UrlLaunchData data);
 }
+
+/// URL起動データプロバイダー
+final urlLaunchDataProvider =
+    StateNotifierProvider<UrlLaunchDataNotifier, AsyncValue<UrlLaunchData>>(
+  (ref) => UrlLaunchDataNotifier(
+    urlLauncherRepository: ref.watch(urlLauncherRepositoryProvider),
+  ),
+);
+
+/// URL起動データNotifier
+class UrlLaunchDataNotifier extends StateNotifier<AsyncValue<UrlLaunchData>> {
+  UrlLaunchDataNotifier({
+    required this.urlLauncherRepository,
+  }) : super(const AsyncValue.loading());
+
+  final UrlLauncherRepository urlLauncherRepository;
+
+  /// URLを起動する
+  Future<void> launch(
+    String urlString, {
+    UrlLauncheMode mode = UrlLauncheMode.platformDefault,
+  }) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final data = UrlLaunchData(urlString: urlString, mode: mode);
+      await urlLauncherRepository.launch(data);
+      return data;
+    });
+  }
+}
