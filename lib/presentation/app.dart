@@ -7,8 +7,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/exceptions.dart';
+import '../domain/interactor/url_launcher/url_launcher_interactor.dart';
 import '../domain/repositories/url_launcher/entities/url_launch_data.dart';
-import '../domain/repositories/url_launcher/url_launcher_repository.dart';
 import '../utils/extensions.dart';
 import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
@@ -50,9 +50,9 @@ class _GitHubSearchApp extends ConsumerWidget {
     // URL起動状態を監視してエラーが起きたらSnackBarを表示する
     // どの画面でURL起動してもここで一括でエラーハンドリングできるようにしている
     ref.listen<AsyncValue<UrlLaunchData>>(
-      launchResultProvider,
+      urlLaunchStateProvider,
       (previous, next) {
-        logger.i('Updated UrlLauncherInputData: $next');
+        logger.i('Updated UrlLaunchData: $next');
         next.whenError((error, _) {
           if (error is! UrlLauncherException) {
             return;
