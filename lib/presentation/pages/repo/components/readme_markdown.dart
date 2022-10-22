@@ -73,7 +73,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(urlLauncherProvider.notifier).launch(href);
+          await ref.read(urlLauncherControllerProvider).launch(href);
         }
       },
       extensionSet: ExtensionSet(

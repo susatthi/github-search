@@ -3,34 +3,28 @@
 // found in the LICENSE file.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../domain/entities/url_launcher.dart';
+import '../../domain/repositories/url_launcher/entities/url_launch_data.dart';
+import '../../domain/repositories/url_launcher/url_launcher_repository.dart';
 
-/// URL起動プロバイダー
-///
-/// `ref.listen` することでURL起動を監視できる
-final urlLauncherProvider =
-    StateNotifierProvider<UrlLauncherController, AsyncValue<UrlLauncher>>(
-  (ref) => UrlLauncherController(),
+/// URL起動コントローラープロバイダー
+final urlLauncherControllerProvider = Provider(
+  UrlLauncherController.new,
   name: 'urlLauncherProvider',
 );
 
 /// URL起動コントローラー
-class UrlLauncherController extends StateNotifier<AsyncValue<UrlLauncher>> {
-  UrlLauncherController() : super(const AsyncValue.loading());
+class UrlLauncherController {
+  UrlLauncherController(this.ref);
+
+  final Ref ref;
 
   /// URLを起動する
   Future<void> launch(
     String urlString, {
-    LaunchMode mode = LaunchMode.platformDefault,
+    UrlLauncheMode mode = UrlLauncheMode.platformDefault,
   }) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      return UrlLauncher(
-        urlString: urlString,
-        mode: mode,
-      ).launch();
-    });
+    final data = UrlLaunchData(urlString: urlString, mode: mode);
+    await ref.read(launchProvider)(data);
   }
 }

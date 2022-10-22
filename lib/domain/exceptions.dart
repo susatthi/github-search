@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'entities/url_launcher.dart';
+import 'repositories/url_launcher/entities/url_launch_data.dart';
 
 /// 基底ドメイン例外
 ///
@@ -125,13 +125,13 @@ class NetworkException extends DomainException {
 /// ドメイン層で発生するURL起動例外
 class UrlLauncherException extends DomainException {
   const UrlLauncherException(
-    this.launcher, [
+    this.data, [
     this.details,
     this.stacktrace,
   ]) : super('UrlLauncher exception');
 
-  /// URL起動
-  final UrlLauncher launcher;
+  /// URL起動データ
+  final UrlLaunchData data;
 
   /// 例外
   final dynamic details;
@@ -141,5 +141,5 @@ class UrlLauncherException extends DomainException {
 
   @override
   String toString() => 'UrlLauncherException: $message, '
-      '$launcher, details = $details';
+      '$data, details = $details';
 }

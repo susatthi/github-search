@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../domain/entities/url_launcher.dart';
 import '../domain/exceptions.dart';
+import '../domain/repositories/url_launcher/entities/url_launch_data.dart';
+import '../domain/repositories/url_launcher/url_launcher_repository.dart';
 import '../utils/extensions.dart';
 import '../utils/localizations/strings.g.dart';
 import '../utils/logger.dart';
 import '../utils/routing/router.dart';
-import 'controllers/url_launcher.dart';
 import 'theme.dart';
 
 /// GitHubSearch アプリ
@@ -49,10 +49,10 @@ class _GitHubSearchApp extends ConsumerWidget {
 
     // URL起動状態を監視してエラーが起きたらSnackBarを表示する
     // どの画面でURL起動してもここで一括でエラーハンドリングできるようにしている
-    ref.listen<AsyncValue<UrlLauncher>>(
-      urlLauncherProvider,
+    ref.listen<AsyncValue<UrlLaunchData>>(
+      launchResultProvider,
       (previous, next) {
-        logger.i('Updated UrlLauncher: $next');
+        logger.i('Updated UrlLauncherInputData: $next');
         next.whenError((error, _) {
           if (error is! UrlLauncherException) {
             return;
@@ -62,7 +62,7 @@ class _GitHubSearchApp extends ConsumerWidget {
           scaffoldMessengerKey.currentState!.showSnackBar(
             SnackBar(
               content: Text(
-                i18n.cantLaunchUrl(url: error.launcher.urlString),
+                i18n.cantLaunchUrl(url: error.data.urlString),
               ),
             ),
           );

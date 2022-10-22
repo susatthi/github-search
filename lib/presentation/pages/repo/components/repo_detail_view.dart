@@ -313,7 +313,7 @@ class _IconLabel extends ConsumerWidget {
       text: text,
       padding: padding,
       onTap: url != null
-          ? () => ref.read(urlLauncherProvider.notifier).launch(url!)
+          ? () => ref.read(urlLauncherControllerProvider).launch(url!)
           : null,
     );
   }
