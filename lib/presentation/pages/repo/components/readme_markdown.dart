@@ -11,11 +11,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:markdown/markdown.dart';
 
-import '../../../../domain/interactor/url_launcher/url_launcher_interactor.dart';
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
+import '../../../controllers/url_launcher.dart';
 import '../../../widgets/async_value_handler.dart';
 
 /// ReadmeMarkdownのキャッシュマネージャープロバイダー
@@ -73,7 +73,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(urlLauncherInteractorProvider).launch(href);
+          await ref.read(urlLaunchProvider.notifier).launch(href);
         }
       },
       extensionSet: ExtensionSet(
