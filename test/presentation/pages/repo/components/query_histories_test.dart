@@ -28,7 +28,7 @@ class _MockPage extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref.read(searchReposQueryProvider.notifier).update('flutter');
+                  ref.read(searchReposQueryProvider.notifier).enter('flutter');
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -39,7 +39,7 @@ class _MockPage extends ConsumerWidget {
                   onChanged: (text) {
                     ref
                         .read(searchReposEnteringQueryProvider.notifier)
-                        .update(text);
+                        .enter(text);
                   },
                 ),
               ),
@@ -88,7 +88,7 @@ void main() {
         agent
             .mockContainer()
             .read(searchReposEnteringQueryProvider.notifier)
-            .update('')
+            .enter('')
       ]);
 
       final controller = agent
@@ -134,7 +134,7 @@ void main() {
       // fを入力
       await container
           .read(searchReposEnteringQueryProvider.notifier)
-          .update('f');
+          .enter('f');
 
       // コントローラーが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -144,7 +144,7 @@ void main() {
       // flを入力
       await container
           .read(searchReposEnteringQueryProvider.notifier)
-          .update('fl');
+          .enter('fl');
 
       // コントローラーが更新されるまで待つ
       await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -273,7 +273,7 @@ void main() {
           agent
               .mockContainer()
               .read(searchReposEnteringQueryProvider.notifier)
-              .update('')
+              .enter('')
         ]);
 
         await tester.pumpDeviceBuilder(

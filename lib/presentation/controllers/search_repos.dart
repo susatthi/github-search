@@ -12,7 +12,7 @@ import '../../domain/repositories/repo/entities/search_repos_result.dart';
 import '../../domain/repositories/repo/entities/search_repos_sort.dart';
 import '../../domain/repositories/repo/repo_repository.dart';
 import '../../utils/logger.dart';
-import 'search_repos_query.dart';
+import 'search_repos_query_controller.dart';
 
 part 'search_repos.freezed.dart';
 

@@ -29,7 +29,7 @@ void main() {
       await agent
           .mockContainer()
           .read(searchReposQueryProvider.notifier)
-          .update('dummy');
+          .enter('dummy');
       final query = agent.mockContainer().read(searchReposQueryProvider);
       expect(query, 'dummy');
     });
@@ -40,7 +40,7 @@ void main() {
       await agent
           .mockContainer()
           .read(searchReposEnteringQueryProvider.notifier)
-          .update('dummy');
+          .enter('dummy');
       final query =
           agent.mockContainer().read(searchReposEnteringQueryProvider);
       expect(query, 'dummy');
