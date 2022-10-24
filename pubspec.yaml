@@ -54,7 +54,7 @@ dev_dependencies:
   flutter_launcher_icons:
     # v0.9.2 ではなく macOS と windows をサポートしている fork を利用する
     git: https://github.com/dirkbo/flutter_launcher_icons
-  flutter_native_splash: ^2.2.9
+  flutter_native_splash: ^2.2.12
   flutter_test:
     sdk: flutter
   freezed: ^2.1.0+1
