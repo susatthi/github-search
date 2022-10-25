@@ -10,10 +10,10 @@ import '../../../../domain/state/current_repo.dart';
 import '../../../../domain/state/url_launcher.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
-import '../../../widgets/cached_circle_avatar.dart';
-import '../../../widgets/error_view.dart';
-import '../../../widgets/hyperlink_text.dart';
-import '../../../widgets/icon_label.dart';
+import '../../../components/cached_circle_avatar.dart';
+import '../../../components/error_view.dart';
+import '../../../components/hyperlink_text.dart';
+import '../../../components/icon_label.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';
 

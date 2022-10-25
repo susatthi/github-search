@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/state/current_repo.dart';
-import '../../../widgets/async_value_handler.dart';
+import '../../../components/async_value_handler.dart';
 
 /// リポジトリ名を表示するText
 class RepoFullNameText extends ConsumerWidget {

@@ -9,8 +9,8 @@ import 'package:photo_view/photo_view.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/state/current_repo.dart';
-import '../../../widgets/async_value_handler.dart';
-import '../../../widgets/cached_circle_avatar.dart';
+import '../../../components/async_value_handler.dart';
+import '../../../components/cached_circle_avatar.dart';
 
 /// アバター画像プレビューView
 class AvatarPreviewView extends ConsumerWidget {

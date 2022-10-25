@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../widgets/search_app_bar.dart';
+import '../../components/search_app_bar.dart';
 import 'components/repo_detail_view.dart';
 import 'components/repo_full_name_text.dart';
 

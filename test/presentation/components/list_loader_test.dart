@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/widgets/list_loader.dart';
+import 'package:github_search/presentation/components/list_loader.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../test_utils/test_agent.dart';

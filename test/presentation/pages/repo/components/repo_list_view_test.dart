@@ -5,10 +5,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
+import 'package:github_search/presentation/components/error_view.dart';
+import 'package:github_search/presentation/components/list_loader.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_list_view.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
-import 'package:github_search/presentation/widgets/error_view.dart';
-import 'package:github_search/presentation/widgets/list_loader.dart';
 import 'package:github_search/utils/localizations/strings.g.dart';
 import 'package:github_search/utils/routing/router.dart';
 import 'package:go_router/go_router.dart';
