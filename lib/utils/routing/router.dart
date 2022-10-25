@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../../domain/repositories/repo/entities/repo.dart';
-import '../../presentation/controllers/selected_repo.dart';
+import '../../domain/state/current_repo.dart';
 import '../../presentation/pages/error/error_page.dart';
 import '../../presentation/pages/repo/avatar_preview_page.dart';
 import '../../presentation/pages/repo/repo_index_page.dart';
@@ -115,9 +115,9 @@ class RepoViewRoute extends GoRouteData {
         name: name,
         child: ProviderScope(
           overrides: [
-            selectedRepoProvider.overrideWithProvider(
-              selectedRepoProviderFamily(
-                SelectedRepoParameter(
+            currentRepoProvider.overrideWithProvider(
+              currentRepoProviderFamily(
+                CurrentRepoParam(
                   ownerName: ownerName,
                   repoName: repoName,
                 ),
@@ -154,9 +154,9 @@ class AvatarPreviewRoute extends GoRouteData {
         name: name,
         child: ProviderScope(
           overrides: [
-            selectedRepoProvider.overrideWithProvider(
-              selectedRepoProviderFamily(
-                SelectedRepoParameter(
+            currentRepoProvider.overrideWithProvider(
+              currentRepoProviderFamily(
+                CurrentRepoParam(
                   ownerName: ownerName,
                   repoName: repoName,
                   extra: $extra,

@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/controllers/selected_repo.dart';
+import 'package:github_search/domain/state/current_repo.dart';
 import 'package:github_search/presentation/pages/repo/components/avatar_preview_view.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -21,9 +21,9 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            selectedRepoProvider.overrideWithProvider(
-              selectedRepoProviderFamily(
-                const SelectedRepoParameter(
+            currentRepoProvider.overrideWithProvider(
+              currentRepoProviderFamily(
+                const CurrentRepoParam(
                   ownerName: 'flutter',
                   repoName: 'plugins',
                 ),
@@ -47,9 +47,9 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            selectedRepoProvider.overrideWithProvider(
-              selectedRepoProviderFamily(
-                const SelectedRepoParameter(
+            currentRepoProvider.overrideWithProvider(
+              currentRepoProviderFamily(
+                const CurrentRepoParam(
                   ownerName: 'unknown',
                   repoName: 'unknown',
                 ),
@@ -78,9 +78,9 @@ void main() {
             ),
           wrapper: (child) => agent.mockApp(
             overrides: [
-              selectedRepoProvider.overrideWithProvider(
-                selectedRepoProviderFamily(
-                  const SelectedRepoParameter(
+              currentRepoProvider.overrideWithProvider(
+                currentRepoProviderFamily(
+                  const CurrentRepoParam(
                     ownerName: 'flutter',
                     repoName: 'plugins',
                   ),

@@ -5,21 +5,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/repositories/repo/entities/repo.dart';
-import '../../domain/repositories/repo/repo_repository.dart';
+import '../repositories/repo/entities/repo.dart';
+import '../repositories/repo/repo_repository.dart';
 
-part 'selected_repo.freezed.dart';
+part 'current_repo.freezed.dart';
 
-/// 選択中のリポジトリプロバイダー
-final selectedRepoProvider = FutureProvider.autoDispose<Repo>(
+/// 現在のリポジトリプロバイダー
+final currentRepoProvider = FutureProvider.autoDispose<Repo>(
   (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
-/// 選択中のリポジトリプロバイダーFamily
-final selectedRepoProviderFamily =
-    FutureProvider.family.autoDispose<Repo, SelectedRepoParameter>(
-  (ref, parameter) async {
-    final repo = parameter.extra;
+/// 現在のリポジトリプロバイダーFamily
+final currentRepoProviderFamily =
+    FutureProvider.family.autoDispose<Repo, CurrentRepoParam>(
+  (ref, param) async {
+    final repo = param.extra;
     if (repo != null) {
       // extra があればそのまま使う
       return repo;
@@ -28,17 +28,17 @@ final selectedRepoProviderFamily =
     // extra が無いので取得する
     final repoRepository = ref.watch(repoRepositoryProvider);
     return repoRepository.getRepo(
-      ownerName: parameter.ownerName,
-      repoName: parameter.repoName,
+      ownerName: param.ownerName,
+      repoName: param.repoName,
     );
   },
-  name: 'selectedRepoProvider',
+  name: 'currentRepoProvider',
 );
 
-/// 選択中のリポジトリ用パラメータ
+/// 現在のリポジトリ用パラメーター
 @freezed
-class SelectedRepoParameter with _$SelectedRepoParameter {
-  const factory SelectedRepoParameter({
+class CurrentRepoParam with _$CurrentRepoParam {
+  const factory CurrentRepoParam({
     /// オーナー名
     required String ownerName,
 
@@ -48,5 +48,5 @@ class SelectedRepoParameter with _$SelectedRepoParameter {
     /// 一覧画面から渡されるリポジトリデータ
     /// 詳細画面で再読込した場合などは null になる場合がある
     Repo? extra,
-  }) = _SelectedRepoParameter;
+  }) = _CurrentRepoParam;
 }

@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../../../controllers/selected_repo.dart';
+import '../../../../domain/state/current_repo.dart';
 import '../../../widgets/async_value_handler.dart';
 import '../../../widgets/cached_circle_avatar.dart';
 
@@ -19,7 +19,7 @@ class AvatarPreviewView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueHandler<Repo>(
-      value: ref.watch(selectedRepoProvider),
+      value: ref.watch(currentRepoProvider),
       builder: (repo) => _AvatarPreviewView(repo: repo),
     );
   }
@@ -30,7 +30,7 @@ class _AvatarPreviewView extends ConsumerWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override

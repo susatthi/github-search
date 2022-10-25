@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
+import '../../../../domain/state/current_repo.dart';
 import '../../../../domain/state/url_launcher.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
-import '../../../controllers/selected_repo.dart';
 import '../../../widgets/cached_circle_avatar.dart';
 import '../../../widgets/error_view.dart';
 import '../../../widgets/hyperlink_text.dart';
@@ -29,7 +29,7 @@ class SliverRepoDetailView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(selectedRepoProvider);
+    final asyncValue = ref.watch(currentRepoProvider);
     return asyncValue.when(
       data: (repo) => SliverRepoDetailViewInternal(repo: repo),
       error: (e, s) => SliverFillRemaining(
@@ -55,7 +55,7 @@ class SliverRepoDetailViewInternal extends StatelessWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
@@ -82,7 +82,7 @@ class _AvatarRow extends StatelessWidget {
     required this.repo,
   }) : super(key: const Key('repo_detail_view#_AvatarRow'));
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
@@ -119,7 +119,7 @@ class _FullNameRow extends StatelessWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
@@ -165,7 +165,7 @@ class _DescriptionRow extends StatelessWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
@@ -192,7 +192,7 @@ class _LanguageRow extends StatelessWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
@@ -218,7 +218,7 @@ class _IconLabelsRow extends StatelessWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
@@ -275,7 +275,7 @@ class _ReadmeRow extends StatelessWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override

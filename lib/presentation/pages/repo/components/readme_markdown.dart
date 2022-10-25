@@ -30,7 +30,7 @@ class ReadmeMarkdown extends ConsumerWidget {
     required this.repo,
   });
 
-  /// 選択中のリポジトリデータ
+  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override
