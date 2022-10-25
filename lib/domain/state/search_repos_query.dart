@@ -31,19 +31,34 @@ final searchReposEnteringQueryProvider = StateProvider<String>(
   (ref) => ref.watch(searchReposQueryProvider),
 );
 
+/// 検索履歴一覧のFutureプロバイダー
+final _queryHistoriesFutureProviderFamily =
+    FutureProvider.autoDispose.family<List<QueryHistory>, String>(
+  (ref, queryString) =>
+      ref.watch(queryHistoryRepositoryProvider).finds(queryString: queryString),
+);
+
+/// 検索履歴一覧のStreamプロバイダー
+final _queryHistoriesStreamProviderFamily =
+    StreamProvider.autoDispose.family<List<QueryHistory>, String>(
+  (ref, queryString) => ref
+      .watch(queryHistoryRepositoryProvider)
+      .changes(queryString: queryString),
+);
+
 /// リポジトリ検索履歴一覧プロバイダー
 final searchReposQueryHistoriesProvider =
     FutureProvider.autoDispose<List<QueryHistory>>(
   (ref) {
     final enteringQueryString = ref.watch(searchReposEnteringQueryProvider);
     ref.listen(
-      queryHistoriesStreamProviderFamily(enteringQueryString),
+      _queryHistoriesStreamProviderFamily(enteringQueryString),
       (previous, next) {
         ref.state = next;
       },
     );
     return ref
-        .watch(queryHistoriesFutureProviderFamily(enteringQueryString).future);
+        .watch(_queryHistoriesFutureProviderFamily(enteringQueryString).future);
   },
   name: 'searchReposQueryHistoriesProvider',
 );
