@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/state/current_repo.dart';
+import 'package:github_search/presentation/pages/repo/components/current_repo_full_name_text.dart';
 import 'package:github_search/presentation/pages/repo/components/repo_detail_view.dart';
-import 'package:github_search/presentation/pages/repo/components/repo_full_name_text.dart';
 import 'package:github_search/presentation/pages/repo/repo_view_page.dart';
 
 import '../../../test_utils/golden_testing_tools.dart';
@@ -38,7 +38,7 @@ void main() {
       await tester.pump();
 
       // リポジトリのフルネーム
-      expect(find.byType(RepoFullNameText), findsOneWidget);
+      expect(find.byType(CurrentRepoFullNameText), findsOneWidget);
 
       // リポジトリ詳細View
       expect(find.byType(SliverRepoDetailView), findsOneWidget);

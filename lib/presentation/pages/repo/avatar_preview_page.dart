@@ -3,9 +3,13 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../domain/repositories/repo/entities/repo.dart';
+import '../../../domain/state/current_repo.dart';
 import '../../../utils/logger.dart';
+import '../../components/async_value_handler.dart';
 import 'components/avatar_preview_view.dart';
 
 /// アバターのプレビュー画面
@@ -18,12 +22,24 @@ class AvatarPreviewPage extends StatelessWidget {
       // 透過して遷移元画面が見えるようにする
       backgroundColor:
           Theme.of(context).scaffoldBackgroundColor.withOpacity(0.85),
-      body: InkWell(
+      body: const _Body(),
+    );
+  }
+}
+
+class _Body extends ConsumerWidget {
+  const _Body();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AsyncValueHandler<Repo>(
+      value: ref.watch(currentRepoProvider),
+      builder: (repo) => InkWell(
         onTap: () {
           logger.v('Called onTap');
           context.pop();
         },
-        child: const AvatarPreviewView(),
+        child: AvatarPreviewView(repo: repo),
       ),
     );
   }

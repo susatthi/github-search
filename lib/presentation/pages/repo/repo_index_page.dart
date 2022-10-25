@@ -21,14 +21,14 @@ class RepoIndexPage extends StatefulWidget {
 
 @visibleForTesting
 class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
-  final _animatedBackgroundKey = GlobalKey<AnimatedAppBarBackgroundState>();
-  final _scrollController = ScrollController();
+  final animatedBackgroundKey = GlobalKey<AnimatedAppBarBackgroundState>();
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        controller: _scrollController,
+        controller: scrollController,
         slivers: [
           SearchAppBar(
             title: const SearchReposQueryTextButton(),
@@ -39,7 +39,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: AnimatedAppBarBackground(
-                  key: _animatedBackgroundKey,
+                  key: animatedBackgroundKey,
                 ),
               ),
             ),
@@ -47,7 +47,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
             floating: true,
           ),
           SliverRepoListView(
-            controller: _scrollController,
+            controller: scrollController,
           ),
         ],
       ),
@@ -66,7 +66,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   @override
   void dispose() {
     pageRouteObserver.unsubscribe(this);
-    _scrollController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -75,7 +75,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   void didPushNext(Route<dynamic> nextRoute) {
     // 遷移先がリポジトリ検索画面の時だけアニメーションする
     if (nextRoute.settings.name == RepoSearchRoute.name) {
-      _animatedBackgroundKey.currentState?.fill();
+      animatedBackgroundKey.currentState?.fill();
     }
   }
 
@@ -84,7 +84,7 @@ class RepoIndexPageState extends State<RepoIndexPage> with PageRouteAware {
   void didPopNext(Route<dynamic> nextRoute) {
     // 遷移元がリポジトリ検索画面の時だけアニメーションする
     if (nextRoute.settings.name == RepoSearchRoute.name) {
-      _animatedBackgroundKey.currentState?.collapse();
+      animatedBackgroundKey.currentState?.collapse();
     }
   }
 }
@@ -105,18 +105,18 @@ class AnimatedAppBarBackground extends StatefulWidget {
 
 @visibleForTesting
 class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
-  static const _animateDuration = Duration(milliseconds: 300);
+  static const animateDuration = Duration(milliseconds: 300);
 
   // 注意: 検索用テキストフィールドのサイズが変わったら下記のパラメータも変える必要がある
-  static const _initMargin = EdgeInsets.only(left: 18, right: 48);
-  static const _initHeight = 48.0;
-  static const _initRadius = 25.0;
+  static const initMargin = EdgeInsets.only(left: 18, right: 48);
+  static const initHeight = 48.0;
+  static const initRadius = 25.0;
 
   bool isFilled = false;
-  Duration _duration = _animateDuration;
-  EdgeInsets _margin = _initMargin;
-  double _height = _initHeight;
-  double _radius = _initRadius;
+  Duration duration = animateDuration;
+  EdgeInsets margin = initMargin;
+  double height = initHeight;
+  double radius = initRadius;
 
   /// 広げる
   void fill({
@@ -130,10 +130,10 @@ class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
     final size = MediaQuery.of(context).size;
     setState(() {
       isFilled = true;
-      _duration = animated ? _animateDuration : Duration.zero;
-      _margin = EdgeInsets.zero;
-      _height = size.height;
-      _radius = 0;
+      duration = animated ? animateDuration : Duration.zero;
+      margin = EdgeInsets.zero;
+      height = size.height;
+      radius = 0;
     });
   }
 
@@ -148,10 +148,10 @@ class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
     logger.v('Start collapse animation');
     setState(() {
       isFilled = false;
-      _duration = animated ? _animateDuration : Duration.zero;
-      _margin = _initMargin;
-      _height = _initHeight;
-      _radius = _initRadius;
+      duration = animated ? animateDuration : Duration.zero;
+      margin = initMargin;
+      height = initHeight;
+      radius = initRadius;
     });
   }
 
@@ -159,12 +159,12 @@ class AnimatedAppBarBackgroundState extends State<AnimatedAppBarBackground> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       curve: Curves.decelerate,
-      duration: _duration,
-      height: _height,
-      margin: _margin,
+      duration: duration,
+      height: height,
+      margin: margin,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.all(Radius.circular(_radius)),
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
       ),
       child: const SizedBox(
         width: double.infinity,

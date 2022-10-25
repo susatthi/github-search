@@ -8,29 +8,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
-import '../../../../domain/state/current_repo.dart';
-import '../../../components/async_value_handler.dart';
 import '../../../components/cached_circle_avatar.dart';
 
 /// アバター画像プレビューView
 class AvatarPreviewView extends ConsumerWidget {
-  const AvatarPreviewView({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return AsyncValueHandler<Repo>(
-      value: ref.watch(currentRepoProvider),
-      builder: (repo) => _AvatarPreviewView(repo: repo),
-    );
-  }
-}
-
-class _AvatarPreviewView extends ConsumerWidget {
-  const _AvatarPreviewView({
+  const AvatarPreviewView({
+    super.key,
     required this.repo,
   });
 
-  /// 現在のリポジトリデータ
   final Repo repo;
 
   @override

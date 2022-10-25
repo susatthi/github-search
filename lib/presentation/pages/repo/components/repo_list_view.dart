@@ -340,7 +340,7 @@ class RepoPromptSearchView extends StatefulWidget {
 }
 
 class _RepoPromptSearchViewState extends State<RepoPromptSearchView> {
-  double _opacity = 0;
+  double opacity = 0;
 
   @override
   void initState() {
@@ -350,7 +350,7 @@ class _RepoPromptSearchViewState extends State<RepoPromptSearchView> {
     // 本Viewが表示されてちらついているように見えるため、500ミリ秒遅延させる
     Future<void>.delayed(const Duration(milliseconds: 500)).then((value) {
       if (mounted) {
-        setState(() => _opacity = 1);
+        setState(() => opacity = 1);
       }
     });
   }
@@ -360,7 +360,7 @@ class _RepoPromptSearchViewState extends State<RepoPromptSearchView> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: AnimatedOpacity(
-        opacity: _opacity,
+        opacity: opacity,
         duration: const Duration(milliseconds: 1000),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
