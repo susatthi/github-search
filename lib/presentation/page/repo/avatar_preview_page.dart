@@ -22,13 +22,16 @@ class AvatarPreviewPage extends StatelessWidget {
       // 透過して遷移元画面が見えるようにする
       backgroundColor:
           Theme.of(context).scaffoldBackgroundColor.withOpacity(0.85),
-      body: const _Body(),
+      body: const AvatarPreviewBody(),
     );
   }
 }
 
-class _Body extends ConsumerWidget {
-  const _Body();
+@visibleForTesting
+class AvatarPreviewBody extends ConsumerWidget {
+  const AvatarPreviewBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

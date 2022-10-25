@@ -173,7 +173,7 @@ Repository Interfaces の実体。Data Sources を利用してデータの永続
 
 ### コードの自動生成
 
-- `localizations/*.json` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は次のコマンドを実行してください。
+- `localization/*.json` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は次のコマンドを実行してください。
 
 ```bash
 make build-runner

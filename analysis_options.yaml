@@ -19,7 +19,7 @@ linter:
 analyzer:
   exclude:
     - '**/*.freezed.dart'
-    - '**/localizations/*.dart'
+    - '**/localization/*.dart'
     - '**/generated_plugin_registrant.dart'
     - '**/riverpod_graph.dart'
     - '**/util/assets/*.gen.dart'

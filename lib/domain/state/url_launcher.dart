@@ -27,7 +27,7 @@ class UrlLauncherStateController
   /// URLを起動する
   Future<void> launch(
     String urlString, {
-    UrlLauncheMode mode = UrlLauncheMode.platformDefault,
+    UrlLaunchMode mode = UrlLaunchMode.platformDefault,
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {

@@ -8,7 +8,7 @@ import 'package:github_search/domain/repository/query_history/entity/query_histo
 import 'package:github_search/domain/repository/query_history/query_history_repository.dart';
 import 'package:github_search/infrastructure/isar/query_history/query_history_repository.dart';
 
-import '../../../test_utils/test_agent.dart';
+import '../../../test_util/test_agent.dart';
 
 void main() {
   final agent = TestAgent();

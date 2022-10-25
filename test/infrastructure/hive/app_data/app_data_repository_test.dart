@@ -9,7 +9,7 @@ import 'package:github_search/domain/repository/repo/entity/search_repos_order.d
 import 'package:github_search/domain/repository/repo/entity/search_repos_sort.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
 
-import '../../../test_utils/test_agent.dart';
+import '../../../test_util/test_agent.dart';
 
 void main() {
   final agent = TestAgent();

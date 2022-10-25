@@ -21,7 +21,7 @@ class RepoViewPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SearchAppBar(
-            title: const _Title(),
+            title: const RepoViewTitle(),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             floating: true,
           ),
@@ -33,8 +33,11 @@ class RepoViewPage extends StatelessWidget {
 }
 
 /// 現在のリポジトリ名を表示するText
-class _Title extends ConsumerWidget {
-  const _Title();
+@visibleForTesting
+class RepoViewTitle extends ConsumerWidget {
+  const RepoViewTitle({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

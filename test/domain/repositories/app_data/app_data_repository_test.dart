@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/repository/app_data/app_data_repository.dart';
 
-import '../../../test_utils/test_agent.dart';
+import '../../../test_util/test_agent.dart';
 
 void main() {
   final agent = TestAgent();

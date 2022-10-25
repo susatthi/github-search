@@ -47,13 +47,13 @@ class UrlLauncherUrlLauncherRepository implements UrlLauncherRepository {
   }
 }
 
-extension _UrlLauncherModeEx on UrlLauncheMode {
+extension _UrlLauncherModeEx on UrlLaunchMode {
   /// UrlLauncherMode => LaunchMode
   LaunchMode toLaunchMode() {
     switch (this) {
-      case UrlLauncheMode.platformDefault:
+      case UrlLaunchMode.platformDefault:
         return LaunchMode.platformDefault;
-      case UrlLauncheMode.inAppWebView:
+      case UrlLaunchMode.inAppWebView:
         return LaunchMode.inAppWebView;
     }
   }
