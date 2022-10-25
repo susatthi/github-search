@@ -13,7 +13,7 @@ import 'package:markdown/markdown.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
-import '../../../../domain/repositories/url_launcher/url_launcher_repository.dart';
+import '../../../../domain/state/url_launcher.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
 import '../../../widgets/async_value_handler.dart';
@@ -73,7 +73,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(urlLauncherProvider.notifier).launch(href);
+          await ref.read(urlLauncherStateProvider.notifier).launch(href);
         }
       },
       extensionSet: ExtensionSet(
