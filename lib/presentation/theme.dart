@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utils/assets/fonts.gen.dart';
+import '../util/assets/fonts.gen.dart';
 
 /// テーマプロバイダー
 final themeProvider = Provider.family<ThemeData, Brightness>(

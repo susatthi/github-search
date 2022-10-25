@@ -14,7 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
-import 'package:github_search/presentation/pages/repo/components/readme_markdown.dart';
+import 'package:github_search/presentation/page/repo/component/readme_markdown.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';

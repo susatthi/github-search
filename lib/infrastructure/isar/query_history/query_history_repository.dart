@@ -5,10 +5,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 
-import '../../../domain/repositories/query_history/entities/query_history.dart';
-import '../../../domain/repositories/query_history/query_history_repository.dart';
-import '../../../utils/logger.dart';
-import 'collections/query_history.dart';
+import '../../../domain/repository/query_history/entity/query_history.dart';
+import '../../../domain/repository/query_history/query_history_repository.dart';
+import '../../../util/logger.dart';
+import 'collection/query_history.dart';
 
 /// Isarインスタンスプロバイダー
 ///

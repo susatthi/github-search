@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/app_data/app_data_repository.dart';
-import 'package:github_search/domain/repositories/app_data/entities/app_data_key.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
+import 'package:github_search/domain/repository/app_data/app_data_repository.dart';
+import 'package:github_search/domain/repository/app_data/entity/app_data_key.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_order.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_sort.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
 
 import '../../../test_utils/test_agent.dart';

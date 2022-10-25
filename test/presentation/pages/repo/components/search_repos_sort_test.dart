@@ -5,11 +5,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_sort.dart';
-import 'package:github_search/utils/localizations/strings.g.dart';
+import 'package:github_search/presentation/page/repo/component/search_repos_order.dart';
+import 'package:github_search/presentation/page/repo/component/search_repos_sort.dart';
+import 'package:github_search/util/localization/strings.g.dart';
 
 import '../../../../test_utils/logger.dart';
 import '../../../../test_utils/mocks.dart';

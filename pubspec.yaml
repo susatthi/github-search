@@ -95,7 +95,7 @@ flutter:
   uses-material-design: true
 
 flutter_gen:
-  output: lib/utils/assets/
+  output: lib/util/assets/
 
 flutter_icons:
   # flutter pub run flutter_launcher_icons:main

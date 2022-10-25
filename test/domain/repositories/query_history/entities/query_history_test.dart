@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
+import 'package:github_search/domain/repository/query_history/entity/query_history.dart';
 
 void main() {
   group('QueryHistory', () {

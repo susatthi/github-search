@@ -5,8 +5,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../domain/repositories/app_data/app_data_repository.dart';
-import '../../../domain/repositories/app_data/entities/app_data_key.dart';
+import '../../../domain/repository/app_data/app_data_repository.dart';
+import '../../../domain/repository/app_data/entity/app_data_key.dart';
 
 /// Hive の Box 名
 const hiveBoxNameAppData = 'appData';

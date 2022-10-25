@@ -7,7 +7,7 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:github_search/utils/localizations/strings.g.dart';
+import 'package:github_search/util/localization/strings.g.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'logger.dart';

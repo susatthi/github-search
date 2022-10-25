@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/state/current_repo.dart';
-import 'package:github_search/presentation/pages/repo/components/avatar_preview_view.dart';
+import 'package:github_search/presentation/page/repo/component/avatar_preview_view.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';

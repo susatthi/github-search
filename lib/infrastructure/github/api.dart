@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import '../../domain/repositories/repo/entities/search_repos_order.dart';
-import '../../domain/repositories/repo/entities/search_repos_sort.dart';
+import '../../domain/repository/repo/entity/search_repos_order.dart';
+import '../../domain/repository/repo/entity/search_repos_sort.dart';
 
 /// GitHub の URL
 const githubSiteUrl = 'https://github.com';

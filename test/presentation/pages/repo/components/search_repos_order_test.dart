@@ -4,10 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_order.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_order.dart';
-import 'package:github_search/presentation/pages/repo/components/search_repos_query.dart';
+import 'package:github_search/presentation/page/repo/component/search_repos_order.dart';
 
 import '../../../../test_utils/logger.dart';
 import '../../../../test_utils/mocks.dart';

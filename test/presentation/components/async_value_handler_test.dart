@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/components/async_value_handler.dart';
+import 'package:github_search/presentation/component/async_value_handler.dart';
 
 import '../../test_utils/test_agent.dart';
 

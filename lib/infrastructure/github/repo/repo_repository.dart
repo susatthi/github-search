@@ -5,17 +5,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/exceptions.dart';
-import '../../../domain/repositories/repo/entities/repo.dart';
-import '../../../domain/repositories/repo/entities/search_repos_order.dart';
-import '../../../domain/repositories/repo/entities/search_repos_result.dart';
-import '../../../domain/repositories/repo/entities/search_repos_sort.dart';
-import '../../../domain/repositories/repo/entities/values/repo_count.dart';
-import '../../../domain/repositories/repo/entities/values/repo_language.dart';
-import '../../../domain/repositories/repo/repo_repository.dart';
+import '../../../domain/repository/repo/entity/repo.dart';
+import '../../../domain/repository/repo/entity/search_repos_order.dart';
+import '../../../domain/repository/repo/entity/search_repos_result.dart';
+import '../../../domain/repository/repo/entity/search_repos_sort.dart';
+import '../../../domain/repository/repo/entity/value/repo_count.dart';
+import '../../../domain/repository/repo/entity/value/repo_language.dart';
+import '../../../domain/repository/repo/repo_repository.dart';
 import '../api.dart';
 import '../http_client.dart';
-import 'json_objects/repo.dart';
-import 'json_objects/search_repos_result.dart';
+import 'json_object/repo.dart';
+import 'json_object/search_repos_result.dart';
 
 /// GitHubApiプロバイダー
 final githubApiProvider = Provider<GitHubApi>(

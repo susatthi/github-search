@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-import 'repositories/url_launcher/entities/url_launch_data.dart';
+import 'repository/url_launcher/entity/url_launch_data.dart';
 
 /// 基底ドメイン例外
 ///

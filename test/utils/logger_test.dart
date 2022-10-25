@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/utils/logger.dart';
+import 'package:github_search/util/logger.dart';
 
 import '../test_utils/test_agent.dart';
 

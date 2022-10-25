@@ -5,13 +5,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../utils/logger.dart';
-import '../repositories/app_data/app_data_repository.dart';
-import '../repositories/repo/entities/repo.dart';
-import '../repositories/repo/entities/search_repos_order.dart';
-import '../repositories/repo/entities/search_repos_result.dart';
-import '../repositories/repo/entities/search_repos_sort.dart';
-import '../repositories/repo/repo_repository.dart';
+import '../../util/logger.dart';
+import '../repository/app_data/app_data_repository.dart';
+import '../repository/repo/entity/repo.dart';
+import '../repository/repo/entity/search_repos_order.dart';
+import '../repository/repo/entity/search_repos_result.dart';
+import '../repository/repo/entity/search_repos_sort.dart';
+import '../repository/repo/repo_repository.dart';
 import 'search_repos_query.dart';
 
 part 'search_repos.freezed.dart';

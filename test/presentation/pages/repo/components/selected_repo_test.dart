@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo/entities/repo.dart';
+import 'package:github_search/domain/repository/repo/entity/repo.dart';
 import 'package:github_search/domain/state/current_repo.dart';
 import 'package:github_search/infrastructure/github/repo/json_objects/repo.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';

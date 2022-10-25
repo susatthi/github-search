@@ -7,12 +7,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/exceptions.dart';
-import '../domain/repositories/url_launcher/entities/url_launch_data.dart';
+import '../domain/repository/url_launcher/entity/url_launch_data.dart';
 import '../domain/state/url_launcher.dart';
-import '../utils/extensions.dart';
-import '../utils/localizations/strings.g.dart';
-import '../utils/logger.dart';
-import '../utils/routing/router.dart';
+import '../util/extension.dart';
+import '../util/localization/strings.g.dart';
+import '../util/logger.dart';
+import '../util/routing/router.dart';
 import 'theme.dart';
 
 /// GitHubSearch アプリ

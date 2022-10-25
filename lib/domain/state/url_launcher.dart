@@ -4,8 +4,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../repositories/url_launcher/entities/url_launch_data.dart';
-import '../repositories/url_launcher/url_launcher_repository.dart';
+import '../repository/url_launcher/entity/url_launch_data.dart';
+import '../repository/url_launcher/url_launcher_repository.dart';
 
 /// URL起動状態プロバイダー
 final urlLauncherStateProvider = StateNotifierProvider<

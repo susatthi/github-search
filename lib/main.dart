@@ -8,10 +8,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import 'domain/repositories/app_data/app_data_repository.dart';
-import 'domain/repositories/query_history/query_history_repository.dart';
-import 'domain/repositories/repo/repo_repository.dart';
-import 'domain/repositories/url_launcher/url_launcher_repository.dart';
+import 'domain/repository/app_data/app_data_repository.dart';
+import 'domain/repository/query_history/query_history_repository.dart';
+import 'domain/repository/repo/repo_repository.dart';
+import 'domain/repository/url_launcher/url_launcher_repository.dart';
 import 'infrastructure/github/repo/repo_repository.dart';
 import 'infrastructure/hive/app_data/app_data_repository.dart';
 import 'infrastructure/hive/hive.dart';
@@ -19,8 +19,8 @@ import 'infrastructure/isar/isar.dart';
 import 'infrastructure/isar/query_history/query_history_repository.dart';
 import 'infrastructure/url_launcher/url_launcher_repository.dart';
 import 'presentation/app.dart';
-import 'utils/localizations/strings.g.dart';
-import 'utils/logger.dart';
+import 'util/localization/strings.g.dart';
+import 'util/logger.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

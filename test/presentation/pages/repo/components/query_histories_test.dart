@@ -7,9 +7,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/query_history/entities/query_history.dart';
-import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
-import 'package:github_search/presentation/pages/repo/components/query_history.dart';
+import 'package:github_search/domain/repository/query_history/entity/query_history.dart';
+import 'package:github_search/domain/repository/query_history/query_history_repository.dart';
+import 'package:github_search/presentation/page/repo/component/query_history.dart';
 
 import '../../../../test_utils/golden_testing_tools.dart';
 import '../../../../test_utils/logger.dart';

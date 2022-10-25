@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_order.dart';
 
 void main() {
   group('SearchReposOrder', () {
