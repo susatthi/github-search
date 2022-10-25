@@ -6,13 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../util/logger.dart';
-import '../repository/app_data/app_data_repository.dart';
 import '../repository/repo/entity/repo.dart';
 import '../repository/repo/entity/search_repos_order.dart';
 import '../repository/repo/entity/search_repos_result.dart';
 import '../repository/repo/entity/search_repos_sort.dart';
 import '../repository/repo/repo_repository.dart';
+import 'search_repos_order.dart';
 import 'search_repos_query.dart';
+import 'search_repos_sort.dart';
 
 part 'search_repos.freezed.dart';
 
@@ -22,8 +23,8 @@ final searchReposStateProvider = StateNotifierProvider.autoDispose<
   (ref) => SearchReposStateController(
     repoRepository: ref.watch(repoRepositoryProvider),
     queryString: ref.watch(searchReposQueryProvider),
-    sort: ref.watch(searchReposSortProvider),
-    order: ref.watch(searchReposOrderProvider),
+    sort: ref.watch(searchReposSortStateProvider),
+    order: ref.watch(searchReposOrderStateProvider),
   ),
   name: 'searchReposStateProvider',
 );

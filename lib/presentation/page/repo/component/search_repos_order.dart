@@ -5,9 +5,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../domain/repository/app_data/app_data_repository.dart';
 import '../../../../domain/repository/repo/entity/search_repos_order.dart';
 import '../../../../domain/state/search_repos.dart';
+import '../../../../domain/state/search_repos_order.dart';
 import '../../../../util/localization/strings.g.dart';
 import '../../../../util/logger.dart';
 
@@ -41,14 +41,14 @@ class SearchReposOrderToggleButtonInternal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final order = ref.watch(searchReposOrderProvider);
+    final order = ref.watch(searchReposOrderStateProvider);
     logger.v('enabled = $enabled, order = ${order.name}');
     return IconButton(
       onPressed: enabled
           ? () {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
-              ref.read(searchReposOrderProvider.notifier).set(newOrder);
+              ref.read(searchReposOrderStateProvider.notifier).set(newOrder);
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
               }

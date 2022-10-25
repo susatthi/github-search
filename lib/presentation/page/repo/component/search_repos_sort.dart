@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../domain/repository/app_data/app_data_repository.dart';
 import '../../../../domain/repository/repo/entity/search_repos_sort.dart';
+import '../../../../domain/state/search_repos_sort.dart';
 import '../../../../util/localization/strings.g.dart';
 import '../../../../util/logger.dart';
 import 'search_repos_order.dart';
@@ -25,7 +25,7 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sort = ref.watch(searchReposSortProvider);
+    final sort = ref.watch(searchReposSortStateProvider);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -45,7 +45,7 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
               title: Text(e.key),
               onTap: () {
                 logger.i('Changed: newSort = ${e.value.name}');
-                ref.read(searchReposSortProvider.notifier).set(e.value);
+                ref.read(searchReposSortStateProvider.notifier).set(e.value);
                 if (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
                 }
