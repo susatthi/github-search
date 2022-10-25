@@ -5,10 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../domain/state/search_repos_query.dart';
 import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
-import '../../../controllers/search_repos_query_controller.dart';
 
 /// リポジトリ検索用テキストフィールド
 class SearchReposQueryTextField extends ConsumerStatefulWidget {

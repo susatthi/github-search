@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/repositories/query_history/entities/query_history.dart';
+import '../../../../domain/state/search_repos_query.dart';
 import '../../../../utils/logger.dart';
-import '../../../controllers/search_repos_query_controller.dart';
 
 /// Sliver版検索履歴一覧View
 class SliverQueryHistoriesListView extends ConsumerWidget {

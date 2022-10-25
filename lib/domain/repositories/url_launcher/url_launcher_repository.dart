@@ -21,17 +21,17 @@ abstract class UrlLauncherRepository {
   Future<void> launch(UrlLaunchData data);
 }
 
-/// URL起動データプロバイダー
-final urlLaunchDataProvider =
-    StateNotifierProvider<UrlLaunchDataNotifier, AsyncValue<UrlLaunchData>>(
-  (ref) => UrlLaunchDataNotifier(
+/// URL起動プロバイダー
+final urlLauncherProvider =
+    StateNotifierProvider<UrlLauncherNotifier, AsyncValue<UrlLaunchData>>(
+  (ref) => UrlLauncherNotifier(
     urlLauncherRepository: ref.watch(urlLauncherRepositoryProvider),
   ),
 );
 
-/// URL起動データNotifier
-class UrlLaunchDataNotifier extends StateNotifier<AsyncValue<UrlLaunchData>> {
-  UrlLaunchDataNotifier({
+/// URL起動Notifier
+class UrlLauncherNotifier extends StateNotifier<AsyncValue<UrlLaunchData>> {
+  UrlLauncherNotifier({
     required this.urlLauncherRepository,
   }) : super(const AsyncValue.loading());
 

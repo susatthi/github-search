@@ -50,7 +50,7 @@ class _GitHubSearchApp extends ConsumerWidget {
     // URL起動状態を監視してエラーが起きたらSnackBarを表示する
     // どの画面でURL起動してもここで一括でエラーハンドリングできるようにしている
     ref.listen<AsyncValue<UrlLaunchData>>(
-      urlLaunchDataProvider,
+      urlLauncherProvider,
       (previous, next) {
         logger.i('Updated UrlLaunchData: $next');
         next.whenError((error, _) {

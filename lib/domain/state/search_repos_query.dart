@@ -8,8 +8,8 @@ import '../../../../domain/repositories/query_history/entities/query_history.dar
 import '../../../../domain/repositories/query_history/query_history_repository.dart';
 import '../../../../utils/env/env.dart';
 import '../../../../utils/env/env_define.dart';
-import '../../domain/exceptions.dart';
 import '../../utils/logger.dart';
+import '../exceptions.dart';
 
 /// リポジトリ検索文字列初期値プロバイダー
 final searchReposInitQueryProvider = Provider<String>(

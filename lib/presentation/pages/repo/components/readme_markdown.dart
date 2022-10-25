@@ -13,9 +13,9 @@ import 'package:markdown/markdown.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
 import '../../../../domain/repositories/repo/repo_repository.dart';
+import '../../../../domain/repositories/url_launcher/url_launcher_repository.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/logger.dart';
-import '../../../controllers/url_launcher_controller.dart';
 import '../../../widgets/async_value_handler.dart';
 
 /// ReadmeMarkdownのキャッシュマネージャープロバイダー
@@ -73,7 +73,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(urlLauncherControllerProvider).launch(href);
+          await ref.read(urlLauncherProvider.notifier).launch(href);
         }
       },
       extensionSet: ExtensionSet(
