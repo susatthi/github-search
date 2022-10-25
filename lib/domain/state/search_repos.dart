@@ -5,21 +5,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/repositories/app_data/app_data_repository.dart';
-import '../../domain/repositories/repo/entities/repo.dart';
-import '../../domain/repositories/repo/entities/search_repos_order.dart';
-import '../../domain/repositories/repo/entities/search_repos_result.dart';
-import '../../domain/repositories/repo/entities/search_repos_sort.dart';
-import '../../domain/repositories/repo/repo_repository.dart';
-import '../../domain/state/search_repos_query.dart';
 import '../../utils/logger.dart';
+import '../repositories/app_data/app_data_repository.dart';
+import '../repositories/repo/entities/repo.dart';
+import '../repositories/repo/entities/search_repos_order.dart';
+import '../repositories/repo/entities/search_repos_result.dart';
+import '../repositories/repo/entities/search_repos_sort.dart';
+import '../repositories/repo/repo_repository.dart';
+import 'search_repos_query.dart';
 
 part 'search_repos.freezed.dart';
 
 /// リポジトリ検索状態プロバイダー
 final searchReposStateProvider = StateNotifierProvider.autoDispose<
-    SearchReposController, AsyncValue<SearchReposState>>(
-  (ref) => SearchReposController(
+    SearchReposStateController, AsyncValue<SearchReposState>>(
+  (ref) => SearchReposStateController(
     repoRepository: ref.watch(repoRepositoryProvider),
     queryString: ref.watch(searchReposQueryProvider),
     sort: ref.watch(searchReposSortProvider),
@@ -49,10 +49,10 @@ class SearchReposState with _$SearchReposState {
   }
 }
 
-/// リポジトリ検索コントローラー
-class SearchReposController
+/// リポジトリ検索状態コントローラー
+class SearchReposStateController
     extends StateNotifier<AsyncValue<SearchReposState>> {
-  SearchReposController({
+  SearchReposStateController({
     required this.repoRepository,
     required this.queryString,
     required this.sort,

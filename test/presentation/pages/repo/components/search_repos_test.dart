@@ -4,13 +4,13 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/presentation/controllers/search_repos.dart';
+import 'package:github_search/domain/state/search_repos.dart';
 
 import '../../../../test_utils/test_agent.dart';
 
 void main() {
   final agent = TestAgent();
-  late SearchReposController controller;
+  late SearchReposStateController controller;
   setUp(() async {
     await agent.setUp();
     controller = agent
@@ -45,7 +45,7 @@ void main() {
       var state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
-      expect(state.items.length, SearchReposController.perPage);
+      expect(state.items.length, SearchReposStateController.perPage);
       expect(state.queryString, 'flutter');
 
       // 次のページを取得する
@@ -54,7 +54,7 @@ void main() {
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
       state = controller.state.value;
       expect(state!.page, 2);
-      expect(state.items.length, SearchReposController.perPage * 2);
+      expect(state.items.length, SearchReposStateController.perPage * 2);
       expect(state.queryString, 'flutter');
     });
     test('1ページ目を未取得の状態でfetchNextPage()を実行しても問題ないはず', () async {
@@ -77,7 +77,7 @@ void main() {
       final state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
-      expect(state.items.length, SearchReposController.perPage);
+      expect(state.items.length, SearchReposStateController.perPage);
     });
     test('fetchNextPage()で次のページが無い場合は何もしないはず', () async {
       // データを取り終わるまで待つ
@@ -94,7 +94,7 @@ void main() {
       var state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
-      expect(state.items.length, SearchReposController.perPage * 2);
+      expect(state.items.length, SearchReposStateController.perPage * 2);
 
       // 4ページ目を取得する
       await controller.fetchNextPage();
@@ -104,7 +104,7 @@ void main() {
       state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
-      expect(state.items.length, SearchReposController.perPage * 2);
+      expect(state.items.length, SearchReposStateController.perPage * 2);
     });
   });
 }

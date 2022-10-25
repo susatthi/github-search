@@ -11,21 +11,6 @@ final queryHistoryRepositoryProvider = Provider<QueryHistoryRepository>(
   (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
-/// 検索履歴一覧のFutureプロバイダー
-final queryHistoriesFutureProviderFamily =
-    FutureProvider.autoDispose.family<List<QueryHistory>, String>(
-  (ref, queryString) =>
-      ref.watch(queryHistoryRepositoryProvider).finds(queryString: queryString),
-);
-
-/// 検索履歴一覧のStreamプロバイダー
-final queryHistoriesStreamProviderFamily =
-    StreamProvider.autoDispose.family<List<QueryHistory>, String>(
-  (ref, queryString) => ref
-      .watch(queryHistoryRepositoryProvider)
-      .changes(queryString: queryString),
-);
-
 /// 検索履歴Repository
 abstract class QueryHistoryRepository {
   /// 検索履歴を登録する

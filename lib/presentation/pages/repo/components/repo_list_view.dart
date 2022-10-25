@@ -11,11 +11,11 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../domain/repositories/repo/entities/repo.dart';
+import '../../../../domain/state/search_repos.dart';
 import '../../../../utils/assets/assets.gen.dart';
 import '../../../../utils/localizations/strings.g.dart';
 import '../../../../utils/logger.dart';
 import '../../../../utils/routing/router.dart';
-import '../../../controllers/search_repos.dart';
 import '../../../widgets/cached_circle_avatar.dart';
 import '../../../widgets/error_view.dart';
 import '../../../widgets/icon_label.dart';
