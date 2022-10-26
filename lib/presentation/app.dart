@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/exceptions.dart';
 import '../domain/repository/url_launcher/entity/url_launch_data.dart';
-import '../domain/state/url_launcher.dart';
+import '../domain/repository/url_launcher/url_launcher_repository.dart';
 import '../util/extension.dart';
 import '../util/localization/strings.g.dart';
 import '../util/logger.dart';

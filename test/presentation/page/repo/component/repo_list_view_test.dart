@@ -186,7 +186,7 @@ void main() {
 
       final listView = tester.widget(find.byType(SliverRepoListViewInternal))
           as SliverRepoListViewInternal;
-      final repo = listView.state.items
+      final repo = listView.queryData.items
           .firstWhere((element) => element.fullName == 'flutter/flutter');
 
       final location = RepoViewRoute.from(repo).location;

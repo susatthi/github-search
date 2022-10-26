@@ -5,43 +5,42 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../domain/entity/search_repos_query.dart';
+import '../../domain/repository/app_data/app_data_repository.dart';
+import '../../domain/repository/repo/entity/repo.dart';
+import '../../domain/repository/repo/entity/search_repos_order.dart';
+import '../../domain/repository/repo/entity/search_repos_result.dart';
+import '../../domain/repository/repo/entity/search_repos_sort.dart';
+import '../../domain/repository/repo/repo_repository.dart';
 import '../../util/logger.dart';
-import '../repository/repo/entity/repo.dart';
-import '../repository/repo/entity/search_repos_order.dart';
-import '../repository/repo/entity/search_repos_result.dart';
-import '../repository/repo/entity/search_repos_sort.dart';
-import '../repository/repo/repo_repository.dart';
-import 'search_repos_order.dart';
-import 'search_repos_query.dart';
-import 'search_repos_sort.dart';
 
-part 'search_repos.freezed.dart';
+part 'repos_query.freezed.dart';
 
-/// リポジトリ検索状態プロバイダー
-final searchReposStateProvider = StateNotifierProvider.autoDispose<
-    SearchReposStateController, AsyncValue<SearchReposState>>(
-  (ref) => SearchReposStateController(
+/// リポジトリ一覧クエリデータプロバイダー
+final reposQueryDataProvider = StateNotifierProvider.autoDispose<
+    ReposQueryDataNotifier, AsyncValue<ReposQueryData>>(
+  (ref) => ReposQueryDataNotifier(
     repoRepository: ref.watch(repoRepositoryProvider),
     queryString: ref.watch(searchReposQueryProvider),
-    sort: ref.watch(searchReposSortStateProvider),
-    order: ref.watch(searchReposOrderStateProvider),
+    sort: ref.watch(searchReposSortProvider),
+    order: ref.watch(searchReposOrderProvider),
   ),
-  name: 'searchReposStateProvider',
+  name: 'reposQueryDataProvider',
 );
 
-/// リポジトリ検索状態
+/// リポジトリ一覧クエリデータ
 @freezed
-class SearchReposState with _$SearchReposState {
-  const factory SearchReposState({
+class ReposQueryData with _$ReposQueryData {
+  const factory ReposQueryData({
     @Default(0) int totalCount,
     @Default(<Repo>[]) List<Repo> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
     @Default('') String queryString,
-  }) = _SearchReposState;
+  }) = _ReposQueryData;
 
-  factory SearchReposState.from(SearchReposResult result) {
-    return SearchReposState(
+  factory ReposQueryData.from(SearchReposResult result) {
+    return ReposQueryData(
       totalCount: result.totalCount,
       items: result.items,
       hasNext: result.items.length < result.totalCount,
@@ -50,10 +49,9 @@ class SearchReposState with _$SearchReposState {
   }
 }
 
-/// リポジトリ検索状態コントローラー
-class SearchReposStateController
-    extends StateNotifier<AsyncValue<SearchReposState>> {
-  SearchReposStateController({
+/// リポジトリ一覧クエリデータNotifier
+class ReposQueryDataNotifier extends StateNotifier<AsyncValue<ReposQueryData>> {
+  ReposQueryDataNotifier({
     required this.repoRepository,
     required this.queryString,
     required this.sort,
@@ -64,7 +62,7 @@ class SearchReposStateController
       state = await AsyncValue.guard(() async {
         final trimQueryString = queryString.trim();
         if (trimQueryString.isEmpty) {
-          return const SearchReposState();
+          return const ReposQueryData();
         }
 
         final result = await repoRepository.searchRepos(
@@ -77,7 +75,7 @@ class SearchReposStateController
           'Search repos result: totalCount = ${result.totalCount}, '
           'fetchItems = ${result.items.length}',
         );
-        return SearchReposState.from(result);
+        return ReposQueryData.from(result);
       });
     }();
   }

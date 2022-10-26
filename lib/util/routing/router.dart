@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
+import '../../domain/entity/repo_param.dart';
 import '../../domain/repository/repo/entity/repo.dart';
-import '../../domain/state/current_repo.dart';
 import '../../presentation/page/error/error_page.dart';
 import '../../presentation/page/repo/avatar_preview_page.dart';
 import '../../presentation/page/repo/repo_index_page.dart';
@@ -115,9 +115,9 @@ class RepoViewRoute extends GoRouteData {
         name: name,
         child: ProviderScope(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                CurrentRepoParam(
+            currentRepoParamProvider.overrideWithValue(
+              StateController(
+                RepoParam(
                   ownerName: ownerName,
                   repoName: repoName,
                 ),
@@ -154,12 +154,11 @@ class AvatarPreviewRoute extends GoRouteData {
         name: name,
         child: ProviderScope(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                CurrentRepoParam(
+            currentRepoParamProvider.overrideWithValue(
+              StateController(
+                RepoParam(
                   ownerName: ownerName,
                   repoName: repoName,
-                  extra: $extra,
                 ),
               ),
             ),

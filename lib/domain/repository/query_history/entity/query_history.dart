@@ -4,7 +4,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'value/query_string.dart';
+import 'value_object/query_string.dart';
 
 part 'query_history.freezed.dart';
 

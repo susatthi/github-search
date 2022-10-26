@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'current_repo.dart';
+part of 'repo_param.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$CurrentRepoParam {
+mixin _$RepoParam {
   /// オーナー名
   String get ownerName => throw _privateConstructorUsedError;
 
@@ -27,28 +27,26 @@ mixin _$CurrentRepoParam {
   Repo? get extra => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CurrentRepoParamCopyWith<CurrentRepoParam> get copyWith =>
+  $RepoParamCopyWith<RepoParam> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CurrentRepoParamCopyWith<$Res> {
-  factory $CurrentRepoParamCopyWith(
-          CurrentRepoParam value, $Res Function(CurrentRepoParam) then) =
-      _$CurrentRepoParamCopyWithImpl<$Res>;
+abstract class $RepoParamCopyWith<$Res> {
+  factory $RepoParamCopyWith(RepoParam value, $Res Function(RepoParam) then) =
+      _$RepoParamCopyWithImpl<$Res>;
   $Res call({String ownerName, String repoName, Repo? extra});
 
   $RepoCopyWith<$Res>? get extra;
 }
 
 /// @nodoc
-class _$CurrentRepoParamCopyWithImpl<$Res>
-    implements $CurrentRepoParamCopyWith<$Res> {
-  _$CurrentRepoParamCopyWithImpl(this._value, this._then);
+class _$RepoParamCopyWithImpl<$Res> implements $RepoParamCopyWith<$Res> {
+  _$RepoParamCopyWithImpl(this._value, this._then);
 
-  final CurrentRepoParam _value;
+  final RepoParam _value;
   // ignore: unused_field
-  final $Res Function(CurrentRepoParam) _then;
+  final $Res Function(RepoParam) _then;
 
   @override
   $Res call({
@@ -85,11 +83,10 @@ class _$CurrentRepoParamCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_CurrentRepoParamCopyWith<$Res>
-    implements $CurrentRepoParamCopyWith<$Res> {
-  factory _$$_CurrentRepoParamCopyWith(
-          _$_CurrentRepoParam value, $Res Function(_$_CurrentRepoParam) then) =
-      __$$_CurrentRepoParamCopyWithImpl<$Res>;
+abstract class _$$_RepoParamCopyWith<$Res> implements $RepoParamCopyWith<$Res> {
+  factory _$$_RepoParamCopyWith(
+          _$_RepoParam value, $Res Function(_$_RepoParam) then) =
+      __$$_RepoParamCopyWithImpl<$Res>;
   @override
   $Res call({String ownerName, String repoName, Repo? extra});
 
@@ -98,15 +95,14 @@ abstract class _$$_CurrentRepoParamCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CurrentRepoParamCopyWithImpl<$Res>
-    extends _$CurrentRepoParamCopyWithImpl<$Res>
-    implements _$$_CurrentRepoParamCopyWith<$Res> {
-  __$$_CurrentRepoParamCopyWithImpl(
-      _$_CurrentRepoParam _value, $Res Function(_$_CurrentRepoParam) _then)
-      : super(_value, (v) => _then(v as _$_CurrentRepoParam));
+class __$$_RepoParamCopyWithImpl<$Res> extends _$RepoParamCopyWithImpl<$Res>
+    implements _$$_RepoParamCopyWith<$Res> {
+  __$$_RepoParamCopyWithImpl(
+      _$_RepoParam _value, $Res Function(_$_RepoParam) _then)
+      : super(_value, (v) => _then(v as _$_RepoParam));
 
   @override
-  _$_CurrentRepoParam get _value => super._value as _$_CurrentRepoParam;
+  _$_RepoParam get _value => super._value as _$_RepoParam;
 
   @override
   $Res call({
@@ -114,7 +110,7 @@ class __$$_CurrentRepoParamCopyWithImpl<$Res>
     Object? repoName = freezed,
     Object? extra = freezed,
   }) {
-    return _then(_$_CurrentRepoParam(
+    return _then(_$_RepoParam(
       ownerName: ownerName == freezed
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
@@ -133,8 +129,8 @@ class __$$_CurrentRepoParamCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CurrentRepoParam implements _CurrentRepoParam {
-  const _$_CurrentRepoParam(
+class _$_RepoParam implements _RepoParam {
+  const _$_RepoParam(
       {required this.ownerName, required this.repoName, this.extra});
 
   /// オーナー名
@@ -152,14 +148,14 @@ class _$_CurrentRepoParam implements _CurrentRepoParam {
 
   @override
   String toString() {
-    return 'CurrentRepoParam(ownerName: $ownerName, repoName: $repoName, extra: $extra)';
+    return 'RepoParam(ownerName: $ownerName, repoName: $repoName, extra: $extra)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CurrentRepoParam &&
+            other is _$_RepoParam &&
             const DeepCollectionEquality().equals(other.ownerName, ownerName) &&
             const DeepCollectionEquality().equals(other.repoName, repoName) &&
             const DeepCollectionEquality().equals(other.extra, extra));
@@ -174,15 +170,15 @@ class _$_CurrentRepoParam implements _CurrentRepoParam {
 
   @JsonKey(ignore: true)
   @override
-  _$$_CurrentRepoParamCopyWith<_$_CurrentRepoParam> get copyWith =>
-      __$$_CurrentRepoParamCopyWithImpl<_$_CurrentRepoParam>(this, _$identity);
+  _$$_RepoParamCopyWith<_$_RepoParam> get copyWith =>
+      __$$_RepoParamCopyWithImpl<_$_RepoParam>(this, _$identity);
 }
 
-abstract class _CurrentRepoParam implements CurrentRepoParam {
-  const factory _CurrentRepoParam(
+abstract class _RepoParam implements RepoParam {
+  const factory _RepoParam(
       {required final String ownerName,
       required final String repoName,
-      final Repo? extra}) = _$_CurrentRepoParam;
+      final Repo? extra}) = _$_RepoParam;
 
   @override
 
@@ -199,6 +195,6 @@ abstract class _CurrentRepoParam implements CurrentRepoParam {
   Repo? get extra;
   @override
   @JsonKey(ignore: true)
-  _$$_CurrentRepoParamCopyWith<_$_CurrentRepoParam> get copyWith =>
+  _$$_RepoParamCopyWith<_$_RepoParam> get copyWith =>
       throw _privateConstructorUsedError;
 }

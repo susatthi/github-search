@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repository/repo/entity/value/repo_count.dart';
+import 'package:github_search/domain/repository/repo/entity/value_object/repo_count.dart';
 
 void main() {
   group('RepoCountHelper', () {

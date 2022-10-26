@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../application/current_repo/current_repo_query.dart';
 import '../../../domain/repository/repo/entity/repo.dart';
-import '../../../domain/state/current_repo.dart';
 import '../../../util/logger.dart';
 import '../../component/async_value_handler.dart';
 import 'component/avatar_preview_view.dart';
