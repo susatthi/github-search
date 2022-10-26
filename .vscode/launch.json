@@ -3,29 +3,42 @@
   "configurations": [
     {
       "name": "app-debug",
-      "program": "lib/main.dart",
-      "request": "launch",
       "type": "dart",
-      "args": [
-        "--debug",
-      ]
+      "request": "launch",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": []
     },
     {
       "name": "app-release",
-      "program": "lib/main.dart",
-      "request": "launch",
       "type": "dart",
-      "args": [
-        "--release",
-      ]
+      "request": "launch",
+      "flutterMode": "release",
+      "program": "lib/main.dart",
+      "args": []
     },
     {
       "name": "web-debug",
-      "program": "lib/main.dart",
-      "request": "launch",
       "type": "dart",
+      "request": "launch",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
       "args": [
-        "--debug",
+        "--web-renderer",
+        "canvaskit",
+        "--web-hostname",
+        "localhost",
+        "--web-port",
+        "5000",
+      ]
+    },
+    {
+      "name": "web-release",
+      "type": "dart",
+      "request": "launch",
+      "flutterMode": "release",
+      "program": "lib/main.dart",
+      "args": [
         "--web-renderer",
         "canvaskit",
         "--web-hostname",
@@ -36,8 +49,8 @@
     },
     {
       "name": "Golden",
-      "request": "launch",
       "type": "dart",
+      "request": "launch",
       "codeLens": {
         "for": [
           "run-test",
