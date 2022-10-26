@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo/entities/values/repo_language.dart';
+import 'package:github_search/domain/repository/repo/entity/value/repo_language.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 void main() {

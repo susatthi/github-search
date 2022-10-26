@@ -5,12 +5,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 
-import '../../../domain/exceptions.dart';
-import '../../../domain/repositories/query_history/entities/query_history.dart';
-import '../../../domain/repositories/query_history/entities/query_history_input.dart';
-import '../../../domain/repositories/query_history/query_history_repository.dart';
-import '../../../utils/logger.dart';
-import 'collections/query_history.dart';
+import '../../../domain/repository/query_history/entity/query_history.dart';
+import '../../../domain/repository/query_history/query_history_repository.dart';
+import '../../../util/logger.dart';
+import 'collection/query_history.dart';
 
 /// Isarインスタンスプロバイダー
 ///
@@ -35,15 +33,8 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
   final Isar isar;
 
   @override
-  Future<void> add(QueryHistoryInput input) async {
-    try {
-      input.validate();
-    } on ValidatorException catch (e) {
-      logger.v(e);
-      return;
-    }
-
-    final queryString = input.queryString.trim();
+  Future<void> add(QueryHistory queryHistory) async {
+    final queryString = queryHistory.queryString.value;
     logger.v('START TRANSACTION add(): queryString = $queryString');
     return isar.writeTxn(
       () async {
@@ -59,16 +50,19 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
   }
 
   @override
-  Future<void> delete(QueryHistory query) async {
-    logger.v('START TRANSACTION delete(): queryString = ${query.queryString}');
+  Future<void> delete(QueryHistory queryHistory) async {
+    final queryString = queryHistory.queryString.value;
+    logger.v(
+      'START TRANSACTION delete(): queryString = $queryString',
+    );
     return isar.writeTxn(
       () async {
         final count = await isar.queryHistoryCollections
             .filter()
-            .queryStringEqualTo(query.queryString)
+            .queryStringEqualTo(queryString)
             .deleteAll();
         logger.v(
-          'END TRANSACTION delete(): queryString = ${query.queryString}, '
+          'END TRANSACTION delete(): queryString = $queryString, '
           'count = $count',
         );
       },
@@ -76,27 +70,41 @@ class IsarQueryHistoryRepository implements QueryHistoryRepository {
   }
 
   @override
-  Future<List<QueryHistory>> findByQueryString(String queryString) async {
-    final collections = await isar.queryHistoryCollections
-        .filter()
-        .queryStringStartsWith(queryString, caseSensitive: false)
-        .sortBySearchedAtDesc()
-        .distinctByQueryString()
-        .limit(20)
-        .findAll();
+  Future<List<QueryHistory>> finds({required String queryString}) async {
+    final collections = await _queryBuilder(queryString: queryString).findAll();
 
     final queries = collections
         .map(
-          (collection) => QueryHistory(
-            queryString: collection.queryString,
-          ),
+          (collection) => QueryHistory.create(collection.queryString),
         )
         .toList();
 
     logger.v(
-      'findByQueryString(): queryString = $queryString, '
+      'finds(): queryString = ${queryString.trim()}, '
       'count = ${queries.length}',
     );
     return queries;
   }
+
+  @override
+  Stream<List<QueryHistory>> changes({required String queryString}) {
+    logger.v('changes(): queryString = ${queryString.trim()}');
+    return _queryBuilder(queryString: queryString).watch().map(
+          (collections) => collections
+              .map((collection) => QueryHistory.create(collection.queryString))
+              .toList(),
+        );
+  }
+
+  /// 検索結果のクエリービルダーを帰す
+  QueryBuilder<QueryHistoryCollection, QueryHistoryCollection, QAfterLimit>
+      _queryBuilder({
+    required String queryString,
+  }) =>
+          isar.queryHistoryCollections
+              .filter()
+              .queryStringStartsWith(queryString.trim(), caseSensitive: false)
+              .sortBySearchedAtDesc()
+              .distinctByQueryString()
+              .limit(20);
 }

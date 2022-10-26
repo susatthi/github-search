@@ -7,6 +7,10 @@
 
 # GitHub Search
 
+> **:warning: 制限事項**  
+> - 現在 Web 版がビルドできません。Isar 3.0.2 が Web をサポートしなくなったためです。詳細は [Issue](https://github.com/isar/isar/issues/686) をご参照ください。
+> - 現在テストが通りません。ディレクトリ構造を変更したことにテストが追従できていません。対応中です。
+
 [GitHub API](https://docs.github.com/ja/rest) を利用して GitHub のリポジトリを検索するアプリです。[株式会社ゆめみのFlutterエンジニアコードチェック](https://github.com/yumemi-inc/flutter-engineer-codecheck)の要件を満たすよう実装しています。
 
 本アプリを通して自分なりの最適なアーキテクチャを確立し、リファレンスコードにすることを目的にしています。
@@ -43,8 +47,8 @@ git clone https://github.com/susatthi/github-search.git
 本アプリで使用する GitHub の[個人アクセストークン](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)を取得して、カレントディレクトリで次のコマンドを実行してください。
 
 ```bash
-# 引数で与えられた環境変数を基にビルドに必要な `lib/config/env.dart` を作成してくれます。
-# 作成された `lib/config/env.dart` を直接編集しても大丈夫です。
+# 引数で与えられた環境変数を基にビルドに必要な `lib/util/env/env.dart` を作成してくれます。
+# 作成された `lib/util/env/env.dart` を直接編集しても大丈夫です。
 
 bin/flutter_env -g [GitHub 個人アクセストークン] -s [検索文字列の初期値]
 ```
@@ -64,6 +68,7 @@ Configurations を選択してビルドしてください。
 |`app-debug`       |アプリ向けデバッグビルド      |
 |`app-release`     |アプリ向けリリースビルド      |
 |`web-debug`       |Web 向けデバッグビルド       |
+|`web-release`     |Web 向けリリースビルド       |
 
 ## 技術スタック
 
@@ -100,178 +105,71 @@ Configurations を選択してビルドしてください。
 - [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [state_notifier](https://pub.dev/packages/state_notifier) + [freezed](https://pub.dev/packages/freezed) + [go_router](https://pub.dev/packages/go_router)
 - [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) と [DDD](https://little-hands.hatenablog.com/entry/2018/12/10/ddd-architecture) のアーキテクチャを参考にして、本アプリは下記の３層アーキテクチャで実装しています。
 
-![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/195954726-23c5e9c9-2a68-45d6-a556-7c28ab61f663.png)
+![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/197906008-d25aed42-6d79-491f-8386-babc7fbf92d2.png)
 
-### プレゼンテーション層
+### Presentation 層
 
-#### Widgets
+#### Widget
 
-ページや UI 部品の Widget クラス群。States を監視して UI に表現する。ユーザーイベントを検知してコントローラーのメソッドを呼び出す。キャッシュが効かなくなるので直接 Repository Interfaces を呼び出してはいけない。
+ページや UI 部品の Widget クラス群。State を監視（ watch / listen ）して UI に表現する。ユーザーイベントを検知して Controller のメソッドを呼び出す。キャッシュが効かなくなるので直接 Repository Interfaces を呼び出してはいけない。
 
-#### Controllers
+### Domain 層
 
-Repository Interfaces を呼び出して Entities を受け取って States を更新する。Widgets からのメソッド呼び出しや、依存する States の更新を契機に発火する。ドメイン層に依存するがインフラストラクチャ層には依存してはいけない。
+#### Entity
 
-#### States
+データの構造体。どの層にも依存してはいけない。入力値のバリデーションはエンティティのコンストラクタで実装する。Infrastructure 層が投げる例外はドメイン層で定義する。
 
-アプリのあらゆる状態。Entities そのものでもよいし、プレゼンテーション層内で定義した状態クラスでもよい。`Provider` 等でラップされ Widgets や他の States から参照される。
+#### Repository Interface
 
-### ドメイン層
+データの永続化をになう Repository のインターフェース。どの層にも依存してはいけない。
 
-#### Entities
+#### Controller
 
-ユーザーなどの実体。入力値のバリデーションはエンティティで実装しインフラストラクチャ層が呼び出す。どこにも依存しないこと。
+Repository Interface を呼び出して Entity を受け取って State を更新する。Widget からのメソッド呼び出しや、依存する State の更新を契機に発火する。
 
-#### Repository Interfaces
+本来 Controller は Presentation 層にあり、ロジックを Domain 層におき区別するべきだが、Riverpod は State が互いに強調するため State 自体がロジックのかたまりになるので、その State を更新する Controller も含め Domain 層に含んでいる（これがよいかどうかはまだわからない）。
 
-データの永続化をになうリポジトリ層のインターフェース。どこにも依存しないこと。インフラストラクチャ層が投げる例外はドメイン層で定義する。
+#### State
 
-### インフラストラクチャ層
+アプリのあらゆる状態。Entity そのものでもよいし、新たに定義した状態クラスでもよい。`StateProvider` 等でラップされ Widget や他の State から参照される。
+
+### Infrastructure 層
 
 #### Repository Implements
 
-Repository Interfaces の実体。Data Sources を利用してデータの永続化を行う。
+Repository Interface の実装。Data Source を利用してデータの永続化を行う。
 
-#### Data Sources
+#### Data Source
 
 様々なデータソース。API だったり、Hive だったり、SharedPreferences だったり、Isar だったりする。
-
-### Riverpod の依存関係図
-
-- [riverpod_graph](https://github.com/rrousselGit/riverpod/tree/master/packages/riverpod_graph) を使って Riverpod の依存関係図を出力してみました。
-
-```mermaid
-flowchart TB
-  subgraph Arrows
-    direction LR
-    start1[ ] -..->|read| stop1[ ]
-    style start1 height:0px;
-    style stop1 height:0px;
-    start2[ ] --->|listen| stop2[ ]
-    style start2 height:0px;
-    style stop2 height:0px; 
-    start3[ ] ===>|watch| stop3[ ]
-    style start3 height:0px;
-    style stop3 height:0px; 
-  end
-
-  subgraph Type
-    direction TB
-    ConsumerWidget((widget));
-    Provider[[provider]];
-  end
-  _MockPage((_MockPage));
-  searchReposQueryProvider -.-> _MockPage;
-  searchReposEnteringQueryProvider -.-> _MockPage;
-  HyperlinkText((HyperlinkText));
-  urlLauncherStateProvider -.-> HyperlinkText;
-  SliverRepoDetailView((SliverRepoDetailView));
-  selectedRepoProvider ==> SliverRepoDetailView;
-  _IconLabel((_IconLabel));
-  urlLauncherStateProvider -.-> _IconLabel;
-  SearchReposQueryTextButton((SearchReposQueryTextButton));
-  searchReposQueryProvider -.-> SearchReposQueryTextButton;
-  SliverRepoListView((SliverRepoListView));
-  searchReposStateProvider ==> SliverRepoListView;
-  _LastIndicator((_LastIndicator));
-  searchReposStateProvider -.-> _LastIndicator;
-  SearchReposSortSelectorBottomSheet((SearchReposSortSelectorBottomSheet));
-  searchReposSortProvider ==> SearchReposSortSelectorBottomSheet;
-  searchReposSortProvider -.-> SearchReposSortSelectorBottomSheet;
-  SearchReposOrderToggleButton((SearchReposOrderToggleButton));
-  searchReposStateProvider ==> SearchReposOrderToggleButton;
-  SearchReposOrderToggleButtonInternal((SearchReposOrderToggleButtonInternal));
-  searchReposOrderProvider ==> SearchReposOrderToggleButtonInternal;
-  searchReposOrderProvider -.-> SearchReposOrderToggleButtonInternal;
-  SliverQueryHistoriesListView((SliverQueryHistoriesListView));
-  queryHistoriesProvider ==> SliverQueryHistoriesListView;
-  _QueryHistoryListTile((_QueryHistoryListTile));
-  queryHistoriesProvider -.-> _QueryHistoryListTile;
-  searchReposQueryProvider -.-> _QueryHistoryListTile;
-  AvatarPreviewView((AvatarPreviewView));
-  selectedRepoProvider ==> AvatarPreviewView;
-  _AvatarPreviewView((_AvatarPreviewView));
-  cachedCircleAvatarCacheManagerProvider ==> _AvatarPreviewView;
-  RepoFullNameText((RepoFullNameText));
-  selectedRepoProvider ==> RepoFullNameText;
-  ReadmeMarkdown((ReadmeMarkdown));
-  readmeContentProviderFamily ==> ReadmeMarkdown;
-  ReadmeMarkdownInternal((ReadmeMarkdownInternal));
-  readmeMarkdownCacheManagerProvider ==> ReadmeMarkdownInternal;
-  urlLauncherStateProvider -.-> ReadmeMarkdownInternal;
-  _GitHubSearchApp((_GitHubSearchApp));
-  themeProvider ==> _GitHubSearchApp;
-  themeProvider ==> _GitHubSearchApp;
-  routerProvider ==> _GitHubSearchApp;
-  urlLauncherStateProvider --> _GitHubSearchApp;
-  searchReposQueryProvider[[searchReposQueryProvider]];
-  queryHistoryRepositoryProvider ==> searchReposQueryProvider;
-  searchReposInitQueryProvider ==> searchReposQueryProvider;
-  searchReposEnteringQueryProvider[[searchReposEnteringQueryProvider]];
-  searchReposQueryProvider ==> searchReposEnteringQueryProvider;
-  isarQueryHistoryRepositoryProvider[[isarQueryHistoryRepositoryProvider]];
-  isarProvider ==> isarQueryHistoryRepositoryProvider;
-  isarProvider[[isarProvider]];
-  githubHttpClientProvider[[githubHttpClientProvider]];
-  githubAccessTokenProvider ==> githubHttpClientProvider;
-  httpClientProvider ==> githubHttpClientProvider;
-  githubAccessTokenProvider[[githubAccessTokenProvider]];
-  httpClientProvider[[httpClientProvider]];
-  githubRepoRepositoryProvider[[githubRepoRepositoryProvider]];
-  githubApiProvider ==> githubRepoRepositoryProvider;
-  githubHttpClientProvider ==> githubRepoRepositoryProvider;
-  githubApiProvider[[githubApiProvider]];
-  urlLauncherStateProvider[[urlLauncherStateProvider]];
-  selectedRepoProvider[[selectedRepoProvider]];
-  queryHistoryRepositoryProvider[[queryHistoryRepositoryProvider]];
-  searchReposInitQueryProvider[[searchReposInitQueryProvider]];
-  searchReposStateProvider[[searchReposStateProvider]];
-  repoRepositoryProvider ==> searchReposStateProvider;
-  searchReposQueryProvider ==> searchReposStateProvider;
-  searchReposSortProvider ==> searchReposStateProvider;
-  searchReposOrderProvider ==> searchReposStateProvider;
-  selectedRepoProviderFamily[[selectedRepoProviderFamily]];
-  repoRepositoryProvider ==> selectedRepoProviderFamily;
-  repoRepositoryProvider[[repoRepositoryProvider]];
-  searchReposSortProvider[[searchReposSortProvider]];
-  appDataRepositoryProvider ==> searchReposSortProvider;
-  appDataRepositoryProvider[[appDataRepositoryProvider]];
-  searchReposOrderProvider[[searchReposOrderProvider]];
-  appDataRepositoryProvider ==> searchReposOrderProvider;
-  queryHistoriesProvider[[queryHistoriesProvider]];
-  queryHistoryRepositoryProvider ==> queryHistoriesProvider;
-  searchReposEnteringQueryProvider ==> queryHistoriesProvider;
-  cachedCircleAvatarCacheManagerProvider[[cachedCircleAvatarCacheManagerProvider]];
-  readmeContentProviderFamily[[readmeContentProviderFamily]];
-  repoRepositoryProvider ==> readmeContentProviderFamily;
-  readmeMarkdownCacheManagerProvider[[readmeMarkdownCacheManagerProvider]];
-  themeProvider[[themeProvider]];
-  routerProvider[[routerProvider]];
-```
 
 ## フォルダ構成
 
 ```  
 ├── domain                                   ドメイン層
-│   ├── entities                             ドメイン層で共通のエンティティクラス
 │   ├── exceptions.dart                      例外クラス
-│   └── repositories
+│   ├── state                                状態とコントローラー 
+│   └── repository
 │       └── <feature>
 │           ├── <feature>_repository.dart    リポジトリのインターフェースクラス
-│           └── entities                     機能単位のエンティティ
+│           └── entity                       機能単位のエンティティ
 ├── infrastructure                           インフラストラクチャ層
-│   └── <data_sources>
+│   └── <data_source>
 │       └── <feature>
 │           └── <feature>_repository.dart    リポジトリの実装
 ├── presentation
 │   ├── app.dart                             アプリケーション
-│   ├── components                           プレゼンテーション層で共通の Widget、Controller、状態
-│   └── pages
+│   ├── component                            プレゼンテーション層で共通の Widget
+│   └── page
 │       └── <feature>
-│           ├── components                   画面単位の Widget、Controller、状態
+│           ├── component                    画面単位の Widget
 │           └── <feature>_<curd>_page.dart   画面Widget
-└── utils                                    拡張機能、ロガー、言語ファイル、環境変数などのユーティリティクラス
+└── util                                     どの層からもアクセス可能なクラス、拡張機能、ロガー、言語ファイル、環境変数など
 ```
+
+### ファイル分割の方針
+
+基本的に **関心事** 毎にファイルを分割しています。例えば、Controller と State を別々のファイルに分けることはしません。ファイル名は **関心事.dart** とします。ファイル名 = クラス名とはしません。
 
 ## 環境
 
@@ -282,7 +180,7 @@ flowchart TB
 
 ### コードの自動生成
 
-- `localizations/*.json` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は次のコマンドを実行してください。
+- `util/localization/*.json` ファイルを変更した場合や `freezed` を使った `dart` ファイルを変更した場合は次のコマンドを実行してください。
 
 ```bash
 make build-runner

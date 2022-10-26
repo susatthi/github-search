@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/domain/exceptions.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
-import 'package:github_search/infrastructure/github/repo/json_objects/owner.dart';
-import 'package:github_search/infrastructure/github/repo/json_objects/repo.dart';
+import 'package:github_search/infrastructure/github/repo/json_object/owner.dart';
+import 'package:github_search/infrastructure/github/repo/json_object/repo.dart';
 
-import '../../test_utils/test_agent.dart';
+import '../../test_util/test_agent.dart';
 
 void main() {
   final agent = TestAgent();

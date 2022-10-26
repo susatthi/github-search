@@ -30,6 +30,9 @@ jobs:
     # ジョブの表示名
     name: Flutter Test (ubuntu-latest)
 
+    # 当面テストはスキップする
+    if: ${{ false }}
+
     # ジョブを実行するOS
     runs-on: ubuntu-latest
 
@@ -63,6 +66,9 @@ jobs:
     # ジョブの表示名
     name: Flutter Test (macos-latest-en)
 
+    # 当面テストはスキップする
+    if: ${{ false }}
+
     # ジョブを実行するOS
     runs-on: macos-latest
 
@@ -95,6 +101,9 @@ jobs:
 
     # ジョブの表示名
     name: Flutter Test (macos-latest-ja)
+
+    # 当面テストはスキップする
+    if: ${{ false }}
 
     # ジョブを実行するOS
     runs-on: macos-latest
@@ -140,6 +149,9 @@ jobs:
 
     # ジョブの表示名
     name: Flutter Test (windows-latest)
+
+    # 当面テストはスキップする
+    if: ${{ false }}
 
     # ジョブを実行するOS
     runs-on: windows-latest

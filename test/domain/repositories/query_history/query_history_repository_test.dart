@@ -4,9 +4,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/query_history/query_history_repository.dart';
+import 'package:github_search/domain/repository/query_history/query_history_repository.dart';
 
-import '../../../test_utils/test_agent.dart';
+import '../../../test_util/test_agent.dart';
 
 void main() {
   final agent = TestAgent();

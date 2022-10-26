@@ -28,11 +28,11 @@ targets:
       fast_i18n:
         options:
           # 入力ファイルへのパス
-          input_directory: lib/utils/localizations
+          input_directory: lib/util/localization
           # 入力ファイル名の拡張子
           input_file_pattern: .i18n.json
           # 出力ファイルへのパス
-          output_directory: lib/utils/localizations
+          output_directory: lib/util/localization
           # 出力ファイル名
           output_file_name: strings.g.dart
           # 言語リソースにアクセスするグローバルな変数名

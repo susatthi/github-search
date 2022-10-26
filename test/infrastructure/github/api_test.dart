@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_order.dart';
-import 'package:github_search/domain/repositories/repo/entities/search_repos_sort.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_order.dart';
+import 'package:github_search/domain/repository/repo/entity/search_repos_sort.dart';
 import 'package:github_search/infrastructure/github/api.dart';
 
-import '../../test_utils/test_agent.dart';
+import '../../test_util/test_agent.dart';
 
 void main() {
   final agent = TestAgent();

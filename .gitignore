@@ -31,8 +31,6 @@
 .pub/
 /build/
 
-# Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -53,6 +51,3 @@ app.*.map.json
 
 # Fvm related (ローカルパスのシンボリックリンクなのでコミットは不適切)
 .fvm/flutter_sdk
-
-# VSCode related (SDKのパスなど人によって異なるためコミットは不適切)
-.vscode/settings.json

@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utils/localizations/strings.g.dart';
-import '../utils/logger.dart';
-import 'components/router.dart';
-import 'components/theme.dart';
-import 'components/url_launcher.dart';
+import '../domain/exceptions.dart';
+import '../domain/repository/url_launcher/entity/url_launch_data.dart';
+import '../domain/state/url_launcher.dart';
+import '../util/extension.dart';
+import '../util/localization/strings.g.dart';
+import '../util/logger.dart';
+import '../util/routing/router.dart';
+import 'theme.dart';
 
 /// GitHubSearch アプリ
 class GitHubSearchApp extends StatelessWidget {
@@ -46,21 +49,24 @@ class _GitHubSearchApp extends ConsumerWidget {
 
     // URL起動状態を監視してエラーが起きたらSnackBarを表示する
     // どの画面でURL起動してもここで一括でエラーハンドリングできるようにしている
-    ref.listen<UrlLauncherState>(
+    ref.listen<AsyncValue<UrlLaunchData>>(
       urlLauncherStateProvider,
       (previous, next) {
-        logger.i(
-          'Changed LaunchUrlState: '
-          'status = ${next.status.name}, url = ${next.urlString}',
-        );
-        if (next.status == UrlLauncherStatus.error) {
+        logger.i('Updated UrlLaunchData: $next');
+        next.whenError((error, _) {
+          if (error is! UrlLauncherException) {
+            return;
+          }
+
           // エラーの場合はSnackBar表示をする
           scaffoldMessengerKey.currentState!.showSnackBar(
             SnackBar(
-              content: Text(i18n.cantLaunchUrl(url: next.urlString!)),
+              content: Text(
+                i18n.cantLaunchUrl(url: error.data.urlString),
+              ),
             ),
           );
-        }
+        });
       },
     );
 
