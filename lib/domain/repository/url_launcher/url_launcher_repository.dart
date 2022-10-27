@@ -10,7 +10,7 @@ import 'entity/url_launch_data.dart';
 final urlLauncherStateProvider =
     StateNotifierProvider<UrlLauncherStateNotifier, AsyncValue<UrlLaunchData>>(
   (ref) => UrlLauncherStateNotifier(
-    urlLauncherRepository: ref.watch(urlLauncherRepositoryProvider),
+    repository: ref.watch(urlLauncherRepositoryProvider),
   ),
 );
 
@@ -18,10 +18,10 @@ final urlLauncherStateProvider =
 class UrlLauncherStateNotifier
     extends StateNotifier<AsyncValue<UrlLaunchData>> {
   UrlLauncherStateNotifier({
-    required this.urlLauncherRepository,
+    required this.repository,
   }) : super(const AsyncValue.loading());
 
-  final UrlLauncherRepository urlLauncherRepository;
+  final UrlLauncherRepository repository;
 
   /// URLを起動する
   Future<void> launch(
@@ -31,7 +31,7 @@ class UrlLauncherStateNotifier
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final data = UrlLaunchData(urlString: urlString, mode: mode);
-      await urlLauncherRepository.launch(data);
+      await repository.launch(data);
       return data;
     });
   }

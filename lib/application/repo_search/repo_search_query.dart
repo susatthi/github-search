@@ -12,14 +12,7 @@ import '../../domain/repository/query_history/query_history_repository.dart';
 final queryHistoriesProvider = FutureProvider.autoDispose<List<QueryHistory>>(
   (ref) {
     final enteringQueryString = ref.watch(searchReposEnteringQueryProvider);
-    ref.listen(
-      queryHistoriesStreamProviderFamily(enteringQueryString),
-      (previous, next) {
-        ref.state = next;
-      },
-    );
-    return ref
-        .watch(queryHistoriesFutureProviderFamily(enteringQueryString).future);
+    return ref.watch(queryHistoriesProviderFamily(enteringQueryString).future);
   },
   name: 'queryHistoriesProvider',
 );

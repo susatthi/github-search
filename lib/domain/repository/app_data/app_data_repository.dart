@@ -12,13 +12,13 @@ import 'entity/app_data_key.dart';
 final searchReposOrderProvider = StateProvider(
   (ref) {
     const key = AppDataKey.searchReposOrder;
-    final appDataRepository = ref.watch(appDataRepositoryProvider);
-    appDataRepository.changes<SearchReposOrder>(key).listen(
+    final repository = ref.watch(appDataRepositoryProvider);
+    repository.changes<SearchReposOrder>(key).listen(
       (order) {
         ref.controller.state = order;
       },
     );
-    return appDataRepository.get<SearchReposOrder>(key);
+    return repository.get<SearchReposOrder>(key);
   },
 );
 
@@ -26,13 +26,13 @@ final searchReposOrderProvider = StateProvider(
 final searchReposSortProvider = StateProvider(
   (ref) {
     const key = AppDataKey.searchReposSort;
-    final appDataRepository = ref.watch(appDataRepositoryProvider);
-    appDataRepository.changes<SearchReposSort>(key).listen(
+    final repository = ref.watch(appDataRepositoryProvider);
+    repository.changes<SearchReposSort>(key).listen(
       (order) {
         ref.controller.state = order;
       },
     );
-    return appDataRepository.get<SearchReposSort>(key);
+    return repository.get<SearchReposSort>(key);
   },
 );
 

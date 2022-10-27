@@ -5,12 +5,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'entity/repo.dart';
+import 'entity/repo_param.dart';
 import 'entity/search_repos_order.dart';
 import 'entity/search_repos_result.dart';
 import 'entity/search_repos_sort.dart';
 
-final repoRepositoryProvider = Provider<RepoRepository>(
-  (ref) => throw UnimplementedError('Provider was not initialized'),
+/// リポジトリプロバイダー（Family）
+final repoProviderFamily = FutureProvider.family.autoDispose<Repo, RepoParam>(
+  (ref, param) async {
+    final cache = param.cache;
+    if (cache != null) {
+      // キャッシュがあればそのまま使う
+      return cache;
+    }
+
+    // extra が無いので取得する
+    return ref.watch(repoRepositoryProvider).getRepo(
+          ownerName: param.ownerName,
+          repoName: param.repoName,
+        );
+  },
+  name: 'repoProviderFamily',
 );
 
 /// READMEプロバイダー（Family）
@@ -19,6 +34,10 @@ final readmeProviderFamily = FutureProvider.family.autoDispose<String, Repo>(
         repo: repo,
       ),
   name: 'readmeProviderFamily',
+);
+
+final repoRepositoryProvider = Provider<RepoRepository>(
+  (ref) => throw UnimplementedError('Provider was not initialized'),
 );
 
 /// リポジトリRepository

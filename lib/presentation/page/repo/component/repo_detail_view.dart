@@ -31,7 +31,7 @@ class SliverRepoDetailView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(currentRepoProvider);
     return asyncValue.when(
-      data: (repo) => SliverRepoDetailViewInternal(repo: repo!),
+      data: (repo) => SliverRepoDetailViewInternal(repo: repo),
       error: (e, s) => SliverFillRemaining(
         hasScrollBody: false,
         child: ErrorView(

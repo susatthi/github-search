@@ -24,7 +24,7 @@ mixin _$RepoParam {
 
   /// 一覧画面から渡されるリポジトリデータ
   /// 詳細画面で再読込した場合などは null になる場合がある
-  Repo? get extra => throw _privateConstructorUsedError;
+  Repo? get cache => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RepoParamCopyWith<RepoParam> get copyWith =>
@@ -35,9 +35,9 @@ mixin _$RepoParam {
 abstract class $RepoParamCopyWith<$Res> {
   factory $RepoParamCopyWith(RepoParam value, $Res Function(RepoParam) then) =
       _$RepoParamCopyWithImpl<$Res>;
-  $Res call({String ownerName, String repoName, Repo? extra});
+  $Res call({String ownerName, String repoName, Repo? cache});
 
-  $RepoCopyWith<$Res>? get extra;
+  $RepoCopyWith<$Res>? get cache;
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$RepoParamCopyWithImpl<$Res> implements $RepoParamCopyWith<$Res> {
   $Res call({
     Object? ownerName = freezed,
     Object? repoName = freezed,
-    Object? extra = freezed,
+    Object? cache = freezed,
   }) {
     return _then(_value.copyWith(
       ownerName: ownerName == freezed
@@ -63,21 +63,21 @@ class _$RepoParamCopyWithImpl<$Res> implements $RepoParamCopyWith<$Res> {
           ? _value.repoName
           : repoName // ignore: cast_nullable_to_non_nullable
               as String,
-      extra: extra == freezed
-          ? _value.extra
-          : extra // ignore: cast_nullable_to_non_nullable
+      cache: cache == freezed
+          ? _value.cache
+          : cache // ignore: cast_nullable_to_non_nullable
               as Repo?,
     ));
   }
 
   @override
-  $RepoCopyWith<$Res>? get extra {
-    if (_value.extra == null) {
+  $RepoCopyWith<$Res>? get cache {
+    if (_value.cache == null) {
       return null;
     }
 
-    return $RepoCopyWith<$Res>(_value.extra!, (value) {
-      return _then(_value.copyWith(extra: value));
+    return $RepoCopyWith<$Res>(_value.cache!, (value) {
+      return _then(_value.copyWith(cache: value));
     });
   }
 }
@@ -88,10 +88,10 @@ abstract class _$$_RepoParamCopyWith<$Res> implements $RepoParamCopyWith<$Res> {
           _$_RepoParam value, $Res Function(_$_RepoParam) then) =
       __$$_RepoParamCopyWithImpl<$Res>;
   @override
-  $Res call({String ownerName, String repoName, Repo? extra});
+  $Res call({String ownerName, String repoName, Repo? cache});
 
   @override
-  $RepoCopyWith<$Res>? get extra;
+  $RepoCopyWith<$Res>? get cache;
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class __$$_RepoParamCopyWithImpl<$Res> extends _$RepoParamCopyWithImpl<$Res>
   $Res call({
     Object? ownerName = freezed,
     Object? repoName = freezed,
-    Object? extra = freezed,
+    Object? cache = freezed,
   }) {
     return _then(_$_RepoParam(
       ownerName: ownerName == freezed
@@ -119,9 +119,9 @@ class __$$_RepoParamCopyWithImpl<$Res> extends _$RepoParamCopyWithImpl<$Res>
           ? _value.repoName
           : repoName // ignore: cast_nullable_to_non_nullable
               as String,
-      extra: extra == freezed
-          ? _value.extra
-          : extra // ignore: cast_nullable_to_non_nullable
+      cache: cache == freezed
+          ? _value.cache
+          : cache // ignore: cast_nullable_to_non_nullable
               as Repo?,
     ));
   }
@@ -131,7 +131,7 @@ class __$$_RepoParamCopyWithImpl<$Res> extends _$RepoParamCopyWithImpl<$Res>
 
 class _$_RepoParam implements _RepoParam {
   const _$_RepoParam(
-      {required this.ownerName, required this.repoName, this.extra});
+      {required this.ownerName, required this.repoName, this.cache});
 
   /// オーナー名
   @override
@@ -144,11 +144,11 @@ class _$_RepoParam implements _RepoParam {
   /// 一覧画面から渡されるリポジトリデータ
   /// 詳細画面で再読込した場合などは null になる場合がある
   @override
-  final Repo? extra;
+  final Repo? cache;
 
   @override
   String toString() {
-    return 'RepoParam(ownerName: $ownerName, repoName: $repoName, extra: $extra)';
+    return 'RepoParam(ownerName: $ownerName, repoName: $repoName, cache: $cache)';
   }
 
   @override
@@ -158,7 +158,7 @@ class _$_RepoParam implements _RepoParam {
             other is _$_RepoParam &&
             const DeepCollectionEquality().equals(other.ownerName, ownerName) &&
             const DeepCollectionEquality().equals(other.repoName, repoName) &&
-            const DeepCollectionEquality().equals(other.extra, extra));
+            const DeepCollectionEquality().equals(other.cache, cache));
   }
 
   @override
@@ -166,7 +166,7 @@ class _$_RepoParam implements _RepoParam {
       runtimeType,
       const DeepCollectionEquality().hash(ownerName),
       const DeepCollectionEquality().hash(repoName),
-      const DeepCollectionEquality().hash(extra));
+      const DeepCollectionEquality().hash(cache));
 
   @JsonKey(ignore: true)
   @override
@@ -178,7 +178,7 @@ abstract class _RepoParam implements RepoParam {
   const factory _RepoParam(
       {required final String ownerName,
       required final String repoName,
-      final Repo? extra}) = _$_RepoParam;
+      final Repo? cache}) = _$_RepoParam;
 
   @override
 
@@ -192,7 +192,7 @@ abstract class _RepoParam implements RepoParam {
 
   /// 一覧画面から渡されるリポジトリデータ
   /// 詳細画面で再読込した場合などは null になる場合がある
-  Repo? get extra;
+  Repo? get cache;
   @override
   @JsonKey(ignore: true)
   _$$_RepoParamCopyWith<_$_RepoParam> get copyWith =>
