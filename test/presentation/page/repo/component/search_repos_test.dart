@@ -27,14 +27,14 @@ void main() {
     test('コントローラーを生成するとリポジトリ検索結果エンティティを取得するはず', () async {
       // 初期値はAsyncLoading
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(controller.queryData is AsyncLoading, true);
+      expect(controller.state is AsyncLoading, true);
 
       // データを取り終わるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(controller.queryData is AsyncData, true);
+      expect(controller.state is AsyncData, true);
     });
     test('fetchNextPage()で次のページを取得するはず', () async {
       // データを取り終わるまで待つ
@@ -42,7 +42,7 @@ void main() {
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      var state = controller.queryData.value;
+      var state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, SearchReposStateController.perPage);
@@ -52,7 +52,7 @@ void main() {
       await controller.fetchNextPage();
 
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      state = controller.queryData.value;
+      state = controller.state.value;
       expect(state!.page, 2);
       expect(state.items.length, SearchReposStateController.perPage * 2);
       expect(state.queryString, 'flutter');
@@ -60,21 +60,21 @@ void main() {
     test('1ページ目を未取得の状態でfetchNextPage()を実行しても問題ないはず', () async {
       // 初期値はAsyncLoading
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(controller.queryData is AsyncLoading, true);
+      expect(controller.state is AsyncLoading, true);
 
       // 次のページを取得しようとする
       await controller.fetchNextPage();
 
       // 状態は変化無しのはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      expect(controller.queryData is AsyncLoading, true);
+      expect(controller.state is AsyncLoading, true);
 
       // データを取り終わるまで待つ
       await Future<void>.delayed(const Duration(microseconds: 500));
 
       // データが取得できているはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      final state = controller.queryData.value;
+      final state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 1);
       expect(state.items.length, SearchReposStateController.perPage);
@@ -91,7 +91,7 @@ void main() {
 
       // 3ページを取得した結果4ページ目は無いはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      var state = controller.queryData.value;
+      var state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
       expect(state.items.length, SearchReposStateController.perPage * 2);
@@ -101,7 +101,7 @@ void main() {
 
       // 4ページを取得しないはず
       // ignore: INVALID_USE_OF_PROTECTED_MEMBER
-      state = controller.queryData.value;
+      state = controller.state.value;
       expect(state, isNotNull);
       expect(state!.page, 3);
       expect(state.items.length, SearchReposStateController.perPage * 2);

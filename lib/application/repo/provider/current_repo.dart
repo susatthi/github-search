@@ -4,9 +4,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/repository/repo/entity/repo.dart';
-import '../../domain/repository/repo/entity/repo_param.dart';
-import '../../domain/repository/repo/repo_repository.dart';
+import '../../../domain/repository/repo/entity/repo.dart';
+import '../../../domain/repository/repo/entity/repo_param.dart';
+import '../../../domain/repository/repo/repo_repository.dart';
 
 /// 現在のリポジトリプロバイダー
 final currentRepoParamProvider = Provider<RepoParam>(

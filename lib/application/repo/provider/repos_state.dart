@@ -5,21 +5,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/entity/search_repos_query.dart';
-import '../../domain/repository/app_data/app_data_repository.dart';
-import '../../domain/repository/repo/entity/repo.dart';
-import '../../domain/repository/repo/entity/search_repos_order.dart';
-import '../../domain/repository/repo/entity/search_repos_result.dart';
-import '../../domain/repository/repo/entity/search_repos_sort.dart';
-import '../../domain/repository/repo/repo_repository.dart';
-import '../../util/logger.dart';
+import '../../../domain/repository/app_data/app_data_repository.dart';
+import '../../../domain/repository/repo/entity/repo.dart';
+import '../../../domain/repository/repo/entity/search_repos_order.dart';
+import '../../../domain/repository/repo/entity/search_repos_result.dart';
+import '../../../domain/repository/repo/entity/search_repos_sort.dart';
+import '../../../domain/repository/repo/repo_repository.dart';
+import '../../../util/logger.dart';
+import 'search_repos_query.dart';
 
-part 'repos_query.freezed.dart';
+part 'repos_state.freezed.dart';
 
-/// リポジトリ一覧クエリデータプロバイダー
-final reposQueryDataProvider = StateNotifierProvider.autoDispose<
-    ReposQueryDataNotifier, AsyncValue<ReposQueryData>>(
-  (ref) => ReposQueryDataNotifier(
+/// リポジトリ一覧状態プロバイダー
+final reposStateProvider = StateNotifierProvider.autoDispose<ReposStateNotifier,
+    AsyncValue<ReposState>>(
+  (ref) => ReposStateNotifier(
     repoRepository: ref.watch(repoRepositoryProvider),
     queryString: ref.watch(searchReposQueryProvider),
     sort: ref.watch(searchReposSortProvider),
@@ -28,19 +28,19 @@ final reposQueryDataProvider = StateNotifierProvider.autoDispose<
   name: 'reposQueryDataProvider',
 );
 
-/// リポジトリ一覧クエリデータ
+/// リポジトリ一覧状態
 @freezed
-class ReposQueryData with _$ReposQueryData {
-  const factory ReposQueryData({
+class ReposState with _$ReposState {
+  const factory ReposState({
     @Default(0) int totalCount,
     @Default(<Repo>[]) List<Repo> items,
     @Default(false) bool hasNext,
     @Default(1) int page,
     @Default('') String queryString,
-  }) = _ReposQueryData;
+  }) = _ReposState;
 
-  factory ReposQueryData.from(SearchReposResult result) {
-    return ReposQueryData(
+  factory ReposState.from(SearchReposResult result) {
+    return ReposState(
       totalCount: result.totalCount,
       items: result.items,
       hasNext: result.items.length < result.totalCount,
@@ -49,9 +49,9 @@ class ReposQueryData with _$ReposQueryData {
   }
 }
 
-/// リポジトリ一覧クエリデータNotifier
-class ReposQueryDataNotifier extends StateNotifier<AsyncValue<ReposQueryData>> {
-  ReposQueryDataNotifier({
+/// リポジトリ一覧状態Notifier
+class ReposStateNotifier extends StateNotifier<AsyncValue<ReposState>> {
+  ReposStateNotifier({
     required this.repoRepository,
     required this.queryString,
     required this.sort,
@@ -62,7 +62,7 @@ class ReposQueryDataNotifier extends StateNotifier<AsyncValue<ReposQueryData>> {
       state = await AsyncValue.guard(() async {
         final trimQueryString = queryString.trim();
         if (trimQueryString.isEmpty) {
-          return const ReposQueryData();
+          return const ReposState();
         }
 
         final result = await repoRepository.searchRepos(
@@ -75,7 +75,7 @@ class ReposQueryDataNotifier extends StateNotifier<AsyncValue<ReposQueryData>> {
           'Search repos result: totalCount = ${result.totalCount}, '
           'fetchItems = ${result.items.length}',
         );
-        return ReposQueryData.from(result);
+        return ReposState.from(result);
       });
     }();
   }

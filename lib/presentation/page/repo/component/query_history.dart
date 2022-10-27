@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../application/repo_search/repo_search_query.dart';
-import '../../../../application/repo_search/repo_search_service.dart';
+import '../../../../application/repo/provider/query_histories.dart';
+import '../../../../application/repo/search_repos_service.dart';
 import '../../../../domain/repository/query_history/entity/query_history.dart';
 import '../../../../util/logger.dart';
 
@@ -71,12 +71,12 @@ class _QueryHistoryListTile extends ConsumerWidget {
       title: Text(queryHistory.queryString.value),
       trailing: IconButton(
         onPressed: () async {
-          await ref.read(repoSearchServiceProvider).delete(queryHistory);
+          await ref.read(searchReposServiceProvider).delete(queryHistory);
         },
         icon: const Icon(Icons.close),
       ),
       onTap: () async {
-        await ref.read(repoSearchServiceProvider).select(queryHistory);
+        await ref.read(searchReposServiceProvider).select(queryHistory);
         Navigator.of(context).pop();
       },
     );

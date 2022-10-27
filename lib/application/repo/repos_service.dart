@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'repos_query.dart';
+import 'provider/repos_state.dart';
 
 /// リポジトリ一覧サービスプロバイダー
 final reposServiceProvider = Provider(
@@ -19,6 +19,6 @@ class ReposService {
 
   /// 次のページを取得する
   Future<void> fetchNextPage() async {
-    await ref.read(reposQueryDataProvider.notifier).fetchNextPage();
+    await ref.read(reposStateProvider.notifier).fetchNextPage();
   }
 }

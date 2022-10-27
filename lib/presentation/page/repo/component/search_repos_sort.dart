@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../application/repo/search_repos_service.dart';
 import '../../../../domain/repository/app_data/app_data_repository.dart';
 import '../../../../domain/repository/repo/entity/search_repos_sort.dart';
 import '../../../../util/localization/strings.g.dart';
@@ -45,9 +46,9 @@ class SearchReposSortSelectorBottomSheet extends ConsumerWidget {
               title: Text(e.key),
               onTap: () {
                 logger.i('Changed: newSort = ${e.value.name}');
-                ref.read(searchReposSortProvider.notifier).update(
-                      (_) => e.value,
-                    );
+                ref
+                    .read(searchReposServiceProvider)
+                    .updateSearchReposSort(e.value);
                 if (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
                 }

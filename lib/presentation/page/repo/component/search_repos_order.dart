@@ -5,7 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../application/repos/repos_query.dart';
+import '../../../../application/repo/provider/repos_state.dart';
+import '../../../../application/repo/search_repos_service.dart';
 import '../../../../domain/repository/app_data/app_data_repository.dart';
 import '../../../../domain/repository/repo/entity/search_repos_order.dart';
 import '../../../../util/localization/strings.g.dart';
@@ -18,7 +19,7 @@ class SearchReposOrderToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // リポジトリ検索の実行中やエラー時はトグルボタンを無効化する
-    final asyncValue = ref.watch(reposQueryDataProvider);
+    final asyncValue = ref.watch(reposStateProvider);
     return SearchReposOrderToggleButtonInternal(
       enabled: asyncValue.when(
         data: (state) => true,
@@ -48,9 +49,9 @@ class SearchReposOrderToggleButtonInternal extends ConsumerWidget {
           ? () {
               final newOrder = order.toggle;
               logger.i('Toggled: newOrder = $newOrder');
-              ref.read(searchReposOrderProvider.notifier).update(
-                    (_) => newOrder,
-                  );
+              ref
+                  .read(searchReposServiceProvider)
+                  .updateSearchReposOrder(newOrder);
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
               }

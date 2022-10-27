@@ -4,20 +4,23 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entity/search_repos_query.dart';
 import '../../domain/exceptions.dart';
+import '../../domain/repository/app_data/app_data_repository.dart';
 import '../../domain/repository/query_history/entity/query_history.dart';
 import '../../domain/repository/query_history/query_history_repository.dart';
+import '../../domain/repository/repo/entity/search_repos_order.dart';
+import '../../domain/repository/repo/entity/search_repos_sort.dart';
 import '../../util/logger.dart';
+import 'provider/search_repos_query.dart';
 
-// リポジトリ検索サービスプロバイダー
-final repoSearchServiceProvider = Provider(
-  RepoSearchService.new,
+// リポジトリ一覧検索サービスプロバイダー
+final searchReposServiceProvider = Provider(
+  SearchReposService.new,
 );
 
-/// リポジトリ検索サービス
-class RepoSearchService {
-  RepoSearchService(this.ref);
+/// リポジトリ一覧検索サービス
+class SearchReposService {
+  SearchReposService(this.ref);
 
   final Ref ref;
 
@@ -74,5 +77,19 @@ class RepoSearchService {
   /// リポジトリ検索履歴を削除する
   Future<void> delete(QueryHistory queryHistory) async {
     await ref.read(queryHistoryRepositoryProvider).delete(queryHistory);
+  }
+
+  // リポジトリ検索用オーダー値を更新する
+  void updateSearchReposOrder(SearchReposOrder order) {
+    ref.read(searchReposOrderProvider.notifier).update(
+          (_) => order,
+        );
+  }
+
+  // リポジトリ検索用ソート値を更新する
+  void updateSearchReposSort(SearchReposSort sort) {
+    ref.read(searchReposSortProvider.notifier).update(
+          (_) => sort,
+        );
   }
 }

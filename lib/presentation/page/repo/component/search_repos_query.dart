@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../application/repo_search/repo_search_service.dart';
-import '../../../../domain/entity/search_repos_query.dart';
+import '../../../../application/repo/provider/search_repos_query.dart';
+import '../../../../application/repo/search_repos_service.dart';
 import '../../../../util/localization/strings.g.dart';
 import '../../../../util/logger.dart';
 import '../../../../util/routing/router.dart';
@@ -101,7 +101,7 @@ class SearchReposQueryTextFieldState
                   controller.clear();
 
                   // onChanged が呼ばれないので明示的に入力中検索文字列状態を空にする
-                  await ref.read(repoSearchServiceProvider).enter('');
+                  await ref.read(searchReposServiceProvider).enter('');
 
                   widget.onTappedDelete?.call();
                 },
@@ -134,12 +134,12 @@ class SearchReposQueryTextFieldState
       ),
       // 入力文字が変更されたら状態を更新する
       onChanged: (text) async {
-        await ref.read(repoSearchServiceProvider).enter(text);
+        await ref.read(searchReposServiceProvider).enter(text);
       },
       // キーボードのEnterキー押下時に検索を実行する
       onSubmitted: (text) async {
         logger.i('Called onSubmitted(): text = $text');
-        await ref.read(repoSearchServiceProvider).done(text);
+        await ref.read(searchReposServiceProvider).done(text);
         Navigator.of(context).pop();
       },
       // キーボードのEnterキーを検索ボタンにする
@@ -193,7 +193,7 @@ class SearchReposQueryTextButton extends ConsumerWidget {
           },
           onTappedDelete: () async {
             // 検索文字列をクリアしてリポジトリ検索画面に遷移する
-            await ref.read(repoSearchServiceProvider).clear();
+            await ref.read(searchReposServiceProvider).clear();
             const RepoSearchRoute().go(context);
           },
         ),

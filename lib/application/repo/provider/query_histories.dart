@@ -4,9 +4,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entity/search_repos_query.dart';
-import '../../domain/repository/query_history/entity/query_history.dart';
-import '../../domain/repository/query_history/query_history_repository.dart';
+import '../../../domain/repository/query_history/entity/query_history.dart';
+import '../../../domain/repository/query_history/query_history_repository.dart';
+import 'search_repos_query.dart';
 
 /// リポジトリ検索履歴一覧プロバイダー
 final queryHistoriesProvider = FutureProvider.autoDispose<List<QueryHistory>>(

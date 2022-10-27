@@ -10,8 +10,8 @@ import 'package:number_display/number_display.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../application/repos/repos_query.dart';
-import '../../../../application/repos/repos_service.dart';
+import '../../../../application/repo/provider/repos_state.dart';
+import '../../../../application/repo/repos_service.dart';
 import '../../../../domain/repository/repo/entity/repo.dart';
 import '../../../../util/assets/assets.gen.dart';
 import '../../../../util/localization/strings.g.dart';
@@ -39,7 +39,7 @@ class SliverRepoListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(reposQueryDataProvider);
+    final asyncValue = ref.watch(reposStateProvider);
     if (asyncValue.isRefreshing) {
       // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
       // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
@@ -60,7 +60,7 @@ class SliverRepoListView extends ConsumerWidget {
             ),
           );
         }
-        return SliverRepoListViewInternal(queryData: queryData);
+        return SliverRepoListViewInternal(state: queryData);
       },
       error: (e, s) => SliverFillRemaining(
         hasScrollBody: false,
@@ -82,15 +82,15 @@ class SliverRepoListView extends ConsumerWidget {
 class SliverRepoListViewInternal extends StatelessWidget {
   const SliverRepoListViewInternal({
     super.key,
-    required this.queryData,
+    required this.state,
   });
 
-  final ReposQueryData queryData;
+  final ReposState state;
 
   @override
   Widget build(BuildContext context) {
     // 検索文字列が空の場合は検索を促す
-    if (queryData.queryString.isEmpty) {
+    if (state.queryString.isEmpty) {
       return const SliverFillRemaining(
         hasScrollBody: false,
         child: RepoPromptSearchView(),
@@ -98,7 +98,7 @@ class SliverRepoListViewInternal extends StatelessWidget {
     }
 
     // 検索結果が0件の場合はリポジトリが見つからなかった旨を表示する
-    if (queryData.items.isEmpty) {
+    if (state.items.isEmpty) {
       return const SliverFillRemaining(
         hasScrollBody: false,
         child: RepoEmptyItemsView(),
@@ -106,17 +106,17 @@ class SliverRepoListViewInternal extends StatelessWidget {
     }
 
     // データの件数 + 検索結果表示 + 無限スクロール用のプログレス表示
-    final childCount = queryData.items.length + 1 + (queryData.hasNext ? 1 : 0);
+    final childCount = state.items.length + 1 + (state.hasNext ? 1 : 0);
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           if (index == 0) {
             return _TotalCountListTile(
-              totalCount: queryData.totalCount,
+              totalCount: state.totalCount,
             );
-          } else if (index < queryData.items.length + 1) {
+          } else if (index < state.items.length + 1) {
             return _RepoListTile(
-              repo: queryData.items[index - 1],
+              repo: state.items[index - 1],
             );
           }
           return const _LastIndicator();
