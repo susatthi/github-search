@@ -34,7 +34,7 @@ dependencies:
   intl: ^0.17.0
   isar: ^3.0.2
   isar_flutter_libs: ^3.0.2
-  json_annotation: ^4.6.0
+  json_annotation: ^4.7.0
   lottie: ^1.4.3
   markdown: ^6.0.0
   number_display: ^3.0.0
