@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../../application/repo/state/current_repo.dart';
 import '../../domain/repository/repo/entity/repo.dart';
@@ -30,11 +29,6 @@ final routerProvider = Provider<GoRouter>(
         ErrorRoute(state.error).buildPage(context),
     observers: [pageRouteObserver],
     debugLogDiagnostics: !kReleaseMode,
-
-    // URLの#を除去する
-    urlPathStrategy: UrlPathStrategy.path,
-    navigatorBuilder: (context, state, child) =>
-        responsiveWrapperBuilder(context, child),
   ),
 );
 
@@ -184,32 +178,6 @@ class ErrorRoute extends GoRouteData {
         name: name,
         child: ErrorPage(error: error),
       );
-}
-
-Widget responsiveWrapperBuilder(
-  BuildContext context,
-  Widget? child,
-) {
-  return ResponsiveWrapper.builder(
-    child,
-    //    0 ----- AUTOSCALE ----- 320
-    //  320 -----   RESIZE  ----- 768(MOBILE)
-    //  768 -----   RESIZE  ----- 1024(TABLET)
-    // 1024 -----   RESIZE  ----- ∞(DESKTOP)
-    breakpoints: [
-      const ResponsiveBreakpoint.resize(320, name: MOBILE),
-      const ResponsiveBreakpoint.resize(768, name: TABLET),
-      const ResponsiveBreakpoint.resize(1024, name: DESKTOP),
-    ],
-    minWidth: 320,
-    maxWidth: 1600,
-    defaultScale: true,
-    // ignore: use_colored_box
-    background: Container(
-      color: Theme.of(context).colorScheme.surface,
-    ),
-    debugLog: !kReleaseMode,
-  );
 }
 
 /// ルートオブザーバー

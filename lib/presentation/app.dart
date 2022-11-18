@@ -2,9 +2,11 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../application/url_launcher/exception/url_launcher_exception.dart';
 import '../application/url_launcher/state/url_launch_data.dart';
@@ -85,7 +87,7 @@ class _GitHubSearchApp extends ConsumerWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         home: home,
-        builder: responsiveWrapperBuilder,
+        builder: _responsiveWrapperBuilder,
       );
     }
 
@@ -104,6 +106,33 @@ class _GitHubSearchApp extends ConsumerWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       // themeMode: ThemeMode.light,
+      builder: _responsiveWrapperBuilder,
+    );
+  }
+
+  Widget _responsiveWrapperBuilder(
+    BuildContext context,
+    Widget? child,
+  ) {
+    return ResponsiveWrapper.builder(
+      child,
+      //    0 ----- AUTOSCALE ----- 320
+      //  320 -----   RESIZE  ----- 768(MOBILE)
+      //  768 -----   RESIZE  ----- 1024(TABLET)
+      // 1024 -----   RESIZE  ----- ∞(DESKTOP)
+      breakpoints: [
+        const ResponsiveBreakpoint.resize(320, name: MOBILE),
+        const ResponsiveBreakpoint.resize(768, name: TABLET),
+        const ResponsiveBreakpoint.resize(1024, name: DESKTOP),
+      ],
+      minWidth: 320,
+      maxWidth: 1600,
+      defaultScale: true,
+      // ignore: use_colored_box
+      background: Container(
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      debugLog: !kReleaseMode,
     );
   }
 }
