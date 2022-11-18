@@ -7,9 +7,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/application/repo/search_repos_service.dart';
 import 'package:github_search/domain/repository/query_history/entity/query_history.dart';
 import 'package:github_search/domain/repository/query_history/query_history_repository.dart';
-import 'package:github_search/domain/state/search_repos_query.dart';
 import 'package:github_search/presentation/page/repo/component/query_history.dart';
 
 import '../../../../test_util/golden_testing_tools.dart';
@@ -28,7 +28,7 @@ class _MockPage extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref.read(searchReposQueryControllerProvider).enter('flutter');
+                  ref.read(searchReposServiceProvider).enter('flutter');
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -37,7 +37,7 @@ class _MockPage extends ConsumerWidget {
                 width: 100,
                 child: TextField(
                   onChanged: (text) {
-                    ref.read(searchReposQueryControllerProvider).enter(text);
+                    ref.read(searchReposServiceProvider).enter(text);
                   },
                 ),
               ),
@@ -60,7 +60,7 @@ void main() {
       final controller = agent
           .mockContainer()
           .listen(
-            searchReposQueryControllerProvider,
+            searchReposServiceProvider,
             (previous, next) {},
           )
           .read();
@@ -82,9 +82,9 @@ void main() {
       );
 
       // 入力中の検索文字列を更新して検索履歴一覧を更新する
-      await Future.wait([
-        agent.mockContainer().read(searchReposQueryControllerProvider).enter('')
-      ]);
+      await Future.wait(
+        [agent.mockContainer().read(searchReposServiceProvider).enter('')],
+      );
 
       // final controller = agent
       //     .mockContainer()
@@ -264,12 +264,9 @@ void main() {
         );
 
         // 入力中の検索文字列を更新して検索履歴一覧を更新する
-        await Future.wait([
-          agent
-              .mockContainer()
-              .read(searchReposQueryControllerProvider)
-              .enter('')
-        ]);
+        await Future.wait(
+          [agent.mockContainer().read(searchReposServiceProvider).enter('')],
+        );
 
         await tester.pumpDeviceBuilder(
           DeviceBuilder()

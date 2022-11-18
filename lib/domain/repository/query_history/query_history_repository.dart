@@ -6,6 +6,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'entity/query_history.dart';
 
+/// 検索履歴一覧プロバイダー
+final queryHistoriesProviderFamily =
+    FutureProvider.autoDispose.family<List<QueryHistory>, String>(
+  (ref, queryString) async {
+    final repository = ref.watch(queryHistoryRepositoryProvider);
+    repository.changes(queryString: queryString).listen((queryHistories) {
+      ref.state = AsyncValue.data(queryHistories);
+    });
+    return repository.finds(queryString: queryString);
+  },
+);
+
 /// 検索履歴Repositoryプロバイダー
 final queryHistoryRepositoryProvider = Provider<QueryHistoryRepository>(
   (ref) => throw UnimplementedError('Provider was not initialized'),

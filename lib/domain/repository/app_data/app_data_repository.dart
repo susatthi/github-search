@@ -4,7 +4,37 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../repo/entity/search_repos_order.dart';
+import '../repo/entity/search_repos_sort.dart';
 import 'entity/app_data_key.dart';
+
+/// リポジトリ検索用オーダー値プロバイダー
+final searchReposOrderProvider = StateProvider(
+  (ref) {
+    const key = AppDataKey.searchReposOrder;
+    final repository = ref.watch(appDataRepositoryProvider);
+    repository.changes<SearchReposOrder>(key).listen(
+      (order) {
+        ref.controller.state = order;
+      },
+    );
+    return repository.get<SearchReposOrder>(key);
+  },
+);
+
+/// リポジトリ検索用ソート値プロバイダー
+final searchReposSortProvider = StateProvider(
+  (ref) {
+    const key = AppDataKey.searchReposSort;
+    final repository = ref.watch(appDataRepositoryProvider);
+    repository.changes<SearchReposSort>(key).listen(
+      (order) {
+        ref.controller.state = order;
+      },
+    );
+    return repository.get<SearchReposSort>(key);
+  },
+);
 
 /// アプリデータRepositoryプロバイダー
 final appDataRepositoryProvider = Provider<AppDataRepository>(

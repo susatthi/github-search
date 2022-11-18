@@ -10,8 +10,9 @@ import 'package:number_display/number_display.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../../../application/repo/repos_service.dart';
+import '../../../../application/repo/state/repos_state.dart';
 import '../../../../domain/repository/repo/entity/repo.dart';
-import '../../../../domain/state/search_repos.dart';
 import '../../../../util/assets/assets.gen.dart';
 import '../../../../util/localization/strings.g.dart';
 import '../../../../util/logger.dart';
@@ -38,7 +39,7 @@ class SliverRepoListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(searchReposStateProvider);
+    final asyncValue = ref.watch(reposStateProvider);
     if (asyncValue.isRefreshing) {
       // スクロールの途中で再検索して戻ると若干スクロールした状態になってしまうので
       // ローディングを表示したときに強制的にスクロール位置をトップに戻す。
@@ -50,7 +51,7 @@ class SliverRepoListView extends ConsumerWidget {
     }
 
     return asyncValue.when(
-      data: (state) {
+      data: (queryData) {
         if (asyncValue.isRefreshing) {
           // リフレッシュ状態（前回のデータが残っている状態）でもローディング表示する
           return const SliverFillRemaining(
@@ -59,7 +60,7 @@ class SliverRepoListView extends ConsumerWidget {
             ),
           );
         }
-        return SliverRepoListViewInternal(state: state);
+        return SliverRepoListViewInternal(state: queryData);
       },
       error: (e, s) => SliverFillRemaining(
         hasScrollBody: false,
@@ -84,7 +85,7 @@ class SliverRepoListViewInternal extends StatelessWidget {
     required this.state,
   });
 
-  final SearchReposState state;
+  final ReposState state;
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +324,7 @@ class _LastIndicator extends ConsumerWidget {
         if (info.visibleFraction > 0.1) {
           logger.i('Appeared progress: info = $info');
           // 表示されたので次のページを取得する
-          await ref.read(searchReposStateProvider.notifier).fetchNextPage();
+          await ref.read(reposServiceProvider).fetchNextPage();
         }
       },
     );

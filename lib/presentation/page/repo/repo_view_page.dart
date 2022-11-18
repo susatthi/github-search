@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../application/repo/state/current_repo.dart';
 import '../../../domain/repository/repo/entity/repo.dart';
-import '../../../domain/state/current_repo.dart';
 import '../../component/async_value_handler.dart';
 import '../../component/search_app_bar.dart';
 import 'component/repo_detail_view.dart';

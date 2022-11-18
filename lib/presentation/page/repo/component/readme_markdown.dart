@@ -11,9 +11,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:markdown/markdown.dart';
 
+import '../../../../application/url_launcher/url_launcher_service.dart';
 import '../../../../domain/repository/repo/entity/repo.dart';
 import '../../../../domain/repository/repo/repo_repository.dart';
-import '../../../../domain/state/url_launcher.dart';
 import '../../../../util/assets/assets.gen.dart';
 import '../../../../util/logger.dart';
 import '../../../component/async_value_handler.dart';
@@ -73,7 +73,7 @@ class ReadmeMarkdownInternal extends ConsumerWidget {
       onTapLink: (_, href, __) async {
         logger.i('Tapped link: href = $href');
         if (href != null) {
-          await ref.read(urlLauncherStateProvider.notifier).launch(href);
+          await ref.read(urlLauncherServiceProvider).launch(href);
         }
       },
       extensionSet: ExtensionSet(

@@ -5,8 +5,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../application/repo/search_repos_service.dart';
+import '../../../../application/repo/state/query_histories.dart';
 import '../../../../domain/repository/query_history/entity/query_history.dart';
-import '../../../../domain/state/search_repos_query.dart';
 import '../../../../util/logger.dart';
 
 /// Sliver版検索履歴一覧View
@@ -15,7 +16,7 @@ class SliverQueryHistoriesListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(searchReposQueryHistoriesProvider);
+    final asyncValue = ref.watch(queryHistoriesProvider);
     return asyncValue.when(
       data: (queryHistories) => SliverQueryHistoriesListViewInternal(
         queryHistories: queryHistories,
@@ -70,14 +71,12 @@ class _QueryHistoryListTile extends ConsumerWidget {
       title: Text(queryHistory.queryString.value),
       trailing: IconButton(
         onPressed: () async {
-          await ref
-              .read(searchReposQueryControllerProvider)
-              .delete(queryHistory);
+          await ref.read(searchReposServiceProvider).delete(queryHistory);
         },
         icon: const Icon(Icons.close),
       ),
       onTap: () async {
-        await ref.read(searchReposQueryControllerProvider).select(queryHistory);
+        await ref.read(searchReposServiceProvider).select(queryHistory);
         Navigator.of(context).pop();
       },
     );

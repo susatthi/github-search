@@ -6,8 +6,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/application/repo/state/current_repo.dart';
 import 'package:github_search/domain/repository/repo/entity/repo.dart';
-import 'package:github_search/domain/state/current_repo.dart';
+import 'package:github_search/domain/repository/repo/entity/repo_param.dart';
 import 'package:github_search/presentation/component/cached_circle_avatar.dart';
 import 'package:github_search/presentation/component/error_view.dart';
 import 'package:github_search/presentation/page/repo/component/readme_markdown.dart';
@@ -48,12 +49,10 @@ void main() {
     await tester.pumpWidget(
       agent.mockApp(
         overrides: [
-          currentRepoProvider.overrideWithProvider(
-            currentRepoProviderFamily(
-              const CurrentRepoParam(
-                ownerName: 'flutter',
-                repoName: 'plugins',
-              ),
+          currentRepoParamProvider.overrideWithValue(
+            const RepoParam(
+              ownerName: 'flutter',
+              repoName: 'plugins',
             ),
           ),
         ],
@@ -91,12 +90,10 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                const CurrentRepoParam(
-                  ownerName: 'flutter',
-                  repoName: 'plugins',
-                ),
+            currentRepoParamProvider.overrideWithValue(
+              const RepoParam(
+                ownerName: 'flutter',
+                repoName: 'plugins',
               ),
             ),
           ],
@@ -147,12 +144,10 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                const CurrentRepoParam(
-                  ownerName: 'unknown',
-                  repoName: 'unknown',
-                ),
+            currentRepoParamProvider.overrideWithValue(
+              const RepoParam(
+                ownerName: 'unknown',
+                repoName: 'unknown',
               ),
             ),
           ],
@@ -215,12 +210,10 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                const CurrentRepoParam(
-                  ownerName: 'flutter',
-                  repoName: 'plugins',
-                ),
+            currentRepoParamProvider.overrideWithValue(
+              const RepoParam(
+                ownerName: 'flutter',
+                repoName: 'plugins',
               ),
             ),
           ],
@@ -256,12 +249,10 @@ void main() {
           ),
         wrapper: (child) => agent.mockApp(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                const CurrentRepoParam(
-                  ownerName: 'flutter',
-                  repoName: 'plugins',
-                ),
+            currentRepoParamProvider.overrideWithValue(
+              const RepoParam(
+                ownerName: 'flutter',
+                repoName: 'plugins',
               ),
             ),
           ],

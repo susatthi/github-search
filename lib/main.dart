@@ -11,13 +11,11 @@ import 'package:universal_platform/universal_platform.dart';
 import 'domain/repository/app_data/app_data_repository.dart';
 import 'domain/repository/query_history/query_history_repository.dart';
 import 'domain/repository/repo/repo_repository.dart';
-import 'domain/repository/url_launcher/url_launcher_repository.dart';
 import 'infrastructure/github/repo/repo_repository.dart';
 import 'infrastructure/hive/app_data/app_data_repository.dart';
 import 'infrastructure/hive/hive.dart';
 import 'infrastructure/isar/isar.dart';
 import 'infrastructure/isar/query_history/query_history_repository.dart';
-import 'infrastructure/url_launcher/url_launcher_repository.dart';
 import 'presentation/app.dart';
 import 'util/localization/strings.g.dart';
 import 'util/logger.dart';
@@ -59,8 +57,6 @@ Future<void> main() async {
             .overrideWithProvider(githubRepoRepositoryProvider),
         queryHistoryRepositoryProvider
             .overrideWithProvider(isarQueryHistoryRepositoryProvider),
-        urlLauncherRepositoryProvider
-            .overrideWithProvider(urlLauncherUrlLauncherRepositoryProvider),
       ],
       child: const GitHubSearchApp(),
     ),

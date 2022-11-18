@@ -16,6 +16,7 @@
     "editor.codeActionsOnSave": [
       "source.organizeImports",
       "source.addMissingImports",
+      "quickfix.insertSemicolon",
       "source.fixAll"
     ]
   },

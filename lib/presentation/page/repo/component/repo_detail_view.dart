@@ -5,9 +5,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../application/repo/state/current_repo.dart';
+import '../../../../application/url_launcher/url_launcher_service.dart';
 import '../../../../domain/repository/repo/entity/repo.dart';
-import '../../../../domain/state/current_repo.dart';
-import '../../../../domain/state/url_launcher.dart';
 import '../../../../util/logger.dart';
 import '../../../../util/routing/router.dart';
 import '../../../component/cached_circle_avatar.dart';
@@ -313,7 +313,7 @@ class _IconLabel extends ConsumerWidget {
       text: text,
       padding: padding,
       onTap: url != null
-          ? () => ref.read(urlLauncherStateProvider.notifier).launch(url!)
+          ? () => ref.read(urlLauncherServiceProvider).launch(url!)
           : null,
     );
   }

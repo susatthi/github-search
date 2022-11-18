@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'search_repos.dart';
+part of 'repos_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SearchReposState {
+mixin _$ReposState {
   int get totalCount => throw _privateConstructorUsedError;
   List<Repo> get items => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
@@ -23,15 +23,15 @@ mixin _$SearchReposState {
   String get queryString => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SearchReposStateCopyWith<SearchReposState> get copyWith =>
+  $ReposStateCopyWith<ReposState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SearchReposStateCopyWith<$Res> {
-  factory $SearchReposStateCopyWith(
-          SearchReposState value, $Res Function(SearchReposState) then) =
-      _$SearchReposStateCopyWithImpl<$Res>;
+abstract class $ReposStateCopyWith<$Res> {
+  factory $ReposStateCopyWith(
+          ReposState value, $Res Function(ReposState) then) =
+      _$ReposStateCopyWithImpl<$Res>;
   $Res call(
       {int totalCount,
       List<Repo> items,
@@ -41,13 +41,12 @@ abstract class $SearchReposStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SearchReposStateCopyWithImpl<$Res>
-    implements $SearchReposStateCopyWith<$Res> {
-  _$SearchReposStateCopyWithImpl(this._value, this._then);
+class _$ReposStateCopyWithImpl<$Res> implements $ReposStateCopyWith<$Res> {
+  _$ReposStateCopyWithImpl(this._value, this._then);
 
-  final SearchReposState _value;
+  final ReposState _value;
   // ignore: unused_field
-  final $Res Function(SearchReposState) _then;
+  final $Res Function(ReposState) _then;
 
   @override
   $Res call({
@@ -83,11 +82,11 @@ class _$SearchReposStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_SearchReposStateCopyWith<$Res>
-    implements $SearchReposStateCopyWith<$Res> {
-  factory _$$_SearchReposStateCopyWith(
-          _$_SearchReposState value, $Res Function(_$_SearchReposState) then) =
-      __$$_SearchReposStateCopyWithImpl<$Res>;
+abstract class _$$_ReposStateCopyWith<$Res>
+    implements $ReposStateCopyWith<$Res> {
+  factory _$$_ReposStateCopyWith(
+          _$_ReposState value, $Res Function(_$_ReposState) then) =
+      __$$_ReposStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {int totalCount,
@@ -98,15 +97,14 @@ abstract class _$$_SearchReposStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SearchReposStateCopyWithImpl<$Res>
-    extends _$SearchReposStateCopyWithImpl<$Res>
-    implements _$$_SearchReposStateCopyWith<$Res> {
-  __$$_SearchReposStateCopyWithImpl(
-      _$_SearchReposState _value, $Res Function(_$_SearchReposState) _then)
-      : super(_value, (v) => _then(v as _$_SearchReposState));
+class __$$_ReposStateCopyWithImpl<$Res> extends _$ReposStateCopyWithImpl<$Res>
+    implements _$$_ReposStateCopyWith<$Res> {
+  __$$_ReposStateCopyWithImpl(
+      _$_ReposState _value, $Res Function(_$_ReposState) _then)
+      : super(_value, (v) => _then(v as _$_ReposState));
 
   @override
-  _$_SearchReposState get _value => super._value as _$_SearchReposState;
+  _$_ReposState get _value => super._value as _$_ReposState;
 
   @override
   $Res call({
@@ -116,7 +114,7 @@ class __$$_SearchReposStateCopyWithImpl<$Res>
     Object? page = freezed,
     Object? queryString = freezed,
   }) {
-    return _then(_$_SearchReposState(
+    return _then(_$_ReposState(
       totalCount: totalCount == freezed
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
@@ -143,8 +141,8 @@ class __$$_SearchReposStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SearchReposState implements _SearchReposState {
-  const _$_SearchReposState(
+class _$_ReposState implements _ReposState {
+  const _$_ReposState(
       {this.totalCount = 0,
       final List<Repo> items = const <Repo>[],
       this.hasNext = false,
@@ -175,14 +173,14 @@ class _$_SearchReposState implements _SearchReposState {
 
   @override
   String toString() {
-    return 'SearchReposState(totalCount: $totalCount, items: $items, hasNext: $hasNext, page: $page, queryString: $queryString)';
+    return 'ReposState(totalCount: $totalCount, items: $items, hasNext: $hasNext, page: $page, queryString: $queryString)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SearchReposState &&
+            other is _$_ReposState &&
             const DeepCollectionEquality()
                 .equals(other.totalCount, totalCount) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
@@ -203,17 +201,17 @@ class _$_SearchReposState implements _SearchReposState {
 
   @JsonKey(ignore: true)
   @override
-  _$$_SearchReposStateCopyWith<_$_SearchReposState> get copyWith =>
-      __$$_SearchReposStateCopyWithImpl<_$_SearchReposState>(this, _$identity);
+  _$$_ReposStateCopyWith<_$_ReposState> get copyWith =>
+      __$$_ReposStateCopyWithImpl<_$_ReposState>(this, _$identity);
 }
 
-abstract class _SearchReposState implements SearchReposState {
-  const factory _SearchReposState(
+abstract class _ReposState implements ReposState {
+  const factory _ReposState(
       {final int totalCount,
       final List<Repo> items,
       final bool hasNext,
       final int page,
-      final String queryString}) = _$_SearchReposState;
+      final String queryString}) = _$_ReposState;
 
   @override
   int get totalCount;
@@ -227,6 +225,6 @@ abstract class _SearchReposState implements SearchReposState {
   String get queryString;
   @override
   @JsonKey(ignore: true)
-  _$$_SearchReposStateCopyWith<_$_SearchReposState> get copyWith =>
+  _$$_ReposStateCopyWith<_$_ReposState> get copyWith =>
       throw _privateConstructorUsedError;
 }
