@@ -18,14 +18,14 @@ targets:
           include:
             - lib/application/**/*.dart
             - lib/domain/**/*.dart
-            - lib/infrastructure/**/json_objects/*.dart
+            - lib/infrastructure/**/json_object/*.dart
             - lib/presentation/**/*.dart
       json_serializable:
         generate_for:
           include:
             - lib/application/**/*.dart
             - lib/domain/**/*.dart
-            - lib/infrastructure/**/json_objects/*.dart
+            - lib/infrastructure/**/json_object/*.dart
             - lib/presentation/**/*.dart
       fast_i18n:
         options:
