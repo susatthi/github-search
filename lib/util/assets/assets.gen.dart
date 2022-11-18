@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 
@@ -33,6 +33,16 @@ class $AssetsImagesGen {
   /// File path: assets/images/splash_dark.png
   AssetGenImage get splashDark =>
       const AssetGenImage('assets/images/splash_dark.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        icon,
+        iconAdaptiveForeground,
+        splash,
+        splashAndroid12,
+        splashAndroid12Dark,
+        splashDark
+      ];
 }
 
 class $AssetsLottieGen {
@@ -61,6 +71,18 @@ class $AssetsLottieGen {
 
   /// File path: assets/lottie/octocat.json
   String get octocat => 'assets/lottie/octocat.json';
+
+  /// List of all assets
+  List<String> get values => [
+        coolOctovat,
+        dashboardZippeo,
+        emptyState,
+        error,
+        githubDarkMode,
+        githubLogo,
+        loadingIndicator,
+        octocat
+      ];
 }
 
 class Assets {
@@ -127,6 +149,8 @@ class AssetGenImage {
       cacheHeight: cacheHeight,
     );
   }
+
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

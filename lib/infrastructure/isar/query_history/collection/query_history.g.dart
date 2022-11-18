@@ -56,7 +56,7 @@ const QueryHistoryCollectionSchema = CollectionSchema(
   getId: _queryHistoryCollectionGetId,
   getLinks: _queryHistoryCollectionGetLinks,
   attach: _queryHistoryCollectionAttach,
-  version: '3.0.2',
+  version: '3.0.5',
 );
 
 int _queryHistoryCollectionEstimateSize(
