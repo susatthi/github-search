@@ -4,7 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_search/domain/state/current_repo.dart';
+import 'package:github_search/application/repo/state/current_repo.dart';
+import 'package:github_search/domain/repository/repo/entity/repo_param.dart';
 import 'package:github_search/presentation/page/repo/component/repo_detail_view.dart';
 import 'package:github_search/presentation/page/repo/repo_view_page.dart';
 
@@ -22,12 +23,10 @@ void main() {
       await tester.pumpWidget(
         agent.mockApp(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                const CurrentRepoParam(
-                  ownerName: 'flutter',
-                  repoName: 'plugins',
-                ),
+            currentRepoParamProvider.overrideWithValue(
+              const RepoParam(
+                ownerName: 'flutter',
+                repoName: 'plugins',
               ),
             ),
           ],
@@ -50,12 +49,10 @@ void main() {
           ),
         wrapper: (child) => agent.mockApp(
           overrides: [
-            currentRepoProvider.overrideWithProvider(
-              currentRepoProviderFamily(
-                const CurrentRepoParam(
-                  ownerName: 'flutter',
-                  repoName: 'plugins',
-                ),
+            currentRepoParamProvider.overrideWithValue(
+              const RepoParam(
+                ownerName: 'flutter',
+                repoName: 'plugins',
               ),
             ),
           ],

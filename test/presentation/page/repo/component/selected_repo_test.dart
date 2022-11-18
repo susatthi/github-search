@@ -4,8 +4,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_search/application/repo/state/current_repo.dart';
 import 'package:github_search/domain/repository/repo/entity/repo.dart';
-import 'package:github_search/domain/state/current_repo.dart';
+import 'package:github_search/domain/repository/repo/entity/repo_param.dart';
 import 'package:github_search/infrastructure/github/repo/json_object/repo.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 
@@ -19,7 +20,7 @@ final _extra = GitHubRepoRepository.repoBuilder(
 );
 
 void main() {
-  const repoDetailViewParameter = CurrentRepoParam(
+  const repoDetailViewParameter = RepoParam(
     ownerName: 'flutter',
     repoName: 'flutter',
   );
@@ -38,8 +39,8 @@ void main() {
     test('overridesすればUnimplementedErrorをthrowしないはず', () async {
       await agent.mockContainer(
         overrides: [
-          currentRepoProvider.overrideWithProvider(
-            currentRepoProviderFamily(repoDetailViewParameter),
+          currentRepoParamProvider.overrideWithValue(
+            repoDetailViewParameter,
           ),
         ],
       ).read(currentRepoProvider.future);
@@ -50,8 +51,8 @@ void main() {
       AsyncValue<Repo>? state;
       agent.mockContainer(
         overrides: [
-          currentRepoProvider.overrideWithProvider(
-            currentRepoProviderFamily(repoDetailViewParameter),
+          currentRepoParamProvider.overrideWithValue(
+            repoDetailViewParameter,
           ),
         ],
       ).listen(
@@ -73,13 +74,11 @@ void main() {
       AsyncValue<Repo>? state;
       agent.mockContainer(
         overrides: [
-          currentRepoProvider.overrideWithProvider(
-            currentRepoProviderFamily(
-              CurrentRepoParam(
-                ownerName: 'flutter',
-                repoName: 'flutter',
-                extra: _extra,
-              ),
+          currentRepoParamProvider.overrideWithValue(
+            RepoParam(
+              ownerName: 'flutter',
+              repoName: 'flutter',
+              cache: _extra,
             ),
           ),
         ],
