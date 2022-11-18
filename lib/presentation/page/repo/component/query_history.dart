@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../application/repo/provider/query_histories.dart';
 import '../../../../application/repo/search_repos_service.dart';
+import '../../../../application/repo/state/query_histories.dart';
 import '../../../../domain/repository/query_history/entity/query_history.dart';
 import '../../../../util/logger.dart';
 

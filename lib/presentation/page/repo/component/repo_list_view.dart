@@ -10,8 +10,8 @@ import 'package:number_display/number_display.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../application/repo/provider/repos_state.dart';
 import '../../../../application/repo/repos_service.dart';
+import '../../../../application/repo/state/repos_state.dart';
 import '../../../../domain/repository/repo/entity/repo.dart';
 import '../../../../util/assets/assets.gen.dart';
 import '../../../../util/localization/strings.g.dart';

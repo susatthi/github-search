@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'provider/repos_state.dart';
+import 'state/repos_state.dart';
 
 /// リポジトリ一覧サービスプロバイダー
 final reposServiceProvider = Provider(

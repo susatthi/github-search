@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../application/repo/provider/repos_state.dart';
 import '../../../../application/repo/search_repos_service.dart';
+import '../../../../application/repo/state/repos_state.dart';
 import '../../../../domain/repository/app_data/app_data_repository.dart';
 import '../../../../domain/repository/repo/entity/search_repos_order.dart';
 import '../../../../util/localization/strings.g.dart';

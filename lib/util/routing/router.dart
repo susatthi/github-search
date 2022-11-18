@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../../application/repo/provider/current_repo.dart';
+import '../../application/repo/state/current_repo.dart';
 import '../../domain/repository/repo/entity/repo.dart';
 import '../../domain/repository/repo/entity/repo_param.dart';
 import '../../presentation/page/error/error_page.dart';

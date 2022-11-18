@@ -11,7 +11,7 @@ import '../../domain/repository/query_history/query_history_repository.dart';
 import '../../domain/repository/repo/entity/search_repos_order.dart';
 import '../../domain/repository/repo/entity/search_repos_sort.dart';
 import '../../util/logger.dart';
-import 'provider/search_repos_query.dart';
+import 'state/search_repos_query.dart';
 
 // リポジトリ一覧検索サービスプロバイダー
 final searchReposServiceProvider = Provider(
