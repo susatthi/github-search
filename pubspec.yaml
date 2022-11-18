@@ -33,7 +33,7 @@ dependencies:
   http: ^0.13.5
   intl: ^0.17.0
   isar: ^3.0.2
-  isar_flutter_libs: ^3.0.2
+  isar_flutter_libs: ^3.0.5
   json_annotation: ^4.6.0
   lottie: ^2.0.0
   markdown: ^6.0.1
@@ -60,12 +60,12 @@ dev_dependencies:
   freezed: ^2.1.0+1
   go_router_builder: ^1.0.15
   golden_toolkit: ^0.13.0
-  isar_generator: ^3.0.2
+  isar_generator: ^3.0.5
   json_serializable: ^6.3.2
   mocktail: ^0.3.0
   path: ^1.8.2
   pedantic_mono: ^1.20.0
-  sqflite_common_ffi: ^2.1.1+1
+  sqflite_common_ffi: ^2.2.0+1
 
 flutter:
   assets:
