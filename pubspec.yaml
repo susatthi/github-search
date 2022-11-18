@@ -32,7 +32,7 @@ dependencies:
   hive_flutter: ^1.1.0
   http: ^0.13.5
   intl: ^0.17.0
-  isar: ^3.0.2
+  isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
   json_annotation: ^4.6.0
   lottie: ^2.0.0
