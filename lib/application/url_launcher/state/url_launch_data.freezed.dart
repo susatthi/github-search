@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UrlLaunchData {
   String get urlString => throw _privateConstructorUsedError;
-  UrlLaunchMode get mode => throw _privateConstructorUsedError;
+  LaunchMode get mode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UrlLaunchDataCopyWith<UrlLaunchData> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $UrlLaunchDataCopyWith<$Res> {
   factory $UrlLaunchDataCopyWith(
           UrlLaunchData value, $Res Function(UrlLaunchData) then) =
       _$UrlLaunchDataCopyWithImpl<$Res>;
-  $Res call({String urlString, UrlLaunchMode mode});
+  $Res call({String urlString, LaunchMode mode});
 }
 
 /// @nodoc
@@ -54,7 +54,7 @@ class _$UrlLaunchDataCopyWithImpl<$Res>
       mode: mode == freezed
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
-              as UrlLaunchMode,
+              as LaunchMode,
     ));
   }
 }
@@ -66,7 +66,7 @@ abstract class _$$_UrlLaunchDataCopyWith<$Res>
           _$_UrlLaunchData value, $Res Function(_$_UrlLaunchData) then) =
       __$$_UrlLaunchDataCopyWithImpl<$Res>;
   @override
-  $Res call({String urlString, UrlLaunchMode mode});
+  $Res call({String urlString, LaunchMode mode});
 }
 
 /// @nodoc
@@ -93,7 +93,7 @@ class __$$_UrlLaunchDataCopyWithImpl<$Res>
       mode: mode == freezed
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
-              as UrlLaunchMode,
+              as LaunchMode,
     ));
   }
 }
@@ -107,7 +107,7 @@ class _$_UrlLaunchData extends _UrlLaunchData {
   @override
   final String urlString;
   @override
-  final UrlLaunchMode mode;
+  final LaunchMode mode;
 
   @override
   String toString() {
@@ -138,13 +138,13 @@ class _$_UrlLaunchData extends _UrlLaunchData {
 abstract class _UrlLaunchData extends UrlLaunchData {
   const factory _UrlLaunchData(
       {required final String urlString,
-      required final UrlLaunchMode mode}) = _$_UrlLaunchData;
+      required final LaunchMode mode}) = _$_UrlLaunchData;
   const _UrlLaunchData._() : super._();
 
   @override
   String get urlString;
   @override
-  UrlLaunchMode get mode;
+  LaunchMode get mode;
   @override
   @JsonKey(ignore: true)
   _$$_UrlLaunchDataCopyWith<_$_UrlLaunchData> get copyWith =>
