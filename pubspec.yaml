@@ -11,7 +11,7 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   collection: ^1.16.0
   flutter:
     sdk: flutter
