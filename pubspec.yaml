@@ -44,7 +44,7 @@ dependencies:
   roggle: ^0.3.0
   shimmer: ^2.0.0
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.1.6
+  url_launcher: ^6.1.7
   visibility_detector: ^0.3.3
 
 dev_dependencies:
