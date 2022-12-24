@@ -15,6 +15,7 @@ import 'package:github_search/application/repo/state/search_repos_query.dart';
 import 'package:github_search/domain/repository/app_data/app_data_repository.dart';
 import 'package:github_search/domain/repository/query_history/query_history_repository.dart';
 import 'package:github_search/domain/repository/repo/repo_repository.dart';
+import 'package:github_search/infrastructure/github/api.dart';
 import 'package:github_search/infrastructure/github/http_client.dart';
 import 'package:github_search/infrastructure/github/repo/repo_repository.dart';
 import 'package:github_search/infrastructure/hive/app_data/app_data_repository.dart';
@@ -44,11 +45,22 @@ class TestAgent {
 
   final defaultOverrides = <Override>[
     // リポジトリの実装をDI
-    appDataRepositoryProvider
-        .overrideWithProvider(hiveAppDataRepositoryProvider),
-    repoRepositoryProvider.overrideWithProvider(githubRepoRepositoryProvider),
-    queryHistoryRepositoryProvider
-        .overrideWithProvider(isarQueryHistoryRepositoryProvider),
+    appDataRepositoryProvider.overrideWith(
+      (ref) => HiveAppDataRepository(
+        box: Hive.box<dynamic>(hiveBoxNameAppData),
+      ),
+    ),
+    repoRepositoryProvider.overrideWith(
+      (ref) => GitHubRepoRepository(
+        api: const GitHubApi(),
+        client: ref.watch(githubHttpClientProvider),
+      ),
+    ),
+    queryHistoryRepositoryProvider.overrideWith(
+      (ref) => IsarQueryHistoryRepository(
+        isar: ref.watch(isarProvider),
+      ),
+    ),
     // GitHubアクセストークンをダミー文字列にする
     githubAccessTokenProvider.overrideWithValue('dummy'),
     // モック版のHTTPクライアントを使う

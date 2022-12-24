@@ -26,7 +26,7 @@ final routerProvider = Provider<GoRouter>(
 
     // エラー画面
     errorPageBuilder: (context, state) =>
-        ErrorRoute(state.error).buildPage(context),
+        ErrorRoute(state.error).buildPage(context, state),
     observers: [pageRouteObserver],
     debugLogDiagnostics: !kReleaseMode,
   ),
@@ -57,7 +57,8 @@ class RepoIndexRoute extends GoRouteData {
   static const name = 'repo-index';
 
   @override
-  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      TransitionPage.fade(
         name: name,
         child: const RepoIndexPage(),
       );
@@ -70,7 +71,8 @@ class RepoSearchRoute extends GoRouteData {
   static const name = 'repo-search';
 
   @override
-  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      TransitionPage.fade(
         name: name,
         child: const RepoSearchPage(),
       );
@@ -106,16 +108,15 @@ class RepoViewRoute extends GoRouteData {
   static const name = 'repo-view';
 
   @override
-  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      TransitionPage.fade(
         name: name,
         child: ProviderScope(
           overrides: [
-            currentRepoParamProvider.overrideWithProvider(
-              Provider(
-                (_) => RepoParam(
-                  ownerName: ownerName,
-                  repoName: repoName,
-                ),
+            currentRepoParamProvider.overrideWith(
+              (_) => RepoParam(
+                ownerName: ownerName,
+                repoName: repoName,
               ),
             ),
           ],
@@ -145,16 +146,15 @@ class AvatarPreviewRoute extends GoRouteData {
   static const name = 'avatar';
 
   @override
-  Page<void> buildPage(BuildContext context) => TransitionPage.none(
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      TransitionPage.none(
         name: name,
         child: ProviderScope(
           overrides: [
-            currentRepoParamProvider.overrideWithProvider(
-              Provider(
-                (_) => RepoParam(
-                  ownerName: ownerName,
-                  repoName: repoName,
-                ),
+            currentRepoParamProvider.overrideWith(
+              (_) => RepoParam(
+                ownerName: ownerName,
+                repoName: repoName,
               ),
             ),
           ],
@@ -174,7 +174,8 @@ class ErrorRoute extends GoRouteData {
   static const name = 'error';
 
   @override
-  Page<void> buildPage(BuildContext context) => TransitionPage.fade(
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      TransitionPage.fade(
         name: name,
         child: ErrorPage(error: error),
       );
