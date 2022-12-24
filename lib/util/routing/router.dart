@@ -113,12 +113,10 @@ class RepoViewRoute extends GoRouteData {
         name: name,
         child: ProviderScope(
           overrides: [
-            currentRepoParamProvider.overrideWithProvider(
-              Provider(
-                (_) => RepoParam(
-                  ownerName: ownerName,
-                  repoName: repoName,
-                ),
+            currentRepoParamProvider.overrideWith(
+              (_) => RepoParam(
+                ownerName: ownerName,
+                repoName: repoName,
               ),
             ),
           ],
@@ -153,12 +151,10 @@ class AvatarPreviewRoute extends GoRouteData {
         name: name,
         child: ProviderScope(
           overrides: [
-            currentRepoParamProvider.overrideWithProvider(
-              Provider(
-                (_) => RepoParam(
-                  ownerName: ownerName,
-                  repoName: repoName,
-                ),
+            currentRepoParamProvider.overrideWith(
+              (_) => RepoParam(
+                ownerName: ownerName,
+                repoName: repoName,
               ),
             ),
           ],

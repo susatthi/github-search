@@ -12,6 +12,8 @@ import 'package:universal_platform/universal_platform.dart';
 import 'domain/repository/app_data/app_data_repository.dart';
 import 'domain/repository/query_history/query_history_repository.dart';
 import 'domain/repository/repo/repo_repository.dart';
+import 'infrastructure/github/api.dart';
+import 'infrastructure/github/http_client.dart';
 import 'infrastructure/github/repo/repo_repository.dart';
 import 'infrastructure/hive/app_data/app_data_repository.dart';
 import 'infrastructure/hive/hive.dart';
@@ -55,12 +57,22 @@ Future<void> main() async {
         // DataSources
         isarProvider.overrideWithValue(isar),
         // Repositories
-        appDataRepositoryProvider
-            .overrideWithProvider(hiveAppDataRepositoryProvider),
-        repoRepositoryProvider
-            .overrideWithProvider(githubRepoRepositoryProvider),
-        queryHistoryRepositoryProvider
-            .overrideWithProvider(isarQueryHistoryRepositoryProvider),
+        appDataRepositoryProvider.overrideWith(
+          (ref) => HiveAppDataRepository(
+            box: Hive.box<dynamic>(hiveBoxNameAppData),
+          ),
+        ),
+        repoRepositoryProvider.overrideWith(
+          (ref) => GitHubRepoRepository(
+            api: const GitHubApi(),
+            client: ref.watch(githubHttpClientProvider),
+          ),
+        ),
+        queryHistoryRepositoryProvider.overrideWith(
+          (ref) => IsarQueryHistoryRepository(
+            isar: ref.watch(isarProvider),
+          ),
+        ),
       ],
       child: const GitHubSearchApp(),
     ),

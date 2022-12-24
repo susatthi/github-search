@@ -87,7 +87,8 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
     testWidgets('error時はテキストを表示しないはず', (tester) async {
-      final asyncValue = AsyncValue<String>.error(Exception());
+      final asyncValue =
+          AsyncValue<String>.error(Exception(), StackTrace.current);
       await tester.pumpWidget(
         agent.mockApp(
           home: Scaffold(
