@@ -134,6 +134,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  cli_util:
+    dependency: transitive
+    description:
+      name: cli_util
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5"
   clock:
     dependency: transitive
     description:
@@ -282,12 +289,10 @@ packages:
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e96f0b2ef6c547ecd42490a97a89a4fdd63b8091
-      url: "https://github.com/dirkbo/flutter_launcher_icons"
-    source: git
-    version: "0.9.1"
+      name: flutter_launcher_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.0"
   flutter_lints:
     dependency: transitive
     description:
