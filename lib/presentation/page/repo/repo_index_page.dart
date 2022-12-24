@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../util/logger.dart';
-import '../../../util/routing/router.dart';
 import '../../component/search_app_bar.dart';
+import '../../router.dart';
 import 'component/repo_list_view.dart';
 import 'component/search_repos_query.dart';
 import 'component/search_repos_sort.dart';

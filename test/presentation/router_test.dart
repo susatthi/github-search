@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/presentation/page/error/error_page.dart';
 import 'package:github_search/presentation/page/repo/repo_index_page.dart';
-import 'package:github_search/util/routing/router.dart';
+import 'package:github_search/presentation/router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../test_agent.dart';
+import '../test_util/test_agent.dart';
 
 class _MockPageRoute extends Mock implements PageRoute<dynamic> {}
 

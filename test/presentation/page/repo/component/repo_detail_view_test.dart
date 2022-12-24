@@ -13,7 +13,7 @@ import 'package:github_search/presentation/component/cached_circle_avatar.dart';
 import 'package:github_search/presentation/component/error_view.dart';
 import 'package:github_search/presentation/page/repo/component/readme_markdown.dart';
 import 'package:github_search/presentation/page/repo/component/repo_detail_view.dart';
-import 'package:github_search/util/routing/router.dart';
+import 'package:github_search/presentation/router.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../test_util/golden_testing_tools.dart';
