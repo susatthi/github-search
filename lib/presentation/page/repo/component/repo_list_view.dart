@@ -16,11 +16,11 @@ import '../../../../domain/repository/repo/entity/repo.dart';
 import '../../../../util/assets/assets.gen.dart';
 import '../../../../util/localization/strings.g.dart';
 import '../../../../util/logger.dart';
-import '../../../../util/routing/router.dart';
 import '../../../component/cached_circle_avatar.dart';
 import '../../../component/error_view.dart';
 import '../../../component/icon_label.dart';
 import '../../../component/list_loader.dart';
+import '../../../router.dart';
 import 'repo_language_label.dart';
 
 /// ListTileのleadingに表示するアバターのサイズ

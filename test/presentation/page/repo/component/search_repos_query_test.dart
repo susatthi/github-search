@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:github_search/application/repo/state/search_repos_query.dart';
 import 'package:github_search/presentation/page/repo/component/search_repos_query.dart';
-import 'package:github_search/util/routing/router.dart';
+import 'package:github_search/presentation/router.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../test_util/test_agent.dart';

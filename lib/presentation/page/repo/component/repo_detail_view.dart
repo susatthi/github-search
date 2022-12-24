@@ -9,11 +9,11 @@ import '../../../../application/repo/state/current_repo.dart';
 import '../../../../application/url_launcher/url_launcher_service.dart';
 import '../../../../domain/repository/repo/entity/repo.dart';
 import '../../../../util/logger.dart';
-import '../../../../util/routing/router.dart';
 import '../../../component/cached_circle_avatar.dart';
 import '../../../component/error_view.dart';
 import '../../../component/hyperlink_text.dart';
 import '../../../component/icon_label.dart';
+import '../../../router.dart';
 import 'readme_markdown.dart';
 import 'repo_language_label.dart';
 

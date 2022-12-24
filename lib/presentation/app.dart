@@ -14,7 +14,7 @@ import '../application/url_launcher/state/url_launch_result.dart';
 import '../util/extension.dart';
 import '../util/localization/strings.g.dart';
 import '../util/logger.dart';
-import '../util/routing/router.dart';
+import 'router.dart';
 import 'theme.dart';
 
 /// GitHubSearch アプリ

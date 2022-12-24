@@ -102,38 +102,46 @@ Configurations を選択してビルドしてください。
 
 ## アーキテクチャ / パッケージ
 
-- [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [state_notifier](https://pub.dev/packages/state_notifier) + [freezed](https://pub.dev/packages/freezed) + [go_router](https://pub.dev/packages/go_router)
+- [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [go_router](https://pub.dev/packages/go_router)
 - [CODE WITH ANDREA](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/) と [DDD](https://little-hands.hatenablog.com/entry/2018/12/10/ddd-architecture) のアーキテクチャを参考にして、本アプリは下記の３層アーキテクチャで実装しています。
 
-![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/197906008-d25aed42-6d79-491f-8386-babc7fbf92d2.png)
+![アーキテクチャ図](https://user-images.githubusercontent.com/13707135/200081763-c2809366-046d-4a82-8367-9bee5a751b90.png)
 
 ### Presentation 層
 
+ユーザーとの I/F を担う層。Application 層と Domain 層に依存する。Infrastructure 層に依存してはいけない。
+
 #### Widget
 
-ページや UI 部品の Widget クラス群。State を監視（ watch / listen ）して UI に表現する。ユーザーイベントを検知して Controller のメソッドを呼び出す。キャッシュが効かなくなるので直接 Repository Interfaces を呼び出してはいけない。
+ページや UI 部品の Widget クラス群。State を監視（ watch / listen ）して UI に表現する。ユーザーイベントを検知して Service のメソッドを呼び出す。キャッシュが効かなくなるので直接 Repository Interface を呼び出してはいけない。画面遷移の実装は Widget のイベントハンドラー内で行ってよい。
 
-### Domain 層
+#### Application 層
 
-#### Entity
-
-データの構造体。どの層にも依存してはいけない。入力値のバリデーションはエンティティのコンストラクタで実装する。Infrastructure 層が投げる例外はドメイン層で定義する。
-
-#### Repository Interface
-
-データの永続化をになう Repository のインターフェース。どの層にも依存してはいけない。
-
-#### Controller
-
-Repository Interface を呼び出して Entity を受け取って State を更新する。Widget からのメソッド呼び出しや、依存する State の更新を契機に発火する。
-
-本来 Controller は Presentation 層にあり、ロジックを Domain 層におき区別するべきだが、Riverpod は State が互いに強調するため State 自体がロジックのかたまりになるので、その State を更新する Controller も含め Domain 層に含んでいる（これがよいかどうかはまだわからない）。
+アプリケーションのロジックや状態を定義する層。Domain 層に依存する。Presentation 層と Infrastructure 層に依存してはいけない。
 
 #### State
 
-アプリのあらゆる状態。Entity そのものでもよいし、新たに定義した状態クラスでもよい。`StateProvider` 等でラップされ Widget や他の State から参照される。
+アプリのあらゆる状態。Domain 層の Entity そのものでもよいし、複数の Repository をまたいだ Entity を統合するクラスでもよい。State は `StateProvider` 等でラップされ Widget や他の State から参照される。
+
+#### Service
+
+ユーザーイベントを受け付けて、複数の Repository Interface を呼び出して Entity を受け取って State を更新するサービスクラス。Widget からのメソッド呼び出しや、依存する State の更新を契機に発火する。
+
+### Domain 層
+
+ドメインロジックやドメインオブジェクト（エンティティ）を定義する層。どの層にも依存してはいけない。
+
+#### Entity
+
+Repository Interface で扱うドメインオブジェクト（データの構造体）。入力値のバリデーションは Entity のコンストラクタで実装する。Infrastructure 層が投げる例外はドメイン層で定義する。
+
+#### Repository Interface
+
+データの永続化や外部サービス連携を担う Repository のインターフェース。集約毎に定義する。
 
 ### Infrastructure 層
+
+データの永続化や外部サービス連携を担う層。Domain 層に依存する。Presentation 層と Application 層に依存してはいけない。
 
 #### Repository Implements
 
@@ -141,30 +149,35 @@ Repository Interface の実装。Data Source を利用してデータの永続�
 
 #### Data Source
 
-様々なデータソース。API だったり、Hive だったり、SharedPreferences だったり、Isar だったりする。
+様々なデータソース。Firebase だったり、API だったり、Hive だったり、SharedPreferences だったり、Isar だったりする。
 
 ## フォルダ構成
 
 ```  
+├── application                              アプリケーション層
+│   └── <関心事>
+│       ├── <state>                          状態クラス群
+│       └── <関心事>_service.dart             サービスクラス
 ├── domain                                   ドメイン層
 │   ├── exceptions.dart                      例外クラス
-│   ├── state                                状態とコントローラー 
 │   └── repository
-│       └── <feature>
-│           ├── <feature>_repository.dart    リポジトリのインターフェースクラス
-│           └── entity                       機能単位のエンティティ
+│       └── <集約>
+│           ├── <集約>_repository.dart        リポジトリのインターフェースクラス
+│           └── entity                       集約単位のエンティティ
 ├── infrastructure                           インフラストラクチャ層
-│   └── <data_source>
-│       └── <feature>
-│           └── <feature>_repository.dart    リポジトリの実装
+│   └── <データソース>
+│       └── <集約>
+│           └── <集約>_repository.dart       リポジトリの実装
 ├── presentation
 │   ├── app.dart                             アプリケーション
+│   ├── router.dart                          ルーティング
+│   ├── theme.dart                           テーマ
 │   ├── component                            プレゼンテーション層で共通の Widget
 │   └── page
-│       └── <feature>
+│       └── <関心事>
 │           ├── component                    画面単位の Widget
-│           └── <feature>_<curd>_page.dart   画面Widget
-└── util                                     どの層からもアクセス可能なクラス、拡張機能、ロガー、言語ファイル、環境変数など
+│           └── <関心事>_<CURD>page.dart      画面Widget
+└── util                                     どの層からもアクセス可能な便利クラス（ロガー、拡張メソッドなど）
 ```
 
 ### ファイル分割の方針
@@ -175,8 +188,8 @@ Repository Interface の実装。Data Source を利用してデータの永続�
 
 |                | Version                          |
 |----------------|----------------------------------|
-| Flutter        | 3.3.2                            |
-| Dart           | 2.18.1                           |
+| Flutter        | 3.3.10                           |
+| Dart           | 2.18.6                           |
 
 ### コードの自動生成
 

@@ -9,7 +9,7 @@ import '../../../../application/repo/search_repos_service.dart';
 import '../../../../application/repo/state/search_repos_query.dart';
 import '../../../../util/localization/strings.g.dart';
 import '../../../../util/logger.dart';
-import '../../../../util/routing/router.dart';
+import '../../../router.dart';
 
 /// リポジトリ検索用テキストフィールド
 class SearchReposQueryTextField extends ConsumerStatefulWidget {
