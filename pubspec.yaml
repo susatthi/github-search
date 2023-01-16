@@ -35,7 +35,7 @@ dependencies:
   isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
   json_annotation: ^4.6.0
-  lottie: ^2.1.0
+  lottie: ^2.2.0
   markdown: ^6.0.1
   number_display: ^3.0.0
   path_provider: ^2.0.11
