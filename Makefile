@@ -15,6 +15,11 @@ clean:
 build-runner:
 	$(FLUTTER) packages pub run build_runner build --delete-conflicting-outputs
 
+.PHONY: build-runner-watch
+build-runner-watch:
+	$(FLUTTER) packages pub run build_runner clean
+	$(FLUTTER) packages pub run build_runner watch --delete-conflicting-outputs
+
 ### Test Commands
 
 .PHONY: test-en
