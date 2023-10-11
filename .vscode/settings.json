@@ -43,7 +43,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, template.iml, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml, flutter_launcher_icons-*.yaml, flutter_native_splash.yaml, lefthook.yaml",
+    "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, template.iml, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml, flutter_launcher_icons*.yaml, flutter_native_splash.yaml, lefthook.yaml",
     ".env.example": ".env.*",
     ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
     "readme.*": "authors, backers.md, changelog*, citation*, code_of_conduct.md, codeowners, contributing.md, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors.md",

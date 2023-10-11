@@ -94,28 +94,3 @@ flutter:
 
 flutter_gen:
   output: lib/util/assets/
-
-flutter_icons:
-  # flutter pub run flutter_launcher_icons:main
-  android: 'ic_launcher'
-  ios: true
-  macos: true
-  windows: true
-  image_path: 'assets/images/icon.png'
-  adaptive_icon_background: '#eeeeee'
-  adaptive_icon_foreground: 'assets/images/icon_adaptive_foreground.png'
-
-flutter_native_splash:
-  # flutter pub run flutter_native_splash:create
-  # flutter pub run flutter_native_splash:remove
-  color: '#eeeeee'
-  image: 'assets/images/splash.png'
-  color_dark: '#262626'
-  image_dark: 'assets/images/splash_dark.png'
-
-  # Android12以上はAndroidOS側でアプリアイコンをスプラッシュ表示してしまうので以下の通り設定が必要
-  android_12:
-    image: 'assets/images/splash_android_12.png'
-    icon_background_color: '#eeeeee'
-    image_dark: 'assets/images/splash_android_12_dark.png'
-    icon_background_color_dark: '#262626'
