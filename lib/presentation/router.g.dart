@@ -47,6 +47,8 @@ extension $RepoIndexRouteExtension on RepoIndexRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $RepoSearchRouteExtension on RepoSearchRoute {
@@ -63,12 +65,14 @@ extension $RepoSearchRouteExtension on RepoSearchRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $RepoViewRouteExtension on RepoViewRoute {
   static RepoViewRoute _fromState(GoRouterState state) => RepoViewRoute(
-        state.params['ownerName']!,
-        state.params['repoName']!,
+        state.pathParameters['ownerName']!,
+        state.pathParameters['repoName']!,
       );
 
   String get location => GoRouteData.$location(
@@ -81,13 +85,15 @@ extension $RepoViewRouteExtension on RepoViewRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $AvatarPreviewRouteExtension on AvatarPreviewRoute {
   static AvatarPreviewRoute _fromState(GoRouterState state) =>
       AvatarPreviewRoute(
-        state.params['ownerName']!,
-        state.params['repoName']!,
+        state.pathParameters['ownerName']!,
+        state.pathParameters['repoName']!,
         $extra: state.extra as Repo?,
       );
 
@@ -102,4 +108,7 @@ extension $AvatarPreviewRouteExtension on AvatarPreviewRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
