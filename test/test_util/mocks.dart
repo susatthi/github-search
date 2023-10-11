@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT license that can be
 // found in the LICENSE file.
 
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, deprecated_member_use
 
 import 'dart:async';
 import 'dart:convert';
@@ -65,7 +65,7 @@ final mockHttpClient = MockClient(
         jsonFileNameBuffer.write('.json');
 
         // JSONファイルのパス
-        final jsonFilePath = 'github/${jsonFileNameBuffer.toString()}';
+        final jsonFilePath = 'github/$jsonFileNameBuffer';
         testLogger.i('Required json file at $jsonFilePath');
 
         // 検索文字列からテスト用のJSONファイルを読み込む
@@ -117,7 +117,7 @@ final mockHttpClient = MockClient(
           ..write('_$fileName');
 
         // MDファイルのパス
-        final mdFilePath = 'github/${mdFileNameBuffer.toString()}';
+        final mdFilePath = 'github/$mdFileNameBuffer';
         testLogger.i('Required md file at $mdFilePath');
 
         // 検索文字列からテスト用のMDファイルを読み込む
