@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'repo.dart';
 
@@ -74,7 +74,8 @@ mixin _$Repo {
 /// @nodoc
 abstract class $RepoCopyWith<$Res> {
   factory $RepoCopyWith(Repo value, $Res Function(Repo) then) =
-      _$RepoCopyWithImpl<$Res>;
+      _$RepoCopyWithImpl<$Res, Repo>;
+  @useResult
   $Res call(
       {String ownerName,
       String avatarUrl,
@@ -102,27 +103,30 @@ abstract class $RepoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
+class _$RepoCopyWithImpl<$Res, $Val extends Repo>
+    implements $RepoCopyWith<$Res> {
   _$RepoCopyWithImpl(this._value, this._then);
 
-  final Repo _value;
   // ignore: unused_field
-  final $Res Function(Repo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ownerName = freezed,
-    Object? avatarUrl = freezed,
+    Object? ownerName = null,
+    Object? avatarUrl = null,
     Object? ownerUrl = freezed,
-    Object? repoName = freezed,
-    Object? fullName = freezed,
+    Object? repoName = null,
+    Object? fullName = null,
     Object? description = freezed,
-    Object? stargazersCount = freezed,
-    Object? watchersCount = freezed,
-    Object? language = freezed,
-    Object? forksCount = freezed,
-    Object? openIssuesCount = freezed,
-    Object? defaultBranch = freezed,
+    Object? stargazersCount = null,
+    Object? watchersCount = null,
+    Object? language = null,
+    Object? forksCount = null,
+    Object? openIssuesCount = null,
+    Object? defaultBranch = null,
     Object? repoUrl = freezed,
     Object? stargazersUrl = freezed,
     Object? watchersUrl = freezed,
@@ -130,118 +134,125 @@ class _$RepoCopyWithImpl<$Res> implements $RepoCopyWith<$Res> {
     Object? issuesUrl = freezed,
   }) {
     return _then(_value.copyWith(
-      ownerName: ownerName == freezed
+      ownerName: null == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: avatarUrl == freezed
+      avatarUrl: null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      ownerUrl: ownerUrl == freezed
+      ownerUrl: freezed == ownerUrl
           ? _value.ownerUrl
           : ownerUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      repoName: repoName == freezed
+      repoName: null == repoName
           ? _value.repoName
           : repoName // ignore: cast_nullable_to_non_nullable
               as String,
-      fullName: fullName == freezed
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersCount: stargazersCount == freezed
+      stargazersCount: null == stargazersCount
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      watchersCount: watchersCount == freezed
+      watchersCount: null == watchersCount
           ? _value.watchersCount
           : watchersCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      language: language == freezed
+      language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as RepoLanguage,
-      forksCount: forksCount == freezed
+      forksCount: null == forksCount
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      openIssuesCount: openIssuesCount == freezed
+      openIssuesCount: null == openIssuesCount
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      defaultBranch: defaultBranch == freezed
+      defaultBranch: null == defaultBranch
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
               as String,
-      repoUrl: repoUrl == freezed
+      repoUrl: freezed == repoUrl
           ? _value.repoUrl
           : repoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersUrl: stargazersUrl == freezed
+      stargazersUrl: freezed == stargazersUrl
           ? _value.stargazersUrl
           : stargazersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      watchersUrl: watchersUrl == freezed
+      watchersUrl: freezed == watchersUrl
           ? _value.watchersUrl
           : watchersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      forksUrl: forksUrl == freezed
+      forksUrl: freezed == forksUrl
           ? _value.forksUrl
           : forksUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      issuesUrl: issuesUrl == freezed
+      issuesUrl: freezed == issuesUrl
           ? _value.issuesUrl
           : issuesUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RepoCountCopyWith<$Res> get stargazersCount {
     return $RepoCountCopyWith<$Res>(_value.stargazersCount, (value) {
-      return _then(_value.copyWith(stargazersCount: value));
+      return _then(_value.copyWith(stargazersCount: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RepoCountCopyWith<$Res> get watchersCount {
     return $RepoCountCopyWith<$Res>(_value.watchersCount, (value) {
-      return _then(_value.copyWith(watchersCount: value));
+      return _then(_value.copyWith(watchersCount: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RepoLanguageCopyWith<$Res> get language {
     return $RepoLanguageCopyWith<$Res>(_value.language, (value) {
-      return _then(_value.copyWith(language: value));
+      return _then(_value.copyWith(language: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RepoCountCopyWith<$Res> get forksCount {
     return $RepoCountCopyWith<$Res>(_value.forksCount, (value) {
-      return _then(_value.copyWith(forksCount: value));
+      return _then(_value.copyWith(forksCount: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RepoCountCopyWith<$Res> get openIssuesCount {
     return $RepoCountCopyWith<$Res>(_value.openIssuesCount, (value) {
-      return _then(_value.copyWith(openIssuesCount: value));
+      return _then(_value.copyWith(openIssuesCount: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
-  factory _$$_RepoCopyWith(_$_Repo value, $Res Function(_$_Repo) then) =
-      __$$_RepoCopyWithImpl<$Res>;
+abstract class _$$RepoImplCopyWith<$Res> implements $RepoCopyWith<$Res> {
+  factory _$$RepoImplCopyWith(
+          _$RepoImpl value, $Res Function(_$RepoImpl) then) =
+      __$$RepoImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String ownerName,
       String avatarUrl,
@@ -274,100 +285,99 @@ abstract class _$$_RepoCopyWith<$Res> implements $RepoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
-    implements _$$_RepoCopyWith<$Res> {
-  __$$_RepoCopyWithImpl(_$_Repo _value, $Res Function(_$_Repo) _then)
-      : super(_value, (v) => _then(v as _$_Repo));
+class __$$RepoImplCopyWithImpl<$Res>
+    extends _$RepoCopyWithImpl<$Res, _$RepoImpl>
+    implements _$$RepoImplCopyWith<$Res> {
+  __$$RepoImplCopyWithImpl(_$RepoImpl _value, $Res Function(_$RepoImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_Repo get _value => super._value as _$_Repo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ownerName = freezed,
-    Object? avatarUrl = freezed,
+    Object? ownerName = null,
+    Object? avatarUrl = null,
     Object? ownerUrl = freezed,
-    Object? repoName = freezed,
-    Object? fullName = freezed,
+    Object? repoName = null,
+    Object? fullName = null,
     Object? description = freezed,
-    Object? stargazersCount = freezed,
-    Object? watchersCount = freezed,
-    Object? language = freezed,
-    Object? forksCount = freezed,
-    Object? openIssuesCount = freezed,
-    Object? defaultBranch = freezed,
+    Object? stargazersCount = null,
+    Object? watchersCount = null,
+    Object? language = null,
+    Object? forksCount = null,
+    Object? openIssuesCount = null,
+    Object? defaultBranch = null,
     Object? repoUrl = freezed,
     Object? stargazersUrl = freezed,
     Object? watchersUrl = freezed,
     Object? forksUrl = freezed,
     Object? issuesUrl = freezed,
   }) {
-    return _then(_$_Repo(
-      ownerName: ownerName == freezed
+    return _then(_$RepoImpl(
+      ownerName: null == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: avatarUrl == freezed
+      avatarUrl: null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      ownerUrl: ownerUrl == freezed
+      ownerUrl: freezed == ownerUrl
           ? _value.ownerUrl
           : ownerUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      repoName: repoName == freezed
+      repoName: null == repoName
           ? _value.repoName
           : repoName // ignore: cast_nullable_to_non_nullable
               as String,
-      fullName: fullName == freezed
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersCount: stargazersCount == freezed
+      stargazersCount: null == stargazersCount
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      watchersCount: watchersCount == freezed
+      watchersCount: null == watchersCount
           ? _value.watchersCount
           : watchersCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      language: language == freezed
+      language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as RepoLanguage,
-      forksCount: forksCount == freezed
+      forksCount: null == forksCount
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      openIssuesCount: openIssuesCount == freezed
+      openIssuesCount: null == openIssuesCount
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
               as RepoCount,
-      defaultBranch: defaultBranch == freezed
+      defaultBranch: null == defaultBranch
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
               as String,
-      repoUrl: repoUrl == freezed
+      repoUrl: freezed == repoUrl
           ? _value.repoUrl
           : repoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersUrl: stargazersUrl == freezed
+      stargazersUrl: freezed == stargazersUrl
           ? _value.stargazersUrl
           : stargazersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      watchersUrl: watchersUrl == freezed
+      watchersUrl: freezed == watchersUrl
           ? _value.watchersUrl
           : watchersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      forksUrl: forksUrl == freezed
+      forksUrl: freezed == forksUrl
           ? _value.forksUrl
           : forksUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      issuesUrl: issuesUrl == freezed
+      issuesUrl: freezed == issuesUrl
           ? _value.issuesUrl
           : issuesUrl // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -377,8 +387,8 @@ class __$$_RepoCopyWithImpl<$Res> extends _$RepoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Repo extends _Repo {
-  const _$_Repo(
+class _$RepoImpl extends _Repo {
+  const _$RepoImpl(
       {required this.ownerName,
       required this.avatarUrl,
       required this.ownerUrl,
@@ -470,59 +480,68 @@ class _$_Repo extends _Repo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Repo &&
-            const DeepCollectionEquality().equals(other.ownerName, ownerName) &&
-            const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl) &&
-            const DeepCollectionEquality().equals(other.ownerUrl, ownerUrl) &&
-            const DeepCollectionEquality().equals(other.repoName, repoName) &&
-            const DeepCollectionEquality().equals(other.fullName, fullName) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.stargazersCount, stargazersCount) &&
-            const DeepCollectionEquality()
-                .equals(other.watchersCount, watchersCount) &&
-            const DeepCollectionEquality().equals(other.language, language) &&
-            const DeepCollectionEquality()
-                .equals(other.forksCount, forksCount) &&
-            const DeepCollectionEquality()
-                .equals(other.openIssuesCount, openIssuesCount) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultBranch, defaultBranch) &&
-            const DeepCollectionEquality().equals(other.repoUrl, repoUrl) &&
-            const DeepCollectionEquality()
-                .equals(other.stargazersUrl, stargazersUrl) &&
-            const DeepCollectionEquality()
-                .equals(other.watchersUrl, watchersUrl) &&
-            const DeepCollectionEquality().equals(other.forksUrl, forksUrl) &&
-            const DeepCollectionEquality().equals(other.issuesUrl, issuesUrl));
+            other is _$RepoImpl &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
+            (identical(other.ownerUrl, ownerUrl) ||
+                other.ownerUrl == ownerUrl) &&
+            (identical(other.repoName, repoName) ||
+                other.repoName == repoName) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.stargazersCount, stargazersCount) ||
+                other.stargazersCount == stargazersCount) &&
+            (identical(other.watchersCount, watchersCount) ||
+                other.watchersCount == watchersCount) &&
+            (identical(other.language, language) ||
+                other.language == language) &&
+            (identical(other.forksCount, forksCount) ||
+                other.forksCount == forksCount) &&
+            (identical(other.openIssuesCount, openIssuesCount) ||
+                other.openIssuesCount == openIssuesCount) &&
+            (identical(other.defaultBranch, defaultBranch) ||
+                other.defaultBranch == defaultBranch) &&
+            (identical(other.repoUrl, repoUrl) || other.repoUrl == repoUrl) &&
+            (identical(other.stargazersUrl, stargazersUrl) ||
+                other.stargazersUrl == stargazersUrl) &&
+            (identical(other.watchersUrl, watchersUrl) ||
+                other.watchersUrl == watchersUrl) &&
+            (identical(other.forksUrl, forksUrl) ||
+                other.forksUrl == forksUrl) &&
+            (identical(other.issuesUrl, issuesUrl) ||
+                other.issuesUrl == issuesUrl));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(ownerName),
-      const DeepCollectionEquality().hash(avatarUrl),
-      const DeepCollectionEquality().hash(ownerUrl),
-      const DeepCollectionEquality().hash(repoName),
-      const DeepCollectionEquality().hash(fullName),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(stargazersCount),
-      const DeepCollectionEquality().hash(watchersCount),
-      const DeepCollectionEquality().hash(language),
-      const DeepCollectionEquality().hash(forksCount),
-      const DeepCollectionEquality().hash(openIssuesCount),
-      const DeepCollectionEquality().hash(defaultBranch),
-      const DeepCollectionEquality().hash(repoUrl),
-      const DeepCollectionEquality().hash(stargazersUrl),
-      const DeepCollectionEquality().hash(watchersUrl),
-      const DeepCollectionEquality().hash(forksUrl),
-      const DeepCollectionEquality().hash(issuesUrl));
+      ownerName,
+      avatarUrl,
+      ownerUrl,
+      repoName,
+      fullName,
+      description,
+      stargazersCount,
+      watchersCount,
+      language,
+      forksCount,
+      openIssuesCount,
+      defaultBranch,
+      repoUrl,
+      stargazersUrl,
+      watchersUrl,
+      forksUrl,
+      issuesUrl);
 
   @JsonKey(ignore: true)
   @override
-  _$$_RepoCopyWith<_$_Repo> get copyWith =>
-      __$$_RepoCopyWithImpl<_$_Repo>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$RepoImplCopyWith<_$RepoImpl> get copyWith =>
+      __$$RepoImplCopyWithImpl<_$RepoImpl>(this, _$identity);
 }
 
 abstract class _Repo extends Repo {
@@ -543,7 +562,7 @@ abstract class _Repo extends Repo {
       final String? stargazersUrl,
       final String? watchersUrl,
       final String? forksUrl,
-      final String? issuesUrl}) = _$_Repo;
+      final String? issuesUrl}) = _$RepoImpl;
   const _Repo._() : super._();
 
   @override
@@ -616,5 +635,6 @@ abstract class _Repo extends Repo {
   String? get issuesUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_RepoCopyWith<_$_Repo> get copyWith => throw _privateConstructorUsedError;
+  _$$RepoImplCopyWith<_$RepoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

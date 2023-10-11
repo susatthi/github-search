@@ -8,8 +8,8 @@ part of 'repo.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RepoJsonObject _$$_RepoJsonObjectFromJson(Map<String, dynamic> json) =>
-    _$_RepoJsonObject(
+_$RepoJsonObjectImpl _$$RepoJsonObjectImplFromJson(Map<String, dynamic> json) =>
+    _$RepoJsonObjectImpl(
       name: json['name'] as String,
       fullName: json['full_name'] as String,
       owner: OwnerJsonObject.fromJson(json['owner'] as Map<String, dynamic>),
@@ -27,7 +27,8 @@ _$_RepoJsonObject _$$_RepoJsonObjectFromJson(Map<String, dynamic> json) =>
       issuesUrl: json['issuesUrl'] as String?,
     );
 
-Map<String, dynamic> _$$_RepoJsonObjectToJson(_$_RepoJsonObject instance) =>
+Map<String, dynamic> _$$RepoJsonObjectImplToJson(
+        _$RepoJsonObjectImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'full_name': instance.fullName,

@@ -3,9 +3,9 @@
     "short_name": "github-search",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#eeeeee",
+    "theme_color": "#262626",
+    "description": "github-search",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

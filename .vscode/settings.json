@@ -1,3 +1,4 @@
+// Dart Recommended Settings: https://dartcode.org/docs/recommended-settings/
 {
   "debug.openDebug": "openOnDebugBreak",
   "editor.rulers": [80],
@@ -20,9 +21,15 @@
       "source.fixAll"
     ]
   },
+  "[css]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+  },
   "dart.flutterSdkPath": ".fvm/flutter_sdk",
-  "dart.debugSdkLibraries": true,
+  "dart.debugSdkLibraries": false,
   "dart.showSkippedTests": false,
+  "dart.runPubGetOnPubspecChanges": "always",
+  "dart.projectSearchDepth": 3,
   "search.exclude": {
     "**/.fvm": true,
     "**/*.freezed.dart": true,
@@ -36,11 +43,10 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, template.iml, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml, flutter_launcher_icons-*.yaml, flutter_native_splash.yaml, lefthook.yaml, Makefile",
-    "firebase.json": ".firebaserc, firestore.rules, firestore.indexes.json,storage.rules, remoteconfig.template.json",
+    "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, template.iml, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml, flutter_launcher_icons*.yaml, flutter_native_splash.yaml, lefthook.yaml",
+    ".env.example": ".env.*",
     ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
     "readme.*": "authors, backers.md, changelog*, citation*, code_of_conduct.md, codeowners, contributing.md, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors.md",
-    "*.dart": "$(capture).g.dart, $(capture).freezed.dart"
+    "*.dart": "$(capture).g.dart, $(capture).gr.dart, $(capture).freezed.dart"
   },
-  "cSpell.enabled": false
 }

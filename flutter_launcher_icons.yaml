@@ -1,0 +1,21 @@
+# Copyright 2023 susatthi All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: 'assets/images/icon.png'
+  adaptive_icon_background: '#eeeeee'
+  adaptive_icon_foreground: 'assets/images/icon_adaptive_foreground.png'
+  web:
+    generate: true
+    image_path: 'assets/images/icon.png'
+    background_color: "#eeeeee"
+    theme_color: "#262626"
+  windows:
+    generate: true
+    image_path: 'assets/images/icon.png'
+  macos:
+    generate: true
+    image_path: 'assets/images/icon.png'

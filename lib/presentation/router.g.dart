@@ -8,11 +8,11 @@ part of 'router.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<GoRoute> get $appRoutes => [
+List<RouteBase> get $appRoutes => [
       $repoIndexRoute,
     ];
 
-GoRoute get $repoIndexRoute => GoRouteData.$route(
+RouteBase get $repoIndexRoute => GoRouteData.$route(
       path: '/repos',
       factory: $RepoIndexRouteExtension._fromState,
       routes: [
@@ -41,9 +41,14 @@ extension $RepoIndexRouteExtension on RepoIndexRoute {
         '/repos',
       );
 
-  void go(BuildContext context) => context.go(location, extra: this);
+  void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location, extra: this);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $RepoSearchRouteExtension on RepoSearchRoute {
@@ -54,31 +59,41 @@ extension $RepoSearchRouteExtension on RepoSearchRoute {
         '/repos/search',
       );
 
-  void go(BuildContext context) => context.go(location, extra: this);
+  void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location, extra: this);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $RepoViewRouteExtension on RepoViewRoute {
   static RepoViewRoute _fromState(GoRouterState state) => RepoViewRoute(
-        state.params['ownerName']!,
-        state.params['repoName']!,
+        state.pathParameters['ownerName']!,
+        state.pathParameters['repoName']!,
       );
 
   String get location => GoRouteData.$location(
         '/repos/${Uri.encodeComponent(ownerName)}/${Uri.encodeComponent(repoName)}',
       );
 
-  void go(BuildContext context) => context.go(location, extra: this);
+  void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location, extra: this);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $AvatarPreviewRouteExtension on AvatarPreviewRoute {
   static AvatarPreviewRoute _fromState(GoRouterState state) =>
       AvatarPreviewRoute(
-        state.params['ownerName']!,
-        state.params['repoName']!,
+        state.pathParameters['ownerName']!,
+        state.pathParameters['repoName']!,
         $extra: state.extra as Repo?,
       );
 
@@ -86,7 +101,14 @@ extension $AvatarPreviewRouteExtension on AvatarPreviewRoute {
         '/repos/${Uri.encodeComponent(ownerName)}/${Uri.encodeComponent(repoName)}/avatar',
       );
 
-  void go(BuildContext context) => context.go(location, extra: this);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  void push(BuildContext context) => context.push(location, extra: this);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }

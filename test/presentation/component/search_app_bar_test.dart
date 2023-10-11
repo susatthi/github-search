@@ -22,7 +22,7 @@ void main() {
               slivers: [
                 SearchAppBar(
                   backgroundColor: Colors.red,
-                )
+                ),
               ],
             ),
           ),

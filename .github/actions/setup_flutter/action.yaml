@@ -11,6 +11,7 @@ description: Setup Flutter
 # インプット情報
 inputs:
   GITHUB_ACCESS_TOKEN:
+    description: 'GitHubアクセストークン'
     required: true
 
 # 実行する内容を定義する

@@ -1,0 +1,16 @@
+# Copyright 2023 susatthi All rights reserved.
+# Use of this source code is governed by a MIT license that can be
+# found in the LICENSE file.
+
+flutter_native_splash:
+  color: '#eeeeee'
+  image: 'assets/images/splash.png'
+  color_dark: '#262626'
+  image_dark: 'assets/images/splash_dark.png'
+
+  # Android12以上はAndroidOS側でアプリアイコンをスプラッシュ表示してしまうので以下の通り設定が必要
+  android_12:
+    image: 'assets/images/splash_android_12.png'
+    icon_background_color: '#eeeeee'
+    image_dark: 'assets/images/splash_android_12_dark.png'
+    icon_background_color_dark: '#262626'

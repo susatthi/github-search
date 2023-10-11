@@ -8,7 +8,7 @@ import 'package:github_search/domain/repository/repo/entity/value_object/repo_co
 void main() {
   group('RepoCountHelper', () {
     test('1桁の場合はそのまま表示するはず', () async {
-      const count = RepoCount(0);
+      const count = RepoCount();
       expect(count.value, 0);
       expect(count.display, '0');
     });

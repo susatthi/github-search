@@ -71,8 +71,8 @@ class CachedCircleAvatarState extends ConsumerState<CachedCircleAvatar> {
         );
       },
       placeholder: widget.loading
-          ? (_, __) => Row(
-                children: const [
+          ? (_, __) => const Row(
+                children: [
                   Spacer(),
                   CircularProgressIndicator(),
                   Spacer(),

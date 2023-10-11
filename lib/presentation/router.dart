@@ -262,7 +262,7 @@ class PageRouteObserver extends NavigatorObserver {
 }
 
 /// RouteAware の I/F に遷移元/遷移先の Route を加えた I/F
-abstract class PageRouteAware {
+mixin class PageRouteAware {
   void didPopNext(Route<dynamic> nextRoute) {}
   void didPush() {}
   void didPop(Route<dynamic> previousRoute) {}

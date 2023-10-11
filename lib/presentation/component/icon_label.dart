@@ -32,7 +32,7 @@ class IconLabel extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: Theme.of(context).textTheme.caption!.color,
+              color: Theme.of(context).textTheme.bodySmall!.color,
               size: 20,
             ),
             const Gap(4),

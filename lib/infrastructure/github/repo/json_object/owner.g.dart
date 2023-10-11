@@ -8,14 +8,16 @@ part of 'owner.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_OwnerJsonObject _$$_OwnerJsonObjectFromJson(Map<String, dynamic> json) =>
-    _$_OwnerJsonObject(
+_$OwnerJsonObjectImpl _$$OwnerJsonObjectImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OwnerJsonObjectImpl(
       login: json['login'] as String,
       avatarUrl: json['avatar_url'] as String,
       ownerUrl: json['ownerUrl'] as String?,
     );
 
-Map<String, dynamic> _$$_OwnerJsonObjectToJson(_$_OwnerJsonObject instance) =>
+Map<String, dynamic> _$$OwnerJsonObjectImplToJson(
+        _$OwnerJsonObjectImpl instance) =>
     <String, dynamic>{
       'login': instance.login,
       'avatar_url': instance.avatarUrl,
