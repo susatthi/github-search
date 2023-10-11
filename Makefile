@@ -53,4 +53,4 @@ flutter-native-splash:
 
 .PHONY: flutter-launcher-icons
 flutter-launcher-icons:
-	$(FLUTTER) pub run flutter_launcher_icons:main
+	$(FLUTTER) pub run flutter_launcher_icons
