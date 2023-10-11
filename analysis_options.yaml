@@ -29,3 +29,9 @@ analyzer:
   errors:
     invalid_annotation_target: ignore
     todo: ignore
+  plugins:
+    - custom_lint
+
+custom_lint:
+  rules:
+    - missing_provider_scope: false
