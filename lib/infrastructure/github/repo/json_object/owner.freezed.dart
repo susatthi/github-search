@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'owner.dart';
 
@@ -36,7 +36,8 @@ mixin _$OwnerJsonObject {
 abstract class $OwnerJsonObjectCopyWith<$Res> {
   factory $OwnerJsonObjectCopyWith(
           OwnerJsonObject value, $Res Function(OwnerJsonObject) then) =
-      _$OwnerJsonObjectCopyWithImpl<$Res>;
+      _$OwnerJsonObjectCopyWithImpl<$Res, OwnerJsonObject>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'login') String login,
       @JsonKey(name: 'avatar_url') String avatarUrl,
@@ -44,44 +45,47 @@ abstract class $OwnerJsonObjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$OwnerJsonObjectCopyWithImpl<$Res>
+class _$OwnerJsonObjectCopyWithImpl<$Res, $Val extends OwnerJsonObject>
     implements $OwnerJsonObjectCopyWith<$Res> {
   _$OwnerJsonObjectCopyWithImpl(this._value, this._then);
 
-  final OwnerJsonObject _value;
   // ignore: unused_field
-  final $Res Function(OwnerJsonObject) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? login = freezed,
-    Object? avatarUrl = freezed,
+    Object? login = null,
+    Object? avatarUrl = null,
     Object? ownerUrl = freezed,
   }) {
     return _then(_value.copyWith(
-      login: login == freezed
+      login: null == login
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: avatarUrl == freezed
+      avatarUrl: null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      ownerUrl: ownerUrl == freezed
+      ownerUrl: freezed == ownerUrl
           ? _value.ownerUrl
           : ownerUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_OwnerJsonObjectCopyWith<$Res>
+abstract class _$$OwnerJsonObjectImplCopyWith<$Res>
     implements $OwnerJsonObjectCopyWith<$Res> {
-  factory _$$_OwnerJsonObjectCopyWith(
-          _$_OwnerJsonObject value, $Res Function(_$_OwnerJsonObject) then) =
-      __$$_OwnerJsonObjectCopyWithImpl<$Res>;
+  factory _$$OwnerJsonObjectImplCopyWith(_$OwnerJsonObjectImpl value,
+          $Res Function(_$OwnerJsonObjectImpl) then) =
+      __$$OwnerJsonObjectImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'login') String login,
       @JsonKey(name: 'avatar_url') String avatarUrl,
@@ -89,32 +93,30 @@ abstract class _$$_OwnerJsonObjectCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_OwnerJsonObjectCopyWithImpl<$Res>
-    extends _$OwnerJsonObjectCopyWithImpl<$Res>
-    implements _$$_OwnerJsonObjectCopyWith<$Res> {
-  __$$_OwnerJsonObjectCopyWithImpl(
-      _$_OwnerJsonObject _value, $Res Function(_$_OwnerJsonObject) _then)
-      : super(_value, (v) => _then(v as _$_OwnerJsonObject));
+class __$$OwnerJsonObjectImplCopyWithImpl<$Res>
+    extends _$OwnerJsonObjectCopyWithImpl<$Res, _$OwnerJsonObjectImpl>
+    implements _$$OwnerJsonObjectImplCopyWith<$Res> {
+  __$$OwnerJsonObjectImplCopyWithImpl(
+      _$OwnerJsonObjectImpl _value, $Res Function(_$OwnerJsonObjectImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_OwnerJsonObject get _value => super._value as _$_OwnerJsonObject;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? login = freezed,
-    Object? avatarUrl = freezed,
+    Object? login = null,
+    Object? avatarUrl = null,
     Object? ownerUrl = freezed,
   }) {
-    return _then(_$_OwnerJsonObject(
-      login: login == freezed
+    return _then(_$OwnerJsonObjectImpl(
+      login: null == login
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: avatarUrl == freezed
+      avatarUrl: null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      ownerUrl: ownerUrl == freezed
+      ownerUrl: freezed == ownerUrl
           ? _value.ownerUrl
           : ownerUrl // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -124,14 +126,14 @@ class __$$_OwnerJsonObjectCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OwnerJsonObject implements _OwnerJsonObject {
-  const _$_OwnerJsonObject(
+class _$OwnerJsonObjectImpl implements _OwnerJsonObject {
+  const _$OwnerJsonObjectImpl(
       {@JsonKey(name: 'login') required this.login,
       @JsonKey(name: 'avatar_url') required this.avatarUrl,
       this.ownerUrl});
 
-  factory _$_OwnerJsonObject.fromJson(Map<String, dynamic> json) =>
-      _$$_OwnerJsonObjectFromJson(json);
+  factory _$OwnerJsonObjectImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OwnerJsonObjectImplFromJson(json);
 
   @override
   @JsonKey(name: 'login')
@@ -151,28 +153,28 @@ class _$_OwnerJsonObject implements _OwnerJsonObject {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OwnerJsonObject &&
-            const DeepCollectionEquality().equals(other.login, login) &&
-            const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl) &&
-            const DeepCollectionEquality().equals(other.ownerUrl, ownerUrl));
+            other is _$OwnerJsonObjectImpl &&
+            (identical(other.login, login) || other.login == login) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
+            (identical(other.ownerUrl, ownerUrl) ||
+                other.ownerUrl == ownerUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(login),
-      const DeepCollectionEquality().hash(avatarUrl),
-      const DeepCollectionEquality().hash(ownerUrl));
+  int get hashCode => Object.hash(runtimeType, login, avatarUrl, ownerUrl);
 
   @JsonKey(ignore: true)
   @override
-  _$$_OwnerJsonObjectCopyWith<_$_OwnerJsonObject> get copyWith =>
-      __$$_OwnerJsonObjectCopyWithImpl<_$_OwnerJsonObject>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$OwnerJsonObjectImplCopyWith<_$OwnerJsonObjectImpl> get copyWith =>
+      __$$OwnerJsonObjectImplCopyWithImpl<_$OwnerJsonObjectImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OwnerJsonObjectToJson(
+    return _$$OwnerJsonObjectImplToJson(
       this,
     );
   }
@@ -182,10 +184,10 @@ abstract class _OwnerJsonObject implements OwnerJsonObject {
   const factory _OwnerJsonObject(
       {@JsonKey(name: 'login') required final String login,
       @JsonKey(name: 'avatar_url') required final String avatarUrl,
-      final String? ownerUrl}) = _$_OwnerJsonObject;
+      final String? ownerUrl}) = _$OwnerJsonObjectImpl;
 
   factory _OwnerJsonObject.fromJson(Map<String, dynamic> json) =
-      _$_OwnerJsonObject.fromJson;
+      _$OwnerJsonObjectImpl.fromJson;
 
   @override
   @JsonKey(name: 'login')
@@ -197,6 +199,6 @@ abstract class _OwnerJsonObject implements OwnerJsonObject {
   String? get ownerUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_OwnerJsonObjectCopyWith<_$_OwnerJsonObject> get copyWith =>
+  _$$OwnerJsonObjectImplCopyWith<_$OwnerJsonObjectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

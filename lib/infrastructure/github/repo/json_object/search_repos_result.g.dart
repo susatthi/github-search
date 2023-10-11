@@ -8,17 +8,17 @@ part of 'search_repos_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SearchReposResultJsonObject _$$_SearchReposResultJsonObjectFromJson(
+_$SearchReposResultJsonObjectImpl _$$SearchReposResultJsonObjectImplFromJson(
         Map<String, dynamic> json) =>
-    _$_SearchReposResultJsonObject(
+    _$SearchReposResultJsonObjectImpl(
       totalCount: json['total_count'] as int,
       items: (json['items'] as List<dynamic>)
           .map((e) => RepoJsonObject.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_SearchReposResultJsonObjectToJson(
-        _$_SearchReposResultJsonObject instance) =>
+Map<String, dynamic> _$$SearchReposResultJsonObjectImplToJson(
+        _$SearchReposResultJsonObjectImpl instance) =>
     <String, dynamic>{
       'total_count': instance.totalCount,
       'items': instance.items,

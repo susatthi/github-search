@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'repo_param.dart';
 
@@ -34,60 +34,67 @@ mixin _$RepoParam {
 /// @nodoc
 abstract class $RepoParamCopyWith<$Res> {
   factory $RepoParamCopyWith(RepoParam value, $Res Function(RepoParam) then) =
-      _$RepoParamCopyWithImpl<$Res>;
+      _$RepoParamCopyWithImpl<$Res, RepoParam>;
+  @useResult
   $Res call({String ownerName, String repoName, Repo? cache});
 
   $RepoCopyWith<$Res>? get cache;
 }
 
 /// @nodoc
-class _$RepoParamCopyWithImpl<$Res> implements $RepoParamCopyWith<$Res> {
+class _$RepoParamCopyWithImpl<$Res, $Val extends RepoParam>
+    implements $RepoParamCopyWith<$Res> {
   _$RepoParamCopyWithImpl(this._value, this._then);
 
-  final RepoParam _value;
   // ignore: unused_field
-  final $Res Function(RepoParam) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ownerName = freezed,
-    Object? repoName = freezed,
+    Object? ownerName = null,
+    Object? repoName = null,
     Object? cache = freezed,
   }) {
     return _then(_value.copyWith(
-      ownerName: ownerName == freezed
+      ownerName: null == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
-      repoName: repoName == freezed
+      repoName: null == repoName
           ? _value.repoName
           : repoName // ignore: cast_nullable_to_non_nullable
               as String,
-      cache: cache == freezed
+      cache: freezed == cache
           ? _value.cache
           : cache // ignore: cast_nullable_to_non_nullable
               as Repo?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RepoCopyWith<$Res>? get cache {
     if (_value.cache == null) {
       return null;
     }
 
     return $RepoCopyWith<$Res>(_value.cache!, (value) {
-      return _then(_value.copyWith(cache: value));
+      return _then(_value.copyWith(cache: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_RepoParamCopyWith<$Res> implements $RepoParamCopyWith<$Res> {
-  factory _$$_RepoParamCopyWith(
-          _$_RepoParam value, $Res Function(_$_RepoParam) then) =
-      __$$_RepoParamCopyWithImpl<$Res>;
+abstract class _$$RepoParamImplCopyWith<$Res>
+    implements $RepoParamCopyWith<$Res> {
+  factory _$$RepoParamImplCopyWith(
+          _$RepoParamImpl value, $Res Function(_$RepoParamImpl) then) =
+      __$$RepoParamImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String ownerName, String repoName, Repo? cache});
 
   @override
@@ -95,31 +102,30 @@ abstract class _$$_RepoParamCopyWith<$Res> implements $RepoParamCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_RepoParamCopyWithImpl<$Res> extends _$RepoParamCopyWithImpl<$Res>
-    implements _$$_RepoParamCopyWith<$Res> {
-  __$$_RepoParamCopyWithImpl(
-      _$_RepoParam _value, $Res Function(_$_RepoParam) _then)
-      : super(_value, (v) => _then(v as _$_RepoParam));
+class __$$RepoParamImplCopyWithImpl<$Res>
+    extends _$RepoParamCopyWithImpl<$Res, _$RepoParamImpl>
+    implements _$$RepoParamImplCopyWith<$Res> {
+  __$$RepoParamImplCopyWithImpl(
+      _$RepoParamImpl _value, $Res Function(_$RepoParamImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_RepoParam get _value => super._value as _$_RepoParam;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ownerName = freezed,
-    Object? repoName = freezed,
+    Object? ownerName = null,
+    Object? repoName = null,
     Object? cache = freezed,
   }) {
-    return _then(_$_RepoParam(
-      ownerName: ownerName == freezed
+    return _then(_$RepoParamImpl(
+      ownerName: null == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String,
-      repoName: repoName == freezed
+      repoName: null == repoName
           ? _value.repoName
           : repoName // ignore: cast_nullable_to_non_nullable
               as String,
-      cache: cache == freezed
+      cache: freezed == cache
           ? _value.cache
           : cache // ignore: cast_nullable_to_non_nullable
               as Repo?,
@@ -129,8 +135,8 @@ class __$$_RepoParamCopyWithImpl<$Res> extends _$RepoParamCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RepoParam implements _RepoParam {
-  const _$_RepoParam(
+class _$RepoParamImpl implements _RepoParam {
+  const _$RepoParamImpl(
       {required this.ownerName, required this.repoName, this.cache});
 
   /// オーナー名
@@ -155,30 +161,29 @@ class _$_RepoParam implements _RepoParam {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RepoParam &&
-            const DeepCollectionEquality().equals(other.ownerName, ownerName) &&
-            const DeepCollectionEquality().equals(other.repoName, repoName) &&
-            const DeepCollectionEquality().equals(other.cache, cache));
+            other is _$RepoParamImpl &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.repoName, repoName) ||
+                other.repoName == repoName) &&
+            (identical(other.cache, cache) || other.cache == cache));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(ownerName),
-      const DeepCollectionEquality().hash(repoName),
-      const DeepCollectionEquality().hash(cache));
+  int get hashCode => Object.hash(runtimeType, ownerName, repoName, cache);
 
   @JsonKey(ignore: true)
   @override
-  _$$_RepoParamCopyWith<_$_RepoParam> get copyWith =>
-      __$$_RepoParamCopyWithImpl<_$_RepoParam>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$RepoParamImplCopyWith<_$RepoParamImpl> get copyWith =>
+      __$$RepoParamImplCopyWithImpl<_$RepoParamImpl>(this, _$identity);
 }
 
 abstract class _RepoParam implements RepoParam {
   const factory _RepoParam(
       {required final String ownerName,
       required final String repoName,
-      final Repo? cache}) = _$_RepoParam;
+      final Repo? cache}) = _$RepoParamImpl;
 
   @override
 
@@ -195,6 +200,6 @@ abstract class _RepoParam implements RepoParam {
   Repo? get cache;
   @override
   @JsonKey(ignore: true)
-  _$$_RepoParamCopyWith<_$_RepoParam> get copyWith =>
+  _$$RepoParamImplCopyWith<_$RepoParamImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

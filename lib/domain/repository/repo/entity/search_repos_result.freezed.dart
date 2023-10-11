@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'search_repos_result.dart';
 
@@ -34,79 +34,81 @@ mixin _$SearchReposResult {
 abstract class $SearchReposResultCopyWith<$Res> {
   factory $SearchReposResultCopyWith(
           SearchReposResult value, $Res Function(SearchReposResult) then) =
-      _$SearchReposResultCopyWithImpl<$Res>;
+      _$SearchReposResultCopyWithImpl<$Res, SearchReposResult>;
+  @useResult
   $Res call({int totalCount, String queryString, List<Repo> items});
 }
 
 /// @nodoc
-class _$SearchReposResultCopyWithImpl<$Res>
+class _$SearchReposResultCopyWithImpl<$Res, $Val extends SearchReposResult>
     implements $SearchReposResultCopyWith<$Res> {
   _$SearchReposResultCopyWithImpl(this._value, this._then);
 
-  final SearchReposResult _value;
   // ignore: unused_field
-  final $Res Function(SearchReposResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalCount = freezed,
-    Object? queryString = freezed,
-    Object? items = freezed,
+    Object? totalCount = null,
+    Object? queryString = null,
+    Object? items = null,
   }) {
     return _then(_value.copyWith(
-      totalCount: totalCount == freezed
+      totalCount: null == totalCount
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      queryString: queryString == freezed
+      queryString: null == queryString
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
               as String,
-      items: items == freezed
+      items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Repo>,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_SearchReposResultCopyWith<$Res>
+abstract class _$$SearchReposResultImplCopyWith<$Res>
     implements $SearchReposResultCopyWith<$Res> {
-  factory _$$_SearchReposResultCopyWith(_$_SearchReposResult value,
-          $Res Function(_$_SearchReposResult) then) =
-      __$$_SearchReposResultCopyWithImpl<$Res>;
+  factory _$$SearchReposResultImplCopyWith(_$SearchReposResultImpl value,
+          $Res Function(_$SearchReposResultImpl) then) =
+      __$$SearchReposResultImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int totalCount, String queryString, List<Repo> items});
 }
 
 /// @nodoc
-class __$$_SearchReposResultCopyWithImpl<$Res>
-    extends _$SearchReposResultCopyWithImpl<$Res>
-    implements _$$_SearchReposResultCopyWith<$Res> {
-  __$$_SearchReposResultCopyWithImpl(
-      _$_SearchReposResult _value, $Res Function(_$_SearchReposResult) _then)
-      : super(_value, (v) => _then(v as _$_SearchReposResult));
+class __$$SearchReposResultImplCopyWithImpl<$Res>
+    extends _$SearchReposResultCopyWithImpl<$Res, _$SearchReposResultImpl>
+    implements _$$SearchReposResultImplCopyWith<$Res> {
+  __$$SearchReposResultImplCopyWithImpl(_$SearchReposResultImpl _value,
+      $Res Function(_$SearchReposResultImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_SearchReposResult get _value => super._value as _$_SearchReposResult;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalCount = freezed,
-    Object? queryString = freezed,
-    Object? items = freezed,
+    Object? totalCount = null,
+    Object? queryString = null,
+    Object? items = null,
   }) {
-    return _then(_$_SearchReposResult(
-      totalCount: totalCount == freezed
+    return _then(_$SearchReposResultImpl(
+      totalCount: null == totalCount
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      queryString: queryString == freezed
+      queryString: null == queryString
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
               as String,
-      items: items == freezed
+      items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Repo>,
@@ -116,8 +118,8 @@ class __$$_SearchReposResultCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SearchReposResult extends _SearchReposResult {
-  const _$_SearchReposResult(
+class _$SearchReposResultImpl extends _SearchReposResult {
+  const _$SearchReposResultImpl(
       {required this.totalCount,
       required this.queryString,
       required final List<Repo> items})
@@ -138,6 +140,7 @@ class _$_SearchReposResult extends _SearchReposResult {
   /// リポジトリEntityのリスト
   @override
   List<Repo> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
@@ -151,25 +154,23 @@ class _$_SearchReposResult extends _SearchReposResult {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SearchReposResult &&
-            const DeepCollectionEquality()
-                .equals(other.totalCount, totalCount) &&
-            const DeepCollectionEquality()
-                .equals(other.queryString, queryString) &&
+            other is _$SearchReposResultImpl &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount) &&
+            (identical(other.queryString, queryString) ||
+                other.queryString == queryString) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(totalCount),
-      const DeepCollectionEquality().hash(queryString),
+  int get hashCode => Object.hash(runtimeType, totalCount, queryString,
       const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
   @override
-  _$$_SearchReposResultCopyWith<_$_SearchReposResult> get copyWith =>
-      __$$_SearchReposResultCopyWithImpl<_$_SearchReposResult>(
+  @pragma('vm:prefer-inline')
+  _$$SearchReposResultImplCopyWith<_$SearchReposResultImpl> get copyWith =>
+      __$$SearchReposResultImplCopyWithImpl<_$SearchReposResultImpl>(
           this, _$identity);
 }
 
@@ -177,7 +178,7 @@ abstract class _SearchReposResult extends SearchReposResult {
   const factory _SearchReposResult(
       {required final int totalCount,
       required final String queryString,
-      required final List<Repo> items}) = _$_SearchReposResult;
+      required final List<Repo> items}) = _$SearchReposResultImpl;
   const _SearchReposResult._() : super._();
 
   @override
@@ -194,6 +195,6 @@ abstract class _SearchReposResult extends SearchReposResult {
   List<Repo> get items;
   @override
   @JsonKey(ignore: true)
-  _$$_SearchReposResultCopyWith<_$_SearchReposResult> get copyWith =>
+  _$$SearchReposResultImplCopyWith<_$SearchReposResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

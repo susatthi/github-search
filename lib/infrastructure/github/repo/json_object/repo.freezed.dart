@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'repo.dart';
 
@@ -52,7 +52,8 @@ mixin _$RepoJsonObject {
 abstract class $RepoJsonObjectCopyWith<$Res> {
   factory $RepoJsonObjectCopyWith(
           RepoJsonObject value, $Res Function(RepoJsonObject) then) =
-      _$RepoJsonObjectCopyWithImpl<$Res>;
+      _$RepoJsonObjectCopyWithImpl<$Res, RepoJsonObject>;
+  @useResult
   $Res call(
       {String name,
       @JsonKey(name: 'full_name') String fullName,
@@ -74,26 +75,28 @@ abstract class $RepoJsonObjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RepoJsonObjectCopyWithImpl<$Res>
+class _$RepoJsonObjectCopyWithImpl<$Res, $Val extends RepoJsonObject>
     implements $RepoJsonObjectCopyWith<$Res> {
   _$RepoJsonObjectCopyWithImpl(this._value, this._then);
 
-  final RepoJsonObject _value;
   // ignore: unused_field
-  final $Res Function(RepoJsonObject) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? fullName = freezed,
-    Object? owner = freezed,
+    Object? name = null,
+    Object? fullName = null,
+    Object? owner = null,
     Object? description = freezed,
-    Object? stargazersCount = freezed,
-    Object? watchersCount = freezed,
+    Object? stargazersCount = null,
+    Object? watchersCount = null,
     Object? language = freezed,
-    Object? forksCount = freezed,
-    Object? openIssuesCount = freezed,
-    Object? defaultBranch = freezed,
+    Object? forksCount = null,
+    Object? openIssuesCount = null,
+    Object? defaultBranch = null,
     Object? repoUrl = freezed,
     Object? stargazersUrl = freezed,
     Object? watchersUrl = freezed,
@@ -101,84 +104,86 @@ class _$RepoJsonObjectCopyWithImpl<$Res>
     Object? issuesUrl = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      fullName: fullName == freezed
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      owner: owner == freezed
+      owner: null == owner
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as OwnerJsonObject,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersCount: stargazersCount == freezed
+      stargazersCount: null == stargazersCount
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
               as int,
-      watchersCount: watchersCount == freezed
+      watchersCount: null == watchersCount
           ? _value.watchersCount
           : watchersCount // ignore: cast_nullable_to_non_nullable
               as int,
-      language: language == freezed
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String?,
-      forksCount: forksCount == freezed
+      forksCount: null == forksCount
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
               as int,
-      openIssuesCount: openIssuesCount == freezed
+      openIssuesCount: null == openIssuesCount
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
               as int,
-      defaultBranch: defaultBranch == freezed
+      defaultBranch: null == defaultBranch
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
               as String,
-      repoUrl: repoUrl == freezed
+      repoUrl: freezed == repoUrl
           ? _value.repoUrl
           : repoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersUrl: stargazersUrl == freezed
+      stargazersUrl: freezed == stargazersUrl
           ? _value.stargazersUrl
           : stargazersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      watchersUrl: watchersUrl == freezed
+      watchersUrl: freezed == watchersUrl
           ? _value.watchersUrl
           : watchersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      forksUrl: forksUrl == freezed
+      forksUrl: freezed == forksUrl
           ? _value.forksUrl
           : forksUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      issuesUrl: issuesUrl == freezed
+      issuesUrl: freezed == issuesUrl
           ? _value.issuesUrl
           : issuesUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $OwnerJsonObjectCopyWith<$Res> get owner {
     return $OwnerJsonObjectCopyWith<$Res>(_value.owner, (value) {
-      return _then(_value.copyWith(owner: value));
+      return _then(_value.copyWith(owner: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_RepoJsonObjectCopyWith<$Res>
+abstract class _$$RepoJsonObjectImplCopyWith<$Res>
     implements $RepoJsonObjectCopyWith<$Res> {
-  factory _$$_RepoJsonObjectCopyWith(
-          _$_RepoJsonObject value, $Res Function(_$_RepoJsonObject) then) =
-      __$$_RepoJsonObjectCopyWithImpl<$Res>;
+  factory _$$RepoJsonObjectImplCopyWith(_$RepoJsonObjectImpl value,
+          $Res Function(_$RepoJsonObjectImpl) then) =
+      __$$RepoJsonObjectImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       @JsonKey(name: 'full_name') String fullName,
@@ -201,92 +206,90 @@ abstract class _$$_RepoJsonObjectCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RepoJsonObjectCopyWithImpl<$Res>
-    extends _$RepoJsonObjectCopyWithImpl<$Res>
-    implements _$$_RepoJsonObjectCopyWith<$Res> {
-  __$$_RepoJsonObjectCopyWithImpl(
-      _$_RepoJsonObject _value, $Res Function(_$_RepoJsonObject) _then)
-      : super(_value, (v) => _then(v as _$_RepoJsonObject));
+class __$$RepoJsonObjectImplCopyWithImpl<$Res>
+    extends _$RepoJsonObjectCopyWithImpl<$Res, _$RepoJsonObjectImpl>
+    implements _$$RepoJsonObjectImplCopyWith<$Res> {
+  __$$RepoJsonObjectImplCopyWithImpl(
+      _$RepoJsonObjectImpl _value, $Res Function(_$RepoJsonObjectImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_RepoJsonObject get _value => super._value as _$_RepoJsonObject;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? fullName = freezed,
-    Object? owner = freezed,
+    Object? name = null,
+    Object? fullName = null,
+    Object? owner = null,
     Object? description = freezed,
-    Object? stargazersCount = freezed,
-    Object? watchersCount = freezed,
+    Object? stargazersCount = null,
+    Object? watchersCount = null,
     Object? language = freezed,
-    Object? forksCount = freezed,
-    Object? openIssuesCount = freezed,
-    Object? defaultBranch = freezed,
+    Object? forksCount = null,
+    Object? openIssuesCount = null,
+    Object? defaultBranch = null,
     Object? repoUrl = freezed,
     Object? stargazersUrl = freezed,
     Object? watchersUrl = freezed,
     Object? forksUrl = freezed,
     Object? issuesUrl = freezed,
   }) {
-    return _then(_$_RepoJsonObject(
-      name: name == freezed
+    return _then(_$RepoJsonObjectImpl(
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      fullName: fullName == freezed
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      owner: owner == freezed
+      owner: null == owner
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as OwnerJsonObject,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersCount: stargazersCount == freezed
+      stargazersCount: null == stargazersCount
           ? _value.stargazersCount
           : stargazersCount // ignore: cast_nullable_to_non_nullable
               as int,
-      watchersCount: watchersCount == freezed
+      watchersCount: null == watchersCount
           ? _value.watchersCount
           : watchersCount // ignore: cast_nullable_to_non_nullable
               as int,
-      language: language == freezed
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String?,
-      forksCount: forksCount == freezed
+      forksCount: null == forksCount
           ? _value.forksCount
           : forksCount // ignore: cast_nullable_to_non_nullable
               as int,
-      openIssuesCount: openIssuesCount == freezed
+      openIssuesCount: null == openIssuesCount
           ? _value.openIssuesCount
           : openIssuesCount // ignore: cast_nullable_to_non_nullable
               as int,
-      defaultBranch: defaultBranch == freezed
+      defaultBranch: null == defaultBranch
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
               as String,
-      repoUrl: repoUrl == freezed
+      repoUrl: freezed == repoUrl
           ? _value.repoUrl
           : repoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      stargazersUrl: stargazersUrl == freezed
+      stargazersUrl: freezed == stargazersUrl
           ? _value.stargazersUrl
           : stargazersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      watchersUrl: watchersUrl == freezed
+      watchersUrl: freezed == watchersUrl
           ? _value.watchersUrl
           : watchersUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      forksUrl: forksUrl == freezed
+      forksUrl: freezed == forksUrl
           ? _value.forksUrl
           : forksUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      issuesUrl: issuesUrl == freezed
+      issuesUrl: freezed == issuesUrl
           ? _value.issuesUrl
           : issuesUrl // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -296,8 +299,8 @@ class __$$_RepoJsonObjectCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RepoJsonObject implements _RepoJsonObject {
-  const _$_RepoJsonObject(
+class _$RepoJsonObjectImpl implements _RepoJsonObject {
+  const _$RepoJsonObjectImpl(
       {required this.name,
       @JsonKey(name: 'full_name') required this.fullName,
       required this.owner,
@@ -314,8 +317,8 @@ class _$_RepoJsonObject implements _RepoJsonObject {
       this.forksUrl,
       this.issuesUrl});
 
-  factory _$_RepoJsonObject.fromJson(Map<String, dynamic> json) =>
-      _$$_RepoJsonObjectFromJson(json);
+  factory _$RepoJsonObjectImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RepoJsonObjectImplFromJson(json);
 
   @override
   final String name;
@@ -363,60 +366,66 @@ class _$_RepoJsonObject implements _RepoJsonObject {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RepoJsonObject &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.fullName, fullName) &&
-            const DeepCollectionEquality().equals(other.owner, owner) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.stargazersCount, stargazersCount) &&
-            const DeepCollectionEquality()
-                .equals(other.watchersCount, watchersCount) &&
-            const DeepCollectionEquality().equals(other.language, language) &&
-            const DeepCollectionEquality()
-                .equals(other.forksCount, forksCount) &&
-            const DeepCollectionEquality()
-                .equals(other.openIssuesCount, openIssuesCount) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultBranch, defaultBranch) &&
-            const DeepCollectionEquality().equals(other.repoUrl, repoUrl) &&
-            const DeepCollectionEquality()
-                .equals(other.stargazersUrl, stargazersUrl) &&
-            const DeepCollectionEquality()
-                .equals(other.watchersUrl, watchersUrl) &&
-            const DeepCollectionEquality().equals(other.forksUrl, forksUrl) &&
-            const DeepCollectionEquality().equals(other.issuesUrl, issuesUrl));
+            other is _$RepoJsonObjectImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.owner, owner) || other.owner == owner) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.stargazersCount, stargazersCount) ||
+                other.stargazersCount == stargazersCount) &&
+            (identical(other.watchersCount, watchersCount) ||
+                other.watchersCount == watchersCount) &&
+            (identical(other.language, language) ||
+                other.language == language) &&
+            (identical(other.forksCount, forksCount) ||
+                other.forksCount == forksCount) &&
+            (identical(other.openIssuesCount, openIssuesCount) ||
+                other.openIssuesCount == openIssuesCount) &&
+            (identical(other.defaultBranch, defaultBranch) ||
+                other.defaultBranch == defaultBranch) &&
+            (identical(other.repoUrl, repoUrl) || other.repoUrl == repoUrl) &&
+            (identical(other.stargazersUrl, stargazersUrl) ||
+                other.stargazersUrl == stargazersUrl) &&
+            (identical(other.watchersUrl, watchersUrl) ||
+                other.watchersUrl == watchersUrl) &&
+            (identical(other.forksUrl, forksUrl) ||
+                other.forksUrl == forksUrl) &&
+            (identical(other.issuesUrl, issuesUrl) ||
+                other.issuesUrl == issuesUrl));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(fullName),
-      const DeepCollectionEquality().hash(owner),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(stargazersCount),
-      const DeepCollectionEquality().hash(watchersCount),
-      const DeepCollectionEquality().hash(language),
-      const DeepCollectionEquality().hash(forksCount),
-      const DeepCollectionEquality().hash(openIssuesCount),
-      const DeepCollectionEquality().hash(defaultBranch),
-      const DeepCollectionEquality().hash(repoUrl),
-      const DeepCollectionEquality().hash(stargazersUrl),
-      const DeepCollectionEquality().hash(watchersUrl),
-      const DeepCollectionEquality().hash(forksUrl),
-      const DeepCollectionEquality().hash(issuesUrl));
+      name,
+      fullName,
+      owner,
+      description,
+      stargazersCount,
+      watchersCount,
+      language,
+      forksCount,
+      openIssuesCount,
+      defaultBranch,
+      repoUrl,
+      stargazersUrl,
+      watchersUrl,
+      forksUrl,
+      issuesUrl);
 
   @JsonKey(ignore: true)
   @override
-  _$$_RepoJsonObjectCopyWith<_$_RepoJsonObject> get copyWith =>
-      __$$_RepoJsonObjectCopyWithImpl<_$_RepoJsonObject>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$RepoJsonObjectImplCopyWith<_$RepoJsonObjectImpl> get copyWith =>
+      __$$RepoJsonObjectImplCopyWithImpl<_$RepoJsonObjectImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RepoJsonObjectToJson(
+    return _$$RepoJsonObjectImplToJson(
       this,
     );
   }
@@ -438,10 +447,10 @@ abstract class _RepoJsonObject implements RepoJsonObject {
       final String? stargazersUrl,
       final String? watchersUrl,
       final String? forksUrl,
-      final String? issuesUrl}) = _$_RepoJsonObject;
+      final String? issuesUrl}) = _$RepoJsonObjectImpl;
 
   factory _RepoJsonObject.fromJson(Map<String, dynamic> json) =
-      _$_RepoJsonObject.fromJson;
+      _$RepoJsonObjectImpl.fromJson;
 
   @override
   String get name;
@@ -481,6 +490,6 @@ abstract class _RepoJsonObject implements RepoJsonObject {
   String? get issuesUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_RepoJsonObjectCopyWith<_$_RepoJsonObject> get copyWith =>
+  _$$RepoJsonObjectImplCopyWith<_$RepoJsonObjectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

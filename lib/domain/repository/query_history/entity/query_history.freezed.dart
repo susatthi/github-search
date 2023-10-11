@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'query_history.dart';
 
@@ -28,47 +28,53 @@ mixin _$QueryHistory {
 abstract class $QueryHistoryCopyWith<$Res> {
   factory $QueryHistoryCopyWith(
           QueryHistory value, $Res Function(QueryHistory) then) =
-      _$QueryHistoryCopyWithImpl<$Res>;
+      _$QueryHistoryCopyWithImpl<$Res, QueryHistory>;
+  @useResult
   $Res call({QueryString queryString});
 
   $QueryStringCopyWith<$Res> get queryString;
 }
 
 /// @nodoc
-class _$QueryHistoryCopyWithImpl<$Res> implements $QueryHistoryCopyWith<$Res> {
+class _$QueryHistoryCopyWithImpl<$Res, $Val extends QueryHistory>
+    implements $QueryHistoryCopyWith<$Res> {
   _$QueryHistoryCopyWithImpl(this._value, this._then);
 
-  final QueryHistory _value;
   // ignore: unused_field
-  final $Res Function(QueryHistory) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? queryString = freezed,
+    Object? queryString = null,
   }) {
     return _then(_value.copyWith(
-      queryString: queryString == freezed
+      queryString: null == queryString
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
               as QueryString,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $QueryStringCopyWith<$Res> get queryString {
     return $QueryStringCopyWith<$Res>(_value.queryString, (value) {
-      return _then(_value.copyWith(queryString: value));
+      return _then(_value.copyWith(queryString: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_QueryHistoryCopyWith<$Res>
+abstract class _$$QueryHistoryImplCopyWith<$Res>
     implements $QueryHistoryCopyWith<$Res> {
-  factory _$$_QueryHistoryCopyWith(
-          _$_QueryHistory value, $Res Function(_$_QueryHistory) then) =
-      __$$_QueryHistoryCopyWithImpl<$Res>;
+  factory _$$QueryHistoryImplCopyWith(
+          _$QueryHistoryImpl value, $Res Function(_$QueryHistoryImpl) then) =
+      __$$QueryHistoryImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({QueryString queryString});
 
   @override
@@ -76,22 +82,20 @@ abstract class _$$_QueryHistoryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_QueryHistoryCopyWithImpl<$Res>
-    extends _$QueryHistoryCopyWithImpl<$Res>
-    implements _$$_QueryHistoryCopyWith<$Res> {
-  __$$_QueryHistoryCopyWithImpl(
-      _$_QueryHistory _value, $Res Function(_$_QueryHistory) _then)
-      : super(_value, (v) => _then(v as _$_QueryHistory));
+class __$$QueryHistoryImplCopyWithImpl<$Res>
+    extends _$QueryHistoryCopyWithImpl<$Res, _$QueryHistoryImpl>
+    implements _$$QueryHistoryImplCopyWith<$Res> {
+  __$$QueryHistoryImplCopyWithImpl(
+      _$QueryHistoryImpl _value, $Res Function(_$QueryHistoryImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_QueryHistory get _value => super._value as _$_QueryHistory;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? queryString = freezed,
+    Object? queryString = null,
   }) {
-    return _then(_$_QueryHistory(
-      queryString: queryString == freezed
+    return _then(_$QueryHistoryImpl(
+      queryString: null == queryString
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
               as QueryString,
@@ -101,8 +105,8 @@ class __$$_QueryHistoryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_QueryHistory extends _QueryHistory {
-  const _$_QueryHistory({required this.queryString}) : super._();
+class _$QueryHistoryImpl extends _QueryHistory {
+  const _$QueryHistoryImpl({required this.queryString}) : super._();
 
   /// 検索文字列
   @override
@@ -117,24 +121,24 @@ class _$_QueryHistory extends _QueryHistory {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_QueryHistory &&
-            const DeepCollectionEquality()
-                .equals(other.queryString, queryString));
+            other is _$QueryHistoryImpl &&
+            (identical(other.queryString, queryString) ||
+                other.queryString == queryString));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(queryString));
+  int get hashCode => Object.hash(runtimeType, queryString);
 
   @JsonKey(ignore: true)
   @override
-  _$$_QueryHistoryCopyWith<_$_QueryHistory> get copyWith =>
-      __$$_QueryHistoryCopyWithImpl<_$_QueryHistory>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$QueryHistoryImplCopyWith<_$QueryHistoryImpl> get copyWith =>
+      __$$QueryHistoryImplCopyWithImpl<_$QueryHistoryImpl>(this, _$identity);
 }
 
 abstract class _QueryHistory extends QueryHistory {
   const factory _QueryHistory({required final QueryString queryString}) =
-      _$_QueryHistory;
+      _$QueryHistoryImpl;
   const _QueryHistory._() : super._();
 
   @override
@@ -143,6 +147,6 @@ abstract class _QueryHistory extends QueryHistory {
   QueryString get queryString;
   @override
   @JsonKey(ignore: true)
-  _$$_QueryHistoryCopyWith<_$_QueryHistory> get copyWith =>
+  _$$QueryHistoryImplCopyWith<_$QueryHistoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

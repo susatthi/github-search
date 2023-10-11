@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'repos_state.dart';
 
@@ -31,7 +31,8 @@ mixin _$ReposState {
 abstract class $ReposStateCopyWith<$Res> {
   factory $ReposStateCopyWith(
           ReposState value, $Res Function(ReposState) then) =
-      _$ReposStateCopyWithImpl<$Res>;
+      _$ReposStateCopyWithImpl<$Res, ReposState>;
+  @useResult
   $Res call(
       {int totalCount,
       List<Repo> items,
@@ -41,53 +42,57 @@ abstract class $ReposStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ReposStateCopyWithImpl<$Res> implements $ReposStateCopyWith<$Res> {
+class _$ReposStateCopyWithImpl<$Res, $Val extends ReposState>
+    implements $ReposStateCopyWith<$Res> {
   _$ReposStateCopyWithImpl(this._value, this._then);
 
-  final ReposState _value;
   // ignore: unused_field
-  final $Res Function(ReposState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalCount = freezed,
-    Object? items = freezed,
-    Object? hasNext = freezed,
-    Object? page = freezed,
-    Object? queryString = freezed,
+    Object? totalCount = null,
+    Object? items = null,
+    Object? hasNext = null,
+    Object? page = null,
+    Object? queryString = null,
   }) {
     return _then(_value.copyWith(
-      totalCount: totalCount == freezed
+      totalCount: null == totalCount
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      items: items == freezed
+      items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Repo>,
-      hasNext: hasNext == freezed
+      hasNext: null == hasNext
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
-      page: page == freezed
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      queryString: queryString == freezed
+      queryString: null == queryString
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_ReposStateCopyWith<$Res>
+abstract class _$$ReposStateImplCopyWith<$Res>
     implements $ReposStateCopyWith<$Res> {
-  factory _$$_ReposStateCopyWith(
-          _$_ReposState value, $Res Function(_$_ReposState) then) =
-      __$$_ReposStateCopyWithImpl<$Res>;
+  factory _$$ReposStateImplCopyWith(
+          _$ReposStateImpl value, $Res Function(_$ReposStateImpl) then) =
+      __$$ReposStateImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int totalCount,
       List<Repo> items,
@@ -97,41 +102,40 @@ abstract class _$$_ReposStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ReposStateCopyWithImpl<$Res> extends _$ReposStateCopyWithImpl<$Res>
-    implements _$$_ReposStateCopyWith<$Res> {
-  __$$_ReposStateCopyWithImpl(
-      _$_ReposState _value, $Res Function(_$_ReposState) _then)
-      : super(_value, (v) => _then(v as _$_ReposState));
+class __$$ReposStateImplCopyWithImpl<$Res>
+    extends _$ReposStateCopyWithImpl<$Res, _$ReposStateImpl>
+    implements _$$ReposStateImplCopyWith<$Res> {
+  __$$ReposStateImplCopyWithImpl(
+      _$ReposStateImpl _value, $Res Function(_$ReposStateImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_ReposState get _value => super._value as _$_ReposState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalCount = freezed,
-    Object? items = freezed,
-    Object? hasNext = freezed,
-    Object? page = freezed,
-    Object? queryString = freezed,
+    Object? totalCount = null,
+    Object? items = null,
+    Object? hasNext = null,
+    Object? page = null,
+    Object? queryString = null,
   }) {
-    return _then(_$_ReposState(
-      totalCount: totalCount == freezed
+    return _then(_$ReposStateImpl(
+      totalCount: null == totalCount
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      items: items == freezed
+      items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Repo>,
-      hasNext: hasNext == freezed
+      hasNext: null == hasNext
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
-      page: page == freezed
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      queryString: queryString == freezed
+      queryString: null == queryString
           ? _value.queryString
           : queryString // ignore: cast_nullable_to_non_nullable
               as String,
@@ -141,8 +145,8 @@ class __$$_ReposStateCopyWithImpl<$Res> extends _$ReposStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReposState implements _ReposState {
-  const _$_ReposState(
+class _$ReposStateImpl implements _ReposState {
+  const _$ReposStateImpl(
       {this.totalCount = 0,
       final List<Repo> items = const <Repo>[],
       this.hasNext = false,
@@ -157,6 +161,7 @@ class _$_ReposState implements _ReposState {
   @override
   @JsonKey()
   List<Repo> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
@@ -180,29 +185,25 @@ class _$_ReposState implements _ReposState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReposState &&
-            const DeepCollectionEquality()
-                .equals(other.totalCount, totalCount) &&
+            other is _$ReposStateImpl &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
-            const DeepCollectionEquality().equals(other.page, page) &&
-            const DeepCollectionEquality()
-                .equals(other.queryString, queryString));
+            (identical(other.hasNext, hasNext) || other.hasNext == hasNext) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.queryString, queryString) ||
+                other.queryString == queryString));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(totalCount),
-      const DeepCollectionEquality().hash(_items),
-      const DeepCollectionEquality().hash(hasNext),
-      const DeepCollectionEquality().hash(page),
-      const DeepCollectionEquality().hash(queryString));
+  int get hashCode => Object.hash(runtimeType, totalCount,
+      const DeepCollectionEquality().hash(_items), hasNext, page, queryString);
 
   @JsonKey(ignore: true)
   @override
-  _$$_ReposStateCopyWith<_$_ReposState> get copyWith =>
-      __$$_ReposStateCopyWithImpl<_$_ReposState>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ReposStateImplCopyWith<_$ReposStateImpl> get copyWith =>
+      __$$ReposStateImplCopyWithImpl<_$ReposStateImpl>(this, _$identity);
 }
 
 abstract class _ReposState implements ReposState {
@@ -211,7 +212,7 @@ abstract class _ReposState implements ReposState {
       final List<Repo> items,
       final bool hasNext,
       final int page,
-      final String queryString}) = _$_ReposState;
+      final String queryString}) = _$ReposStateImpl;
 
   @override
   int get totalCount;
@@ -225,6 +226,6 @@ abstract class _ReposState implements ReposState {
   String get queryString;
   @override
   @JsonKey(ignore: true)
-  _$$_ReposStateCopyWith<_$_ReposState> get copyWith =>
+  _$$ReposStateImplCopyWith<_$ReposStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
